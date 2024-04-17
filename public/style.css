@@ -1,0 +1,60 @@
+.travista-sign-in {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.travista-sign-in h1 {
+    font-size: 50px;
+    margin-bottom: 50px;
+}
+
+.travista-sign-in form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+}
+
+.travista-sign-in label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.travista-sign-in input[type='email'],
+.travista-sign-in input[type='password'] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.travista-sign-in button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.travista-sign-in button:hover {
+    background-color: #45a049;
+}
+
+.travista-sign-in p {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.travista-sign-in p a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.travista-sign-in p a:hover {
+    text-decoration: underline;
+}
