@@ -251,15 +251,7 @@ function Navbar() {
             <Button color="inherit" sx={{ color: "black" }}>
               Packages & Tours
             </Button>
-            <Button
-              color="inherit"
-              sx={{
-                color: "black",
-                border: "1px solid black",
-                borderRadius: "25px",
-                padding: "8px 15px",
-              }}
-            >
+            <Button color="inherit" className="btn btn-secondary btn-inverse">
               <PersonOutlineIcon sx={{ marginRight: "5px" }} />
               Sign In
             </Button>
@@ -301,15 +293,7 @@ function Navbar() {
             </Box>
 
             <Box>
-              <Button
-                color="inherit"
-                sx={{
-                  color: "white",
-                  border: "1px solid white",
-                  borderRadius: "20px",
-                  padding: "8px 15px",
-                }}
-              >
+              <Button color="inherit" className="btn btn-secondary">
                 <PersonOutlineIcon
                   sx={{ marginRight: "5px", color: "white" }}
                 />

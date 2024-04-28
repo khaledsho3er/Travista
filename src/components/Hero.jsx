@@ -1,11 +1,20 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 
 function Hero() {
   return (
     <>
       <div className="hero-section">
-        <Box sx={{ zIndex: 2, width: "90%", margin: "0 auto" }}>
+        <Box
+          sx={{
+            zIndex: 2,
+            width: "90%",
+            margin: "0 auto",
+            display: "flex",
+            flexDirection: "column",
+            gap: "2rem",
+          }}
+        >
           <Typography
             variant="h2"
             sx={{
@@ -17,6 +26,20 @@ function Hero() {
           >
             We exist to reveal a world <br /> of greater travel possibility.
           </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "2%",
+            }}
+          >
+            <Button className="btn btn-primary">
+              Explore Packages & Tours
+            </Button>
+            <Button className="btn btn-secondary">Build My Package</Button>
+          </Box>
         </Box>
       </div>
       <div className="overlay"></div>

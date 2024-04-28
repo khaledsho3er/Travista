@@ -1,3 +1,49 @@
+/* Default Color */
+:root {
+  --primary: #000000;
+  --secondary: #ffffff;
+  --accent: #266ef1;
+  --accent-hover: #2c69d9;
+  --success: #005c3b;
+  --warning: #f6bc2f;
+  --danger: #a8200d;
+  --danger-hover: #950f22;
+  --base-bg: #eceee9;
+  --maroon: #750046;
+  --green: #06c168;
+  --cream: #f7f0ea;
+}
+
+/* Default Styles */
+.btn {
+  border: none;
+  padding: 10px 15px !important;
+  border-radius: 50px !important;
+  cursor: pointer !important;
+}
+
+.btn.btn-primary {
+  background-color: white;
+  color: var(--maroon);
+}
+
+.btn.btn-secondary {
+  background: none;
+  color: white;
+  border: 1px solid white;
+}
+
+.btn.btn-inverse {
+  color: black;
+  border: 1px solid black;
+}
+
+.container-padding {
+  padding: 2% 10%;
+}
+
+/* Default Styles */
+
 .nav-link {
   font-size: 2.6rem !important;
 }
@@ -17,6 +63,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.about-section {
+  background: var(--base-bg);
 }
 
 .overlay {
@@ -62,14 +112,14 @@
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--cream);
   border-radius: 5px;
 }
 
 .travista-sign-in button {
   width: 100%;
   padding: 10px;
-  background-color: #4caf50;
+  background-color: var(--green);
   color: white;
   border: none;
   border-radius: 5px;
@@ -77,7 +127,7 @@
 }
 
 .travista-sign-in button:hover {
-  background-color: #45a049;
+  background-color: var(--green);
 }
 
 .travista-sign-in p {
@@ -86,10 +136,35 @@
 }
 
 .travista-sign-in p a {
-  color: #4caf50;
+  color: var(--green);
   text-decoration: none;
 }
 
 .travista-sign-in p a:hover {
   text-decoration: underline;
+}
+
+.explore-more-card {
+  width: 800px;
+  height: 1000px;
+  background-size: cover;
+  background-position: center;
+  color: white !important;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-direction: column;
+  position: relative;
+  padding: 30px;
+  border-radius: 20px !important;
+  transition: all 0.4s !important;
+}
+
+.explore-more-card:nth-child(odd) {
+  margin-top: 50px;
+}
+
+.explore-more-card:hover {
+  width: 750px;
+  margin: 0 2rem;
 }
