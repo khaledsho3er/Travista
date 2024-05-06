@@ -27,14 +27,7 @@ function Hero() {
             We exist to reveal a world <br /> of greater travel possibility.
           </Typography>
 
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "2%",
-            }}
-          >
+          <Box className="hero-btns">
             <Button className="btn btn-primary">
               Explore Packages & Tours
             </Button>

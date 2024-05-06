@@ -248,7 +248,11 @@ function Navbar() {
           </Box>
 
           <Box sx={{ display: "flex", gap: "15px" }}>
-            <Button color="inherit" sx={{ color: "black" }}>
+            <Button
+              className="navbar-hide"
+              color="inherit"
+              sx={{ color: "black" }}
+            >
               Packages & Tours
             </Button>
             <Button color="inherit" className="btn btn-secondary btn-inverse">

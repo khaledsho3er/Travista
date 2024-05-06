@@ -12,12 +12,14 @@
   --maroon: #750046;
   --green: #06c168;
   --cream: #f7f0ea;
+  --pink: #fed7d2;
+  --dark-green: #10462e;
 }
 
 /* Default Styles */
 .btn {
   border: none;
-  padding: 10px 15px !important;
+  padding: 1rem 2rem !important;
   border-radius: 50px !important;
   cursor: pointer !important;
 }
@@ -36,6 +38,11 @@
 .btn.btn-inverse {
   color: black;
   border: 1px solid black;
+}
+
+.btn.btn-black {
+  background: black;
+  color: white;
 }
 
 .container-padding {
@@ -63,6 +70,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.hero-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2%;
 }
 
 .about-section {
@@ -145,7 +160,8 @@
 }
 
 .explore-more-card {
-  width: 800px;
+  width: 500px;
+  max-width: 600px;
   height: 1000px;
   background-size: cover;
   background-position: center;
@@ -165,6 +181,104 @@
 }
 
 .explore-more-card:hover {
-  width: 750px;
-  margin: 0 2rem;
+  width: 550px;
+}
+
+.build-package-section {
+  height: auto;
+  padding: 5% 8%;
+}
+
+.comments-section {
+  height: 100vh;
+  background: url("/assets/comments.png");
+  text-align: center;
+}
+
+.comment-card {
+  max-width: 350px;
+}
+
+.comments-section {
+  overflow: hidden;
+}
+
+.comments-section .slider-container {
+  margin: 0 -20%;
+}
+
+.comments-section .slider-btn {
+  background: white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 50px 10px;
+  border: none;
+  transition: all 0.3s;
+}
+
+.comments-section .slider-btn:hover {
+  cursor: pointer;
+  color: var(--accent);
+}
+
+.faq-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 5%;
+}
+
+.faq-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.faq-section :is(ul, li) {
+  padding: 0;
+}
+
+.faq-list li {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.faq-list li svg {
+  font-size: 2rem;
+}
+
+.faq-list hr {
+  margin-top: 0;
+}
+
+.footer {
+  padding: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer .footer-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.footer svg {
+  font-size: 3rem;
+  margin: 0 0.5rem;
+}
+
+.footer ul a {
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
 }

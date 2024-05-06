@@ -29,8 +29,10 @@ function About() {
         sx={{
           display: "flex",
           justifyContent: "space-between",
+
           marginTop: "2rem",
         }}
+        className="about-cards"
       >
         <Card sx={{ background: "none", border: "none", boxShadow: "none" }}>
           <img src="/assets/icon-1.png" alt="figure-1" />

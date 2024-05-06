@@ -31,7 +31,7 @@ const Explore = () => {
   ];
 
   return (
-    <Box className="container-padding">
+    <Box className="explore-section container-padding">
       <Box
         sx={{
           display: "flex",
@@ -54,7 +54,7 @@ const Explore = () => {
           </IconButton>
         </Box>
       </Box>
-      <Box display="flex" justifyContent="space-between" gap="3rem">
+      <Box display="flex" justifyContent="space-between" flexWrap="wrap">
         {travelPackages.map((pkg, index) => (
           <Card
             className="explore-more-card"

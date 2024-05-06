@@ -19,15 +19,17 @@ function Highlight() {
         height: "95vh",
         backgroundRepeat: "no-repeat",
       }}
+      className="highlight-section container-padding"
     >
       <Box
         sx={{
           display: "flex",
           justifyContent: "flex-start",
           alignItems: "center",
+          flexWrap: "wrap",
           height: "100%",
         }}
-        className="container-padding"
+        className="highlight-container"
       >
         <Box
           sx={{
@@ -40,6 +42,7 @@ function Highlight() {
             width: "60%",
             textAlign: "left",
           }}
+          className="highlight-content"
         >
           <Typography variant="h4" fontSize="6rem" fontWeight="900">
             {UpcomingTrip[0].title}
@@ -48,7 +51,7 @@ function Highlight() {
             {UpcomingTrip[0].destinations}
           </Typography>
           <Typography variant="body1">{UpcomingTrip[0].description}</Typography>
-          <Box display="flex" gap="2rem">
+          <Box className="highlight-btns" display="flex" gap="2rem">
             <Button
               className="btn btn-secondary"
               sx={{ padding: "10px 80px !important" }}
