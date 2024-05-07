@@ -108,8 +108,6 @@ function Footer() {
         <Typography color="#777777">
           © 2023 Travista. All rights reserved.
         </Typography>
-
-        <Typography color="#777777">Website by GabeDesign</Typography>
       </Box>
     </Box>
   );

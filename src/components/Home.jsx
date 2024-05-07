@@ -12,7 +12,6 @@ import Footer from "./Footer";
 function home() {
   return (
     <div>
-      <Navbar />
       <Hero />
       <Explore />
       <Highlight />
@@ -20,7 +19,6 @@ function home() {
       <PackageCard />
       <Comments />
       <FAQ />
-      <Footer />
     </div>
   );
 }

@@ -284,3 +284,30 @@ a.nav-link {
   text-decoration: none;
   font-weight: 600;
 }
+
+.packages-page .hero {
+  background: url("/assets/packages-page/hero.png");
+  height: 60vh;
+
+  position: relative;
+}
+
+.packages-page .hero .overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.packages-page .hero h2 {
+  font-size: 5rem;
+}
+
+.packages-page .hero p {
+  width: 50%;
+  text-align: center;
+}
+
+.packages-page .packages-tours {
+  padding: 3%;
+}

@@ -127,6 +127,16 @@
     display: none;
   }
 
+  .packages-page .hero h2 {
+    font-size: 2rem;
+  }
+
+  .packages-page .hero p {
+    width: 80%;
+    margin: 10px 0;
+    font-size: 0.8rem;
+  }
+
   .footer {
     flex-direction: column;
     padding-bottom: 20%;
