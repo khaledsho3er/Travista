@@ -96,10 +96,15 @@ const Explore = () => {
               >
                 {pkg.date}
               </Typography>
-              <Typography variant="h4" component="div" fontWeight="900">
+              <Typography variant="h4" fontWeight="900">
                 {pkg.destinations}
               </Typography>
-              <Typography variant="body1" color="#A5A5A5" fontSize="2rem">
+              <Typography
+                className="package-date"
+                variant="body1"
+                color="#A5A5A5"
+                fontSize="2rem"
+              >
                 {pkg.duration}
               </Typography>
               <Typography variant="h6" color="#FED7D2">

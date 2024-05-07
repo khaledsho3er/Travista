@@ -1,4 +1,50 @@
 @media screen and (max-width: 768px) {
+  .navbar .toolbar {
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .inner-navbar {
+    height: 100vh !important;
+  }
+
+  .toolbar button.btn {
+    font-size: small;
+    width: 130px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar button.navbar-hide {
+    display: none;
+  }
+
+  a.nav-link {
+    font-size: 1.3rem;
+  }
+
+  .inner-toolbar {
+    padding: 20px 0 !important;
+    align-items: center !important;
+  }
+
+  .blog-section {
+    padding: 0 !important;
+  }
+
+  .blog-section h6 {
+    font-size: 1rem;
+  }
+
+  .blog-section p {
+    display: none;
+  }
+
+  .inner-toolbar img {
+    width: 100px !important;
+  }
+
   .hero-section {
     flex-direction: column;
   }
@@ -12,16 +58,28 @@
     margin: 20px 0;
   }
 
-  .navbar button.btn {
-    padding: 1px 5px !important;
+  .explore-section {
+    padding-top: 60px;
+    padding-bottom: 60px;
   }
 
-  .navbar button.navbar-hide {
-    display: none;
+  .explore-section .package-date {
+    font-size: 1rem;
   }
 
   .explore-more-card {
     height: 500px;
+    margin: 20px 0px;
+    justify-content: space-around;
+  }
+
+  .explore-more-card h4 {
+    font-size: 2rem;
+  }
+
+  .explore-more-card button.btn {
+    width: 100% !important;
+    padding: 15px 60px !important;
   }
 
   .highlight-section .highlight-content {

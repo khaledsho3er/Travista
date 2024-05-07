@@ -9,6 +9,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -33,17 +34,15 @@ function Navbar() {
     <Box
       sx={{
         width: "auto",
-        height: "30vh",
         background: "#142328",
         padding: "20px 35px",
-        marginTop: "40px",
       }}
       role="presentation"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <Grid container spacing={20}>
-        <Grid item xs={6}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
           <Button
             color="inherit"
             sx={{
@@ -51,9 +50,10 @@ function Navbar() {
               justifyContent: "space-between",
               width: "100%",
             }}
-            className="nav-link"
           >
-            Packages & Tours <ArrowOutwardIcon fontSize="2rem" />
+            <Link className="nav-link" to="/packages">
+              Packages & Tours <ArrowOutwardIcon fontSize="2rem" />
+            </Link>
           </Button>
           <Button
             color="inherit"
@@ -62,9 +62,10 @@ function Navbar() {
               justifyContent: "space-between",
               width: "100%",
             }}
-            className="nav-link"
           >
-            Apply for Visa <ArrowOutwardIcon fontSize="2rem" />
+            <Link className="nav-link" to="/apply">
+              Apply for Visa <ArrowOutwardIcon fontSize="2rem" />
+            </Link>
           </Button>
           <Button
             color="inherit"
@@ -73,12 +74,13 @@ function Navbar() {
               justifyContent: "space-between",
               width: "100%",
             }}
-            className="nav-link"
           >
-            Build my Package <ArrowOutwardIcon fontSize="2rem" />
+            <Link className="nav-link" to="build-package">
+              Build my Package <ArrowOutwardIcon fontSize="2rem" />
+            </Link>
           </Button>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Button
             color="inherit"
             sx={{
@@ -86,9 +88,10 @@ function Navbar() {
               justifyContent: "space-between",
               width: "100%",
             }}
-            className="nav-link"
           >
-            Our Story <ArrowOutwardIcon fontSize="2rem" />
+            <Link className="nav-link" to="about">
+              Our Story <ArrowOutwardIcon fontSize="2rem" />
+            </Link>
           </Button>
           <Button
             color="inherit"
@@ -97,9 +100,10 @@ function Navbar() {
               justifyContent: "space-between",
               width: "100%",
             }}
-            className="nav-link"
           >
-            Our Offices <ArrowOutwardIcon fontSize="2rem" />
+            <Link className="nav-link" to="offices">
+              Our Offices <ArrowOutwardIcon fontSize="2rem" />
+            </Link>
           </Button>
           <Button
             color="inherit"
@@ -108,9 +112,10 @@ function Navbar() {
               justifyContent: "space-between",
               width: "100%",
             }}
-            className="nav-link"
           >
-            Careers <ArrowOutwardIcon fontSize="2rem" />
+            <Link className="nav-link" to="careers">
+              Careers <ArrowOutwardIcon fontSize="2rem" />
+            </Link>
           </Button>
         </Grid>
       </Grid>
@@ -127,17 +132,21 @@ function Navbar() {
 
   function BlogSection() {
     return (
-      <Box sx={{ padding: "20px 35px", color: "white" }}>
+      <Box
+        className="blog-section"
+        sx={{ padding: "20px 35px", color: "white" }}
+      >
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
+            flexWrap: "wrap",
             alignItems: "center",
             marginBottom: "25px",
           }}
         >
           <Typography
-            variant="h5"
+            variant="h6"
             margin="25px 0"
             color={"#777777"}
             gutterBottom
@@ -153,6 +162,7 @@ function Navbar() {
                 borderRadius: "25px",
                 p: "10px 20px",
                 fontWeight: 600,
+                fontSize: "0.7rem",
               }}
             >
               Discover Blog +
@@ -160,8 +170,8 @@ function Navbar() {
           </Box>
         </Box>
 
-        <Grid container justifyContent={"space-between"} gap={"1px"}>
-          <Grid item xs={6} md={5.5}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
             {/* The card for the blog post can be a separate component */}
             <Box
               sx={{
@@ -194,7 +204,7 @@ function Navbar() {
             </Box>
           </Grid>
 
-          <Grid item xs={6} md={5.5}>
+          <Grid item xs={12} md={6}>
             {/* The card for the blog post can be a separate component */}
             <Box
               sx={{
@@ -238,7 +248,10 @@ function Navbar() {
         sx={{ padding: "10px 5%", background: "none", boxShadow: "none" }}
         className="navbar"
       >
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Toolbar
+          className="toolbar"
+          sx={{ display: "flex", justifyContent: "space-between" }}
+        >
           <Box sx={{ maxWidth: "205px" }}>
             <img
               src="assets/main-logo.png"
@@ -247,7 +260,7 @@ function Navbar() {
             />
           </Box>
 
-          <Box sx={{ display: "flex", gap: "15px" }}>
+          <Box sx={{ display: "flex", gap: "25px" }}>
             <Button
               className="navbar-hide"
               color="inherit"
@@ -262,7 +275,6 @@ function Navbar() {
 
             <IconButton
               edge="start"
-              style={{ margin: " 0 16px" }} // approximates theme.spacing(2)
               color="inherit"
               aria-label="menu"
               onClick={toggleDrawer(true)}
@@ -280,6 +292,7 @@ function Navbar() {
             background: "#142328",
             padding: "0 4%",
           }}
+          className="inner-navbar"
         >
           <Box
             sx={{
@@ -287,6 +300,7 @@ function Navbar() {
               justifyContent: "space-between",
               padding: "20px 35px",
             }}
+            className="inner-toolbar"
           >
             <Box sx={{ maxWidth: "205px" }}>
               <img
@@ -306,7 +320,7 @@ function Navbar() {
 
               <IconButton
                 edge="start"
-                style={{ margin: " 0 16px" }} // approximates theme.spacing(2)
+                style={{ margin: " 0 16px" }}
                 color="inherit"
                 aria-label="menu"
                 onClick={toggleDrawer(false)}
