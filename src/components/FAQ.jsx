@@ -21,7 +21,7 @@ function FAQ() {
         <List>
           <ListItem>
             <Typography variant="h5">
-              Are there any extra fees for custom packages?
+            <strong>  Are there any extra fees for custom packages?</strong>
             </Typography>
 
             <AddIcon />
@@ -31,7 +31,7 @@ function FAQ() {
 
           <ListItem>
             <Typography variant="h5">
-              Can I build a package for my high school senior trip?
+            <strong> Can I build a package for my high school senior trip? </strong>
             </Typography>
 
             <AddIcon />
@@ -41,7 +41,7 @@ function FAQ() {
 
           <ListItem>
             <Typography variant="h5">
-              Will I get a travel guide with my package?
+            <strong> Will I get a travel guide with my package?</strong> 
             </Typography>
 
             <AddIcon />
@@ -50,7 +50,7 @@ function FAQ() {
           <hr />
 
           <ListItem>
-            <Typography variant="h5">Can I cancel my package?</Typography>
+            <Typography variant="h5"> <strong>Can I cancel my package? </strong></Typography>
 
             <AddIcon />
           </ListItem>
@@ -59,7 +59,7 @@ function FAQ() {
 
           <ListItem>
             <Typography variant="h5">
-              What is the fee of postponing my package?
+            <strong>  What is the fee of postponing my package?</strong>
             </Typography>
 
             <AddIcon />

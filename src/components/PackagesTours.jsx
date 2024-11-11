@@ -1,19 +1,23 @@
 import React, { useState } from "react";
+import IconButton from "@mui/material/IconButton";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import SinglePackage from "./singlePackage";
+
 import {
   Box,
   Typography,
   Card,
   CardContent,
-  CardMedia,
-  CardActions,
   Grid,
   Button,
   Select,
   MenuItem,
 } from "@mui/material";
+import Navbar from "./Navbar";
 
 function PackagesTours() {
   const [filter, setFilter] = useState("");
+  const [selectedPackage, setSelectedPackage] = useState(null);
 
   const tours = [
     {
@@ -64,6 +68,9 @@ function PackagesTours() {
     setFilter(event.target.value);
   };
 
+  const handlePackageClick = (tour) => {
+    setSelectedPackage(tour);  // Set the clicked package data
+  };
   const filteredTours = filter
     ? tours.filter((tour) =>
         tour.name.toLowerCase().includes(filter.toLowerCase())
@@ -74,6 +81,7 @@ function PackagesTours() {
     <Box className="packages-page">
       <Box className="hero">
         <Box
+        
           sx={{
             position: "absolute",
             top: 0,
@@ -84,6 +92,7 @@ function PackagesTours() {
           }}
           className="overlay"
         >
+        <Navbar/>
           <Typography variant="h2" color="white" fontWeight={800}>
             Packages & Tours
           </Typography>
@@ -95,6 +104,7 @@ function PackagesTours() {
           </Typography>
         </Box>
       </Box>
+      <div className="packages-tours-body">
 
       <Box className="packages-tours">
         <Box sx={{ display: "flex", gap: "10px", padding: "20px 0" }}>
@@ -116,19 +126,45 @@ function PackagesTours() {
             <MenuItem value="Florence">Florence</MenuItem>
           </Select>
         </Box>
-
         <Grid container spacing={3}>
           {filteredTours.map((tour, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
-              <Card>
+              <Card onClick={() => handlePackageClick(tour)}>
                 <CardContent
                   sx={{
                     height: "350px",
                     background: `url(${tour.image})`,
                     color: "white",
                     position: "relative",
+                    borderRadius:"12px",
                   }}
                 >
+                  <Typography
+                    sx={{
+                      position: "absolute",
+                      top: "10px",
+                      left: "10px",
+                      background: "white",
+                      color: "var(--maroon)",
+                      padding: "5px 10px",
+                      borderRadius: "4px",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                    variant="subtitle2"
+                  >
+                    {tour.date}
+                  </Typography>
+                  <IconButton
+                    sx={{
+                      position: "absolute",
+                      top: "10px",
+                      right: "10px",
+                      color: "white",   
+                    }}
+                  >
+                    <FavoriteIcon />
+                  </IconButton>
                   <Box
                     sx={{
                       position: "absolute",
@@ -181,7 +217,20 @@ function PackagesTours() {
             </Grid>
           ))}
         </Grid>
+        <Box textAlign="center" mt={4}>
+        <Button className="btn btn-secondary btn-inverse">
+          View More        
+        </Button>
       </Box>
+      </Box>
+      </div>
+    {/* Render SinglePackage component as a pop-up when a package is clicked */}
+      {selectedPackage && (
+        <SinglePackage
+          tour={selectedPackage}
+          onClose={() => setSelectedPackage(null)}
+        />
+      )}
     </Box>
   );
 }

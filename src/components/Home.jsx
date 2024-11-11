@@ -8,10 +8,10 @@ import PackageCard from "./PackageCard";
 import Comments from "./Comments";
 import FAQ from "./FAQ";
 import Footer from "./Footer";
-
 function home() {
   return (
     <div>
+      <Navbar/>
       <Hero />
       <Explore />
       <Highlight />
@@ -19,6 +19,7 @@ function home() {
       <PackageCard />
       <Comments />
       <FAQ />
+      <Footer/>
     </div>
   );
 }

@@ -1,0 +1,168 @@
+/* General */
+.careers-page {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    background-color: #064e3b;
+    padding: 50px 0;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .hero-content {
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .hero-text {
+    max-width: 600px;
+  }
+  
+  .hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero-text p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+  }
+  
+  .view-positions-btn {
+    background-color: #fff;
+    color: #064e3b;
+    padding: 15px 30px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .hero-image img {
+    width: 400px;
+    height: auto;
+  }
+  
+  /* Core Values Section */
+  .core-values-section {
+    padding: 60px 0;
+    background-color: #f0f5f2;
+    text-align: center;
+  }
+  
+  .core-values-section h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+  
+  .values-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .value-item {
+    width: 250px;
+    margin-bottom: 30px;
+  }
+  
+  .value-item h3 {
+    font-size: 1.25rem;
+    color: #064e3b;
+  }
+  
+  /* Perks Section */
+  .perks-section {
+    padding: 60px 0;
+  }
+  
+  .perks-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+  
+  .perks-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .perks-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .perk-item {
+    width: 200px;
+    margin-bottom: 30px;
+  }
+  
+  .perk-item h3 {
+    color: #064e3b;
+    font-size: 1.25rem;
+  }
+  
+  /* Open Roles Section */
+  .roles-section {
+    padding: 60px 0;
+    background-color: #f0f5f2;
+    text-align: center;
+  }
+  
+  .roles-section h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+  
+  .roles-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .role-item {
+    width: 250px;
+    margin-bottom: 30px;
+  }
+  
+  .learn-more-btn {
+    background-color: #ffd700;
+    color: #064e3b;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Newsletter Section */
+  .newsletter-section {
+    padding: 60px 0;
+    text-align: center;
+  }
+  
+  .newsletter-section input {
+    padding: 10px;
+    margin-right: 10px;
+    width: 300px;
+  }
+  
+  .subscribe-btn {
+    padding: 10px 20px;
+    background-color: #064e3b;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .social-media-icons i {
+    margin: 10px;
+    color: #064e3b;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
