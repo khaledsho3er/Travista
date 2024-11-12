@@ -1,12 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import TravistaSignIn from "./components/login";
-import Home from "./components/Home";
-import PackagesTours from "./components/PackagesTours";
+import Home from "./Pages/Home";
+import PackagesTours from "./Pages/PackagesTours";
 import CareerPage from "./components/careers";
 import SinglePackage from "./components/singlePackage";
-import TravistaSignUp from "./components/signup";
-import TravistaLoading from './components/loading';
+import TravistaLoading from "./components/loading";
+import TravistaSignIn from "./Pages/login";
+import TravistaSignUp from "./Pages/signup";
+import PreferencePackage from "./components/preferencePackage";
+import PersonalInfo from "./components/personalInfo";
 function App() {
   return (
     <Router>
@@ -15,10 +17,11 @@ function App() {
         <Route exact path="/login" Component={TravistaSignIn} />
         <Route exact path="/SignUp" Component={TravistaSignUp} />
         <Route exact path="/packages" Component={PackagesTours} />
-        <Route exact path="/careers" Component={CareerPage}/>
-        <Route exact path="/singlePackage" Component={SinglePackage}/>
-        <Route exact path="/loading" Component={TravistaLoading}/>
-
+        <Route exact path="/careers" Component={CareerPage} />
+        <Route exact path="/singlePackage" Component={SinglePackage} />
+        <Route exact path="/loading" Component={TravistaLoading} />
+        <Route exact path="/pp" Component={PreferencePackage} />
+        <Route exact path="/pi" Component={PersonalInfo} />
       </Routes>
     </Router>
   );

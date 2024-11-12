@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import SinglePackage from "./singlePackage";
+import SinglePackage from "../components/singlePackage";
 
 import {
   Box,
@@ -13,7 +13,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 
 function PackagesTours() {
   const [filter, setFilter] = useState("");
