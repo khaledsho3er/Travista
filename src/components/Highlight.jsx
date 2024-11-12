@@ -45,7 +45,7 @@ function Highlight() {
             gap: "2rem",
             color: "white",
             alignItems: "flex-start",
-            width: "70%%",
+            width: "60%%",
             textAlign: "left",
             zIndex: 2, // Brings the text content above other elements
           }}
