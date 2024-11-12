@@ -37,7 +37,6 @@ function Highlight() {
             flexDirection: "column",
             gap: "2rem",
             color: "white",
-            alignItems: "flex-start",
             width: "60%",
             textAlign: "left",
           }}

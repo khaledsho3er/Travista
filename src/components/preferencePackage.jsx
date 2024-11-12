@@ -7,7 +7,6 @@ import {
   IconButton,
   Slide,
   useMediaQuery,
-  colors,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { BsXCircle } from "react-icons/bs";

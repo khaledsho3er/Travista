@@ -69,7 +69,7 @@ function PackagesTours() {
   };
 
   const handlePackageClick = (tour) => {
-    setSelectedPackage(tour);  // Set the clicked package data
+    setSelectedPackage(tour); // Set the clicked package data
   };
   const filteredTours = filter
     ? tours.filter((tour) =>
@@ -79,20 +79,20 @@ function PackagesTours() {
 
   return (
     <Box className="packages-page">
+      <Navbar />
+
       <Box className="hero">
         <Box
-        
           sx={{
             position: "absolute",
             top: 0,
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.1)", // Adjust the opacity as needed
+            backgroundColor: "rgba(0, 0, 0, 0.1)",
           }}
           className="overlay"
         >
-        <Navbar/>
           <Typography variant="h2" color="white" fontWeight={800}>
             Packages & Tours
           </Typography>
@@ -105,126 +105,123 @@ function PackagesTours() {
         </Box>
       </Box>
       <div className="packages-tours-body">
-
-      <Box className="packages-tours">
-        <Box sx={{ display: "flex", gap: "10px", padding: "20px 0" }}>
-          <Select
-            value={filter}
-            onChange={handleFilterChange}
-            displayEmpty
-            inputProps={{ "aria-label": "Select a filter" }}
-          >
-            <MenuItem value="" disabled>
-              Filter by
-            </MenuItem>
-            <MenuItem value="Venice">Venice</MenuItem>
-            <MenuItem value="Barcelona">Barcelona</MenuItem>
-            <MenuItem value="Prague">Prague</MenuItem>
-            <MenuItem value="Zurich">Zurich</MenuItem>
-            <MenuItem value="Paris">Paris</MenuItem>
-            <MenuItem value="Rome">Rome</MenuItem>
-            <MenuItem value="Florence">Florence</MenuItem>
-          </Select>
-        </Box>
-        <Grid container spacing={3}>
-          {filteredTours.map((tour, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <Card onClick={() => handlePackageClick(tour)}>
-                <CardContent
-                  sx={{
-                    height: "350px",
-                    background: `url(${tour.image})`,
-                    color: "white",
-                    position: "relative",
-                    borderRadius:"12px",
-                  }}
-                >
-                  <Typography
+        <Box className="packages-tours">
+          <Box sx={{ display: "flex", gap: "10px", padding: "20px 0" }}>
+            <Select
+              value={filter}
+              onChange={handleFilterChange}
+              displayEmpty
+              inputProps={{ "aria-label": "Select a filter" }}
+            >
+              <MenuItem value="" disabled>
+                Filter by
+              </MenuItem>
+              <MenuItem value="Venice">Venice</MenuItem>
+              <MenuItem value="Barcelona">Barcelona</MenuItem>
+              <MenuItem value="Prague">Prague</MenuItem>
+              <MenuItem value="Zurich">Zurich</MenuItem>
+              <MenuItem value="Paris">Paris</MenuItem>
+              <MenuItem value="Rome">Rome</MenuItem>
+              <MenuItem value="Florence">Florence</MenuItem>
+            </Select>
+          </Box>
+          <Grid container spacing={3}>
+            {filteredTours.map((tour, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}>
+                <Card onClick={() => handlePackageClick(tour)}>
+                  <CardContent
                     sx={{
-                      position: "absolute",
-                      top: "10px",
-                      left: "10px",
-                      background: "white",
-                      color: "var(--maroon)",
-                      padding: "5px 10px",
-                      borderRadius: "4px",
-                      fontSize: "12px",
-                      fontWeight: "bold",
-                    }}
-                    variant="subtitle2"
-                  >
-                    {tour.date}
-                  </Typography>
-                  <IconButton
-                    sx={{
-                      position: "absolute",
-                      top: "10px",
-                      right: "10px",
-                      color: "white",   
+                      height: "350px",
+                      background: `url(${tour.image})`,
+                      color: "white",
+                      position: "relative",
+                      borderRadius: "12px",
                     }}
                   >
-                    <FavoriteIcon />
-                  </IconButton>
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      backgroundImage:
-                        "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0))",
-                      height: "100%",
-                      width: "100%",
-                      bottom: 0,
-                      left: 0,
-                      padding: "20px",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "flex-end",
-                    }}
-                  >
-                    {" "}
                     <Typography
                       sx={{
+                        position: "absolute",
+                        top: "10px",
+                        left: "10px",
                         background: "white",
                         color: "var(--maroon)",
-                        width: "fit-content",
                         padding: "5px 10px",
-                        borderRadius: "20px",
+                        borderRadius: "4px",
                         fontSize: "12px",
+                        fontWeight: "bold",
                       }}
-                      variant="subtitle1"
-                      gutterBottom
+                      variant="subtitle2"
                     >
                       {tour.date}
                     </Typography>
-                    <Typography fontWeight={800} variant="h4" gutterBottom>
-                      {tour.name}
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      color="#777777"
-                      fontWeight={600}
+                    <IconButton
+                      sx={{
+                        position: "absolute",
+                        top: "10px",
+                        right: "10px",
+                        color: "white",
+                      }}
                     >
-                      {tour.duration}
-                    </Typography>
-                    <Typography
-                      variant="subtitle1"
-                      sx={{ color: "var(--accent)" }}
+                      <FavoriteIcon />
+                    </IconButton>
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        backgroundImage:
+                          "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0))",
+                        height: "100%",
+                        width: "100%",
+                        bottom: 0,
+                        left: 0,
+                        padding: "20px",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "flex-end",
+                      }}
                     >
-                      {tour.price}
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-        <Box textAlign="center" mt={4}>
-        <Button className="btn btn-secondary btn-inverse">
-          View More        
-        </Button>
-      </Box>
-      </Box>
+                      {" "}
+                      <Typography
+                        sx={{
+                          background: "white",
+                          color: "var(--maroon)",
+                          width: "fit-content",
+                          padding: "5px 10px",
+                          borderRadius: "20px",
+                          fontSize: "12px",
+                        }}
+                        variant="subtitle1"
+                        gutterBottom
+                      >
+                        {tour.date}
+                      </Typography>
+                      <Typography fontWeight={800} variant="h4" gutterBottom>
+                        {tour.name}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        color="#777777"
+                        fontWeight={600}
+                      >
+                        {tour.duration}
+                      </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ color: "var(--accent)" }}
+                      >
+                        {tour.price}
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+          <Box textAlign="center" mt={4}>
+            <Button className="btn btn-secondary btn-inverse">View More</Button>
+          </Box>
+        </Box>
       </div>
-    {/* Render SinglePackage component as a pop-up when a package is clicked */}
+      {/* Render SinglePackage component as a pop-up when a package is clicked */}
       {selectedPackage && (
         <SinglePackage
           tour={selectedPackage}
