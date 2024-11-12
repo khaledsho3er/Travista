@@ -36,7 +36,6 @@ function Highlight() {
             display: "flex",
             flexDirection: "column",
             gap: "2rem",
-            textAlign: "center",
             color: "white",
             alignItems: "flex-start",
             width: "60%",
@@ -44,6 +43,7 @@ function Highlight() {
           }}
           className="highlight-content"
         >
+          <br></br>
           <Typography variant="h4" fontSize="6rem" fontWeight="900">
             {UpcomingTrip[0].title}
           </Typography>
