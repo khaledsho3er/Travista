@@ -51,8 +51,8 @@ function Comments() {
   };
 
   return (
-    <Box className="comments-section">
-      <Typography variant="h3" color={"white"} fontWeight={800} p={15}>
+    <Box className="comments-section" sx={{position:"flex", padding:"2px 0px 150px "}}>
+      <Typography variant="h4" color={"white"} fontWeight={800} p={15}>
         Don’t just take our word for it.
       </Typography>
 
@@ -63,7 +63,6 @@ function Comments() {
               key={index}
               sx={{
                 background: "white",
-                padding: "20px",
                 borderRadius: "30px",
                 textAlign: "left",
               }}
@@ -71,7 +70,7 @@ function Comments() {
               className="comment-card"
             >
               <CardContent
-                sx={{ display: "flex", flexDirection: "column", gap: "50px" }}
+                sx={{ display: "flex", flexDirection: "column", gap: "20px" }}
                 className="comment-content"
               >
                 <Typography
@@ -86,7 +85,7 @@ function Comments() {
                 </Typography>
 
                 <Box>
-                  <Typography variant="h6" color={"black"} fontWeight={800}>
+                  <Typography variant="h7" color={"black"} fontWeight={800}>
                     Sarah H.
                   </Typography>
 

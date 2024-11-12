@@ -17,7 +17,12 @@ function Highlight() {
       sx={{
         background: `url('${UpcomingTrip[0].image}')`,
         height: "95vh",
+        backgroundSize: "cover", // Ensures the background image covers the container
+        backgroundPosition: "center", // Centers the background image
         backgroundRepeat: "no-repeat",
+        padding: "2rem", // Adds padding inside the container
+        boxSizing: "border-box", // Ensures padding is included in the total width/height
+        position: "relative", // Enables absolute positioning for child elements
       }}
       className="highlight-section container-padding"
     >
@@ -26,8 +31,10 @@ function Highlight() {
           display: "flex",
           justifyContent: "flex-start",
           alignItems: "center",
-          flexWrap: "wrap",
           height: "100%",
+          boxSizing: "border-box",
+          paddingLeft: "30px",
+          position: "relative", // Ensure that the content is properly positioned within the container
         }}
         className="highlight-container"
       >
@@ -37,8 +44,10 @@ function Highlight() {
             flexDirection: "column",
             gap: "2rem",
             color: "white",
-            width: "60%",
+            alignItems: "flex-start",
+            width: "70%%",
             textAlign: "left",
+            zIndex: 2, // Brings the text content above other elements
           }}
           className="highlight-content"
         >
