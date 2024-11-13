@@ -48,7 +48,7 @@
 .container-padding {
   padding: 2% 10%;
 }
-.packages-tours-body{
+.packages-tours-body {
   background-color: #eceee9;
 }
 /* Default Styles */
@@ -476,4 +476,84 @@ footer ul {
 footer ul li a {
   color: white;
   text-decoration: none;
+}
+
+/* account style */
+.account-page {
+  font-family: Arial, sans-serif;
+  color: #333;
+  max-width: 100%;
+  max-height: auto;
+}
+
+.account-header {
+  text-align: left;
+  padding: 2rem 1rem;
+  padding-bottom: 20px;
+  padding-top: 80px;
+  padding-left: 120px;
+}
+
+.account-header h1 {
+  font-size: 62px;
+  margin-bottom: 0.5rem;
+}
+
+.account-header p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 2rem;
+}
+
+.account-tabs {
+  padding-top: 20px;
+  display: flex;
+  justify-content: left;
+  gap: 1rem;
+  margin-bottom: -1.2rem;
+}
+
+.account-tabs button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  color: #777777;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.account-tabs .active {
+  border-bottom: 2px solid #000;
+  font-weight: bold;
+  color: #000000;
+}
+
+.account-content {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background-color: #f4f4f4;
+  /* width: 100%; */
+}
+
+.saved-content {
+  display: flex;
+  gap: 2rem;
+}
+.saved-section-content {
+  width: 100%;
+  margin: auto;
+  margin-left: 20px;
+  padding-left: 80px;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.content {
+  font-size: 1.2rem;
+  color: #555;
+  text-align: center;
 }
