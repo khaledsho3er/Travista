@@ -3,10 +3,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PackageCards from "../components/Cards";
 
-import { Box, Grid, Select, MenuItem, Button } from "@mui/material";
+import { Box, Grid, Button } from "@mui/material";
 const AccountPage = () => {
   const [activeTab, setActiveTab] = useState("saved");
-  const [filter, setFilter] = useState("");
 
   const tours = [
     {
@@ -33,15 +32,6 @@ const AccountPage = () => {
           <div className="content">Custom Packages content goes here.</div>
         );
       case "saved":
-        const handleFilterChange = (event) => {
-          setFilter(event.target.value);
-        };
-
-        const filteredTours = filter
-          ? tours.filter((tour) =>
-              tour.name.toLowerCase().includes(filter.toLowerCase())
-            )
-          : tours;
         return (
           <Box className="saved-section-content">
             <Box
