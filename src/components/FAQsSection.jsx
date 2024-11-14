@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography, Box, Button, List, ListItem } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import FAQsComponent from "./FAQs";
 
 function FAQ() {
   return (
@@ -17,11 +18,11 @@ function FAQ() {
         <Button className="btn btn-primary btn-black">Contact Us</Button>
       </Box>
 
-      <Box className="faq-list">
+      {/* <Box className="faq-list">
         <List>
           <ListItem>
             <Typography variant="h5">
-            <strong>  Are there any extra fees for custom packages?</strong>
+              <strong> Are there any extra fees for custom packages?</strong>
             </Typography>
 
             <AddIcon />
@@ -31,7 +32,10 @@ function FAQ() {
 
           <ListItem>
             <Typography variant="h5">
-            <strong> Can I build a package for my high school senior trip? </strong>
+              <strong>
+                {" "}
+                Can I build a package for my high school senior trip?{" "}
+              </strong>
             </Typography>
 
             <AddIcon />
@@ -41,7 +45,7 @@ function FAQ() {
 
           <ListItem>
             <Typography variant="h5">
-            <strong> Will I get a travel guide with my package?</strong> 
+              <strong> Will I get a travel guide with my package?</strong>
             </Typography>
 
             <AddIcon />
@@ -50,7 +54,10 @@ function FAQ() {
           <hr />
 
           <ListItem>
-            <Typography variant="h5"> <strong>Can I cancel my package? </strong></Typography>
+            <Typography variant="h5">
+              {" "}
+              <strong>Can I cancel my package? </strong>
+            </Typography>
 
             <AddIcon />
           </ListItem>
@@ -59,13 +66,14 @@ function FAQ() {
 
           <ListItem>
             <Typography variant="h5">
-            <strong>  What is the fee of postponing my package?</strong>
+              <strong> What is the fee of postponing my package?</strong>
             </Typography>
 
             <AddIcon />
           </ListItem>
         </List>
-      </Box>
+      </Box> */}
+      <FAQsComponent />
     </Box>
   );
 }

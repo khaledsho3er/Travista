@@ -6,12 +6,12 @@ import Highlight from "../components/Highlight";
 import About from "../components/About";
 import PackageCard from "../components/PackageCard";
 import Comments from "../components/Comments";
-import FAQ from "../components/FAQ";
+import FAQ from "../components/FAQsSection";
 import Footer from "../components/Footer";
 function home() {
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <Hero />
       <Explore />
       <Highlight />
@@ -19,7 +19,7 @@ function home() {
       <PackageCard />
       <Comments />
       <FAQ />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

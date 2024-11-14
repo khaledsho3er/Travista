@@ -10,6 +10,7 @@ import TravistaSignUp from "./Pages/signup";
 import PreferencePackage from "./components/preferencePackage";
 import PersonalInfo from "./components/personalInfo";
 import AccountPage from "./Pages/Account";
+import FAQsPage from "./Pages/FAQs";
 function App() {
   return (
     <Router>
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/pp" Component={PreferencePackage} />
         <Route exact path="/pi" Component={PersonalInfo} />
         <Route exact path="/account" Component={AccountPage} />
+        <Route exact path="/faqs" Component={FAQsPage} />
       </Routes>
     </Router>
   );

@@ -52,7 +52,7 @@ function Highlight() {
           className="highlight-content"
         >
           <br></br>
-          <Typography variant="h4" fontSize="6rem" fontWeight="900">
+          <Typography variant="h4" fontSize="7rem" fontWeight="900">
             {UpcomingTrip[0].title}
           </Typography>
           <Typography variant="h5" fontWeight="700">
