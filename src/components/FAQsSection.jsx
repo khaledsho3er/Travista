@@ -1,6 +1,5 @@
 import React from "react";
-import { Typography, Box, Button, List, ListItem } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { Typography, Box, Button } from "@mui/material";
 import FAQsComponent from "./FAQs";
 
 function FAQ() {
