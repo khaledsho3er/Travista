@@ -45,7 +45,7 @@ function SingleBLog() {
         </header>
       </Box>
       <Box className="Single-Blog-image-hero">
-        <img src={blog.image} />
+        <img src={blog.image} alt="Blog Hero.jpg" />
       </Box>
       <Box className="Single-Blog-Content">
         <h3>{blog.blogTitle}</h3>
@@ -89,7 +89,7 @@ function SingleBLog() {
           will last a lifetime. 🇫🇷🌟 Vive la vie Parisienne! 🌟🇫🇷
         </p>
         <br />
-        <img src="Assets/Blogs/blogImg2.png" />
+        <img src="Assets/Blogs/blogImg2.png" alt="Blog MiddleImage.jpg" />
         <p>
           In Paris, every step you take is an opportunity for serendipity. Lose
           yourself in the labyrinthine streets of the Latin Quarter, where

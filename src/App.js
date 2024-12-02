@@ -13,6 +13,7 @@ import AccountPage from "./Pages/Account";
 import FAQsPage from "./Pages/FAQs";
 import ApplyForVisa from "./Pages/ApplyForVisa";
 import SingleBLog from "./Pages/SingleBlog";
+import BuildMyPackage from "./Pages/BuildMyPackage";
 function App() {
   return (
     <Router>
@@ -30,6 +31,7 @@ function App() {
         <Route exact path="/faqs" Component={FAQsPage} />
         <Route exact path="/applyforvisa" Component={ApplyForVisa} />
         <Route exact path="/singleblog" Component={SingleBLog} />
+        <Route exact path="/buildmypackage" Component={BuildMyPackage} />
       </Routes>
     </Router>
   );

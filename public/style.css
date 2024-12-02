@@ -1331,3 +1331,319 @@ textarea.form-input {
     margin-bottom: 30px;
   }
 }
+
+/*Build My Package Page*/
+.build-my-package-page {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+.build-my-package-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3rem 1rem;
+  background-color: #3a341c;
+  flex-direction: row;
+  gap: 2rem;
+}
+.build-my-package-hero {
+  padding-left: 70px;
+  flex: 1;
+}
+.build-my-package-header img {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  padding: 100px 170px 100px 300px;
+}
+.build-my-package-header .overlay-photo {
+  position: absolute;
+  top: -22px; /* Positioning above the main image */
+  left: 610px; /* Adjust horizontal position */
+  width: 80px; /* Size of the smaller photo */
+  height: 117px;
+  z-index: 10; /* Ensures it appears above the main image */
+}
+.build-my-package-header h1 {
+  font-size: 3rem;
+  color: #ffeb69;
+  text-align: left;
+  margin: auto 0;
+  margin-top: 30px;
+}
+.build-my-package-header p {
+  color: #ffffff;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-left: 15px;
+  text-align: justify;
+  line-height: 25px;
+  margin-right: -72px;
+}
+.build-my-package-header span {
+  color: #ffffff;
+  margin-bottom: 20px;
+
+  text-align: justify;
+  line-height: 25px;
+}
+.build-my-package-subtitle {
+  color: #fed7d2;
+  padding-left: 12px;
+  text-align: left;
+  padding-top: 20px;
+}
+.build-my-package-hero-btn {
+  background-color: #ffeb69;
+  color: #000;
+  padding: 0.7rem 1rem;
+  border: none;
+  margin-top: 20px;
+  margin-left: 12px;
+  cursor: pointer;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+/* HowItWorks.css */
+.Build-my-package-how-it-works {
+  text-align: center;
+  background-color: #eceee9; /* Light background color */
+  padding: 50px 20px 70px 20px;
+}
+
+.Build-my-package-how-it-works h2 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333; /* Dark text color */
+  margin-bottom: 60px;
+  text-align: left;
+  padding-left: 138px;
+}
+
+.Build-my-package-steps-container {
+  display: flex;
+  justify-content: center;
+  gap: 150px;
+}
+
+.Build-my-package-step {
+  max-width: 300px;
+  text-align: left;
+}
+
+.Build-my-package-step-number {
+  background-color: #ffec84; /* Yellow background */
+  color: #333; /* Dark text color for number */
+  font-size: 24px;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-family: "Edu AU VIC WA NT Pre", cursive;
+}
+
+.Build-my-package-step h3 {
+  font-size: 20px;
+  color: #3a341c;
+  font-weight: bold;
+
+  margin-bottom: 10px;
+}
+
+.Build-my-package-step p {
+  font-size: 14px;
+  color: #777; /* Light text color */
+  line-height: 1.5;
+}
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .build-my-package-hero {
+    padding-left: 70px;
+    flex: 1;
+    padding-top: 122px;
+  }
+  .build-my-package-header {
+    flex-direction: column;
+    align-items: left;
+    padding: 2rem;
+  }
+
+  .build-my-package-header img {
+    width: 400px;
+    height: 400px;
+    padding: 50px;
+  }
+
+  .build-my-package-header .overlay-photo {
+    top: 388px;
+    left: 31%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 100px;
+  }
+
+  .build-my-package-header h1 {
+    font-size: 2.5rem;
+    text-align: left;
+    margin-top: 20px;
+  }
+  .build-my-package-header span {
+    text-align: left;
+    margin-right: 0;
+    padding: -1px 0rem;
+  }
+  .build-my-package-header p {
+    text-align: left;
+    margin-right: 0;
+    padding: -1px 1rem;
+  }
+
+  .Build-my-package-how-it-works h2 {
+    font-size: 28px;
+    padding-left: 0;
+    text-align: left;
+  }
+
+  .Build-my-package-steps-container {
+    gap: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .build-my-package-hero {
+    padding-left: 70px;
+    flex: 1;
+    padding-top: 122px;
+    padding-bottom: 50px;
+  }
+  .build-my-package-header {
+    padding-top: 28px;
+    text-align: left;
+    margin-left: -100px;
+  }
+
+  .build-my-package-header img {
+    width: 250px;
+    height: 250px;
+    padding: 0;
+  }
+
+  .build-my-package-header h1 {
+    font-size: 2rem;
+  }
+  .build-my-package-header span {
+    font-size: 14px;
+    padding: 0 0.1rem;
+  }
+  .build-my-package-header p {
+    font-size: 14px;
+    padding: 0 1rem;
+  }
+  .build-my-package-header .overlay-photo {
+    width: 50px;
+    height: 75px;
+    top: 423px;
+    left: 26%;
+    transform: translateX(-50%);
+  }
+  .build-my-package-hero-btn {
+    font-size: 12px;
+    padding: 0.5rem 0.8rem;
+    margin-top: 15px;
+  }
+
+  .Build-my-package-how-it-works {
+    padding: 40px 15px;
+  }
+
+  .Build-my-package-steps-container {
+    flex-direction: column;
+    gap: 30px;
+    align-items: start;
+  }
+
+  .Build-my-package-step {
+    max-width: 90%;
+  }
+
+  .Build-my-package-step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+
+  .Build-my-package-step h3 {
+    font-size: 18px;
+  }
+
+  .Build-my-package-step p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .build-my-package-hero {
+    padding-left: 70px;
+    flex: 1;
+    padding-bottom: 75px;
+  }
+  .build-my-package-header {
+    padding-top: 28px;
+    text-align: left;
+    margin-left: -100px;
+  }
+  .build-my-package-header img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .build-my-package-header .overlay-photo {
+    width: 50px;
+    height: 75px;
+    top: 507px;
+    left: 13%;
+    transform: translateX(-50%);
+  }
+
+  .build-my-package-header h1 {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    text-align: left;
+  }
+  .build-my-package-header span {
+    font-size: 12px;
+    text-align: left;
+  }
+  .build-my-package-header p {
+    font-size: 12px;
+    padding: 0 51px 0px 14px;
+    text-align: left;
+  }
+
+  .Build-my-package-how-it-works h2 {
+    font-size: 24px;
+  }
+
+  .Build-my-package-steps-container {
+    gap: 20px;
+  }
+
+  .Build-my-package-step-number {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+
+  .Build-my-package-step h3 {
+    font-size: 16px;
+  }
+
+  .Build-my-package-step p {
+    font-size: 12px;
+  }
+}
