@@ -12,6 +12,7 @@ import PersonalInfo from "./components/personalInfo";
 import AccountPage from "./Pages/Account";
 import FAQsPage from "./Pages/FAQs";
 import ApplyForVisa from "./Pages/ApplyForVisa";
+import SingleBLog from "./Pages/SingleBlog";
 function App() {
   return (
     <Router>
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/account" Component={AccountPage} />
         <Route exact path="/faqs" Component={FAQsPage} />
         <Route exact path="/applyforvisa" Component={ApplyForVisa} />
+        <Route exact path="/singleblog" Component={SingleBLog} />
       </Routes>
     </Router>
   );
