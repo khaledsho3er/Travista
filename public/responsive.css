@@ -187,6 +187,77 @@
   .Blogs-header img {
     width: 50%;
   }
+  /* Hide the image in mobile view */
+  .about-image-container img {
+    display: none;
+  }
+
+  /* Make cards stack vertically in one column */
+  .about-card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; /* Adds space between cards */
+    position: static; /* Prevents absolute positioning */
+  }
+
+  .about-card {
+    position: static; /* Reset position for mobile view */
+    width: 90%; /* Make cards take up most of the container width */
+    max-width: 400px; /* Set a max width for better aesthetics */
+  }
+  /* Keep header and tabs unchanged in mobile view */
+  .account-header {
+    padding: 4rem 1rem; /* Adjust padding for mobile */
+  }
+
+  .account-header h1 {
+    font-size: 28px; /* Adjusted size for mobile */
+  }
+
+  .account-header p {
+    font-size: 12px;
+    margin-bottom: 1rem;
+  }
+
+  .account-tabs {
+    gap: 0.5rem;
+    justify-content: center; /* Keep tabs as is */
+    flex-direction: row; /* Keep tabs in row, no need for vertical stack */
+    margin-bottom: -4rem;
+  }
+
+  .account-tabs button {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .account-content {
+    padding: 1rem;
+  }
+
+  .saved-section-content {
+    padding: 0;
+  }
+
+  .saved-content {
+    justify-content: center; /* Center the cards on mobile */
+  }
+
+  .saved-section-content .MuiGrid-container {
+    justify-content: center; /* Align cards to the center in mobile */
+  }
+
+  .saved-section-content .MuiGrid-item {
+    width: 100%; /* Ensure items take full width in mobile */
+  }
+
+  /* View More Button (Mobile only) */
+  .view-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
 }
 
 /* Responsive Styles */

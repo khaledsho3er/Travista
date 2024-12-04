@@ -478,39 +478,38 @@ footer ul li a {
   text-decoration: none;
 }
 
-/* account style */
+/* Account Page Style */
 .account-page {
   font-family: Arial, sans-serif;
   color: #333;
   max-width: 100%;
-  max-height: auto;
+  padding: 0;
+  margin: 0;
 }
 
+/* Header Section */
 .account-header {
-  text-align: left;
+  text-align: left; /* Default alignment */
   padding: 2rem 1rem;
-  padding-bottom: 20px;
-  padding-top: 80px;
-  padding-left: 120px;
 }
 
 .account-header h1 {
-  font-size: 62px;
+  font-size: 48px; /* Adjusted size for larger screens */
   margin-bottom: 0.5rem;
 }
 
 .account-header p {
   color: #666;
   font-size: 14px;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
+/* Tabs */
 .account-tabs {
-  padding-top: 20px;
   display: flex;
-  justify-content: left;
+  justify-content: left; /* Default alignment for large screens */
   gap: 1rem;
-  margin-bottom: -1.2rem;
+  margin-bottom: 1.5rem;
 }
 
 .account-tabs button {
@@ -518,7 +517,7 @@ footer ul li a {
   border: none;
   font-size: 1rem;
   padding: 0.5rem 1rem;
-  color: #777777;
+  color: #777;
   cursor: pointer;
   border-bottom: 2px solid transparent;
   transition: border-color 0.3s ease;
@@ -527,37 +526,65 @@ footer ul li a {
 .account-tabs .active {
   border-bottom: 2px solid #000;
   font-weight: bold;
-  color: #000000;
+  color: #000;
 }
 
+/* Content Section */
 .account-content {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   padding: 2rem 1rem;
   background-color: #f4f4f4;
-  /* width: 100%; */
+}
+
+/* Saved Content */
+.saved-section-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 1rem;
 }
 
 .saved-content {
   display: flex;
+  flex-wrap: wrap; /* Allow items to wrap */
+  justify-content: left; /* Default for large screens */
   gap: 2rem;
 }
-.saved-section-content {
-  width: 100%;
-  margin: auto;
-  margin-left: 20px;
-  padding-left: 80px;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
+
+/* Cards Grid */
+.saved-section-content .MuiGrid-container {
+  justify-content: flex-start; /* Align cards left on larger screens */
 }
 
-.content {
-  font-size: 1.2rem;
+.saved-section-content .MuiGrid-item {
+  max-width: 100%;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background-color: #eee;
   color: #555;
-  text-align: center;
 }
 
+.btn-inverse:hover {
+  background-color: #ddd;
+}
+
+/* View More Button */
+.view-more-container {
+  display: none; /* Hidden by default */
+}
 /* FAQs Page */
 .FAQs-page {
   font-family: Arial, sans-serif;
@@ -1693,7 +1720,6 @@ textarea.form-input {
 .about-card-2 {
   top: 14%;
   left: 32%;
-  transform: translateX(-50%);
   height: 7rem;
 }
 
