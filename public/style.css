@@ -1567,3 +1567,562 @@ textarea.form-input {
   border-radius: 20px;
   font-size: 14px;
 }
+
+
+/*BMP Steps Main*/
+.BMP-steps-main {
+  padding-top: 120px;
+}
+
+.BMP-steps-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 500px;
+  width: 100%;
+}
+
+.BMP-steps-hero-content-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 223px;
+}
+
+.BMP-steps-hero-image-left {
+  width: 300px;
+  height: 400px;
+}
+
+.BMP-steps-hero-image-left img {
+  width: 300px;
+  height: 400px;
+  object-fit: cover;
+  border-top-right-radius: 1300px;
+  border-bottom-right-radius: 1300px;
+}
+.BMP-steps-hero-image-right {
+  width: 300px;
+  height: 400px;
+}
+.BMP-steps-hero-image-right img {
+  width: 300px;
+  height: 400px;
+  object-fit: cover;
+  border-top-left-radius: 1300px;
+  border-bottom-left-radius: 1300px;
+}
+.BMP-steps-hero-text-content {
+  text-align: center;
+}
+
+
+.steps-Actions-Buttons {
+  display: flex;
+  justify-content: space-between; /* Align buttons horizontally */
+  align-items: center;
+  padding-right:3rem;
+  padding-left:3rem;
+  margin-top: 2rem;
+}
+
+.steps-action-button {
+  background-color: #fff; /* Default white background */
+  border: 2px solid #27063b; /* Border matching theme */
+  border-radius: 30px; /* Rounded corners */
+  color: #27063b; /* Text color matching theme */
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.8rem 1.5rem; /* Add space inside the button */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth hover effects */
+}
+
+.steps-action-button:hover {
+  background-color: #142328; 
+  color: #eceee9; 
+}
+
+.steps-back-button {
+  background-color: #eceee9; 
+  border:none;
+}
+
+.steps-next-button {
+  background-color: #142328; 
+  color: #eceee9; padding: 0.8rem 2rem;
+}
+.steps-next-button:hover{
+  background-color: #eceee9; 
+  color: #142328; 
+  border: 1px solid #eceee9;
+}
+
+/*StepONe pages*/
+.BMI-steps-first-Content {
+  text-align: center;
+  margin-bottom: 18rem;
+  padding: 0rem 1rem;
+}
+
+.BMI-steps-first-Content h5 {
+  font-size: 1rem;
+  color: #777;
+}
+
+.BMI-steps-first-Content h4 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #000;
+}
+.BMP-steps-hero-title {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.BMP-steps-trip-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.BMP-steps-trip-option {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.BMP-steps-trip-option:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+}
+/* Container for buttons */
+.trip-buttons-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust for responsiveness */
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Button styling */
+.trip-buttons-container button {
+  display: flex;
+  flex-direction: column; /* Stack icon and text vertically */
+  justify-content: center; /* Align items at the center */
+  align-items: center; /* Center items horizontally */
+  width: 100%; /* Full width for responsiveness */
+  height: 100px;
+  border: 2px solid #eceee9;
+  border-radius: 12px;
+  background-color: #fff;
+  color: #000;
+  text-transform: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative; /* For positioning the icon */
+  transition: border-color 0.3s, background-color 0.3s ease;
+}
+
+.trip-buttons-container Button:hover {
+  border-color: #000;
+  background-color: #fff;
+}
+
+.trip-buttons-container span {
+  position: absolute; /* Position icon absolutely */
+  top: 10px; /* Adjust distance from top */
+  left: 21px; /* Adjust distance from left */
+  font-size: 24px;
+  text-align: left;
+  color: #000; /* Ensure icon color matches */
+}
+
+.trip-buttons-container Button::after {
+  content: attr(data-label); /* Use a custom attribute for the button label */
+  font-size: 14px;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 50px; /* Space between icon and text */
+  color: inherit;
+}
+/*BMP Steps two*/
+.step-two-container {
+  text-align: center;
+  margin-bottom: 8rem;
+  width: 100%;
+  flex-direction: column;
+}
+
+.step-two-container h5 {
+  font-size: 16px;
+  color: #a1a1a1;
+  margin-bottom: 8px;
+  margin: 2rem 0;
+
+}
+
+.step-two-container h4 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #000;
+}
+
+.step-two-container p {
+  font-size: 20px;
+  color: #000;
+  padding-bottom: 1rem;
+ 
+}
+
+.step-two-container-input-group {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 16px;
+  justify-content: space-between;
+width: 100%;
+  
+}
+
+.step-two-container-dropdown {
+  flex: 1;
+  padding: 1rem 1rem;
+  font-size: 14px;
+  border:2px solid #e0e0e0;
+  border-radius: 16px;
+  background-color: #fff;
+  width: 100%;
+  color: #777;
+  /* Remove default arrow */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* Custom arrow */
+  background-image: url('assets/chevron-down.png');
+  background-repeat: no-repeat;
+  background-position: right 1.5rem center; /* Position arrow */
+  background-size: 15px 15px; /* Size of the arrow */
+}
+
+.step-two-container-dropdown::before {
+	content: "\e009";
+  font-family: 'squarespace-ui-font';
+	position: relative;	display: block;
+	top: 55%;
+	transform: translateY(-50%);
+	right: 3%;
+ /*change the position of arrow*/
+	pointer-events: none;
+}
+.step-two-container-dropdown::after {
+	content: "\e009";
+  font-family: 'squarespace-ui-font';
+	position: relative;
+	display: block;
+	top: 55%;
+	transform: translateY(-50%);
+	right: 3%;
+ /*change the position of arrow*/
+	pointer-events: none;
+}
+/*Step Two traveller counter*/
+.step-two-container-travellers-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: "Arial", sans-serif;
+  margin: 1rem 0;
+}
+.step-two-travellers-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #777777;
+  margin-bottom: 8px;
+}
+.step-two-container-travellers-counter {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: #fff;
+  width: 100%;
+  justify-content: space-between;
+}
+.step-two-counter-travellers-value {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  width: 50%;
+  left: 1rem;
+  text-align: left;
+}
+.step-two-travellers-buttons {
+  display: flex;
+  gap: 8px;
+}
+.step-two-container-travellers-counter-btn {
+  background-color: #f6f6f6;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 20px;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease; /* Smooth hover effects */
+
+}
+.step-two-container-travellers-counter-btn:hover {
+  background-color: #000;
+  border: 1px solid #e0e0e0;
+  color: #eceee9;
+}
+/*Slider thumb*/
+/* Container styling */
+.budget-slider-container {
+  margin: 0 auto;
+  text-align: left;
+  width: 100%;
+  font-family: "Arial", sans-serif;
+}
+
+/* Label styling */
+.budget-slider-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #777777;
+}
+
+.budget-slider-title {
+  font-weight: bold;
+}
+
+.budget-slider-current {
+  font-weight: normal;
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* Slider container */
+.budget-slider-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Slider styling */
+.budget-slider-box range {
+  width: 100%;
+  color: #990066; /* Dark magenta */
+}
+
+.budget-slider .MuiSlider-thumb {
+  background-color: #fff;
+  border: 1px solid #990066;
+  width: 120px; /* Adjust width for arrows and budget value to fit */
+  height: 50px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 10px;
+}
+
+/* Center the value inside the thumb */
+.budget-slider .MuiSlider-thumb::before {
+  position: absolute;
+  font-size: 12px;
+  color: #990066;
+  font-weight: bold;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Add budget value inside the thumb */
+.budget-slider .MuiSlider-thumb::after {
+  content: attr(data-value);
+  position: absolute;
+  font-weight: 500;
+  left: 32%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #990066;
+}
+
+/* Rail styling */
+.budget-slider .MuiSlider-rail {
+  background-color: #ccc;
+}
+
+/* Description styling */
+.budget-slider-description p{
+  margin-top: 16px;
+  font-size: 14px;
+  color: #555;
+}
+
+/*travel date*/
+.step-two-container-travel-options {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.step-two-container-travel-date-left{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+}
+.step-two-container-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #777777;
+  margin-bottom: 8px;
+}
+.step-two-container-travel-date-dropdown{
+  flex: 1;
+  height: 2rem;
+  padding: 0rem 1rem;
+  width: 100%;
+  font-size: 14px;
+  border:2px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #777;
+
+}
+.step-two-container-travel-date-right{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+
+}
+.step-two-container-travel-date-left label,
+.step-two-container-travel-date-right label{
+  font-size: 12px;
+  font-weight: 500;
+  color: #777777;
+  margin-bottom: 8px;
+}
+
+.step-two-container-flexibility {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: #fff;
+  width: 100%;
+  justify-content: space-between;
+  height: 2rem;
+}
+.step-two-flexibility-buttons {
+  display: flex;
+  gap: 8px;
+}
+.step-two-container-flexibility-btn {
+  background-color: #f6f6f6;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 20px;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease; /* Smooth hover effects */
+}
+.step-two-container-flexibility-value{
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  width: 50%;
+  left: 1rem;
+  text-align: left;
+}
+
+/*Step three BMP*/
+.BMI-steps-third-Content {
+  text-align: center;
+  margin-bottom: 8rem;
+  padding: 3rem;
+}
+
+.BMI-steps-third-Content h5 {
+  font-size: 1rem;
+  color: #777;
+}
+
+.BMI-steps-third-Content h4 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #000;
+}
+
+.BMI-steps-third-Content p {
+  font-size: 14px;
+  color: #000;
+  padding-bottom: 1rem;
+}
+
+.BMI-steps-third-Content form {
+  width: 100%;
+  padding: 1rem;
+}
+
+.BMI-steps-third-Content form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 14px;
+  color: #000;
+}
+
+.BMI-steps-third-Content form input {
+  width: 95%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  font-size: 14px;
+  height: 2rem;
+  color: #000;
+}
+.form-row-phone{
+  display: flex;
+      gap: 1rem;
+      width: 100%;
+      justify-content: space-between;
+}
+.form-row-phone select{
+  height: 3.2rem;
+  width: 30%;
+  margin-bottom: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+}
