@@ -141,6 +141,7 @@
     flex-direction: column;
     padding-bottom: 20%;
   }
+
   /* Small screens (mobile) */
   .hero-section {
     padding: 1rem; /* Adjusted padding for small screens */
@@ -215,5 +216,252 @@
     height: 17rem;
     border-bottom-right-radius: 200px;
     border-top-right-radius: 200px;
+    
+  .build-my-package-hero {
+    padding-left: 70px;
+    flex: 1;
+    padding-top: 122px;
+    padding-bottom: 50px;
+  }
+  .build-my-package-header {
+    padding-top: 28px;
+    text-align: left;
+    margin-left: -100px;
+  }
+
+  .build-my-package-header img {
+    width: 250px;
+    height: 250px;
+    padding: 0;
+  }
+
+  .build-my-package-header h1 {
+    font-size: 2rem;
+  }
+  .build-my-package-header span {
+    font-size: 14px;
+    padding: 0 0.1rem;
+  }
+  .build-my-package-header p {
+    font-size: 14px;
+    padding: 0 1rem;
+  }
+  .build-my-package-header .overlay-photo {
+    width: 50px;
+    height: 75px;
+    top: 423px;
+    left: 26%;
+    transform: translateX(-50%);
+  }
+  .build-my-package-hero-btn {
+    font-size: 12px;
+    padding: 0.5rem 0.8rem;
+    margin-top: 15px;
+  }
+
+  .Build-my-package-how-it-works {
+    padding: 40px 15px;
+  }
+
+  .Build-my-package-steps-container {
+    flex-direction: column;
+    gap: 30px;
+    align-items: start;
+  }
+
+  .Build-my-package-step {
+    max-width: 90%;
+  }
+
+  .Build-my-package-step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+
+  .Build-my-package-step h3 {
+    font-size: 18px;
+  }
+
+  .Build-my-package-step p {
+    font-size: 13px;
+  }
+  .contact-us-trips-btns {
+    padding: 0rem 0rem;
+    width: 100%;
+    gap: 10px;
+  }
+  .contact-us-trips-btn-getdirections {
+    background-color: #eceee9;
+    border: 1px solid #eceee9;
+    color: #27063b;
+    padding: 0.8rem 1rem;
+    margin-top: 20px;
+    margin-left: 12px;
+    cursor: pointer;
+    border-radius: 20px;
+    width: 100%;
+    font-size: 14px;
+  }
+  .contact-us-trips-btn-call {
+    background-color: transparent;
+    width: 100%;
+    border: 3px solid #eceee9;
+    color: #eceee9;
+    padding: 0.8rem 1rem;
+    margin-top: 20px;
+    margin-left: 12px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+}
+/*Build my package*/
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .build-my-package-hero {
+    padding-left: 70px;
+    flex: 1;
+    padding-top: 122px;
+  }
+  .build-my-package-header {
+    flex-direction: column;
+    align-items: left;
+    padding: 2rem;
+  }
+
+  .build-my-package-header img {
+    width: 400px;
+    height: 400px;
+    padding: 50px;
+  }
+
+  .build-my-package-header .overlay-photo {
+    top: 388px;
+    left: 31%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 100px;
+  }
+
+  .build-my-package-header h1 {
+    font-size: 2.5rem;
+    text-align: left;
+    margin-top: 20px;
+  }
+  .build-my-package-header span {
+    text-align: left;
+    margin-right: 0;
+    padding: -1px 0rem;
+  }
+  .build-my-package-header p {
+    text-align: left;
+    margin-right: 0;
+    padding: -1px 1rem;
+  }
+
+  .Build-my-package-how-it-works h2 {
+    font-size: 28px;
+    padding-left: 0;
+    text-align: left;
+  }
+
+  .Build-my-package-steps-container {
+    gap: 100px;
+  }
+  .contact-us-header-titles {
+    padding: 3rem 1rem;
+  }
+
+  .contact-us-header-titles h1 {
+    font-size: 50px;
+  }
+
+  /* Trips Section */
+  .contact-us-trips-container {
+    gap: 30px;
+    flex-direction: column;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  .contact-us-trips-step {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .contact-us-trips-head h3,
+  .contact-us-trips-head span {
+    font-size: 1.2rem;
+  }
+
+  .contact-us-trips-step p {
+    font-size: 15px;
+  }
+  .contact-us-trips-btns {
+    padding: 0rem 0rem;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .build-my-package-hero {
+    padding-left: 70px;
+    flex: 1;
+    padding-bottom: 75px;
+  }
+  .build-my-package-header {
+    padding-top: 28px;
+    text-align: left;
+    margin-left: -100px;
+  }
+  .build-my-package-header img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .build-my-package-header .overlay-photo {
+    width: 50px;
+    height: 75px;
+    top: 507px;
+    left: 13%;
+    transform: translateX(-50%);
+  }
+
+  .build-my-package-header h1 {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    text-align: left;
+  }
+  .build-my-package-header span {
+    font-size: 12px;
+    text-align: left;
+  }
+  .build-my-package-header p {
+    font-size: 12px;
+    padding: 0 51px 0px 14px;
+    text-align: left;
+  }
+
+  .Build-my-package-how-it-works h2 {
+    font-size: 24px;
+  }
+
+  .Build-my-package-steps-container {
+    gap: 20px;
+  }
+
+  .Build-my-package-step-number {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+
+  .Build-my-package-step h3 {
+    font-size: 16px;
+  }
+
+  .Build-my-package-step p {
+    font-size: 12px;
   }
 }
