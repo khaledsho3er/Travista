@@ -1,6 +1,4 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
-import About from "../components/About";
 import Navbar from "../components/Navbar";
 import AboutHero from "../components/AboutHero";
 import Timeline from "../components/AboutTimeline";
