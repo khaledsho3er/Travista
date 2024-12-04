@@ -25,12 +25,12 @@ function BuildMyPackage() {
         </Box>
         <img
           src="assets/buildMyPackage/buildmypackage.png"
-          alt="buildMyPackage Hero .png"
+          alt="buildMyPackageHero.png"
         />
         <img
           class="overlay-photo"
           src="assets/buildMyPackage/upsell-module.png"
-          alt="Overlay Image"
+          alt="Overlay pic"
         />
       </header>
       <Box className="Build-my-package-how-it-works">

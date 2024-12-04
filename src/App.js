@@ -15,6 +15,7 @@ import SingleBLog from "./Pages/SingleBlog";
 import BuildMyPackage from "./Pages/BuildMyPackage";
 import AboutPage from "./Pages/About";
 import ContactUs from "./Pages/ContactUs";
+import BuildMyPackageSteps from "./Pages/BMPsteps";
 import CareersPage from "./Pages/Careers";
 import BlogsPage from "./Pages/Blogs";
 function App() {
@@ -37,6 +38,12 @@ function App() {
         <Route exact path="/buildmypackage" Component={BuildMyPackage} />
         <Route exact path="/About" Component={AboutPage} />
         <Route exact path="/contactus" Component={ContactUs} />
+        <Route
+          exact
+          path="/buildmypackagesteps"
+          Component={BuildMyPackageSteps}
+        />
+
         <Route exact path="/Blogs" Component={BlogsPage} />
       </Routes>
     </Router>
