@@ -175,6 +175,18 @@
     border-bottom-right-radius: 200px;
     border-top-right-radius: 200px;
   }
+  .Blogs-grid {
+    grid-template-columns: 1fr;
+    padding-left: 2rem;
+  }
+
+  .people-pic {
+    display: none;
+  }
+
+  .Blogs-header img {
+    width: 50%;
+  }
 }
 
 /* Responsive Styles */
@@ -216,7 +228,7 @@
     height: 17rem;
     border-bottom-right-radius: 200px;
     border-top-right-radius: 200px;
-    
+  }
   .build-my-package-hero {
     padding-left: 70px;
     flex: 1;

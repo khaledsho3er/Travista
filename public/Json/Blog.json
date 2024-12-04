@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "category": "Story",
+    "title": "Soaring Skyrwards: Unveiling the Best Airports of 2023",
+    "date": "August 16, 2023",
+    "image": "assets/Blog/blogpic.png"
+  },
+  {
+    "id": 2,
+    "category": "News",
+    "title": "Viennese Dreams: A Captivating Traveler’s Tale of Exploring Vienna’s Cultural Splendors",
+    "date": "July 13, 2023",
+    "image": "assets/Blog/blogpic.png"
+  },
+  {
+    "id": 3,
+    "category": "Guide",
+    "title": "A Journey Through Europe’s Majestic Fortresses and Palaces",
+    "date": "July 7, 2023",
+    "image": "assets/Blog/blogpic.png"
+  },
+  {
+    "id": 4,
+    "category": "Guide",
+    "title": "Unveiling the Top 10 Destinations for a Spectacular Summer Getaway",
+    "date": "June 15, 2023",
+    "image": "assets/Blog/blogpic.png"
+  },
+  {
+    "id": 5,
+    "category": "News",
+    "title": "Central Europe Unveiled: Discover the Top Destinations for an Enchanting Journey",
+    "date": "June 12, 2023",
+    "image": "assets/Blog/blogpic.png"
+  },
+  {
+    "id": 6,
+    "category": "News",
+    "title": "What to Do If the Airline Changes or Cancels Your Flight",
+    "date": "May 28, 2023",
+    "image": "assets/Blog/blogpic.png"
+  },
+  {
+    "id": 7,
+    "category": "Guide",
+    "title": "The Ultimate Travel Guide for Your Trip to Northern Europe",
+    "date": "May 16, 2023",
+    "image": "assets/Blog/blogpic.png"
+  },
+  {
+    "id": 8,
+    "category": "Story",
+    "title": "The Ultimate Travel Guide for Your Trip to Paris",
+    "date": "April 30, 2023",
+    "image": "assets/Blog/blogpic.png"
+  },
+  {
+    "id": 9,
+    "category": "Story",
+    "title": "The (Best and Worst) Budget Airlines for Cheap Flights from Egypt",
+    "date": "April 15, 2023",
+    "image": "assets/Blog/blogpic.png"
+  },
+  {
+    "id": 10,
+    "category": "Guide",
+    "title": "A New Adventure: Exploring the Best Hidden Gems of Eastern Europe",
+    "date": "April 5, 2023",
+    "image": "assets/Blog/blogpic.png"
+  }
+]
