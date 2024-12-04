@@ -1647,3 +1647,191 @@ textarea.form-input {
     font-size: 12px;
   }
 }
+
+/* about page css */
+.About-hero-section {
+  padding-top: 7rem;
+  padding-bottom: 2rem;
+  background-color: #10462e; /* Solid background color */
+}
+
+.about-hero-image {
+  width: 100%;
+  height: auto;
+}
+
+.about-right-image img {
+  text-align: center; /* Centers images in their respective columns */
+  height: 23rem;
+  border-bottom-left-radius: 200px;
+  border-top-left-radius: 200px;
+}
+
+.about-left-image img {
+  text-align: center; /* Centers images in their respective columns */
+  height: 23rem;
+  border-bottom-right-radius: 200px;
+  border-top-right-radius: 200px;
+}
+
+.about-center-content {
+  text-align: center;
+}
+
+.about-center-content h4 {
+  font-size: 1rem;
+  color: #fed7d2;
+  padding-bottom: 0.5rem;
+}
+
+.about-center-content h3 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #fed7d2; /* Ensure the title is visible on dark background */
+  padding-left: 7rem;
+  padding-right: 7rem;
+}
+
+.about-center-content h5 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #fed7d2; /* Ensure the description is visible on dark background */
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+.about-center-content button {
+  background-color: #fed7d2; /* Custom button color */
+  color: #10462e;
+  padding: 0.5rem 0.7rem;
+  border-radius: 40px;
+}
+
+.about-center-content button:hover {
+  background-color: #fed7d2;
+}
+
+/* Background section styling */
+.about-background-section {
+  position: relative;
+  background-image: url("assets/About/background.png");
+  background-repeat: no-repeat;
+  background-size: cover; /* Ensures the background image covers the section */
+  background-position: center center; /* Centers the background image */
+  padding: 50px 0; /* Adds padding to section */
+  text-align: center; /* Center text for cards */
+  height: 200vh; /* Ensure the section takes up full viewport height */
+}
+
+/* Centered image container */
+.about-image-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 200vh; /* Ensures image container fills the section */
+}
+/* Centered image styling */
+.about-image-container img {
+  width: 100rem; /* Scale image width to 40% of the container */
+  height: 80rem;
+  object-fit: contain; /* Ensure the image scales without distortion */
+  transition: all 0.3s ease; /* Smooth scaling transition */
+}
+
+/* Card container styling */
+.card-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Prevent cards from affecting image clickability */
+}
+
+/* General card styling */
+.card {
+  position: absolute;
+  width: 200px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  pointer-events: auto; /* Re-enable interaction for cards */
+}
+
+/* Card-specific positioning */
+.card-1 {
+  top: 1%;
+  left: 40%;
+  height: 7rem;
+}
+
+.card-2 {
+  top: 14%;
+  left: 32%;
+  transform: translateX(-50%);
+  height: 7rem;
+}
+
+.card-3 {
+  top: 28%;
+  left: 32%;
+  height: 7rem;
+}
+
+.card-4 {
+  top: 22%;
+  right: 30%;
+  height: 7rem;
+}
+
+.card-5 {
+  top: 39%;
+  right: 30%;
+  height: 7rem;
+}
+.card-6 {
+  top: 42%;
+  left: 25%;
+  height: 7rem;
+}
+
+.card-7 {
+  top: 55%;
+  left: 30%;
+  height: 7rem;
+}
+
+.card-8 {
+  top: 57%;
+  right: 30%;
+  height: 7rem;
+}
+
+.card-9 {
+  top: 70%;
+  right: 34%;
+  height: 7rem;
+}
+
+.card-10 {
+  top: 72%;
+  left: 22%;
+  height: 7rem;
+}
+
+.card-11 {
+  top: 83%;
+  left: 39%;
+  height: 7rem;
+}
+
+.card-12 {
+  top: 93%;
+  right: 26%;
+  height: 7rem;
+}
