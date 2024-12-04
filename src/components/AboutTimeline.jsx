@@ -7,73 +7,73 @@ function Timeline() {
       <Box className="about-background-section">
         <Box className="about-image-container">
           <img src="assets/about/timeline.png" alt="Timeline" />
-          <Box className="card-container">
-            {/* Card 1 */}
-            <Box className="card card-1">
+          <Box className="about-about-card-container">
+            {/* about-Card 1 */}
+            <Box className="about-card about-card-1">
               <h3>Milestone 1</h3>
               <p>Details about the first milestone.</p>
             </Box>
-            {/* Card 2 */}
-            <Box className="card card-2">
+            {/* about-Card 2 */}
+            <Box className="about-card about-card-2">
               <h3>Milestone 2</h3>
               <p>Details about the second milestone.</p>
             </Box>
-            {/* Card 3 */}
-            <Box className="card card-3">
+            {/* about-Card 3 */}
+            <Box className="about-card about-card-3">
               <h3>Milestone 3</h3>
               <p>Details about the third milestone.</p>
             </Box>
 
-            {/* Card 4 */}
-            <Box className="card card-4">
+            {/* about-Card 4 */}
+            <Box className="about-card about-card-4">
               <h3>Milestone 4</h3>
               <p>Details about the first milestone.</p>
             </Box>
 
-            {/* Card 5 */}
-            <Box className="card card-5">
+            {/* about-Card 5 */}
+            <Box className="about-card about-card-5">
               <h3>Milestone 5</h3>
               <p>Details about the first milestone.</p>
             </Box>
 
-            {/* Card 6 */}
-            <Box className="card card-6">
+            {/* about-Card 6 */}
+            <Box className="about-card about-card-6">
               <h3>Milestone 6</h3>
               <p>Details about the first milestone.</p>
             </Box>
 
-            {/* Card 7 */}
-            <Box className="card card-7">
+            {/* about-Card 7 */}
+            <Box className="about-card about-card-7">
               <h3>Milestone 7</h3>
               <p>Details about the first milestone.</p>
             </Box>
 
-            {/* Card 8 */}
-            <Box className="card card-8">
+            {/* about-Card 8 */}
+            <Box className="about-card about-card-8">
               <h3>Milestone 8</h3>
               <p>Details about the first milestone.</p>
             </Box>
 
-            {/* Card 9 */}
-            <Box className="card card-9">
+            {/* about-Card 9 */}
+            <Box className="about-card about-card-9">
               <h3>Milestone 9</h3>
               <p>Details about the first milestone.</p>
             </Box>
 
-            {/* Card 10 */}
-            <Box className="card card-10">
+            {/* about-Card 10 */}
+            <Box className="about-card about-card-10">
               <h3>Milestone 10</h3>
               <p>Details about the first milestone.</p>
             </Box>
 
-            {/* Card 11 */}
-            <Box className="card card-11">
+            {/* about-Card 11 */}
+            <Box className="about-card about-card-11">
               <h3>Milestone 11</h3>
               <p>Details about the first milestone.</p>
             </Box>
 
-            {/* Card 12 */}
-            <Box className="card card-12">
+            {/* about-Card 12 */}
+            <Box className="about-card about-card-12">
               <h3>Milestone 12</h3>
               <p>Details about the first milestone.</p>
             </Box>

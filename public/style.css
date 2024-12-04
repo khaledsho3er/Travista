@@ -1742,7 +1742,7 @@ textarea.form-input {
 }
 
 /* Card container styling */
-.card-container {
+.about-card-container {
   position: absolute;
   top: 0;
   left: 0;
@@ -1752,7 +1752,7 @@ textarea.form-input {
 }
 
 /* General card styling */
-.card {
+.about-card {
   position: absolute;
   width: 200px;
   background: white;
@@ -1764,73 +1764,73 @@ textarea.form-input {
 }
 
 /* Card-specific positioning */
-.card-1 {
+.about-card-1 {
   top: 1%;
   left: 40%;
   height: 7rem;
 }
 
-.card-2 {
+.about-card-2 {
   top: 14%;
   left: 32%;
   transform: translateX(-50%);
   height: 7rem;
 }
 
-.card-3 {
+.about-card-3 {
   top: 28%;
   left: 32%;
   height: 7rem;
 }
 
-.card-4 {
+.about-card-4 {
   top: 22%;
   right: 30%;
   height: 7rem;
 }
 
-.card-5 {
+.about-card-5 {
   top: 39%;
   right: 30%;
   height: 7rem;
 }
-.card-6 {
+.about-card-6 {
   top: 42%;
   left: 25%;
   height: 7rem;
 }
 
-.card-7 {
+.about-card-7 {
   top: 55%;
   left: 30%;
   height: 7rem;
 }
 
-.card-8 {
+.about-card-8 {
   top: 57%;
   right: 30%;
   height: 7rem;
 }
 
-.card-9 {
+.about-card-9 {
   top: 70%;
   right: 34%;
   height: 7rem;
 }
 
-.card-10 {
+.about-card-10 {
   top: 72%;
   left: 22%;
   height: 7rem;
 }
 
-.card-11 {
+.about-card-11 {
   top: 83%;
   left: 39%;
   height: 7rem;
 }
 
-.card-12 {
+.about-card-12 {
   top: 93%;
   right: 26%;
   height: 7rem;
