@@ -141,6 +141,94 @@
     flex-direction: column;
     padding-bottom: 20%;
   }
+
+  /* Small screens (mobile) */
+  .hero-section {
+    padding: 1rem; /* Adjusted padding for small screens */
+  }
+
+  .center-content h3 {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 0.9rem;
+  }
+
+  .hero-btn {
+    padding: 0.6rem 1.2rem;
+  }
+
+  /* about page */
+  .about-right-image img {
+    margin-bottom: 0.5rem; /* Adds space between stacked images */
+    height: 15rem;
+    object-fit: cover;
+    border-bottom-left-radius: 200px;
+    border-top-left-radius: 200px;
+  }
+
+  .about-left-image img {
+    margin-bottom: 0.5rem; /* Adds space between stacked images */
+    height: 15rem;
+    object-fit: cover;
+    border-bottom-right-radius: 200px;
+    border-top-right-radius: 200px;
+  }
+  .Blogs-grid {
+    grid-template-columns: 1fr;
+    padding-left: 2rem;
+  }
+
+  .people-pic {
+    display: none;
+  }
+
+  .Blogs-header img {
+    width: 50%;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  /* Medium screens (tablets) */
+  .hero-section {
+    padding: 2rem 1.5rem; /* Adjusted padding for medium screens */
+  }
+}
+
+@media (max-width: 1400px) {
+  .about-center-content {
+    text-align: center;
+  }
+
+  .about-center-content h3 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #fed7d2; /* Ensure the title is visible on dark background */
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+  }
+
+  .about-center-content h5 {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: #fed7d2; /* Ensure the description is visible on dark background */
+  }
+  .about-right-image img {
+    text-align: center; /* Centers images in their respective columns */
+    height: 17rem;
+    border-bottom-left-radius: 200px;
+    border-top-left-radius: 200px;
+  }
+
+  .about-left-image img {
+    text-align: center; /* Centers images in their respective columns */
+    height: 17rem;
+    border-bottom-right-radius: 200px;
+    border-top-right-radius: 200px;
+  }
   .build-my-package-hero {
     padding-left: 70px;
     flex: 1;
