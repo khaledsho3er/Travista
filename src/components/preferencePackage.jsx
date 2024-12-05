@@ -13,8 +13,14 @@ import { BsXCircle } from "react-icons/bs";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import BedIcon from "@mui/icons-material/Bed";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function PreferencePackage() {
+  const navigate = useNavigate(); // Initialize useNavigate
+  const handleNextPI = () => {
+    navigate("/pi"); // Navigate to Explore Packages page
+  };
   const [open, setOpen] = useState(true);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
@@ -30,22 +36,21 @@ function PreferencePackage() {
   };
 
   return (
-    <Slide direction="up" in={open} mountOnEnter unmountOnExit>
+    <Slide direction="up" in={open} mountOnEnter unmountOnExit >
       <Box
         display="flex"
         flexDirection={isSmallScreen ? "column" : "row"}
         sx={{
           maxWidth: "100%",
-          margin: "40px auto",
+          margin: "70px auto",
           backgroundColor: "#ffffff",
           borderTopRightRadius: "20px",
           borderTopLeftRadius: "20px",
           maxHeight: "700px",
-          overflow: "hidden",
           boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
           position: "relative",
           bottom: 0,
-          overflowY: "auto", // Enable vertical scrolling for the form side
+          height:"100%"
         }}
       >
         <Box
@@ -62,6 +67,7 @@ function PreferencePackage() {
               width: "100%",
               height: "100%",
               objectFit: "cover",
+              borderTopLeftRadius: "20px",
             }}
           />
           <Box
@@ -107,6 +113,8 @@ function PreferencePackage() {
             position: "relative",
           }}
         >
+                    <Link to="/packages">
+
           <IconButton
             sx={{ position: "absolute", top: 16, right: 16 }}
             aria-label="close"
@@ -114,6 +122,8 @@ function PreferencePackage() {
           >
             <BsXCircle />
           </IconButton>
+          </Link>
+          <Link to="/singlePackage">
 
           <IconButton
             sx={{ position: "absolute", top: 16, left: 16 }}
@@ -122,6 +132,7 @@ function PreferencePackage() {
           >
             <ArrowBackIcon />
           </IconButton>
+          </Link>
           <Typography
             variant={isSmallScreen ? "h5" : "h4"}
             fontWeight="bold"
@@ -132,45 +143,32 @@ function PreferencePackage() {
           <Typography variant="subtitle2" mt={1} color="#777777">
             Select your preferred travel date and accommodation type...
           </Typography>
-          <Typography variant="body2" color="#777777" mt={2} mb={2}>
+          <Typography variant="body2" color="#777777" mt={4} mb={2}>
             Select preferred date
           </Typography>
-          <Grid container spacing={2} mb={3}>
+          <Grid container spacing={2} mb={7}>
             {[
-              "10th May - 19th May",
-              "16th June - 25th June",
-              "02nd July - 11th July",
+              "10th May 2024 - 19th May 2024",
             ].map((date) => (
               <Grid item xs={isSmallScreen ? 12 : 6} key={date}>
-                <Button
+                <Typography
                   variant="outlined"
                   onClick={() => handleDateChange(date)}
                   sx={{
-                    width: "80%",
                     textTransform: "none",
-                    padding: "10px",
-                    border: "2px solid",
+                    padding: "10px 0px",
+                    margin:"3rem 0rem" ,
                     fontWeight: "bold",
-                    height: "50px",
-                    borderRadius: "12px",
-                    borderColor: selectedDate === date ? "#86205d" : "#ddd",
-                    backgroundColor:
-                      selectedDate === date ? "#ffffff" : "transparent",
-                    color: selectedDate === date ? "#000000" : "inherit",
-                    ":hover": {
-                      borderColor: "#86205d",
-                      backgroundColor: "#86205d",
-                      color: "#ffffff",
-                    },
+                    height: "50px",                    
                   }}
                 >
                   {date}
-                </Button>
+                </Typography>
               </Grid>
             ))}
           </Grid>
 
-          <Typography variant="body2" color="#777777">
+          <Typography variant="body2" color="#777777"  mb={2}>
             Select room size
           </Typography>
           <Box sx={{ mb: 4 }}>
@@ -232,6 +230,7 @@ function PreferencePackage() {
               ml: "auto",
               float: "right",
             }}
+            onClick={handleNextPI}
           >
             Next
           </Button>

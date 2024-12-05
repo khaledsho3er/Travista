@@ -1,7 +1,12 @@
 import React from "react";
 import { Typography, Button, Box, Card } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
 function About() {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleAboutUs = () => {
+    navigate("/About"); // Navigate to Explore Packages page
+  };
   return (
     <Box
       className="about-section container-padding"
@@ -21,6 +26,7 @@ function About() {
       <Button
         className="btn btn-primary"
         sx={{ padding: "10px 80px !important" }}
+        onClick={handleAboutUs}
       >
         Our Story
       </Button>

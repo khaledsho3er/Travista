@@ -3,7 +3,13 @@ import { Box } from "@mui/material";
 import Navbar from "../components/Navbar";
 import FAQ from "../components/FAQsSection";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 function BuildMyPackage() {
+  const navigate = useNavigate();
+
+  const handleBMPSteps = () => {
+    navigate("/buildmypackagesteps");
+  };
   return (
     <Box className="build-my-package-page">
       <Navbar />
@@ -19,7 +25,7 @@ function BuildMyPackage() {
             customization and design a personalized escape for you senior trip,
             business travel, or for the sake of your wanderlust.
           </p>
-          <button className="build-my-package-hero-btn">
+          <button className="build-my-package-hero-btn" onClick={handleBMPSteps}>
             Build my Package
           </button>
         </Box>

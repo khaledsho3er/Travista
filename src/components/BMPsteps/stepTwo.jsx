@@ -5,6 +5,8 @@ function StepTwo() {
   const [travellers, setTravellers] = useState(1);
   const [flexibility, setFlexibility] = useState(2);
   const [budget, setBudget] = useState(2390);
+  const [nights, setNights] = useState(1);
+
 
   const handleBudgetChange = (event, newValue) => {
     setBudget(newValue);
@@ -102,7 +104,7 @@ function StepTwo() {
   <Box className="step-two-container-travel-date-right">
     <label>Flexibility</label>
     <Box className="step-two-container-flexibility">
-      <span className="step-two-counter-flexibilty-value">+/- {flexibility} days</span>
+      <span className="step-two-counter-flexibilty-value"> {flexibility} days</span>
       <Box className="step-two-flexibility-buttons">
         <button
           onClick={() => setFlexibility(Math.max(0, flexibility - 1))}
@@ -120,7 +122,26 @@ function StepTwo() {
     </Box>
   </Box>
 </Box>
-
+<Box className="step-two-container-travellers-container">
+      <label className="step-two-travellers-label">No. of Nights</label>
+      <Box className="step-two-container-travellers-counter">
+        <span className="step-two-counter-travellers-value">{nights} Nights</span>
+        <div className="step-two-travellers-buttons">
+          <button
+            onClick={() => setNights(Math.max(1, nights - 1))}
+            className="step-two-container-travellers-counter-btn"
+          >
+            -
+          </button>
+          <button
+            onClick={() => setNights(nights + 1)}
+            className="step-two-container-travellers-counter-btn"
+          >
+            +
+          </button>
+        </div>
+      </Box>
+    </Box>
     </Box>
   );
 }

@@ -7,8 +7,13 @@ import {
   CardActions,
   CardMedia,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 function PackageCard() {
+  const navigate = useNavigate(); // Initialize useNavigate
+  const handleBuildPackageClick = () => {
+    navigate("/buildmypackage"); // Navigate to Build My Package page
+  };
   return (
     <Box className="build-package-section">
       <Card
@@ -54,6 +59,7 @@ function PackageCard() {
                 background: "var(--pink)",
                 fontWeight: "bold",
               }}
+              onClick={handleBuildPackageClick}
             >
               Build Your Package
             </button>

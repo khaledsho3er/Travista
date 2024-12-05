@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 
 const TravistaSignUp = () => {
   return (
@@ -138,6 +139,7 @@ const TravistaSignUp = () => {
           </Button>
           <Typography variant="body2" color="textSecondary" mt={2}>
             Already have an account?{" "}
+            <Link to="/login" style={{ textDecoration: "none" }}>
             <Typography
               component="span"
               color="primary"
@@ -145,6 +147,7 @@ const TravistaSignUp = () => {
             >
               Sign In
             </Typography>
+            </Link>
           </Typography>
         </Box>
       </Box>

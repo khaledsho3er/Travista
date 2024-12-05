@@ -11,8 +11,17 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Explore = () => {
+    const navigate = useNavigate(); // Initialize useNavigate
+  
+    const handleExplorePackagesClick = () => {
+      navigate("/packages"); // Navigate to Explore Packages page
+    };
+    const handlePackageClick = () => {
+      navigate("/singlePackage"); // Navigate to Explore Packages page
+    };
   const travelPackages = [
     {
       image: "/assets/explore.png",
@@ -67,7 +76,6 @@ const Explore = () => {
               height: "750px", // Set a fixed height to make the cards shorter
               display: "flex",
               flexDirection: "column",
-              justifyContent: "space-between",
               justifyContent: "flex-end",
             }}
           >
@@ -125,6 +133,7 @@ const Explore = () => {
                 className="btn btn-secondary"
                 variant="contained"
                 sx={{ padding: "15px 80px !important" }}
+                onClick={handlePackageClick}
               >
                 Explore Trip
               </Button>
@@ -133,7 +142,7 @@ const Explore = () => {
         ))}
       </Box>
       <Box textAlign="center" mt={4}>
-        <Button className="btn btn-secondary btn-inverse">
+        <Button className="btn btn-secondary btn-inverse" onClick={handleExplorePackagesClick}>
           Explore All Packages
         </Button>
       </Box>
