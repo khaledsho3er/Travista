@@ -36,13 +36,13 @@ function PreferencePackage() {
   };
 
   return (
-    <Slide direction="up" in={open} mountOnEnter unmountOnExit>
+    <Slide direction="up" in={open} mountOnEnter unmountOnExit >
       <Box
         display="flex"
         flexDirection={isSmallScreen ? "column" : "row"}
         sx={{
           maxWidth: "100%",
-          margin: "40px auto",
+          margin: "70px auto",
           backgroundColor: "#ffffff",
           borderTopRightRadius: "20px",
           borderTopLeftRadius: "20px",
@@ -50,6 +50,7 @@ function PreferencePackage() {
           boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
           position: "relative",
           bottom: 0,
+          height:"100%"
         }}
       >
         <Box
@@ -66,6 +67,7 @@ function PreferencePackage() {
               width: "100%",
               height: "100%",
               objectFit: "cover",
+              borderTopLeftRadius: "20px",
             }}
           />
           <Box

@@ -71,6 +71,8 @@ function PersonalInfo() {
               width: "100%",
               height: "100%",
               objectFit: "cover",
+              borderTopLeftRadius: "20px",
+
             }}
           />
           <Box
@@ -337,7 +339,7 @@ function PersonalInfo() {
               </Box>
             </Box>
           </Box>
-          <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 3 }}>
+          <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 1 }}>
             <hr></hr>
           </Box>
           <hr style={{ margin: "0px 0 30px 0px " }}></hr>
