@@ -27,10 +27,10 @@ function App() {
         <Route exact path="/SignUp" Component={TravistaSignUp} />
         <Route exact path="/packages" Component={PackagesTours} />
         <Route exact path="/careers" Component={CareersPage} />
-        <Route exact path="/singlePackage" Component={SinglePackage} />
+        {/* <Route exact path="/singlePackage" Component={SinglePackage} /> */}
         <Route exact path="/loading" Component={TravistaLoading} />
-        <Route exact path="/pp" Component={PreferencePackage} />
-        <Route exact path="/pi" Component={PersonalInfo} />
+        {/* <Route exact path="/pp" Component={PreferencePackage} />
+        <Route exact path="/pi" Component={PersonalInfo} /> */}
         <Route exact path="/account" Component={AccountPage} />
         <Route exact path="/faqs" Component={FAQsPage} />
         <Route exact path="/applyforvisa" Component={ApplyForVisa} />

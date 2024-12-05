@@ -17,6 +17,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 
 function PersonalInfo() {
@@ -55,8 +56,11 @@ function PersonalInfo() {
           boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
           position: "relative",
           bottom: 0,
+          zIndex: 1000,
+
         }}
-      >
+      >      
+
         <Box
           sx={{
             position: "relative",
