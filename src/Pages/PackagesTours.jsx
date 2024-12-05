@@ -164,7 +164,7 @@ function PackagesTours() {
                         color: "white",
                       }}
                     >
-                      <FavoriteIcon />
+                      <FavoriteIcon/>
                     </IconButton>
                     <Box
                       sx={{
@@ -181,7 +181,7 @@ function PackagesTours() {
                         justifyContent: "flex-end",
                       }}
                     >
-                      <Typography
+                      {/* <Typography
                         sx={{
                           background: "white",
                           color: "var(--maroon)",
@@ -194,20 +194,20 @@ function PackagesTours() {
                         gutterBottom
                       >
                         {tour.date}
-                      </Typography>
+                      </Typography> */}
                       <Typography fontWeight={800} variant="h4" gutterBottom>
                         {tour.name}
                       </Typography>
                       <Typography
                         variant="body1"
                         color="#777777"
-                        fontWeight={600}
+                        fontWeight={500}
                       >
                         {tour.duration}
                       </Typography>
                       <Typography
                         variant="subtitle1"
-                        sx={{ color: "var(--accent)" }}
+                        sx={{ color: "#266ef1" }}
                       >
                         {tour.price}
                       </Typography>

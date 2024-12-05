@@ -88,10 +88,9 @@ function PersonalInfo() {
             }}
           >
             <IconButton>
-            <Link to="/packages">
+      
 
               <ArrowBackIcon sx={{ color: "black", fontSize: "32px" }} />
-              </Link>
 
             </IconButton>
           </Box>
@@ -121,7 +120,8 @@ function PersonalInfo() {
             height: "auto",
             borderTopRightRadius: "20px",
           }}
-        >
+        >          <Link to="/packages">
+
           <IconButton
             sx={{ position: "absolute", top: 16, right: 16 }}
             aria-label="close"
@@ -129,7 +129,8 @@ function PersonalInfo() {
           >
             <BsXCircle />
           </IconButton>
-
+          </Link>
+          <Link to="/pp">
           <IconButton
             sx={{ position: "absolute", top: 16, left: 16 }}
             aria-label="return"
@@ -137,6 +138,7 @@ function PersonalInfo() {
           >
             <ArrowBackIcon />
           </IconButton>
+          </Link>
           <Typography
             variant={isSmallScreen ? "h5" : "h4"}
             fontWeight="bold"

@@ -14,6 +14,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import BedIcon from "@mui/icons-material/Bed";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function PreferencePackage() {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -110,6 +111,8 @@ function PreferencePackage() {
             position: "relative",
           }}
         >
+                    <Link to="/packages">
+
           <IconButton
             sx={{ position: "absolute", top: 16, right: 16 }}
             aria-label="close"
@@ -117,6 +120,8 @@ function PreferencePackage() {
           >
             <BsXCircle />
           </IconButton>
+          </Link>
+          <Link to="/singlePackage">
 
           <IconButton
             sx={{ position: "absolute", top: 16, left: 16 }}
@@ -125,6 +130,7 @@ function PreferencePackage() {
           >
             <ArrowBackIcon />
           </IconButton>
+          </Link>
           <Typography
             variant={isSmallScreen ? "h5" : "h4"}
             fontWeight="bold"

@@ -18,7 +18,6 @@ function SinglePackage() {
   const handleNextPP = () => {
     navigate("/pp"); // Navigate to Explore Packages page
   };
-
   const [open, setOpen] = useState(true);
 
   const details = {
@@ -112,9 +111,10 @@ function SinglePackage() {
             aria-label="close"
             onClick={() => setOpen(false)}
           >
+
             <CloseIcon />
           </IconButton>
-
+         
           <Box display="flex" alignItems="center" gap="8px">
             <div
               variant="contained"
