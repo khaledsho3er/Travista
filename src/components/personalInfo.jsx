@@ -17,7 +17,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
-import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 
 function PersonalInfo() {

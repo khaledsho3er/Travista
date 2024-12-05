@@ -8,8 +8,13 @@ import {
   Button,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useNavigate } from "react-router-dom";
 
 function PackageCards({ tour }) {
+  const navigate = useNavigate();
+  const handlePackageClick = () => {
+    navigate("/packages"); // Navigate to Explore Packages page
+  };
   return (
     <Card
       sx={{
@@ -116,6 +121,7 @@ function PackageCards({ tour }) {
               borderRadius: "20px",
               fontSize: "13px",
             }}
+            onClick={handlePackageClick}
           >
             Explore Tour
           </Button>
@@ -129,6 +135,7 @@ function PackageCards({ tour }) {
               borderRadius: "20px",
               fontSize: "13px",
             }}
+            onClick={handlePackageClick}
           >
             Book Now
           </Button>

@@ -16,7 +16,7 @@ function Highlight() {
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handlePackageClick = () => {
-    navigate("/singlePackage"); // Navigate to Explore Packages page
+    navigate("/packages"); // Navigate to Explore Packages page
   };
   return (
     <Box
@@ -76,6 +76,7 @@ function Highlight() {
             <Button
               className="btn btn-primary"
               sx={{ padding: "10px 80px !important" }}
+              onClick={handlePackageClick}
             >
               Book Now
             </Button>

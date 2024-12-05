@@ -1,29 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import {
+  Box,
+  Typography,
   Card,
   CardContent,
-  Typography,
   CardActions,
   Button,
-  Box,
+  IconButton,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import SinglePackage from "../components/singlePackage"; // Import your SinglePackage component4
+import { useNavigate } from "react-router-dom";
 
 const Explore = () => {
-    const navigate = useNavigate(); // Initialize useNavigate
-  
-    const handleExplorePackagesClick = () => {
-      navigate("/packages"); // Navigate to Explore Packages page
-    };
-    const handlePackageClick = () => {
-      navigate("/singlePackage"); // Navigate to Explore Packages page
-    };
+  const Navigate = useNavigate();
+  const [selectedPackage, setSelectedPackage] = useState(null); // State to track selected package
+
   const travelPackages = [
     {
+      id: 1,
       image: "/assets/explore.png",
       date: "19th Sep",
       destinations: "Amsterdam, Barcelona, Rome, Budapest, Vienna",
@@ -31,6 +28,7 @@ const Explore = () => {
       price: "€2,990",
     },
     {
+      id: 2,
       image: "/assets/explore.png",
       date: "03rd Oct",
       destinations: "Rome, Florence, Venice, Zurich, Paris",
@@ -39,6 +37,12 @@ const Explore = () => {
     },
   ];
 
+  const handlePackageClick = (pkg) => {
+    setSelectedPackage(pkg); // Set the clicked package
+  };
+  const handlePackagesClick = (pkg) => {
+    Navigate('/packages'); // Set the clicked package
+  };
   return (
     <Box className="explore-section container-padding">
       <Box
@@ -47,33 +51,31 @@ const Explore = () => {
           justifyContent: "space-between",
           alignItems: "center",
           marginBottom: "2%",
-        
         }}
       >
         <Typography variant="h4" component="h2" fontWeight="900" gutterBottom>
           Explore our packages
         </Typography>
-
         <Box display="flex" gap="20px">
           <IconButton sx={{ background: "#ECEEE9" }}>
             <ArrowBackIcon />
           </IconButton>
-
           <IconButton sx={{ background: "#ECEEE9" }}>
             <ArrowForwardIcon />
           </IconButton>
         </Box>
       </Box>
-      <Box display="flex" justifyContent="space-between" flexWrap="nowrap" gap="4%" >
-        {travelPackages.map((pkg, index) => (
+
+      <Box display="flex" justifyContent="space-between" flexWrap="nowrap" gap="4%">
+        {travelPackages.map((pkg) => (
           <Card
+            key={pkg.id}
             className="explore-more-card"
-            key={index}
             sx={{
               backgroundImage: `url(${pkg.image})`,
               backgroundSize: "cover",
-              width: "65%", // Adjust the width to make the cards wider
-              height: "750px", // Set a fixed height to make the cards shorter
+              width: "65%",
+              height: "750px",
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-end",
@@ -90,7 +92,6 @@ const Explore = () => {
                 }}
               />
             </IconButton>
-
             <CardContent
               sx={{
                 display: "flex",
@@ -127,13 +128,12 @@ const Explore = () => {
                 from {pkg.price}
               </Typography>
             </CardContent>
-
             <CardActions disableSpacing>
               <Button
                 className="btn btn-secondary"
                 variant="contained"
                 sx={{ padding: "15px 80px !important" }}
-                onClick={handlePackageClick}
+                onClick={() => handlePackageClick(pkg)} // Pass package details
               >
                 Explore Trip
               </Button>
@@ -141,11 +141,22 @@ const Explore = () => {
           </Card>
         ))}
       </Box>
+
       <Box textAlign="center" mt={4}>
-        <Button className="btn btn-secondary btn-inverse" onClick={handleExplorePackagesClick}>
+        <Button className="btn btn-secondary btn-inverse" onClick={handlePackagesClick}>
           Explore All Packages
         </Button>
       </Box>
+
+      {/* Render SinglePackage component as a pop-up when a package is clicked */}
+      {selectedPackage && (
+        <Box className="slide-up-modal show">
+          <SinglePackage
+            tour={selectedPackage} // Pass selected package as props
+            onClose={() => setSelectedPackage(null)} // Clear selected package on close
+          />
+        </Box>
+      )}
     </Box>
   );
 };

@@ -22,7 +22,6 @@ function PreferencePackage() {
     navigate("/pi"); // Navigate to Explore Packages page
   };
   const [open, setOpen] = useState(true);
-  const [selectedDate, setSelectedDate] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));

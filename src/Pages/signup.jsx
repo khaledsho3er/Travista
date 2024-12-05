@@ -31,7 +31,7 @@ const TravistaSignUp = () => {
           backgroundPosition: "center",
         }}
       ></Grid>
-      <Box sx={{ maxWidth: 560, mx: "auto", textAlign: "center", padding: 4 }}>
+      <Box sx={{ maxWidth: 560, mx: "auto", textAlign: "center", padding: 4 , mt: 6}}>
         <Typography variant="h4" fontWeight="bold" gutterBottom>
           Create account
         </Typography>
