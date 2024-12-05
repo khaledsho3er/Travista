@@ -17,6 +17,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import { Link } from "react-router-dom";
 
 function PersonalInfo() {
   const [open, setOpen] = useState(true);
@@ -45,16 +46,15 @@ function PersonalInfo() {
         flexDirection={isSmallScreen ? "column" : "row"}
         sx={{
           maxWidth: "100%",
+          height: "50rem",
           margin: "40px auto",
           backgroundColor: "#ffffff",
           borderTopRightRadius: "20px",
           borderTopLeftRadius: "20px",
           maxHeight: "700px",
-          overflow: "hidden",
           boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
           position: "relative",
           bottom: 0,
-          overflowY: "auto",
         }}
       >
         <Box
@@ -88,7 +88,11 @@ function PersonalInfo() {
             }}
           >
             <IconButton>
+            <Link to="/packages">
+
               <ArrowBackIcon sx={{ color: "black", fontSize: "32px" }} />
+              </Link>
+
             </IconButton>
           </Box>
           <Box
@@ -329,9 +333,9 @@ function PersonalInfo() {
           <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 3 }}>
             <hr></hr>
           </Box>
-          <hr></hr>
+          <hr style={{ margin: "150px 0 30px 0px " }}></hr>
 
-          <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 3 }}>
+          <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 1 }}>
             <Box>
               <Typography variant="body2" color="textSecondary">
                 10th May - 19th May

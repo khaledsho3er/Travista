@@ -8,12 +8,13 @@ import {
 } from "@mui/material";
 import Navbar from "./Navbar";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const TravistaLoading = () => {
 return (
     <>
     <Navbar />
-
+<Link to="/account" style={{ textDecoration: "none" }}>
     <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
@@ -57,6 +58,7 @@ return (
             </Box>
         </Grid>
     </Grid>
+    </Link>
     </>
 );
 };

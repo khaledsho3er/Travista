@@ -13,8 +13,13 @@ import { BsXCircle } from "react-icons/bs";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import BedIcon from "@mui/icons-material/Bed";
+import { useNavigate } from "react-router-dom";
 
 function PreferencePackage() {
+  const navigate = useNavigate(); // Initialize useNavigate
+  const handleNextPI = () => {
+    navigate("/pi"); // Navigate to Explore Packages page
+  };
   const [open, setOpen] = useState(true);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
@@ -41,11 +46,9 @@ function PreferencePackage() {
           borderTopRightRadius: "20px",
           borderTopLeftRadius: "20px",
           maxHeight: "700px",
-          overflow: "hidden",
           boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
           position: "relative",
           bottom: 0,
-          overflowY: "auto", // Enable vertical scrolling for the form side
         }}
       >
         <Box
@@ -232,6 +235,7 @@ function PreferencePackage() {
               ml: "auto",
               float: "right",
             }}
+            onClick={handleNextPI}
           >
             Next
           </Button>

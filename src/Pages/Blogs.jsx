@@ -9,8 +9,9 @@ import {
 } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import { Link } from "react-router-dom";
 function BlogsPage() {
+
   const [blogData, setBlogData] = useState([]);
   const [displayCount, setDisplayCount] = useState(9);
   const [selectedCategory, setSelectedCategory] = useState("All articles");
@@ -140,11 +141,14 @@ function BlogsPage() {
         {displayedBlogs.map((blog) => (
           <Box key={blog.id} className="Blog-card">
             <Box className="Blog-card-image-container">
+            <Link to={`/singleblog`} style={{ textDecoration: "none" }}>
+
               <img
                 src={blog.image}
                 alt={blog.title}
                 className="Blog-card-image"
               />
+              </Link>
               <Typography className="Blog-category">{blog.category}</Typography>
             </Box>
             <Box className="Blog-card-content">

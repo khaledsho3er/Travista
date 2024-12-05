@@ -11,8 +11,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { FaCheck } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function SinglePackage() {
+  const navigate = useNavigate(); 
+  const handleNextPP = () => {
+    navigate("/pp"); // Navigate to Explore Packages page
+  };
+
   const [open, setOpen] = useState(true);
 
   const details = {
@@ -36,7 +42,7 @@ function SinglePackage() {
       <Box
         display="flex"
         sx={{
-          maxWidth: "1300px",
+          width: "100%",
           margin: "40px auto", // Space above the slider
           backgroundColor: "#ffffff",
           borderRadius: "20px",
@@ -206,12 +212,21 @@ function SinglePackage() {
               fontWeight: "bold",
               textTransform: "none",
               marginTop: "20px",
+              backgroundColor: "#142328",
+              "&:hover": {
+                backgroundColor: "#ffffff",
+                border: "2px solid #142328",
+                color: "#142328",
+              },
             }}
+            onClick={handleNextPP}
           >
             Book Now
           </Button>
         </Box>
+        
       </Box>
+      
     </Slide>
   );
 }

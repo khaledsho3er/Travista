@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Button, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const UpcomingTrip = [
   {
@@ -12,6 +13,11 @@ const UpcomingTrip = [
 ];
 
 function Highlight() {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handlePackageClick = () => {
+    navigate("/singlePackage"); // Navigate to Explore Packages page
+  };
   return (
     <Box
       sx={{
@@ -63,6 +69,7 @@ function Highlight() {
             <Button
               className="btn btn-secondary"
               sx={{ padding: "10px 80px !important" }}
+              onClick={handlePackageClick}
             >
               Explore Trip
             </Button>
