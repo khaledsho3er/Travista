@@ -679,30 +679,29 @@
   .trip-buttons-container span {
     font-size: 20px;
   }
- .step-two-container {
+  .step-two-container {
     display: flex;
     flex-direction: column;
     max-width: 100%;
     padding: 6rem;
     font-family: Arial, sans-serif;
     color: #333;
-    overflow-y: auto;   
+    overflow-y: auto;
   }
   .step-two-container-input-group {
     flex-direction: column;
     gap: 15px;
     margin-bottom: 20px;
   }
-  
+
   .step-two-container-dropdown {
-    width:105%;
+    width: 105%;
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
   }
-  
 }
 /*Build my package*/
 /* Responsive Styles */
@@ -819,8 +818,9 @@
     z-index: 1000; /* Ensure buttons are always visible */
   }
   .steps-next-button {
-    background-color: #142328; 
-    color: #eceee9; padding: 0.8rem 2rem;
+    background-color: #142328;
+    color: #eceee9;
+    padding: 0.8rem 2rem;
   }
   .BMI-steps-first-Content h4 {
     font-size: 1.5rem;
@@ -892,7 +892,7 @@
   /* Hide overlay image on mobile and iPad */
   .overlay-photo {
     display: none;
-
+  }
   .BMI-steps-first-Content h4 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
@@ -946,10 +946,10 @@
     box-sizing: border-box; /* Ensures padding is included in width calculations */
     overflow: hidden;
   }
-  .step-two-container-travellers-counter{
+  .step-two-container-travellers-counter {
     width: 92%;
   }
-  .step-two-container-flexibility{
+  .step-two-container-flexibility {
     width: 90%;
   }
   .step-two-container-input-group {
@@ -958,7 +958,7 @@
     gap: 15px; /* Space between inputs */
     margin-bottom: 20px;
   }
-  
+
   .step-two-container-dropdown {
     width: 100%; /* Ensures dropdown fits the container */
     padding: 10px;
@@ -971,13 +971,12 @@
   .BMI-steps-third-Content form {
     padding: 0.5rem; /* Reduced padding for mobile */
   }
-  .form-row{
+  .form-row {
     flex-direction: column;
-    gap:0px;
+    gap: 0px;
   }
   .form-row-phone select {
-   background-color: white;
-
+    background-color: white;
   }
 }
 /* Laptop Views (Keep Images) BMP steps*/
@@ -1012,9 +1011,9 @@
     gap: 15px;
     margin-bottom: 20px;
   }
-  
+
   .step-two-container-dropdown {
-    width:105%;
+    width: 105%;
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ccc;
@@ -1051,9 +1050,9 @@
     gap: 15px;
     margin-bottom: 20px;
   }
-  
+
   .step-two-container-dropdown {
-    width:100%;
+    width: 100%;
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ccc;

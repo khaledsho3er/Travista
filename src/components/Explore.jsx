@@ -1,26 +1,31 @@
 import React, { useState } from "react";
+import SinglePackage from "../components/singlePackage"; // Import your SinglePackage component4
 import {
-  Box,
-  Typography,
   Card,
   CardContent,
+  Typography,
   CardActions,
   Button,
-  IconButton,
+  Box,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import SinglePackage from "../components/singlePackage"; // Import your SinglePackage component4
 import { useNavigate } from "react-router-dom";
 
 const Explore = () => {
   const Navigate = useNavigate();
   const [selectedPackage, setSelectedPackage] = useState(null); // State to track selected package
 
+  const handlePackageClick = (pkg) => {
+    setSelectedPackage(pkg); // Set the clicked package
+  };
+  const handlePackagesClick = (pkg) => {
+    Navigate("/packages"); // Set the clicked package
+  };
   const travelPackages = [
     {
-      id: 1,
       image: "/assets/explore.png",
       date: "19th Sep",
       destinations: "Amsterdam, Barcelona, Rome, Budapest, Vienna",
@@ -28,7 +33,6 @@ const Explore = () => {
       price: "€2,990",
     },
     {
-      id: 2,
       image: "/assets/explore.png",
       date: "03rd Oct",
       destinations: "Rome, Florence, Venice, Zurich, Paris",
@@ -37,12 +41,6 @@ const Explore = () => {
     },
   ];
 
-  const handlePackageClick = (pkg) => {
-    setSelectedPackage(pkg); // Set the clicked package
-  };
-  const handlePackagesClick = (pkg) => {
-    Navigate('/packages'); // Set the clicked package
-  };
   return (
     <Box className="explore-section container-padding">
       <Box
@@ -56,16 +54,17 @@ const Explore = () => {
         <Typography variant="h4" component="h2" fontWeight="900" gutterBottom>
           Explore our packages
         </Typography>
+
         <Box display="flex" gap="20px">
           <IconButton sx={{ background: "#ECEEE9" }}>
             <ArrowBackIcon />
           </IconButton>
+
           <IconButton sx={{ background: "#ECEEE9" }}>
             <ArrowForwardIcon />
           </IconButton>
         </Box>
       </Box>
-
       <Box
         sx={{
           display: "flex",
@@ -77,16 +76,13 @@ const Explore = () => {
         }}
       >
         {travelPackages.map((pkg, index) => (
-
           <Card
-            key={pkg.id}
             className="explore-more-card"
+            key={index}
             sx={{
               backgroundImage: `url(${pkg.image})`,
               backgroundSize: "cover",
-<
               width: { xs: "100%", sm: "65%" }, // Full width on mobile, 65% on larger screens
-
               height: "750px",
               display: "flex",
               flexDirection: "column",
@@ -105,6 +101,7 @@ const Explore = () => {
                 }}
               />
             </IconButton>
+
             <CardContent
               sx={{
                 display: "flex",
@@ -141,12 +138,13 @@ const Explore = () => {
                 from {pkg.price}
               </Typography>
             </CardContent>
+
             <CardActions disableSpacing>
               <Button
                 className="btn btn-secondary"
                 variant="contained"
                 sx={{ padding: "15px 80px !important" }}
-                onClick={() => handlePackageClick(pkg)} // Pass package details
+                onClick={() => handlePackageClick(pkg)}
               >
                 Explore Trip
               </Button>
@@ -154,13 +152,14 @@ const Explore = () => {
           </Card>
         ))}
       </Box>
-
       <Box textAlign="center" mt={4}>
-        <Button className="btn btn-secondary btn-inverse" onClick={handlePackagesClick}>
+        <Button
+          className="btn btn-secondary btn-inverse"
+          onClick={handlePackagesClick}
+        >
           Explore All Packages
         </Button>
       </Box>
-
       {/* Render SinglePackage component as a pop-up when a package is clicked */}
       {selectedPackage && (
         <Box className="slide-up-modal show">
