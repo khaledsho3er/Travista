@@ -120,10 +120,7 @@ function CareersPage() {
             <Typography variant="h2" className="careers-open-roles-title">
               Open roles
             </Typography>
-            <Typography
-              variant="body1"
-              className="careers-open-roles-description"
-            >
+            <Typography variant="h3" className="careers-open-roles-description">
               See a spot at Travista with your name on it? Show us what you're
               made of.
             </Typography>
@@ -132,6 +129,11 @@ function CareersPage() {
                 defaultValue="All Locations"
                 className="careers-filter"
                 size="small"
+                sx={{
+                  borderRadius: "10px",
+                  fontSize: "0.8rem",
+                  color: "#A5A5A5",
+                }}
               >
                 <MenuItem value="All Locations">All Locations</MenuItem>
                 <MenuItem value="Barcelona">Barcelona</MenuItem>
@@ -141,6 +143,11 @@ function CareersPage() {
                 defaultValue="All Departments"
                 className="careers-filter"
                 size="small"
+                sx={{
+                  borderRadius: "10px",
+                  fontSize: "0.8rem",
+                  color: "#A5A5A5",
+                }}
               >
                 <MenuItem value="All Departments">All Departments</MenuItem>
                 <MenuItem value="Marketing">Marketing</MenuItem>
@@ -157,13 +164,22 @@ function CareersPage() {
                 <Typography variant="h6" className="role-title">
                   {role.title}
                 </Typography>
-                <Typography variant="body2" className="role-info">
+                <Typography variant="h4" className="role-info">
                   {role.department}, {role.location}
                 </Typography>
-                <Typography variant="body2" className="role-type">
+                <Typography variant="h4" className="role-type">
                   {role.type}
                 </Typography>
-                <Button variant="contained" className="learn-more-btn">
+                <Button
+                  sx={{
+                    background: "#FFEB69",
+                    fontSize: "0.6rem",
+                    borderRadius: "20px",
+                    color: "black",
+                  }}
+                  variant="contained"
+                  className="learn-more-btn"
+                >
                   Learn more
                 </Button>
               </Box>

@@ -1601,7 +1601,6 @@ textarea.form-input {
 }
 
 /* careers page */
-/*Build My Package Page*/
 .Careers-page {
   font-family: Arial, sans-serif;
   color: #333;
@@ -1734,28 +1733,28 @@ textarea.form-input {
 
 .careers-open-roles {
   background-color: #eceee9;
-  padding: 50px 70px;
+  padding: 50px 0px;
 }
 
 .careers-open-roles-container {
   display: flex;
   justify-content: space-between;
-  gap: 30px;
 }
 
 .careers-open-roles-left {
   flex: 1;
   justify-content: flex-end;
+  margin-left: 3rem;
 }
 
-.careers-open-roles-title {
-  font-size: 1.5rem;
+.careers-open-roles-left h2 {
+  font-size: 2rem;
   font-weight: 700;
   color: #333;
   margin-bottom: 10px;
 }
 
-.careers-open-roles-description {
+.careers-open-roles-left h3 {
   font-size: 0.9rem;
   color: #555;
   margin-bottom: 20px;
@@ -1765,6 +1764,7 @@ textarea.form-input {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 45%;
 }
 
 .careers-filter {
@@ -1780,42 +1780,52 @@ textarea.form-input {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  align-items: flex-end;
+  margin-right: 3rem;
 }
 
 .careers-role-card {
   background-color: white;
-  border-radius: 8px;
+  border-radius: 20px;
   padding: 15px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 65%;
+  display: flex; /* Enable flexbox layout */
+  flex-direction: column; /* Align items vertically */
+  position: relative; /* Allow the button to align independently */
 }
 
-.role-title {
+.careers-role-card h6 {
   font-size: 1rem;
   font-weight: 600;
   color: #333;
   margin-bottom: 5px;
 }
 
-.role-info {
+.careers-role-card h4 {
   font-size: 0.85rem;
   color: #777;
   margin-bottom: 5px;
 }
 
-.role-type {
-  font-size: 0.85rem;
-  color: #999;
-  margin-bottom: 10px;
-}
-
 .learn-more-btn {
-  background-color: #ffd700;
+  background-color: #ffeb69;
   color: #000;
   font-weight: 500;
   padding: 5px 15px;
-  font-size: 0.9rem;
+  font-size: 0.5rem;
   border-radius: 20px;
   text-transform: none;
+  align-self: flex-end; /* Aligns the button to the right */
+  top: -50%;
+}
+
+.learn-more-btn:hover {
+  background-color: #ffeb69;
+}
+
+.overlay-photo {
+  display: block; /* Ensure it is visible by default */
 }
 
 /* blogs page */
@@ -1909,3 +1919,5 @@ textarea.form-input {
   border-radius: 5px;
   position: relative;
 }
+
+/* home page */

@@ -396,6 +396,107 @@
     cursor: pointer;
     text-align: center;
   }
+  /* General styles for mobile */
+  .careers-header {
+    flex-direction: column; /* Stack header in a column */
+    align-items: center; /* Center content horizontally */
+    padding: 1rem; /* Adjust padding for smaller screens */
+    width: 100%; /* Ensure full width */
+    box-sizing: border-box; /* Ensure padding is within the width */
+  }
+
+  .careers-hero {
+    padding: 2rem;
+    text-align: left; /* Ensure text alignment is left */
+    width: 100%; /* Full width for responsiveness */
+  }
+
+  .careers-header img {
+    width: 100%; /* Image takes full width */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 7rem; /* Add spacing */
+  }
+
+  .careers-header h1,
+  .careers-header p,
+  .careers-header span {
+    text-align: left; /* Keep text aligned to the left */
+    width: 100%; /* Full width text */
+  }
+
+  .careers-core-values {
+    padding: 20px; /* Adjust padding */
+    width: 100%; /* Ensure full width */
+    box-sizing: border-box;
+  }
+
+  .careers-core-values-grid {
+    flex-direction: column; /* Stack items in a column */
+    align-items: center; /* Center the items horizontally */
+    gap: 20px; /* Add spacing between values */
+    width: 100%; /* Ensure the grid takes full width */
+  }
+
+  .careers-core-value {
+    max-width: 100%; /* Full width */
+    text-align: left; /* Left-aligned text */
+    padding: 0 1rem; /* Add padding to avoid content touching edges */
+  }
+
+  /* Open Roles Section */
+  .careers-open-roles-container {
+    flex-direction: column; /* Stack items in a column */
+    align-items: center; /* Center content horizontally */
+    gap: 20px; /* Add spacing */
+    width: 100%; /* Ensure container takes full width */
+    box-sizing: border-box;
+  }
+
+  .careers-open-roles-left {
+    text-align: left; /* Keep text aligned left */
+    width: 100%; /* Full width for left section */
+    margin: 0; /* Remove left margin */
+    padding: 0 1rem; /* Padding for spacing */
+    box-sizing: border-box;
+  }
+
+  .careers-open-roles-filters {
+    flex-direction: column; /* Stack filters vertically */
+    width: 100%; /* Full width filters */
+    padding: 0 1rem; /* Add padding */
+    box-sizing: border-box;
+  }
+
+  .careers-open-roles-right {
+    width: 100%; /* Full width for cards */
+    align-items: center; /* Center align cards horizontally */
+    padding: 0 2rem; /* Padding for spacing */
+    box-sizing: border-box;
+  }
+
+  .careers-role-card {
+    width: 100%; /* Full width cards */
+    padding: 15px 20px;
+    align-items: flex-start; /* Align text to the left */
+    margin: 10px 0; /* Add margin between cards */
+    margin-left: 2.5rem;
+    box-sizing: border-box; /* Make sure padding and margin stay within width */
+  }
+
+  .learn-more-btn {
+    align-self: flex-start; /* Align button to the left */
+  }
+
+  /* Hide overlay image in mobile */
+  .overlay-photo {
+    display: none;
+  }
+
+  /* Fix for the right white space issue */
+  body,
+  html {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
 }
 
 /* Responsive Styles */
@@ -403,6 +504,27 @@
   /* Medium screens (tablets) */
   .hero-section {
     padding: 2rem 1.5rem; /* Adjusted padding for medium screens */
+  }
+  /* Hide overlay image in mobile */
+  .overlay-photo {
+    display: none;
+  }
+
+  .careers-header h1,
+  .careers-header p,
+  .careers-header span {
+    text-align: left; /* Keep text aligned to the left */
+    width: 100%; /* Full width text */
+  }
+
+  .careers-header h1 {
+    font-size: 1.5rem;
+  }
+
+  /* Ensure no horizontal scrolling */
+  body,
+  html {
+    overflow-x: hidden;
   }
 }
 
@@ -684,5 +806,9 @@
 
   .Build-my-package-step p {
     font-size: 12px;
+  }
+  /* Hide overlay image on mobile and iPad */
+  .overlay-photo {
+    display: none;
   }
 }
