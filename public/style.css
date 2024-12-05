@@ -778,6 +778,17 @@ a {
     align-items: center;
   }
 }
+/*PI*/
+.textarea-input{
+  width: 100%;
+  color: #000;
+  padding: 0.75rem;
+  border: 2px solid #d9d9d9;
+  border-radius: 16px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  height: 9rem;
+}
 /*Message Form*/
 
 .contact-form {

@@ -141,45 +141,32 @@ function PreferencePackage() {
           <Typography variant="subtitle2" mt={1} color="#777777">
             Select your preferred travel date and accommodation type...
           </Typography>
-          <Typography variant="body2" color="#777777" mt={2} mb={2}>
+          <Typography variant="body2" color="#777777" mt={4} mb={2}>
             Select preferred date
           </Typography>
-          <Grid container spacing={2} mb={3}>
+          <Grid container spacing={2} mb={7}>
             {[
-              "10th May - 19th May",
-              "16th June - 25th June",
-              "02nd July - 11th July",
+              "10th May 2024 - 19th May 2024",
             ].map((date) => (
               <Grid item xs={isSmallScreen ? 12 : 6} key={date}>
-                <Button
+                <Typography
                   variant="outlined"
                   onClick={() => handleDateChange(date)}
                   sx={{
-                    width: "80%",
                     textTransform: "none",
-                    padding: "10px",
-                    border: "2px solid",
+                    padding: "10px 0px",
+                    margin:"3rem 0rem" ,
                     fontWeight: "bold",
-                    height: "50px",
-                    borderRadius: "12px",
-                    borderColor: selectedDate === date ? "#86205d" : "#ddd",
-                    backgroundColor:
-                      selectedDate === date ? "#ffffff" : "transparent",
-                    color: selectedDate === date ? "#000000" : "inherit",
-                    ":hover": {
-                      borderColor: "#86205d",
-                      backgroundColor: "#86205d",
-                      color: "#ffffff",
-                    },
+                    height: "50px",                    
                   }}
                 >
                   {date}
-                </Button>
+                </Typography>
               </Grid>
             ))}
           </Grid>
 
-          <Typography variant="body2" color="#777777">
+          <Typography variant="body2" color="#777777"  mb={2}>
             Select room size
           </Typography>
           <Box sx={{ mb: 4 }}>

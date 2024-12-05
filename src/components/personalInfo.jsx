@@ -226,7 +226,12 @@ function PersonalInfo() {
                   },
                 }}
               />
+            
             </Box>
+            <textarea
+        placeholder="Do you need help in Visa....?"
+        class="textarea-input"
+      ></textarea>
             {/* Counters for Adults and Children */}
             <Box sx={{ display: "flex", gap: 4 }}>
               {/* Adults Counter */}
@@ -335,7 +340,7 @@ function PersonalInfo() {
           <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 3 }}>
             <hr></hr>
           </Box>
-          <hr style={{ margin: "150px 0 30px 0px " }}></hr>
+          <hr style={{ margin: "0px 0 30px 0px " }}></hr>
 
           <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 1 }}>
             <Box>
