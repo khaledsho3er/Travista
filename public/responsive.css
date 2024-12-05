@@ -187,6 +187,316 @@
   .Blogs-header img {
     width: 50%;
   }
+  /* Hide the image in mobile view */
+  .about-image-container img {
+    display: none;
+  }
+
+  /* Make cards stack vertically in one column */
+  .about-card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; /* Adds space between cards */
+    position: static; /* Prevents absolute positioning */
+  }
+
+  .about-card {
+    position: static; /* Reset position for mobile view */
+    width: 90%; /* Make cards take up most of the container width */
+    max-width: 400px; /* Set a max width for better aesthetics */
+  }
+  /* Keep header and tabs unchanged in mobile view */
+  .account-header {
+    padding: 4rem 1rem; /* Adjust padding for mobile */
+  }
+
+  .account-header h1 {
+    font-size: 28px; /* Adjusted size for mobile */
+  }
+
+  .account-header p {
+    font-size: 12px;
+    margin-bottom: 1rem;
+  }
+
+  .account-tabs {
+    gap: 0.5rem;
+    justify-content: center; /* Keep tabs as is */
+    flex-direction: row; /* Keep tabs in row, no need for vertical stack */
+    margin-bottom: -4rem;
+  }
+
+  .account-tabs button {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .account-content {
+    padding: 1rem;
+  }
+
+  .saved-section-content {
+    padding: 0;
+  }
+
+  .saved-content {
+    justify-content: center; /* Center the cards on mobile */
+  }
+
+  .saved-section-content .MuiGrid-container {
+    justify-content: center; /* Align cards to the center in mobile */
+  }
+
+  .saved-section-content .MuiGrid-item {
+    width: 100%; /* Ensure items take full width in mobile */
+  }
+
+  /* View More Button (Mobile only) */
+  .view-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  /* Header Section */
+  .ApplyForVisa-header {
+    flex-direction: column; /* Stack items vertically */
+    gap: 1rem;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .ApplyForVisa-header img {
+    width: 250px;
+    height: 250px; /* Adjust image size */
+    padding: 0;
+    margin: 0 auto; /* Center image */
+  }
+
+  .ApplyForVisa-header h1 {
+    font-size: 2rem; /* Adjust font size */
+    padding-left: 0;
+    text-align: center; /* Center-align text */
+  }
+
+  .ApplyForVisa-header p {
+    margin: 0 auto;
+    text-align: center; /* Center-align paragraph */
+    font-size: 0.9rem; /* Scale down font size */
+  }
+
+  .ApplyForVisa-contact-btn {
+    margin: 1rem auto;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* FAQs Section */
+  .ApplyForVisa-faqs-section {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2%;
+    text-align: left; /* Align content to the left */
+  }
+
+  .ApplyForVisa-faqs-title {
+    align-items: flex-start; /* Left-align FAQs title */
+    text-align: left;
+  }
+
+  /* Form Section */
+  /* Form Section Styling */
+  .ApplyForVisa-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    width: 100%; /* Full width */
+    margin: 0 auto;
+    text-align: left; /* Align content to the left */
+  }
+
+  /* Title and Description */
+  .ApplyForVisa-form h2 {
+    font-size: 1.8rem; /* Adjust title font size */
+    font-weight: bold;
+    text-align: left; /* Align title to the left */
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  .ApplyForVisa-form p {
+    font-size: 1rem; /* Adjust description font size */
+    text-align: left; /* Align description to the left */
+    margin-bottom: 1.5rem;
+    width: 100%;
+    line-height: 1.4; /* Better readability */
+  }
+
+  /* Form Container */
+  .ApplyForVisa-contact-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center form */
+    gap: 1rem; /* Space between fields */
+    width: 100%; /* Take up most of the width */
+    max-width: 1000px; /* Restrict maximum size */
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #f8f8f8; /* Light background for better focus */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
+  }
+
+  /* Inputs and Select */
+  .form-input {
+    width: 100%; /* Full width inputs */
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    width: 100%; /* Ensure full width for rows */
+  }
+
+  .country-code {
+    flex: 0.3; /* Smaller for dropdown */
+  }
+
+  .phone-input {
+    flex: 1; /* Larger for phone input */
+  }
+
+  /* Terms Checkbox */
+  .terms-label {
+    font-size: 0.9rem;
+    color: #333;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between checkbox and text */
+    width: 100%; /* Align text with inputs */
+  }
+
+  /* Submit Button */
+  .submit-button {
+    width: 100%; /* Full width button */
+    padding: 0.8rem;
+    font-size: 1.2rem; /* Larger for touch interaction */
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+  /* General styles for mobile */
+  .careers-header {
+    flex-direction: column; /* Stack header in a column */
+    align-items: center; /* Center content horizontally */
+    padding: 1rem; /* Adjust padding for smaller screens */
+    width: 100%; /* Ensure full width */
+    box-sizing: border-box; /* Ensure padding is within the width */
+  }
+
+  .careers-hero {
+    padding: 2rem;
+    text-align: left; /* Ensure text alignment is left */
+    width: 100%; /* Full width for responsiveness */
+  }
+
+  .careers-header img {
+    width: 100%; /* Image takes full width */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 7rem; /* Add spacing */
+  }
+
+  .careers-header h1,
+  .careers-header p,
+  .careers-header span {
+    text-align: left; /* Keep text aligned to the left */
+    width: 100%; /* Full width text */
+  }
+
+  .careers-core-values {
+    padding: 20px; /* Adjust padding */
+    width: 100%; /* Ensure full width */
+    box-sizing: border-box;
+  }
+
+  .careers-core-values-grid {
+    flex-direction: column; /* Stack items in a column */
+    align-items: center; /* Center the items horizontally */
+    gap: 20px; /* Add spacing between values */
+    width: 100%; /* Ensure the grid takes full width */
+  }
+
+  .careers-core-value {
+    max-width: 100%; /* Full width */
+    text-align: left; /* Left-aligned text */
+    padding: 0 1rem; /* Add padding to avoid content touching edges */
+  }
+
+  /* Open Roles Section */
+  .careers-open-roles-container {
+    flex-direction: column; /* Stack items in a column */
+    align-items: center; /* Center content horizontally */
+    gap: 20px; /* Add spacing */
+    width: 100%; /* Ensure container takes full width */
+    box-sizing: border-box;
+  }
+
+  .careers-open-roles-left {
+    text-align: left; /* Keep text aligned left */
+    width: 100%; /* Full width for left section */
+    margin: 0; /* Remove left margin */
+    padding: 0 1rem; /* Padding for spacing */
+    box-sizing: border-box;
+  }
+
+  .careers-open-roles-filters {
+    flex-direction: column; /* Stack filters vertically */
+    width: 100%; /* Full width filters */
+    padding: 0 1rem; /* Add padding */
+    box-sizing: border-box;
+  }
+
+  .careers-open-roles-right {
+    width: 100%; /* Full width for cards */
+    align-items: center; /* Center align cards horizontally */
+    padding: 0 2rem; /* Padding for spacing */
+    box-sizing: border-box;
+  }
+
+  .careers-role-card {
+    width: 100%; /* Full width cards */
+    padding: 15px 20px;
+    align-items: flex-start; /* Align text to the left */
+    margin: 10px 0; /* Add margin between cards */
+    margin-left: 2.5rem;
+    box-sizing: border-box; /* Make sure padding and margin stay within width */
+  }
+
+  .learn-more-btn {
+    align-self: flex-start; /* Align button to the left */
+  }
+
+  /* Hide overlay image in mobile */
+  .overlay-photo {
+    display: none;
+  }
+
+  /* Fix for the right white space issue */
+  body,
+  html {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
 }
 
 /* Responsive Styles */
@@ -194,6 +504,27 @@
   /* Medium screens (tablets) */
   .hero-section {
     padding: 2rem 1.5rem; /* Adjusted padding for medium screens */
+  }
+  /* Hide overlay image in mobile */
+  .overlay-photo {
+    display: none;
+  }
+
+  .careers-header h1,
+  .careers-header p,
+  .careers-header span {
+    text-align: left; /* Keep text aligned to the left */
+    width: 100%; /* Full width text */
+  }
+
+  .careers-header h1 {
+    font-size: 1.5rem;
+  }
+
+  /* Ensure no horizontal scrolling */
+  body,
+  html {
+    overflow-x: hidden;
   }
 }
 
@@ -557,6 +888,11 @@
   .Build-my-package-step p {
     font-size: 12px;
   }
+
+  /* Hide overlay image on mobile and iPad */
+  .overlay-photo {
+    display: none;
+
   .BMI-steps-first-Content h4 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
@@ -641,6 +977,7 @@
   }
   .form-row-phone select {
    background-color: white;
+
   }
 }
 /* Laptop Views (Keep Images) BMP steps*/

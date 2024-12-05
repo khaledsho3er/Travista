@@ -485,39 +485,38 @@ footer ul li a {
   text-decoration: none;
 }
 
-/* account style */
+/* Account Page Style */
 .account-page {
   font-family: Arial, sans-serif;
   color: #333;
   max-width: 100%;
-  max-height: auto;
+  padding: 0;
+  margin: 0;
 }
 
+/* Header Section */
 .account-header {
-  text-align: left;
+  text-align: left; /* Default alignment */
   padding: 2rem 1rem;
-  padding-bottom: 20px;
-  padding-top: 80px;
-  padding-left: 120px;
 }
 
 .account-header h1 {
-  font-size: 62px;
+  font-size: 48px; /* Adjusted size for larger screens */
   margin-bottom: 0.5rem;
 }
 
 .account-header p {
   color: #666;
   font-size: 14px;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
+/* Tabs */
 .account-tabs {
-  padding-top: 20px;
   display: flex;
-  justify-content: left;
+  justify-content: left; /* Default alignment for large screens */
   gap: 1rem;
-  margin-bottom: -1.2rem;
+  margin-bottom: 1.5rem;
 }
 
 .account-tabs button {
@@ -525,7 +524,7 @@ footer ul li a {
   border: none;
   font-size: 1rem;
   padding: 0.5rem 1rem;
-  color: #777777;
+  color: #777;
   cursor: pointer;
   border-bottom: 2px solid transparent;
   transition: border-color 0.3s ease;
@@ -534,37 +533,65 @@ footer ul li a {
 .account-tabs .active {
   border-bottom: 2px solid #000;
   font-weight: bold;
-  color: #000000;
+  color: #000;
 }
 
+/* Content Section */
 .account-content {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   padding: 2rem 1rem;
   background-color: #f4f4f4;
-  /* width: 100%; */
+}
+
+/* Saved Content */
+.saved-section-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 1rem;
 }
 
 .saved-content {
   display: flex;
+  flex-wrap: wrap; /* Allow items to wrap */
+  justify-content: left; /* Default for large screens */
   gap: 2rem;
 }
-.saved-section-content {
-  width: 100%;
-  margin: auto;
-  margin-left: 20px;
-  padding-left: 80px;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
+
+/* Cards Grid */
+.saved-section-content .MuiGrid-container {
+  justify-content: flex-start; /* Align cards left on larger screens */
 }
 
-.content {
-  font-size: 1.2rem;
+.saved-section-content .MuiGrid-item {
+  max-width: 100%;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background-color: #eee;
   color: #555;
-  text-align: center;
 }
 
+.btn-inverse:hover {
+  background-color: #ddd;
+}
+
+/* View More Button */
+.view-more-container {
+  display: none; /* Hidden by default */
+}
 /* FAQs Page */
 .FAQs-page {
   font-family: Arial, sans-serif;
@@ -967,188 +994,6 @@ textarea.form-input {
   width: 100%;
   padding-left: 100px;
   margin: auto;
-}
-
-/* Responsive adjustments for laptops (16", 15.5", 14") */
-@media (max-width: 1440px) {
-  .ApplyForVisa-header img {
-    width: 350px;
-    height: 350px;
-    padding: 0 100px 80px 200px;
-  }
-  .ApplyForVisa-header h1 {
-    font-size: 3.5rem;
-  }
-}
-
-@media (max-width: 1280px) {
-  .ApplyForVisa-header img {
-    width: 300px;
-    height: 300px;
-    padding: 0 80px 60px 150px;
-  }
-  .ApplyForVisa-header h1 {
-    font-size: 3rem;
-  }
-  .ApplyForVisa-form {
-    padding-top: 60px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .ApplyForVisa-header img {
-    width: 280px;
-    height: 280px;
-    padding: 0 60px 50px 100px;
-  }
-  .ApplyForVisa-header h1 {
-    font-size: 2.5rem;
-  }
-}
-
-/* Responsive adjustments for tablets (768px and below) */
-@media (max-width: 768px) {
-  .ApplyForVisa-header {
-    flex-direction: column;
-    text-align: center;
-    padding: 2rem;
-  }
-
-  .ApplyForVisa-header img {
-    width: 240px;
-    height: 240px;
-    padding: 0;
-  }
-
-  .ApplyForVisa-header h1 {
-    font-size: 2rem;
-    padding-left: 0;
-  }
-
-  .ApplyForVisa-header p,
-  .ApplyForVisa-contact-btn,
-  .subTitle-ApplyForVisa p {
-    padding-left: 0;
-    margin-left: 0;
-  }
-
-  .ApplyForVisa-faqs-section,
-  .ApplyForVisa-Form-content,
-  .ApplyForVisa-contact-form {
-    padding: 2rem;
-  }
-
-  .ApplyForVisa-faqs-title,
-  .ApplyForVisa-form-section {
-    align-items: center;
-    text-align: center;
-  }
-}
-
-/* General styling for smaller screens (max-width: 576px for mobile) */
-@media (max-width: 576px) {
-  /* Center-align text and elements */
-  .ApplyForVisa-page {
-    text-align: center;
-    padding: 1rem;
-  }
-
-  /* Header styling */
-  .ApplyForVisa-header {
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem 0;
-    background-color: #320707;
-  }
-
-  .ApplyForVisa-header img {
-    width: 100%;
-    height: auto;
-    padding: 0;
-  }
-
-  .ApplyForVisa-header h1 {
-    font-size: 2rem;
-    margin: 1rem 0;
-  }
-
-  .ApplyForVisa-header p {
-    font-size: 1rem;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .ApplyForVisa-contact-btn {
-    padding: 0.7rem 2rem;
-    margin: 1rem 0;
-    font-size: 1rem;
-  }
-
-  /* FAQ Section styling */
-  .ApplyForVisa-faqs-section {
-    flex-direction: column;
-    padding: 2rem 1rem;
-    background-color: #eceee9;
-  }
-
-  .ApplyForVisa-faqs-title {
-    text-align: center;
-  }
-
-  .ApplyForVisa-faqs-title h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .ApplyForVisa-faqs-section p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .ApplyForVisa-faqs-section button {
-    padding: 0.7rem 2rem;
-    margin: 0.5rem 0;
-  }
-
-  /* Form Section styling */
-  .ApplyForVisa-Form-content {
-    padding: 1rem;
-  }
-
-  .ApplyForVisa-form {
-    flex-direction: column;
-    padding: 1rem;
-  }
-
-  .ApplyForVisa-form-section {
-    max-width: 100%;
-    padding: 1rem;
-  }
-
-  .ApplyForVisa-form-section h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .ApplyForVisa-form-section p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .ApplyForVisa-contact-form input,
-  .ApplyForVisa-contact-form select,
-  .ApplyForVisa-contact-form button {
-    width: 100%;
-    font-size: 1rem;
-    margin-top: 0.5rem;
-    padding: 0.8rem;
-  }
-
-  .ApplyForVisa-contact-form button {
-    font-size: 1rem;
-    margin-top: 1rem;
-    padding: 0.8rem;
-  }
 }
 
 /*Single Blog Page*/
@@ -2268,7 +2113,6 @@ width: 100%;
 .about-card-2 {
   top: 14%;
   left: 32%;
-  transform: translateX(-50%);
   height: 7rem;
 }
 
@@ -2332,7 +2176,6 @@ width: 100%;
 }
 
 /* careers page */
-/*Build My Package Page*/
 .Careers-page {
   font-family: Arial, sans-serif;
   color: #333;
@@ -2465,28 +2308,28 @@ width: 100%;
 
 .careers-open-roles {
   background-color: #eceee9;
-  padding: 50px 70px;
+  padding: 50px 0px;
 }
 
 .careers-open-roles-container {
   display: flex;
   justify-content: space-between;
-  gap: 30px;
 }
 
 .careers-open-roles-left {
   flex: 1;
   justify-content: flex-end;
+  margin-left: 3rem;
 }
 
-.careers-open-roles-title {
-  font-size: 1.5rem;
+.careers-open-roles-left h2 {
+  font-size: 2rem;
   font-weight: 700;
   color: #333;
   margin-bottom: 10px;
 }
 
-.careers-open-roles-description {
+.careers-open-roles-left h3 {
   font-size: 0.9rem;
   color: #555;
   margin-bottom: 20px;
@@ -2496,6 +2339,7 @@ width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 45%;
 }
 
 .careers-filter {
@@ -2511,42 +2355,52 @@ width: 100%;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  align-items: flex-end;
+  margin-right: 3rem;
 }
 
 .careers-role-card {
   background-color: white;
-  border-radius: 8px;
+  border-radius: 20px;
   padding: 15px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 65%;
+  display: flex; /* Enable flexbox layout */
+  flex-direction: column; /* Align items vertically */
+  position: relative; /* Allow the button to align independently */
 }
 
-.role-title {
+.careers-role-card h6 {
   font-size: 1rem;
   font-weight: 600;
   color: #333;
   margin-bottom: 5px;
 }
 
-.role-info {
+.careers-role-card h4 {
   font-size: 0.85rem;
   color: #777;
   margin-bottom: 5px;
 }
 
-.role-type {
-  font-size: 0.85rem;
-  color: #999;
-  margin-bottom: 10px;
-}
-
 .learn-more-btn {
-  background-color: #ffd700;
+  background-color: #ffeb69;
   color: #000;
   font-weight: 500;
   padding: 5px 15px;
-  font-size: 0.9rem;
+  font-size: 0.5rem;
   border-radius: 20px;
   text-transform: none;
+  align-self: flex-end; /* Aligns the button to the right */
+  top: -50%;
+}
+
+.learn-more-btn:hover {
+  background-color: #ffeb69;
+}
+
+.overlay-photo {
+  display: block; /* Ensure it is visible by default */
 }
 
 /* blogs page */
@@ -2640,3 +2494,5 @@ width: 100%;
   border-radius: 5px;
   position: relative;
 }
+
+/* home page */
