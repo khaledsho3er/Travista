@@ -8,13 +8,13 @@ import {
   Card,
   CardContent,
   Grid,
-  Select,
-  MenuItem,
+
 } from "@mui/material";
 import Navbar from "../components/Navbar";
+import Filter from "../components/filter";
 
 function PackagesTours() {
-  const [filter, setFilter] = useState("");
+  const [filter] = useState("");
   const [selectedPackage, setSelectedPackage] = useState(null);
 
   const tours = [
@@ -62,9 +62,9 @@ function PackagesTours() {
     },
   ];
 
-  const handleFilterChange = (event) => {
-    setFilter(event.target.value);
-  };
+  // const handleFilterChange = (event) => {
+  //   setFilter(event.target.value);
+  // };
 
   const handlePackageClick = (tour) => {
     setSelectedPackage(tour); // Set the clicked package data
@@ -106,7 +106,7 @@ function PackagesTours() {
       <div className="packages-tours-body">
         <Box className="packages-tours">
           <Box sx={{ display: "flex", gap: "10px", padding: "20px 0" }}>
-            <Select
+            {/* <Select
               value={filter}
               onChange={handleFilterChange}
               displayEmpty
@@ -122,7 +122,8 @@ function PackagesTours() {
               <MenuItem value="Paris">Paris</MenuItem>
               <MenuItem value="Rome">Rome</MenuItem>
               <MenuItem value="Florence">Florence</MenuItem>
-            </Select>
+            </Select> */}
+            <Filter/>
           </Box>
 
           <Grid container spacing={3}>
