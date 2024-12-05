@@ -66,19 +66,32 @@ const Explore = () => {
         </Box>
       </Box>
 
-      <Box display="flex" justifyContent="space-between" flexWrap="nowrap" gap="4%">
-        {travelPackages.map((pkg) => (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "nowrap",
+          gap: "4%",
+          flexDirection: { xs: "column", sm: "row" }, // Mobile: column, larger screens: row
+          alignItems: { xs: "center", sm: "flex-start" }, // Centered on mobile
+        }}
+      >
+        {travelPackages.map((pkg, index) => (
+
           <Card
             key={pkg.id}
             className="explore-more-card"
             sx={{
               backgroundImage: `url(${pkg.image})`,
               backgroundSize: "cover",
-              width: "65%",
+<
+              width: { xs: "100%", sm: "65%" }, // Full width on mobile, 65% on larger screens
+
               height: "750px",
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-end",
+              marginBottom: { xs: "20px", sm: "0" }, // Add margin between cards on mobile
             }}
           >
             <IconButton
