@@ -258,6 +258,144 @@
     justify-content: center;
     margin-top: 1rem;
   }
+
+  /* Header Section */
+  .ApplyForVisa-header {
+    flex-direction: column; /* Stack items vertically */
+    gap: 1rem;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .ApplyForVisa-header img {
+    width: 250px;
+    height: 250px; /* Adjust image size */
+    padding: 0;
+    margin: 0 auto; /* Center image */
+  }
+
+  .ApplyForVisa-header h1 {
+    font-size: 2rem; /* Adjust font size */
+    padding-left: 0;
+    text-align: center; /* Center-align text */
+  }
+
+  .ApplyForVisa-header p {
+    margin: 0 auto;
+    text-align: center; /* Center-align paragraph */
+    font-size: 0.9rem; /* Scale down font size */
+  }
+
+  .ApplyForVisa-contact-btn {
+    margin: 1rem auto;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* FAQs Section */
+  .ApplyForVisa-faqs-section {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2%;
+    text-align: left; /* Align content to the left */
+  }
+
+  .ApplyForVisa-faqs-title {
+    align-items: flex-start; /* Left-align FAQs title */
+    text-align: left;
+  }
+
+  /* Form Section */
+  /* Form Section Styling */
+  .ApplyForVisa-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    width: 100%; /* Full width */
+    margin: 0 auto;
+    text-align: left; /* Align content to the left */
+  }
+
+  /* Title and Description */
+  .ApplyForVisa-form h2 {
+    font-size: 1.8rem; /* Adjust title font size */
+    font-weight: bold;
+    text-align: left; /* Align title to the left */
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  .ApplyForVisa-form p {
+    font-size: 1rem; /* Adjust description font size */
+    text-align: left; /* Align description to the left */
+    margin-bottom: 1.5rem;
+    width: 100%;
+    line-height: 1.4; /* Better readability */
+  }
+
+  /* Form Container */
+  .ApplyForVisa-contact-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center form */
+    gap: 1rem; /* Space between fields */
+    width: 100%; /* Take up most of the width */
+    max-width: 1000px; /* Restrict maximum size */
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #f8f8f8; /* Light background for better focus */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
+  }
+
+  /* Inputs and Select */
+  .form-input {
+    width: 100%; /* Full width inputs */
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    width: 100%; /* Ensure full width for rows */
+  }
+
+  .country-code {
+    flex: 0.3; /* Smaller for dropdown */
+  }
+
+  .phone-input {
+    flex: 1; /* Larger for phone input */
+  }
+
+  /* Terms Checkbox */
+  .terms-label {
+    font-size: 0.9rem;
+    color: #333;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between checkbox and text */
+    width: 100%; /* Align text with inputs */
+  }
+
+  /* Submit Button */
+  .submit-button {
+    width: 100%; /* Full width button */
+    padding: 0.8rem;
+    font-size: 1.2rem; /* Larger for touch interaction */
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
 }
 
 /* Responsive Styles */

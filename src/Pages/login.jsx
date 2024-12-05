@@ -18,43 +18,77 @@ const TravistaSignIn = () => {
 
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
+        {/* Image Section */}
         <Grid
           item
-          xs={false}
+          xs={12}
           sm={4}
           md={5}
           sx={{
-            backgroundImage: "url(/assets/Image.png)", // Corrected URL for public assets
+            backgroundImage: "url(/assets/Image.png)",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
+            height: { xs: "30vh", sm: "100vh" }, // Smaller height on mobile
           }}
         ></Grid>
-        <Grid item xs={12} sm={8} md={7} component={Paper} elevation={6} square>
+
+        {/* Form Section */}
+        <Grid
+          item
+          xs={12}
+          sm={8}
+          md={7}
+          component={Paper}
+          elevation={6}
+          square
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: { xs: "center", sm: "left" }, // Center on mobile
+            padding: { xs: 2, sm: 4 },
+          }}
+        >
           <Box
             sx={{
-              my: 8,
-              mx: 4,
+              my: { xs: 4, sm: 8 },
+              mx: { xs: 2, sm: 4 },
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              height: "100%",
+              width: "100%",
             }}
           >
+            {/* Title */}
             <Typography
               component="h1"
               variant="h4"
-              sx={{ fontWeight: "bold", textAlign: "center" }}
+              sx={{
+                fontWeight: "bold",
+                textAlign: "center",
+                fontSize: { xs: "1.8rem", sm: "2rem" },
+                mb: 2,
+              }}
             >
               Sign In
             </Typography>
+
+            {/* Subtitle */}
             <Typography
               component="p"
-              sx={{ mb: 2, fontSize: "0.875rem", textAlign: "center" }}
+              sx={{
+                mb: 4,
+                fontSize: { xs: "0.875rem", sm: "1rem" },
+                textAlign: "center",
+              }}
             >
-              Manage your booked trips, tours and profile information.
+              Manage your booked trips, tours, and profile information.
             </Typography>
+
+            {/* Form */}
             <Box
               component="form"
               sx={{
@@ -70,8 +104,8 @@ const TravistaSignIn = () => {
                 margin="normal"
                 required
                 sx={{
-                  width: "50%", // Adjust width to your preference
-                  borderRadius: "50px", // High value for oval shape
+                  width: { xs: "90%", sm: "50%" }, // Full width on mobile
+                  borderRadius: "50px",
                 }}
                 id="email"
                 label="Email"
@@ -84,8 +118,8 @@ const TravistaSignIn = () => {
                 margin="normal"
                 required
                 sx={{
-                  width: "50%", // Adjust width to your preference
-                  borderRadius: "50px", // High value for oval shape
+                  width: { xs: "90%", sm: "50%" },
+                  borderRadius: "50px",
                 }}
                 name="password"
                 label="Password"
@@ -99,15 +133,15 @@ const TravistaSignIn = () => {
                 sx={{
                   mt: 3,
                   mb: 2,
-                  width: "50%",
+                  width: { xs: "90%", sm: "50%" },
                   borderRadius: "50px",
                   background: "#142328",
-                }} // Oval shape to match the input fields
+                }}
               >
                 Sign In
               </Button>
-              <Grid container justifyContent="center" width="50%">
-                <Grid item xs>
+              <Grid container justifyContent="center" sx={{ width: "90%" }}>
+                <Grid item xs textAlign="center">
                   <Link href="#" variant="body2" color="#777777">
                     Forgot Password?
                   </Link>
@@ -121,10 +155,7 @@ const TravistaSignIn = () => {
               <Typography
                 sx={{
                   mt: 2,
-                  mb: 2,
                   textAlign: "center",
-                  position: "absolute",
-                  bottom: "0",
                   fontSize: "0.75rem",
                 }}
               >
