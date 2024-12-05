@@ -4,8 +4,13 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import MessageForm from "../components/messageForm";
 import FAQsComponent from "../components/FAQs";
-
+import { useNavigate } from "react-router-dom";
 function FAQsPage() {
+  const navigate = useNavigate();
+
+  const handleContact = () => {
+    navigate("/contactus");
+  };
   return (
     <Box classname="FAQs-page">
       <Navbar />
@@ -17,7 +22,7 @@ function FAQsPage() {
           If you have any questions not mentioned below, contact us with how we
           could help you.
         </p>
-        <button className="FAQs-contact-btn">Contact Us</button>
+        <button className="FAQs-contact-btn" onClick={handleContact}>Contact Us</button>
       </header>
       <section className="FAQs-filter-section">
         <select className="FAQs-filter">

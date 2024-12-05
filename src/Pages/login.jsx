@@ -10,8 +10,14 @@ import {
   CssBaseline,
 } from "@mui/material";
 import Navbar from "../components/Navbar";
-
+import { useNavigate } from "react-router-dom";
 const TravistaSignIn = () => {
+ 
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleLoading = () => {
+    navigate("/loading"); // Navigate to Explore Packages page
+  };
   return (
     <>
       <Navbar />
@@ -136,7 +142,8 @@ const TravistaSignIn = () => {
                   width: { xs: "90%", sm: "50%" },
                   borderRadius: "50px",
                   background: "#142328",
-                }}
+                }} // Oval shape to match the input fields
+                onClick={handleLoading}
               >
                 Sign In
               </Button>
@@ -147,7 +154,7 @@ const TravistaSignIn = () => {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2" color="#266EF1">
+                  <Link href="/signup" variant="body2" color="#266EF1">
                     Create Account
                   </Link>
                 </Grid>

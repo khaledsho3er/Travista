@@ -17,6 +17,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import { Link } from "react-router-dom";
 
 function PersonalInfo() {
   const [open, setOpen] = useState(true);
@@ -45,18 +46,20 @@ function PersonalInfo() {
         flexDirection={isSmallScreen ? "column" : "row"}
         sx={{
           maxWidth: "100%",
+          height: "50rem",
           margin: "40px auto",
           backgroundColor: "#ffffff",
           borderTopRightRadius: "20px",
           borderTopLeftRadius: "20px",
           maxHeight: "700px",
-          overflow: "hidden",
           boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
           position: "relative",
           bottom: 0,
-          overflowY: "auto",
+          zIndex: 1000,
+
         }}
-      >
+      >      
+
         <Box
           sx={{
             position: "relative",
@@ -71,6 +74,8 @@ function PersonalInfo() {
               width: "100%",
               height: "100%",
               objectFit: "cover",
+              borderTopLeftRadius: "20px",
+
             }}
           />
           <Box
@@ -88,7 +93,10 @@ function PersonalInfo() {
             }}
           >
             <IconButton>
+      
+
               <ArrowBackIcon sx={{ color: "black", fontSize: "32px" }} />
+
             </IconButton>
           </Box>
           <Box
@@ -117,7 +125,8 @@ function PersonalInfo() {
             height: "auto",
             borderTopRightRadius: "20px",
           }}
-        >
+        >          <Link to="/packages">
+
           <IconButton
             sx={{ position: "absolute", top: 16, right: 16 }}
             aria-label="close"
@@ -125,7 +134,8 @@ function PersonalInfo() {
           >
             <BsXCircle />
           </IconButton>
-
+          </Link>
+          <Link to="/pp">
           <IconButton
             sx={{ position: "absolute", top: 16, left: 16 }}
             aria-label="return"
@@ -133,6 +143,7 @@ function PersonalInfo() {
           >
             <ArrowBackIcon />
           </IconButton>
+          </Link>
           <Typography
             variant={isSmallScreen ? "h5" : "h4"}
             fontWeight="bold"
@@ -220,7 +231,12 @@ function PersonalInfo() {
                   },
                 }}
               />
+            
             </Box>
+            <textarea
+        placeholder="Do you need help in Visa....?"
+        class="textarea-input"
+      ></textarea>
             {/* Counters for Adults and Children */}
             <Box sx={{ display: "flex", gap: 4 }}>
               {/* Adults Counter */}
@@ -326,12 +342,12 @@ function PersonalInfo() {
               </Box>
             </Box>
           </Box>
-          <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 3 }}>
+          <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 1 }}>
             <hr></hr>
           </Box>
-          <hr></hr>
+          <hr style={{ margin: "0px 0 30px 0px " }}></hr>
 
-          <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 3 }}>
+          <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 1 }}>
             <Box>
               <Typography variant="body2" color="textSecondary">
                 10th May - 19th May

@@ -46,25 +46,25 @@ function Footer() {
           </Typography>
         </ListItem>
         <ListItem>
-          <Link href="/packages">Packages & Tours</Link>
+          <Link to="/packages">Packages & Tours</Link>
         </ListItem>
         <ListItem>
-          <Link href="/visa">Apply for Visa</Link>
+          <Link to="/applyforvisa">Apply for Visa</Link>
         </ListItem>
         <ListItem>
-          <Link href="/build-package">Build my package</Link>
+          <Link to="/buildmypackage">Build my package</Link>
         </ListItem>
         <ListItem>
-          <Link href="/about">About</Link>
+          <Link to="/About">About</Link>
         </ListItem>
         <ListItem>
-          <Link href="/offices">Offices</Link>
+          <Link to="/offices">Offices</Link>
         </ListItem>
         <ListItem>
-          <Link href="/blog">Blog</Link>
+          <Link to="/Blogs">Blog</Link>
         </ListItem>
         <ListItem>
-          <Link href="/careers">Careers</Link>
+          <Link to="/careers">Careers</Link>
         </ListItem>
       </List>
 
@@ -75,22 +75,22 @@ function Footer() {
           </Typography>
         </ListItem>
         <ListItem>
-          <Link href="/help">Help Center</Link>
+          <Link to="/help">Help Center</Link>
         </ListItem>
         <ListItem>
-          <Link href="/faq">FAQs</Link>
+          <Link to="/faqs">FAQs</Link>
         </ListItem>
         <ListItem>
-          <Link href="/policies">Privacy Policy</Link>
+          <Link to="/policies">Privacy Policy</Link>
         </ListItem>
         <ListItem>
-          <Link href="/terms&conditions">Terms & Conditions</Link>
+          <Link to="/terms&conditions">Terms & Conditions</Link>
         </ListItem>
         <ListItem>
-          <Link href="/cookiepolicy">Cookie Policy</Link>
+          <Link to="/cookiepolicy">Cookie Policy</Link>
         </ListItem>
         <ListItem>
-          <Link href="/contact">Contact</Link>
+          <Link to="/contactus">Contact</Link>
         </ListItem>
       </List>
 
@@ -108,6 +108,11 @@ function Footer() {
         <Typography color="#777777">
           © 2023 Travista. All rights reserved.
         </Typography>
+        <Link to="https://www.youngproductionss.com/" style={{ textDecoration: "none" }}>
+        <Typography color="#777777">
+          © Powered By Young Productions.
+        </Typography>
+        </Link>
       </Box>
     </Box>
   );

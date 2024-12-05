@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 
 const TravistaSignUp = () => {
   return (
@@ -104,6 +105,7 @@ const TravistaSignUp = () => {
                 name="lastName"
               />
             </Box>
+
             <TextField
               size="small"
               margin="normal"
@@ -126,6 +128,7 @@ const TravistaSignUp = () => {
                 ),
               }}
             />
+
             <TextField
               size="small"
               margin="normal"
@@ -201,7 +204,9 @@ const TravistaSignUp = () => {
                 Sign In
               </Typography>
             </Typography>
+
           </Box>
+
         </Box>
       </Grid>
     </Grid>

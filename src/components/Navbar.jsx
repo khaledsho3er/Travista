@@ -9,7 +9,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -18,6 +18,22 @@ import CloseIcon from "@mui/icons-material/Close";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const handleApplyForVisa = () => {
+    navigate("/applyforvisa"); // Navigate to Explore Packages page
+  };
+  const handleBuildPackageClick = () => {
+    navigate("/buildmypackage"); // Navigate to Build My Package page
+  };
+  const handleAboutUs = () => {
+    navigate("/About"); // Navigate to Explore Packages page
+  };
+  const handleCareers = () => {
+    navigate("/careers"); // Navigate to Explore Packages page
+  };
+  const handleSignIn = () => {
+    navigate("/login"); // Navigate to Explore Packages page
+  };
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
@@ -62,6 +78,7 @@ function Navbar() {
               justifyContent: "space-between",
               width: "100%",
             }}
+            onClick={handleApplyForVisa}
           >
             <Link className="nav-link" to="/apply">
               Apply for Visa <ArrowOutwardIcon fontSize="2rem" />
@@ -74,6 +91,7 @@ function Navbar() {
               justifyContent: "space-between",
               width: "100%",
             }}
+            onClick={handleBuildPackageClick}
           >
             <Link className="nav-link" to="build-package">
               Build my Package <ArrowOutwardIcon fontSize="2rem" />
@@ -88,6 +106,7 @@ function Navbar() {
               justifyContent: "space-between",
               width: "100%",
             }}
+            onClick={handleAboutUs}
           >
             <Link className="nav-link" to="about">
               Our Story <ArrowOutwardIcon fontSize="2rem" />
@@ -100,6 +119,7 @@ function Navbar() {
               justifyContent: "space-between",
               width: "100%",
             }}
+            onClick={handleCareers}
           >
             <Link className="nav-link" to="offices">
               Our Offices <ArrowOutwardIcon fontSize="2rem" />
@@ -112,6 +132,8 @@ function Navbar() {
               justifyContent: "space-between",
               width: "100%",
             }}
+            onClick={handleCareers}
+
           >
             <Link className="nav-link" to="careers">
               Careers <ArrowOutwardIcon fontSize="2rem" />
@@ -253,22 +275,27 @@ function Navbar() {
           sx={{ display: "flex", justifyContent: "space-between" }}
         >
           <Box sx={{ maxWidth: "205px" }}>
+            <Link to="/" className="nav-link">
             <img
-              src="assets/main-logo.png"
+              src="assets/logo-white.png"
               alt="Logo"
               style={{ width: "100%" }}
             />
+            </Link>
           </Box>
 
           <Box sx={{ display: "flex", gap: "25px" }}>
-            <Button
+          <Link to="/packages" className="nav-link">
+          <Button
               className="navbar-hide"
               color="inherit"
               sx={{ color: "black" }}
             >
               Packages & Tours
             </Button>
-            <Button color="inherit" className="btn btn-secondary btn-inverse">
+            </Link>
+
+            <Button color="inherit" className="btn btn-secondary btn-inverse" onClick={handleSignIn}>
               <PersonOutlineIcon sx={{ marginRight: "5px" }} />
               Sign In
             </Button>
@@ -303,15 +330,17 @@ function Navbar() {
             className="inner-toolbar"
           >
             <Box sx={{ maxWidth: "205px" }}>
+              <Link to="/" className="nav-link">
               <img
                 src="assets/logo-white.png"
                 alt="Logo"
                 style={{ width: "100%" }}
               />
+              </Link>
             </Box>
 
             <Box>
-              <Button color="inherit" className="btn btn-secondary">
+              <Button color="inherit" className="btn btn-secondary" onClick={handleSignIn}>
                 <PersonOutlineIcon
                   sx={{ marginRight: "5px", color: "white" }}
                 />

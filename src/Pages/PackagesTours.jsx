@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import SinglePackage from "../components/singlePackage";
-
+import SinglePackage from "../components/singlePackage"; // Your component
 import {
   Box,
   Typography,
   Card,
   CardContent,
   Grid,
-  Button,
   Select,
   MenuItem,
 } from "@mui/material";
@@ -71,6 +69,7 @@ function PackagesTours() {
   const handlePackageClick = (tour) => {
     setSelectedPackage(tour); // Set the clicked package data
   };
+
   const filteredTours = filter
     ? tours.filter((tour) =>
         tour.name.toLowerCase().includes(filter.toLowerCase())
@@ -96,7 +95,6 @@ function PackagesTours() {
           <Typography variant="h2" color="white" fontWeight={800}>
             Packages & Tours
           </Typography>
-
           <Typography variant="body1" color="white">
             Experience breathtaking destinations and unforgettable adventures
             with our exclusive travel packages and immersive guided tours
@@ -104,6 +102,7 @@ function PackagesTours() {
           </Typography>
         </Box>
       </Box>
+
       <div className="packages-tours-body">
         <Box className="packages-tours">
           <Box sx={{ display: "flex", gap: "10px", padding: "20px 0" }}>
@@ -125,17 +124,19 @@ function PackagesTours() {
               <MenuItem value="Florence">Florence</MenuItem>
             </Select>
           </Box>
+
           <Grid container spacing={3}>
             {filteredTours.map((tour, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <Card onClick={() => handlePackageClick(tour)}>
-                  <CardContent
+                <CardContent
                     sx={{
                       height: "350px",
                       background: `url(${tour.image})`,
                       color: "white",
                       position: "relative",
                       borderRadius: "12px",
+                      cursor: "pointer",
                     }}
                   >
                     <Typography
@@ -162,7 +163,7 @@ function PackagesTours() {
                         color: "white",
                       }}
                     >
-                      <FavoriteIcon />
+                      <FavoriteIcon/>
                     </IconButton>
                     <Box
                       sx={{
@@ -179,8 +180,7 @@ function PackagesTours() {
                         justifyContent: "flex-end",
                       }}
                     >
-                      {" "}
-                      <Typography
+                      {/* <Typography
                         sx={{
                           background: "white",
                           color: "var(--maroon)",
@@ -193,20 +193,20 @@ function PackagesTours() {
                         gutterBottom
                       >
                         {tour.date}
-                      </Typography>
+                      </Typography> */}
                       <Typography fontWeight={800} variant="h4" gutterBottom>
                         {tour.name}
                       </Typography>
                       <Typography
                         variant="body1"
                         color="#777777"
-                        fontWeight={600}
+                        fontWeight={500}
                       >
                         {tour.duration}
                       </Typography>
                       <Typography
                         variant="subtitle1"
-                        sx={{ color: "var(--accent)" }}
+                        sx={{ color: "#266ef1" }}
                       >
                         {tour.price}
                       </Typography>
@@ -216,17 +216,17 @@ function PackagesTours() {
               </Grid>
             ))}
           </Grid>
-          <Box textAlign="center" mt={4}>
-            <Button className="btn btn-secondary btn-inverse">View More</Button>
-          </Box>
         </Box>
       </div>
-      {/* Render SinglePackage component as a pop-up when a package is clicked */}
-      {selectedPackage && (
+
+       {/* Render SinglePackage component as a pop-up when a package is clicked */}
+       {selectedPackage && (
+        <Box className="slide-up-modal show">
         <SinglePackage
           tour={selectedPackage}
           onClose={() => setSelectedPackage(null)}
         />
+        </Box>
       )}
     </Box>
   );

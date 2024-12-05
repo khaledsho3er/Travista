@@ -4,8 +4,13 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ApplyForVisaForm from "../components/ApplyVisaForm";
 import FAQsComponent from "../components/FAQs";
+import { useNavigate } from "react-router-dom";
 
 function ApplyForVisa() {
+  const navigate = useNavigate();
+  const handleContact = () => {
+    navigate("/contactus"); // Navigate to Explore Packages page
+  };
   return (
     <Box classname="ApplyForVisa-page">
       <Navbar />
@@ -39,7 +44,7 @@ function ApplyForVisa() {
               Have any other questions in mind?
             </Typography>
 
-            <Button className="btn btn-primary btn-black">Contact Us</Button>
+            <Button className="btn btn-primary btn-black" onClick={handleContact}>Contact Us</Button>
           </Box>
 
           <FAQsComponent />

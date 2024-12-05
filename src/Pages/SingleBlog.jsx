@@ -2,8 +2,13 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import { Box } from "@mui/material";
 import Footer from "../components/Footer";
-
+import { useNavigate } from "react-router-dom";
 function SingleBLog() {
+  const navigate = useNavigate();
+
+  const handleBacktoBlogs = () => {
+    navigate("/Blogs");
+  };
   const Blog = [
     {
       id: 1,
@@ -133,7 +138,7 @@ function SingleBLog() {
           Paris adieu.
         </p>
       </Box>
-      <box className="Single-Blog-Back-btn">
+      <box className="Single-Blog-Back-btn" onClick={handleBacktoBlogs}>
         <button> Back to Blog</button>
       </box>
       <br></br>

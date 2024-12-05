@@ -6,7 +6,7 @@ import PackageCards from "../components/Cards";
 import { Box, Grid, Button } from "@mui/material";
 const AccountPage = () => {
   const [activeTab, setActiveTab] = useState("saved");
-
+  
   const tours = [
     {
       image: "/assets/packages-page/tours/1.png",
@@ -23,6 +23,7 @@ const AccountPage = () => {
       price: "€110",
     },
   ];
+
   const renderContent = () => {
     switch (activeTab) {
       case "bookings":

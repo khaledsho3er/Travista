@@ -2,11 +2,10 @@ import React from "react";
 import { Box, Typography, Button, MenuItem, Select } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import KeyIcon from "@mui/icons-material/Key";
-import GrassIcon from "@mui/icons-material/Grass";
+
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
-import CareersFAQ from "../components/CareersFAQ";
+
 import CareersFAQSection from "../components/careersFAQsection";
 
 function CareersPage() {
@@ -55,12 +54,12 @@ function CareersPage() {
         </Box>
         <img
           src="assets/careers/careersheropic.png"
-          alt="buildMyPackage Hero .png"
+          alt="Careersimg.png"
         />
         <img
           class="overlay-photo"
           src="assets/careers/heroicon.png"
-          alt="Overlay Image"
+          alt="OverlayImage"
         />
       </header>
       {/* Core Values Section */}
