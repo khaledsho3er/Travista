@@ -84,6 +84,7 @@ function PackageCards({ tour }) {
             left: "30px",
             transition: "transform 0.3s ease",
             zIndex: 1,
+            textAlign:"left "
           }}
         >
           <Typography fontWeight={800} variant="h5" gutterBottom>

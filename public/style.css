@@ -497,18 +497,21 @@ footer ul li a {
 /* Header Section */
 .account-header {
   text-align: left; /* Default alignment */
-  padding: 2rem 1rem;
+  padding: 2rem 2rem;
 }
 
 .account-header h1 {
   font-size: 48px; /* Adjusted size for larger screens */
   margin-bottom: 0.5rem;
+  padding: 2rem 2rem 0rem 2rem;
+
 }
 
 .account-header p {
   color: #666;
   font-size: 14px;
   margin-bottom: 1rem;
+  padding: 1rem 2rem;
 }
 
 /* Tabs */
@@ -2202,7 +2205,7 @@ width: 100%;
 }
 .careers-header .overlay-photo {
   position: absolute;
-  top: 58.5%; /* Positioning above the main image */
+  top: 47%; /* Positioning above the main image */
   left: 33%; /* Adjust horizontal position */
   width: 80px; /* Size of the smaller photo */
   height: 117px;

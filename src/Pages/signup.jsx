@@ -196,6 +196,7 @@ const TravistaSignUp = () => {
             </Button>
             <Typography variant="body2" color="textSecondary" mt={2}>
               Already have an account?{" "}
+              <Link to="/login" style={{ textDecoration: "none" }}>
               <Typography
                 component="span"
                 color="primary"
@@ -203,6 +204,7 @@ const TravistaSignUp = () => {
               >
                 Sign In
               </Typography>
+              </Link>
             </Typography>
 
           </Box>

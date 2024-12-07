@@ -277,7 +277,7 @@ function Navbar() {
           <Box sx={{ maxWidth: "205px" }}>
             <Link to="/" className="nav-link">
             <img
-              src="assets/logo-white.png"
+              src="assets/main-logo.png"
               alt="Logo"
               style={{ width: "100%" }}
             />
