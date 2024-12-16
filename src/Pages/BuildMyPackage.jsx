@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import FAQ from "../components/FAQsSection";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
+
 function BuildMyPackage() {
   const navigate = useNavigate();
 
@@ -25,9 +26,22 @@ function BuildMyPackage() {
             customization and design a personalized escape for you senior trip,
             business travel, or for the sake of your wanderlust.
           </p>
-          <button className="build-my-package-hero-btn" onClick={handleBMPSteps}>
+          <button
+            className="build-my-package-hero-btn"
+            onClick={handleBMPSteps}
+          >
             Build my Package
           </button>
+          <a
+            href="https://travista.travel/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "none" }}
+          >
+            <button className="build-my-package-hero-btn">
+              Build by Operator
+            </button>
+          </a>
         </Box>
         <img
           src="assets/buildMyPackage/buildmypackage.png"

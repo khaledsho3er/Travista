@@ -43,8 +43,10 @@
   border: 1px solid var(--maroon);
 }
 .btn.btn-inverse {
-  color: black;
-  border: 1px solid black;
+  border: 1px solid;
+  font-size: 12px;
+  align-items: center;
+  transition: border-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .btn.btn-black {
@@ -63,7 +65,7 @@
 a.nav-link {
   color: white;
   text-decoration: none;
-  font-size: 2.6rem;
+  font-size: 0rem;
 }
 
 .navbar {
@@ -72,12 +74,12 @@ a.nav-link {
 }
 
 .hero-section {
-  background-image: url("/assets/hero-bg.png");
   height: 90vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/assets/hero-bg.png");
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -504,7 +506,6 @@ footer ul li a {
   font-size: 48px; /* Adjusted size for larger screens */
   margin-bottom: 0.5rem;
   padding: 2rem 2rem 0rem 2rem;
-
 }
 
 .account-header p {
@@ -702,7 +703,7 @@ footer ul li a {
 .FAQs-form p,
 a {
   color: black;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
   text-align: center;
 }
 
@@ -816,7 +817,7 @@ a {
   }
 }
 /*PI*/
-.textarea-input{
+.textarea-input {
   width: 100%;
   color: #000;
   padding: 0.75rem;
@@ -1481,13 +1482,12 @@ textarea.form-input {
   text-align: center;
 }
 
-
 .steps-Actions-Buttons {
   display: flex;
   justify-content: space-between; /* Align buttons horizontally */
   align-items: center;
-  padding-right:3rem;
-  padding-left:3rem;
+  padding-right: 3rem;
+  padding-left: 3rem;
   margin-top: 2rem;
 }
 
@@ -1504,22 +1504,23 @@ textarea.form-input {
 }
 
 .steps-action-button:hover {
-  background-color: #142328; 
-  color: #eceee9; 
+  background-color: #142328;
+  color: #eceee9;
 }
 
 .steps-back-button {
-  background-color: #eceee9; 
-  border:none;
+  background-color: #eceee9;
+  border: none;
 }
 
 .steps-next-button {
-  background-color: #142328; 
-  color: #eceee9; padding: 0.8rem 2rem;
+  background-color: #142328;
+  color: #eceee9;
+  padding: 0.8rem 2rem;
 }
-.steps-next-button:hover{
-  background-color: #eceee9; 
-  color: #142328; 
+.steps-next-button:hover {
+  background-color: #eceee9;
+  color: #142328;
   border: 1px solid #eceee9;
 }
 
@@ -1569,10 +1570,13 @@ textarea.form-input {
 /* Container for buttons */
 .trip-buttons-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust for responsiveness */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(100px, 1fr)
+  ); /* Adjust for responsiveness */
   gap: 20px;
   justify-content: center;
-  padding: 20px;
+  padding: 0px;
 }
 
 /* Button styling */
@@ -1588,7 +1592,7 @@ textarea.form-input {
   background-color: #fff;
   color: #000;
   text-transform: none;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
   cursor: pointer;
   position: relative; /* For positioning the icon */
@@ -1604,14 +1608,14 @@ textarea.form-input {
   position: absolute; /* Position icon absolutely */
   top: 10px; /* Adjust distance from top */
   left: 21px; /* Adjust distance from left */
-  font-size: 24px;
+  font-size: 30px;
   text-align: left;
   color: #000; /* Ensure icon color matches */
 }
 
 .trip-buttons-container Button::after {
   content: attr(data-label); /* Use a custom attribute for the button label */
-  font-size: 14px;
+  font-size: 17px;
   font-weight: bold;
   text-align: left;
   margin-top: 50px; /* Space between icon and text */
@@ -1630,7 +1634,6 @@ textarea.form-input {
   color: #a1a1a1;
   margin-bottom: 8px;
   margin: 2rem 0;
-
 }
 
 .step-two-container h4 {
@@ -1643,7 +1646,6 @@ textarea.form-input {
   font-size: 20px;
   color: #000;
   padding-bottom: 1rem;
- 
 }
 
 .step-two-container-input-group {
@@ -1651,15 +1653,14 @@ textarea.form-input {
   gap: 18px;
   margin-bottom: 16px;
   justify-content: space-between;
-width: 100%;
-  
+  width: 100%;
 }
 
 .step-two-container-dropdown {
   flex: 1;
   padding: 1rem 1rem;
   font-size: 14px;
-  border:2px solid #e0e0e0;
+  border: 2px solid #e0e0e0;
   border-radius: 16px;
   background-color: #fff;
   width: 100%;
@@ -1670,32 +1671,33 @@ width: 100%;
   -moz-appearance: none;
 
   /* Custom arrow */
-  background-image: url('assets/chevron-down.png');
+  background-image: url("assets/chevron-down.png");
   background-repeat: no-repeat;
   background-position: right 1.5rem center; /* Position arrow */
   background-size: 15px 15px; /* Size of the arrow */
 }
 
 .step-two-container-dropdown::before {
-	content: "\e009";
-  font-family: 'squarespace-ui-font';
-	position: relative;	display: block;
-	top: 55%;
-	transform: translateY(-50%);
-	right: 3%;
- /*change the position of arrow*/
-	pointer-events: none;
+  content: "\e009";
+  font-family: "squarespace-ui-font";
+  position: relative;
+  display: block;
+  top: 55%;
+  transform: translateY(-50%);
+  right: 3%;
+  /*change the position of arrow*/
+  pointer-events: none;
 }
 .step-two-container-dropdown::after {
-	content: "\e009";
-  font-family: 'squarespace-ui-font';
-	position: relative;
-	display: block;
-	top: 55%;
-	transform: translateY(-50%);
-	right: 3%;
- /*change the position of arrow*/
-	pointer-events: none;
+  content: "\e009";
+  font-family: "squarespace-ui-font";
+  position: relative;
+  display: block;
+  top: 55%;
+  transform: translateY(-50%);
+  right: 3%;
+  /*change the position of arrow*/
+  pointer-events: none;
 }
 /*Step Two traveller counter*/
 .step-two-container-travellers-container {
@@ -1746,7 +1748,6 @@ width: 100%;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease; /* Smooth hover effects */
-
 }
 .step-two-container-travellers-counter-btn:hover {
   background-color: #000;
@@ -1842,7 +1843,7 @@ width: 100%;
 }
 
 /* Description styling */
-.budget-slider-description p{
+.budget-slider-description p {
   margin-top: 16px;
   font-size: 14px;
   color: #555;
@@ -1855,7 +1856,7 @@ width: 100%;
   justify-content: space-between;
   gap: 1rem;
 }
-.step-two-container-travel-date-left{
+.step-two-container-travel-date-left {
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -1867,27 +1868,25 @@ width: 100%;
   color: #777777;
   margin-bottom: 8px;
 }
-.step-two-container-travel-date-dropdown{
+.step-two-container-travel-date-dropdown {
   flex: 1;
   height: 2rem;
   padding: 0rem 1rem;
   width: 100%;
   font-size: 14px;
-  border:2px solid #e0e0e0;
+  border: 2px solid #e0e0e0;
   border-radius: 10px;
   background-color: #fff;
   color: #777;
-
 }
-.step-two-container-travel-date-right{
+.step-two-container-travel-date-right {
   display: flex;
   flex-direction: column;
   text-align: left;
   width: 100%;
-
 }
 .step-two-container-travel-date-left label,
-.step-two-container-travel-date-right label{
+.step-two-container-travel-date-right label {
   font-size: 12px;
   font-weight: 500;
   color: #777777;
@@ -1923,7 +1922,7 @@ width: 100%;
   justify-content: center;
   transition: all 0.3s ease; /* Smooth hover effects */
 }
-.step-two-container-flexibility-value{
+.step-two-container-flexibility-value {
   font-size: 16px;
   font-weight: 500;
   color: #000;
@@ -1978,13 +1977,13 @@ width: 100%;
   height: 2rem;
   color: #000;
 }
-.form-row-phone{
+.form-row-phone {
   display: flex;
-      gap: 1rem;
-      width: 100%;
-      justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  justify-content: space-between;
 }
-.form-row-phone select{
+.form-row-phone select {
   height: 3.2rem;
   width: 30%;
   margin-bottom: 1rem;

@@ -4,22 +4,29 @@ import NatureIcon from "@mui/icons-material/Park";
 import HistoryIcon from "@mui/icons-material/AccountBalance";
 import AdventureIcon from "@mui/icons-material/Map";
 import CityIcon from "@mui/icons-material/LocationCity";
-import WorldIcon from "@mui/icons-material/Public";
-import MexicoIcon from "@mui/icons-material/Restaurant";
-import SouthAfricaIcon from "@mui/icons-material/TravelExplore";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import WinterIcon from "@mui/icons-material/AcUnit";
-
+import BeachAccessIcon from "@mui/icons-material/BeachAccess";
+import LoyaltyIcon from "@mui/icons-material/Loyalty";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import Diversity2Icon from "@mui/icons-material/Diversity2";
+import MosqueIcon from "@mui/icons-material/Mosque";
 const Filter = () => {
   const filters = [
     { label: "NATURE", icon: <NatureIcon /> },
     { label: "HISTORY", icon: <HistoryIcon /> },
     { label: "ADVENTURE", icon: <AdventureIcon /> },
     { label: "CITY", icon: <CityIcon /> },
-    { label: "AROUND THE WORLD", icon: <WorldIcon /> },
-    { label: "CITIES", icon: <CityIcon /> },
-    { label: "MÉXICO", icon: <MexicoIcon /> },
-    { label: "SOUTH AFRICA", icon: <SouthAfricaIcon /> },
+    { label: "SPORTS", icon: <SportsBasketballIcon /> },
+    { label: "ROMANTIC", icon: <FavoriteIcon /> },
+    { label: "FAMILY", icon: <Diversity2Icon /> },
+    { label: "SUMMER", icon: <BeachAccessIcon /> },
     { label: "WINTER", icon: <WinterIcon /> },
+    { label: "HONEYMOON", icon: <LoyaltyIcon /> },
+    { label: "SHOPPING", icon: <ShoppingBasketIcon /> },
+    { label: "HAJJ", icon: <MosqueIcon /> },
+    { label: "UMRAH", icon: <MosqueIcon /> },
   ];
 
   return (
@@ -29,12 +36,14 @@ const Filter = () => {
         padding: "20px 0",
       }}
     >
-      <Box sx={{ maxWidth: "1200px", margin: "0 auto", textAlign: "left" , mb:5 }}>
+      <Box
+        sx={{ maxWidth: "1200px", margin: "0 auto", textAlign: "left", mb: 5 }}
+      >
         {/* Centered Title */}
-        <Box sx={{ textAlign: "left" , mb:5}}>
-        <Typography variant="h6" fontWeight={600} gutterBottom>
-          You can filter travel ideas by theme
-        </Typography>
+        <Box sx={{ textAlign: "left", mb: 5 }}>
+          <Typography variant="h6" fontWeight={600} gutterBottom>
+            You can filter travel ideas by theme
+          </Typography>
         </Box>
         {/* Filters */}
         <Box
@@ -42,7 +51,7 @@ const Filter = () => {
             display: "flex",
             justifyContent: "space-between", // Evenly space items across the width
             flexWrap: "wrap",
-            gap: "20px", // Add spacing between rows on smaller screens
+            gap: "10px", // Add spacing between rows on smaller screens
           }}
         >
           {filters.map((filter, index) => (
@@ -53,7 +62,6 @@ const Filter = () => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                flex: "1 1 calc(11% - 20px)", // Flex to adjust width dynamically
                 minWidth: "80px", // Ensure icons don't shrink too much
                 color: "black",
                 transition: "color 0.3s",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -9,7 +9,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { Link , useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -18,6 +18,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
 function Navbar() {
+  const [scrolling, setScrolling] = useState(false); // Scroll state
   const navigate = useNavigate();
   const handleApplyForVisa = () => {
     navigate("/applyforvisa"); // Navigate to Explore Packages page
@@ -45,6 +46,21 @@ function Navbar() {
     }
     setIsOpen(open);
   };
+
+  // Add scroll event listener to detect scrolling
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const sideList = () => (
     <Box
@@ -133,7 +149,6 @@ function Navbar() {
               width: "100%",
             }}
             onClick={handleCareers}
-
           >
             <Link className="nav-link" to="careers">
               Careers <ArrowOutwardIcon fontSize="2rem" />
@@ -264,53 +279,92 @@ function Navbar() {
   }
 
   return (
-    <Box>
-      <AppBar
-        position="static"
-        sx={{ padding: "10px 5%", background: "none", boxShadow: "none" }}
-        className="navbar"
-      >
-        <Toolbar
-          className="toolbar"
-          sx={{ display: "flex", justifyContent: "space-between" }}
+    <Box sx={{ position: "sticky", top: 0, zIndex: 9999 }}>
+      {!isOpen && (
+        <AppBar
+          // Sticky navbar
+          sx={{
+            padding: "10px 5%",
+            backgroundColor: scrolling
+              ? "rgba(0, 0, 0, 0.2)" // Semi-transparent background when scrolling
+              : "transparent", // Transparent background when at top
+            transition: "background-color 0.3s ease-in-out",
+            boxShadow: "none",
+            backdropFilter: scrolling ? "blur(10px)" : "none", // Optional: Adds blur effect
+          }}
+          className="navbar"
         >
-          <Box sx={{ maxWidth: "205px" }}>
-            <Link to="/" className="nav-link">
-            <img
-              src="assets/main-logo.png"
-              alt="Logo"
-              style={{ width: "100%" }}
-            />
-            </Link>
-          </Box>
+          <Toolbar
+            className="toolbar"
+            sx={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <Box sx={{ maxWidth: "205px" }}>
+              <Link to="/" className="nav-link">
+                <img
+                  src="/assets/logo-white.png"
+                  alt="Logo"
+                  style={{ width: "100%" }}
+                />
+              </Link>
+            </Box>
 
-          <Box sx={{ display: "flex", gap: "25px" }}>
-          <Link to="/packages" className="nav-link">
-          <Button
-              className="navbar-hide"
-              color="inherit"
-              sx={{ color: "black" }}
-            >
-              Packages & Tours
-            </Button>
-            </Link>
+            <Box sx={{ display: "flex", gap: "25px" }}>
+              <Link to="/packages" className="nav-link">
+                <Button
+                  className="navbar-hide"
+                  color="inherit"
+                  sx={{
+                    color: scrolling ? "white" : "white", // Changes to white on scroll
+                    transition: "color 0.3s ease-in-out",
+                  }}
+                >
+                  Packages & Tours
+                </Button>
+              </Link>
 
-            <Button color="inherit" className="btn btn-secondary btn-inverse" onClick={handleSignIn}>
-              <PersonOutlineIcon sx={{ marginRight: "5px" }} />
-              Sign In
-            </Button>
+              <Button
+                color="inherit"
+                className="btn btn-inverse"
+                onClick={handleSignIn}
+                sx={{
+                  color: scrolling ? "white" : "white",
+                  borderColor: scrolling ? "white" : "white", // Border color change
+                  transition:
+                    "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
+                }}
+              >
+                <PersonOutlineIcon
+                  sx={{
+                    marginRight: "5px",
+                    fontSize: "20px",
+                    color: scrolling ? "white" : "white", // Icon color change
+                    borderColor: scrolling
+                      ? "1px solid white"
+                      : "1px solid white",
+                    transition: "color 0.3s ease-in-out",
+                  }}
+                />
+                Sign In
+              </Button>
 
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              onClick={toggleDrawer(true)}
-            >
-              <MenuIcon sx={{ color: "black", fontSize: "2rem" }} />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                onClick={toggleDrawer(true)}
+              >
+                <MenuIcon
+                  sx={{
+                    color: scrolling ? "white " : "white", // Menu icon changes dynamically
+                    fontSize: "2rem",
+                    transition: "color 0.3s ease-in-out",
+                  }}
+                />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+      )}
       <Drawer anchor="top" open={isOpen} onClose={toggleDrawer(false)}>
         <div
           style={{
@@ -331,16 +385,20 @@ function Navbar() {
           >
             <Box sx={{ maxWidth: "205px" }}>
               <Link to="/" className="nav-link">
-              <img
-                src="assets/logo-white.png"
-                alt="Logo"
-                style={{ width: "100%" }}
-              />
+                <img
+                  src="assets/logo-white.png"
+                  alt="Logo"
+                  style={{ width: "100%" }}
+                />
               </Link>
             </Box>
 
             <Box>
-              <Button color="inherit" className="btn btn-secondary" onClick={handleSignIn}>
+              <Button
+                color="inherit"
+                className="btn btn-secondary"
+                onClick={handleSignIn}
+              >
                 <PersonOutlineIcon
                   sx={{ marginRight: "5px", color: "white" }}
                 />

@@ -108,10 +108,13 @@ function Footer() {
         <Typography color="#777777">
           © 2023 Travista. All rights reserved.
         </Typography>
-        <Link to="https://www.youngproductionss.com/" style={{ textDecoration: "none" }}>
-        <Typography color="#777777">
-          © Powered By Young Productions.
-        </Typography>
+        <Link
+          to="https://www.youngproductionss.com/"
+          style={{ textDecoration: "none" }}
+        >
+          <Typography color="#777777">
+            © Powered By Young Productions.
+          </Typography>
         </Link>
       </Box>
     </Box>
