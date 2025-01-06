@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SinglePackage from "../components/singlePackage"; // Your component
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-
-} from "@mui/material";
+import { Box, Typography, Card, CardContent, Grid } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Filter from "../components/filter";
 
@@ -123,14 +116,14 @@ function PackagesTours() {
               <MenuItem value="Rome">Rome</MenuItem>
               <MenuItem value="Florence">Florence</MenuItem>
             </Select> */}
-            <Filter/>
+            <Filter />
           </Box>
 
           <Grid container spacing={3}>
             {filteredTours.map((tour, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <Card onClick={() => handlePackageClick(tour)}>
-                <CardContent
+                  <CardContent
                     sx={{
                       height: "350px",
                       background: `url(${tour.image})`,
@@ -164,7 +157,7 @@ function PackagesTours() {
                         color: "white",
                       }}
                     >
-                      <FavoriteIcon/>
+                      <FavoriteIcon />
                     </IconButton>
                     <Box
                       sx={{
@@ -205,10 +198,7 @@ function PackagesTours() {
                       >
                         {tour.duration}
                       </Typography>
-                      <Typography
-                        variant="subtitle1"
-                        sx={{ color: "#266ef1" }}
-                      >
+                      <Typography variant="subtitle1" sx={{ color: "#266ef1" }}>
                         {tour.price}
                       </Typography>
                     </Box>
@@ -220,13 +210,22 @@ function PackagesTours() {
         </Box>
       </div>
 
-       {/* Render SinglePackage component as a pop-up when a package is clicked */}
-       {selectedPackage && (
-        <Box className="slide-up-modal show">
-        <SinglePackage
-          tour={selectedPackage}
-          onClose={() => setSelectedPackage(null)}
-        />
+      {/* Render SinglePackage component as a pop-up when a package is clicked */}
+      {/* Render SinglePackage component as a pop-up when a package is clicked */}
+      {selectedPackage && (
+        <Box
+          className={`slide-up-modal ${selectedPackage ? "show" : ""}`}
+          onClick={() => setSelectedPackage(null)} // Close modal when clicking on background
+        >
+          {/* Modal content */}
+          <Box
+            onClick={(e) => e.stopPropagation()} // Prevent the modal from closing when clicking inside content
+          >
+            <SinglePackage
+              tour={selectedPackage}
+              onClose={() => setSelectedPackage(null)} // This will close the modal from inside the SinglePackage
+            />
+          </Box>
         </Box>
       )}
     </Box>

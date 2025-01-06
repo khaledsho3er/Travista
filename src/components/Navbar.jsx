@@ -16,7 +16,19 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import CloseIcon from "@mui/icons-material/Close";
 
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-
+// Define the background type for each route
+const backgroundMap = {
+  "/": "dark",
+  "/About": "dark",
+  "/services": "light",
+  "/contact": "dark",
+  "/account": "light",
+  "/login": "light",
+  "/loading": "light",
+  "/signup": "light",
+  "/packages": "dark",
+  "/buildmypackagesteps": "light",
+};
 function Navbar() {
   const location = useLocation();
 
@@ -40,19 +52,6 @@ function Navbar() {
     navigate("/login"); // Navigate to Explore Packages page
   };
   const [isOpen, setIsOpen] = useState(false);
-  // Define the background type for each route
-  const backgroundMap = {
-    "/": "dark",
-    "/About": "dark",
-    "/services": "light",
-    "/contact": "dark",
-    "/account": "light",
-    "/login": "light",
-    "/loading": "light",
-    "/signup": "light",
-    "/packages": "dark",
-    "/buildmypackagesteps": "light",
-  };
 
   // Update navbar state based on route
   useEffect(() => {

@@ -4,16 +4,22 @@ import {
   Typography,
   Button,
   Grid,
+  Tab,
+  Tabs,
   IconButton,
   TextField,
   FormControl,
   Select,
   MenuItem,
+  TableCell,
+  TableRow,
+  TableHead,
+  TableBody,
+  Table,
   Slide,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { BsXCircle } from "react-icons/bs";
 import BedIcon from "@mui/icons-material/Bed";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -26,10 +32,11 @@ function SinglePackage() {
   const [open, setOpen] = useState(true);
   const [currentStep, setCurrentStep] = useState(1); // Step state
   const [selectedRoom, setSelectedRoom] = useState(""); // Room selection state
-  const [selectedDate, setSelectedDate] = useState(""); // Date selection state
+  // const [selectedDate, setSelectedDate] = useState(""); // Date selection state
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [countryCode, setCountryCode] = useState("+1");
+
   const details = {
     type: "Ground Trip",
     title: "Paris, Amsterdam, Barcelona",
@@ -39,14 +46,67 @@ function SinglePackage() {
     Transportation: "Included",
     Program: "Included",
     Inclusions: [
-      "Accommodation",
-      "International flights",
-      "Internal flights",
-      "Local Transportation",
+      {
+        title: "Accommodation",
+        description:
+          "3 nights in Vienna, 3 nights in Prague, and 3 nights in Munich",
+      },
+      {
+        title: "International flights",
+        description:
+          "International direct round trip economy ticket by Egypt Air",
+      },
+      {
+        title: "Local Transportation",
+        description: "Internal flight ticket from Amsterdam to Barcelona",
+      },
+    ],
+    Exclusions: [
+      {
+        title: "Accommodation",
+        description:
+          "3 nights in Vienna, 3 nights in Prague, and 3 nights in Munich",
+      },
+      {
+        title: "International flights",
+        description:
+          "International direct round trip economy ticket by Egypt Air",
+      },
+      {
+        title: "Local Transportation",
+        description: "Internal flight ticket from Amsterdam to Barcelona",
+      },
+    ],
+    Notes: [
+      {
+        description:
+          "Contact us on 19294 for further details & package confirmation.",
+      },
+      {
+        description: "Rates are not valid during Peak Periods",
+      },
+      {
+        description:
+          "Payment can be done in USD or via online payment link with same official bank exchange rate plus credit card percentage bank fees.",
+      },
+      {
+        description:
+          " Travista reserves the right to change prices without prior notice according to hotels & airlines availability at time of actual confirmation.",
+      },
+      {
+        description:
+          "Military Travel Clearance is the client own responsibility to have before travel (if needed)",
+      },
     ],
   };
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setActiveTab(newValue);
+  };
+
   const handleNext = () => {
-    setCurrentStep((prevStep) => Math.min(prevStep + 1, 3));
+    setCurrentStep((prevStep) => Math.min(prevStep + 1, 4));
   };
   const handleFinish = () => {
     navigate("/");
@@ -56,7 +116,7 @@ function SinglePackage() {
   };
 
   const handleRoomChange = (room) => setSelectedRoom(room);
-  const handleDateChange = (date) => setSelectedDate(date);
+  // const handleDateChange = (date) => setSelectedDate(date);
   const handleAdultsChange = (value) =>
     setAdults((prev) => Math.max(0, prev + value));
   const handleChildrenChange = (value) =>
@@ -64,6 +124,320 @@ function SinglePackage() {
   const handleCountryCodeChange = (event) => setCountryCode(event.target.value);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 0:
+        return (
+          <Box>
+            {/* <Typography variant="h6" fontWeight="bold" mt={2}>
+              Inclusions
+            </Typography> */}
+            {details.Inclusions.map((item, index) => (
+              <Box display="flex" alignItems="flex-start" mb={2} key={index}>
+                <FaCheck
+                  color="#750046"
+                  size={16}
+                  style={{ marginRight: "8px", marginTop: "4px" }}
+                />
+                <Box>
+                  <Typography variant="body1" fontWeight="bold">
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {item.description}
+                  </Typography>
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        );
+      case 1:
+        return (
+          <Box>
+            {/* <Typography variant="h6" fontWeight="bold" mt={2}>
+              Exclusions
+            </Typography> */}
+            {details.Exclusions.map((item, index) => (
+              <Box display="flex" alignItems="flex-start" mb={2} key={index}>
+                <FaCheck
+                  color="#750046"
+                  size={16}
+                  style={{ marginRight: "8px", marginTop: "4px" }}
+                />
+                <Box>
+                  <Typography variant="body1" fontWeight="bold">
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {item.description}
+                  </Typography>
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        );
+      case 2:
+        return (
+          <Box>
+            {/* <Typography variant="h6" fontWeight="bold" mt={2}>
+              Details
+            </Typography> */}
+            {details.Notes.map((item, index) => (
+              <Box display="flex" alignItems="flex-start" mb={2} key={index}>
+                <FaCheck
+                  color="#750046"
+                  size={16}
+                  style={{ marginRight: "8px", marginTop: "4px" }}
+                />
+                <Box>
+                  <Typography variant="body1" fontWeight="bold">
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {item.description}
+                  </Typography>
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        );
+
+      default:
+        return null;
+    }
+  };
+  const hotels = [
+    {
+      name: "Bandos Island Resort 4* or Similar - Garden Villa",
+      image: "hotel-a.jpg", // Replace with the actual image path
+      MealPlan: "Half Board",
+      price: "€890",
+      nights: "3",
+      city: "Maldives",
+    },
+    {
+      name: "Oblu Helengeli 4* Or Similar Lagoon Villa with Pool",
+      image: "hotel-a.jpg", // Replace with the actual image path
+      MealPlan: "All Inclusive",
+      price: "€1450",
+      nights: "3",
+      city: "Maldives",
+    },
+    {
+      name: "Bandoss Island Resort 4* or Similar - Garden Villa",
+      image: "hotel-a.jpg", // Replace with the actual image path
+      MealPlan: "Half Board",
+      price: "€890",
+      nights: "3",
+      city: "Maldives",
+    },
+  ];
+  const [selectedHotel, setSelectedHotel] = useState(null); // State to track selected hotel
+
+  const HotelAccommodation = ({ hotels, selectedHotel, setSelectedHotel }) => {
+    return (
+      <Box
+        sx={{
+          width: isSmallScreen ? "100%" : "40%",
+          padding: isSmallScreen ? "16px" : "32px",
+          position: "relative",
+        }}
+      >
+        <Link to="/packages">
+          <IconButton
+            sx={{ position: "absolute", top: 16, right: 16 }}
+            aria-label="close"
+            onClick={() => setOpen(false)}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Link>
+
+        <IconButton
+          sx={{ position: "absolute", top: 16, left: 16 }}
+          aria-label="return"
+          onClick={handleBack} // Use the handleBack function to navigate to the previous step
+        >
+          <ArrowBackIcon />
+        </IconButton>
+
+        <Box sx={{ mt: 4 }}>
+          <Typography variant="h5" fontWeight="bold" mb={2}>
+            Choose Your Hotel Accommodation
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              overflowY: "auto",
+              maxHeight: "500px",
+              "&::-webkit-scrollbar": {
+                width: "6px",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "#750046",
+                borderRadius: "3px",
+              },
+            }}
+          >
+            {hotels.map((hotel, index) => (
+              <Box
+                key={index}
+                onClick={() => setSelectedHotel(hotel.name)}
+                sx={{
+                  p: 2,
+                  border: `2px solid ${
+                    selectedHotel === hotel.name ? "#750046" : "#ddd"
+                  }`,
+                  borderRadius: "12px",
+                  backgroundColor:
+                    selectedHotel === hotel.name ? "#f9f9f9" : "transparent",
+                  cursor: "pointer",
+                  transition: "all 0.3s",
+                  "&:hover": {
+                    borderColor: "#750046",
+                  },
+                }}
+              >
+                <Table
+                  sx={{
+                    width: "100%",
+                    borderCollapse: "collapse",
+                  }}
+                >
+                  {/* Table Header */}
+                  <TableHead>
+                    <TableRow>
+                      <TableCell
+                        sx={{
+                          fontWeight: "bold",
+                          color: "#750046",
+                          borderBottom: "2px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        City
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontWeight: "bold",
+                          color: "#750046",
+                          borderBottom: "2px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        Name
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontWeight: "bold",
+                          color: "#750046",
+                          borderBottom: "2px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        Nights
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontWeight: "bold",
+                          color: "#750046",
+                          borderBottom: "2px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        Price per Person
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontWeight: "bold",
+                          color: "#750046",
+                          borderBottom: "2px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        Meal Plan
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+
+                  {/* Table Body */}
+                  <TableBody>
+                    <TableRow>
+                      <TableCell
+                        sx={{
+                          borderBottom: "1px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        {hotel.city}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          borderBottom: "1px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        {hotel.name}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          borderBottom: "1px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        {hotel.nights}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          borderBottom: "1px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        {hotel.price}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          borderBottom: "1px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        {hotel.MealPlan}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Box>
+            ))}
+          </Box>
+        </Box>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{
+            width: "100%",
+            padding: "12px",
+            borderRadius: "25px",
+            fontWeight: "bold",
+            textTransform: "none",
+            marginTop: "20px",
+            backgroundColor: "#0f1c24",
+            "&:hover": {
+              backgroundColor: "#fff",
+              border: "2px solid #0f1c24",
+              color: "#0f1c24",
+            },
+          }}
+          onClick={handleNext}
+        >
+          Book Now
+        </Button>
+      </Box>
+    );
+  };
+
   const ComponentOne = () => (
     <Box sx={{ width: "40%", padding: "32px", position: "relative" }}>
       <IconButton
@@ -137,47 +511,33 @@ function SinglePackage() {
         </Grid>
       </Grid>
 
-      <Typography variant="h6" fontWeight="bold" mt={2}>
-        Inclusions
-      </Typography>
-      <Box mt={1}>
-        {[
-          {
-            title: "Accommodation",
-            description:
-              "3 nights in Vienna, 3 nights in Prague, and 3 nights in Munich",
+      <Tabs
+        value={activeTab}
+        onChange={handleTabChange}
+        textColor="primary"
+        indicatorColor="primary"
+        sx={{
+          mt: 3,
+          mb: 2,
+
+          "& .MuiTabs-indicator": {
+            backgroundColor: "#750046", // Change the indicator color
           },
-          {
-            title: "International flights",
-            description:
-              "International direct round trip economy ticket by Egypt Air",
+          "& .MuiTab-root": {
+            color: "#757575", // Default tab text color
           },
-          {
-            title: "Internal flights",
-            description: "Internal flight ticket from Amsterdam to Barcelona",
+          "& .MuiTab-root.Mui-selected": {
+            color: "#750046", // Active tab text color
+            fontWeight: "bold", // Optional: Make the selected tab text bold
           },
-          {
-            title: "Local Transportation",
-            description: "Transportation provided within all cities",
-          },
-        ].map((item, index) => (
-          <Box display="flex" alignItems="flex-start" mb={2} key={index}>
-            <FaCheck
-              color="#750046"
-              size={16}
-              style={{ marginRight: "8px", marginTop: "4px" }}
-            />
-            <Box>
-              <Typography variant="body1" fontWeight="bold">
-                {item.title}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                {item.description}
-              </Typography>
-            </Box>
-          </Box>
-        ))}
-      </Box>
+        }}
+      >
+        <Tab label="Inclusion" />
+        <Tab label="Exclusion" />
+        <Tab label="General Notes" />
+      </Tabs>
+
+      {renderTabContent()}
 
       <Button
         variant="contained"
@@ -217,7 +577,7 @@ function SinglePackage() {
           aria-label="close"
           onClick={() => setOpen(false)}
         >
-          <BsXCircle />
+          <CloseIcon />
         </IconButton>
       </Link>
 
@@ -239,14 +599,13 @@ function SinglePackage() {
         Select your preferred travel date and accommodation type...
       </Typography>
       <Typography variant="body2" color="#777777" mt={4} mb={2}>
-        Select preferred date
+        Preferred date
       </Typography>
       <Grid container spacing={2} mb={7}>
         {["10th May 2024 - 19th May 2024"].map((date) => (
           <Grid item xs={isSmallScreen ? 12 : 6} key={date}>
             <Typography
               variant="outlined"
-              onClick={() => handleDateChange(date)}
               sx={{
                 textTransform: "none",
                 padding: "10px 0px",
@@ -347,7 +706,7 @@ function SinglePackage() {
         aria-label="close"
         onClick={() => setOpen(false)}
       >
-        <BsXCircle />
+        <CloseIcon />
       </IconButton>
 
       <Link to="/packages">
@@ -588,7 +947,7 @@ function SinglePackage() {
           }}
           onClick={handleFinish}
         >
-          Next
+          Finish
         </Button>
       </Box>
     </Box>
@@ -613,7 +972,7 @@ function SinglePackage() {
         <Box
           sx={{
             position: "relative",
-            width: "60%",
+            width: "55%",
             height: "80%",
             zIndex: 9999,
           }}
@@ -629,10 +988,16 @@ function SinglePackage() {
         {currentStep === 1 ? (
           <ComponentOne />
         ) : currentStep === 2 ? (
-          <ComponentTwo />
-        ) : (
+          <HotelAccommodation
+            hotels={hotels}
+            selectedHotel={selectedHotel}
+            setSelectedHotel={setSelectedHotel}
+          />
+        ) : currentStep === 3 ? (
+          <ComponentTwo /> // Removed nextStep prop
+        ) : currentStep === 4 ? (
           <ComponentThree />
-        )}
+        ) : null}
       </Box>
     </Slide>
   );
