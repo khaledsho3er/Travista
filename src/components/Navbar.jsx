@@ -9,7 +9,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -18,6 +18,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
 function Navbar() {
+  const location = useLocation();
+
+  const [isLightBackground, setIsLightBackground] = useState(true);
+
   const [scrolling, setScrolling] = useState(false); // Scroll state
   const navigate = useNavigate();
   const handleApplyForVisa = () => {
@@ -36,7 +40,26 @@ function Navbar() {
     navigate("/login"); // Navigate to Explore Packages page
   };
   const [isOpen, setIsOpen] = useState(false);
+  // Define the background type for each route
+  const backgroundMap = {
+    "/": "dark",
+    "/About": "dark",
+    "/services": "light",
+    "/contact": "dark",
+    "/account": "light",
+    "/login": "light",
+    "/loading": "light",
+    "/signup": "light",
+    "/packages": "dark",
+    "/buildmypackagesteps": "light",
+  };
 
+  // Update navbar state based on route
+  useEffect(() => {
+    const currentPath = location.pathname;
+    const backgroundType = backgroundMap[currentPath] || "dark"; // Default to dark if undefined
+    setIsLightBackground(backgroundType === "light");
+  }, [location]);
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -279,7 +302,7 @@ function Navbar() {
   }
 
   return (
-    <Box sx={{ position: "sticky", top: 0, zIndex: 9999 }}>
+    <Box sx={{ position: "sticky", top: 0, zIndex: 10 }}>
       {!isOpen && (
         <AppBar
           // Sticky navbar
@@ -298,12 +321,16 @@ function Navbar() {
             className="toolbar"
             sx={{ display: "flex", justifyContent: "space-between" }}
           >
-            <Box sx={{ maxWidth: "205px" }}>
+            <Box sx={{ maxWidth: "205px", zIndex: 0 }}>
               <Link to="/" className="nav-link">
                 <img
-                  src="/assets/logo-white.png"
+                  src={
+                    isLightBackground
+                      ? "/assets/main-logo.png"
+                      : "/assets/logo-white.png"
+                  }
                   alt="Logo"
-                  style={{ width: "100%" }}
+                  style={{ height: "60px" }}
                 />
               </Link>
             </Box>
@@ -314,7 +341,11 @@ function Navbar() {
                   className="navbar-hide"
                   color="inherit"
                   sx={{
-                    color: scrolling ? "white" : "white", // Changes to white on scroll
+                    color: scrolling
+                      ? "white"
+                      : isLightBackground
+                      ? "black"
+                      : "white", // Changes to white on scroll
                     transition: "color 0.3s ease-in-out",
                   }}
                 >
@@ -324,11 +355,23 @@ function Navbar() {
 
               <Button
                 color="inherit"
-                className="btn btn-inverse"
                 onClick={handleSignIn}
                 sx={{
-                  color: scrolling ? "white" : "white",
-                  borderColor: scrolling ? "white" : "white", // Border color change
+                  marginTop: "10px",
+                  height: "40px",
+                  fontSize: "0.5rem",
+                  border: "1px solid",
+                  borderRadius: "20px",
+                  color: scrolling
+                    ? "white"
+                    : isLightBackground
+                    ? "black"
+                    : "white",
+                  borderColor: scrolling
+                    ? "white"
+                    : isLightBackground
+                    ? "black"
+                    : "white", // Border color change
                   transition:
                     "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
                 }}
@@ -336,8 +379,12 @@ function Navbar() {
                 <PersonOutlineIcon
                   sx={{
                     marginRight: "5px",
-                    fontSize: "20px",
-                    color: scrolling ? "white" : "white", // Icon color change
+                    fontSize: "1.2rem",
+                    color: scrolling
+                      ? "white"
+                      : isLightBackground
+                      ? "black"
+                      : "white", // Icon color change
                     borderColor: scrolling
                       ? "1px solid white"
                       : "1px solid white",
@@ -355,7 +402,11 @@ function Navbar() {
               >
                 <MenuIcon
                   sx={{
-                    color: scrolling ? "white " : "white", // Menu icon changes dynamically
+                    color: scrolling
+                      ? "white"
+                      : isLightBackground
+                      ? "black"
+                      : "white", // Menu icon changes dynamically
                     fontSize: "2rem",
                     transition: "color 0.3s ease-in-out",
                   }}

@@ -12,7 +12,6 @@ import {
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 const TravistaSignIn = () => {
- 
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleLoading = () => {
@@ -147,7 +146,7 @@ const TravistaSignIn = () => {
               >
                 Sign In
               </Button>
-              <Grid container justifyContent="center" sx={{ width: "90%" }}>
+              {/* <Grid container justifyContent="center" sx={{ width: "100%" }}>
                 <Grid item xs textAlign="center">
                   <Link href="#" variant="body2" color="#777777">
                     Forgot Password?
@@ -158,7 +157,26 @@ const TravistaSignIn = () => {
                     Create Account
                   </Link>
                 </Grid>
-              </Grid>
+              </Grid> */}
+              <Box
+                sx={{
+                  mt: 2,
+                  textAlign: "center",
+                  fontSize: "0.75rem",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  gap: 20,
+                }}
+              >
+                <Link href="#" variant="body2" color="#777777">
+                  Forgot Password?
+                </Link>
+                <Link href="/signup" variant="body2" color="#266EF1">
+                  Create Account
+                </Link>
+              </Box>
               <Typography
                 sx={{
                   mt: 2,

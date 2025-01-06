@@ -6,7 +6,7 @@ import PackageCards from "../components/Cards";
 import { Box, Grid, Button } from "@mui/material";
 const AccountPage = () => {
   const [activeTab, setActiveTab] = useState("saved");
-  
+
   const tours = [
     {
       image: "/assets/packages-page/tours/1.png",
@@ -40,19 +40,19 @@ const AccountPage = () => {
             >
               <Button
                 className="btn btn-secondary btn-inverse"
-                sx={{ fontSize: "10px" }}
+                sx={{ fontSize: "10px ", color: "black !important" }}
               >
                 Packages
               </Button>
               <Button
                 className="btn btn-secondary btn-inverse"
-                sx={{ fontSize: "10px" }}
+                sx={{ fontSize: "10px", color: "black !important" }}
               >
                 Tours
               </Button>
               <Button
                 className="btn btn-secondary btn-inverse"
-                sx={{ fontSize: "10px" }}
+                sx={{ fontSize: "10px", color: "black !important" }}
               >
                 Articles
               </Button>
@@ -74,46 +74,49 @@ const AccountPage = () => {
   };
 
   return (
-    <div className="account-page">
+    <>
       <Navbar />
-      <header className="account-header">
-        <h1>Hey, Mohamed</h1>
-        <p>
-          You can manage all your bookings, saved articles, and profile
-          information here.
-        </p>
-        <div className="account-tabs">
-          <button
-            onClick={() => setActiveTab("bookings")}
-            className={activeTab === "bookings" ? "active" : ""}
-          >
-            Bookings
-          </button>
-          <button
-            onClick={() => setActiveTab("customPackages")}
-            className={activeTab === "customPackages" ? "active" : ""}
-          >
-            Custom Packages
-          </button>
-          <button
-            onClick={() => setActiveTab("saved")}
-            className={activeTab === "saved" ? "active" : ""}
-          >
-            Saved
-          </button>
-          <button
-            onClick={() => setActiveTab("editProfile")}
-            className={activeTab === "editProfile" ? "active" : ""}
-          >
-            Edit Profile
-          </button>
-        </div>
-      </header>
 
-      <section className="account-content">{renderContent()}</section>
+      <div className="account-page">
+        <header className="account-header">
+          <h1>Hey, Mohamed</h1>
+          <p>
+            You can manage all your bookings, saved articles, and profile
+            information here.
+          </p>
+          <div className="account-tabs">
+            <button
+              onClick={() => setActiveTab("bookings")}
+              className={activeTab === "bookings" ? "active" : ""}
+            >
+              Bookings
+            </button>
+            <button
+              onClick={() => setActiveTab("customPackages")}
+              className={activeTab === "customPackages" ? "active" : ""}
+            >
+              Custom Packages
+            </button>
+            <button
+              onClick={() => setActiveTab("saved")}
+              className={activeTab === "saved" ? "active" : ""}
+            >
+              Saved
+            </button>
+            <button
+              onClick={() => setActiveTab("editProfile")}
+              className={activeTab === "editProfile" ? "active" : ""}
+            >
+              Edit Profile
+            </button>
+          </div>
+        </header>
 
-      <Footer />
-    </div>
+        <section className="account-content">{renderContent()}</section>
+
+        <Footer />
+      </div>
+    </>
   );
 };
 

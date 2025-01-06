@@ -10,7 +10,10 @@ function CareersFAQSection() {
           Perks and benefits
         </Typography>
 
-        <Typography variant="body1">
+        <Typography
+          variant="body1"
+          sx={{ marginBottom: "1rem", paddingRight: "1rem" }}
+        >
           We believe that by taking care of our team, our team will take care of
           our travellers.
         </Typography>

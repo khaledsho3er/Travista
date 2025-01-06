@@ -65,7 +65,7 @@
 a.nav-link {
   color: white;
   text-decoration: none;
-  font-size: 0rem;
+  font-size: 2.6rem;
 }
 
 .navbar {
@@ -499,7 +499,7 @@ footer ul li a {
 /* Header Section */
 .account-header {
   text-align: left; /* Default alignment */
-  padding: 2rem 2rem;
+  padding: 5rem 2rem 0rem 2rem;
 }
 
 .account-header h1 {
@@ -547,6 +547,7 @@ footer ul li a {
   flex-wrap: wrap;
   padding: 2rem 1rem;
   background-color: #f4f4f4;
+  margin-top: -24px;
 }
 
 /* Saved Content */
@@ -1527,7 +1528,7 @@ textarea.form-input {
 /*StepONe pages*/
 .BMI-steps-first-Content {
   text-align: center;
-  margin-bottom: 18rem;
+  margin-bottom: 10rem;
   padding: 0rem 1rem;
 }
 
@@ -1624,7 +1625,7 @@ textarea.form-input {
 /*BMP Steps two*/
 .step-two-container {
   text-align: center;
-  margin-bottom: 8rem;
+  margin-bottom: 2rem;
   width: 100%;
   flex-direction: column;
 }
@@ -1934,7 +1935,7 @@ textarea.form-input {
 /*Step three BMP*/
 .BMI-steps-third-Content {
   text-align: center;
-  margin-bottom: 8rem;
+  margin-bottom: 5rem;
   padding: 3rem;
 }
 
@@ -2321,7 +2322,7 @@ textarea.form-input {
 .careers-open-roles-left {
   flex: 1;
   justify-content: flex-end;
-  margin-left: 3rem;
+  margin-left: 5rem;
 }
 
 .careers-open-roles-left h2 {
@@ -2332,7 +2333,7 @@ textarea.form-input {
 }
 
 .careers-open-roles-left h3 {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #555;
   margin-bottom: 20px;
 }

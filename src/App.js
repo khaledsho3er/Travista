@@ -18,9 +18,11 @@ import ContactUs from "./Pages/ContactUs";
 import BuildMyPackageSteps from "./Pages/BMPsteps";
 import CareersPage from "./Pages/Careers";
 import BlogsPage from "./Pages/Blogs";
+import ScrollToTop from "./context/scrollToTop";
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route exact path="/" Component={Home} />
         <Route exact path="/login" Component={TravistaSignIn} />
