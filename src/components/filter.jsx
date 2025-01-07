@@ -12,7 +12,7 @@ import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Diversity2Icon from "@mui/icons-material/Diversity2";
 import MosqueIcon from "@mui/icons-material/Mosque";
-const Filter = () => {
+const Filter = ({ onFilterChange }) => {
   const filters = [
     { label: "NATURE", icon: <NatureIcon /> },
     { label: "HISTORY", icon: <HistoryIcon /> },
@@ -39,19 +39,17 @@ const Filter = () => {
       <Box
         sx={{ maxWidth: "1200px", margin: "0 auto", textAlign: "left", mb: 5 }}
       >
-        {/* Centered Title */}
         <Box sx={{ textAlign: "left", mb: 5 }}>
           <Typography variant="h6" fontWeight={600} gutterBottom>
             You can filter travel ideas by theme
           </Typography>
         </Box>
-        {/* Filters */}
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between", // Evenly space items across the width
+            justifyContent: "space-between",
             flexWrap: "wrap",
-            gap: "10px", // Add spacing between rows on smaller screens
+            gap: "10px",
           }}
         >
           {filters.map((filter, index) => (
@@ -62,14 +60,15 @@ const Filter = () => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                minWidth: "80px", // Ensure icons don't shrink too much
+                minWidth: "80px",
                 color: "black",
                 transition: "color 0.3s",
                 cursor: "pointer",
                 "&:hover": {
-                  color: "var(--maroon)", // Change color on hover
+                  color: "var(--maroon)",
                 },
               }}
+              onClick={() => onFilterChange(filter.label)} // Call the callback
             >
               <Box sx={{ fontSize: "2rem" }}>{filter.icon}</Box>
               <Typography
