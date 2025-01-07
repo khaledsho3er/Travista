@@ -1,0 +1,324 @@
+[
+  {
+    "id": 1,
+    "image": "/assets/packages-page/tours/1.png",
+    "date": "10th Aug",
+    "name": "Madrid, Barcelona, Rome",
+    "duration": "10 Days, 9 Nights",
+    "price": "$2,390",
+    "type": "sports",
+    "details": {
+      "type": "Ground Trip",
+      "flight": "Egypt Air",
+      "Accommodation": "4 Stars",
+      "Transportation": "Included",
+      "Program": "Included",
+      "Inclusions": [
+        {
+          "title": "Accommodation",
+          "description": "3 nights in Madrid, 3 nights in Barcelona, 3 nights in Rome"
+        },
+        {
+          "title": "International flights",
+          "description": "International direct round trip economy ticket by Egypt Air"
+        }
+      ]
+    },
+    "hotels": [
+      {
+        "name": "Hotel Madrid 4*",
+        "image": "hotel-madrid.jpg",
+        "MealPlan": "Half Board",
+        "price": "€890",
+        "nights": "3",
+        "city": "Madrid"
+      },
+      {
+        "name": "Hotel Barcelona 4*",
+        "image": "hotel-barcelona.jpg",
+        "MealPlan": "Full Board",
+        "price": "€990",
+        "nights": "3",
+        "city": "Barcelona"
+      },
+      {
+        "name": "Hotel Rome 4*",
+        "image": "hotel-rome.jpg",
+        "MealPlan": "Half Board",
+        "price": "€890",
+        "nights": "3",
+        "city": "Rome"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "image": "/assets/explore.png",
+    "date": "15th Sept",
+    "name": "Venice, Zurich, Prague",
+    "duration": "10 Days, 9 Nights",
+    "price": "$2,390",
+    "type": "Honeymoon",
+    "details": {
+      "type": "Ground Trip",
+      "flight": "Emirates",
+      "Accommodation": "5 Stars",
+      "Transportation": "Included",
+      "Program": "Included",
+      "Inclusions": [
+        {
+          "title": "Accommodation",
+          "description": "3 nights in Venice, 3 nights in Zurich, 3 nights in Prague"
+        },
+        {
+          "title": "International flights",
+          "description": "International direct round trip economy ticket by Emirates"
+        }
+      ],
+      "Exclusions": [
+        {
+          "description": "Schengen entry visa (7,200 EGP per Adult & 4,200 EGP per Child)"
+        },
+        {
+          "description": "Optional Tours"
+        },
+        {
+          "description": "Any other items not mentioned above"
+        },
+        {
+          "description": "Paris City Tax: 8.11 EUR per person per Night, to be paid directly to the hotel upon check in."
+        },
+        {
+          "description": "Amsterdam City Tax: 3.00 EUR per person per Night, to be paid directly to the hotel upon check in/out."
+        }
+      ],
+      "Notes": [
+        {
+          "description": " Contact us on 19294 for further details & package confirmation."
+        },
+        {
+          "description": "Deposit of 500 Euro is required for Confirmation."
+        },
+        {
+          "description": "Payment can be done in EUR or via online payment link with same official bank exchange rate plus credit card percentage bank fees."
+        },
+        {
+          "description": "Optional tours are based on minimum 15 pax."
+        },
+        {
+          "description": " Military Travel Clearance is the client own responsibility to have before travel (if needed). "
+        }
+      ]
+    },
+    "hotels": [
+      {
+        "name": "President Hotel 3 Standard Room",
+        "image": "hotel-venice.jpg",
+        "MealPlan": "Bed & Breakfast",
+        "price": {
+          "singleRoom": "€2,090",
+          "doubleRoom": "€1,550",
+          "tripleRoom": "€1,000"
+        },
+        "nights": "6",
+        "city": "London"
+      }
+    ],
+    "flights": [
+      {
+        "Airline": "Egypt Air",
+        "Departure": "Cairo",
+        "Arrival": "Paris",
+        "DepartureDate": "2024-12-26",
+        "DepartTime": "09:35",
+        "ArrivalTime": "13:25",
+        "ReturnAirline": "Egypt Air",
+        "ReturnDate": "2025-01-02",
+        "ReturnTimeDepart": "15:00",
+        "ReturnTimeArrive": "20:30",
+        "ReturnDeparture": "Amsterdam",
+        "ReturnArrival": "Cairo"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "image": "/assets/explore.png",
+    "date": "15th Sept",
+    "name": "Venice, Zurich, Prague",
+    "duration": "10 Days, 9 Nights",
+    "price": "$2,390",
+    "type": "Honeymoon",
+    "details": {
+      "type": "Ground Trip",
+      "flight": "Emirates",
+      "Accommodation": "5 Stars",
+      "Transportation": "Included",
+      "Program": "Included",
+      "Inclusions": [
+        {
+          "title": "Accommodation",
+          "description": "3 nights in Venice, 3 nights in Zurich, 3 nights in Prague"
+        },
+        {
+          "title": "International flights",
+          "description": "International direct round trip economy ticket by Emirates"
+        }
+      ],
+      "Exclusions": [
+        {
+          "description": "Schengen entry visa (7,200 EGP per Adult & 4,200 EGP per Child)"
+        },
+        {
+          "description": "Optional Tours"
+        },
+        {
+          "description": "Any other items not mentioned above"
+        },
+        {
+          "description": "Paris City Tax: 8.11 EUR per person per Night, to be paid directly to the hotel upon check in."
+        },
+        {
+          "description": "Amsterdam City Tax: 3.00 EUR per person per Night, to be paid directly to the hotel upon check in/out."
+        }
+      ],
+      "Notes": [
+        {
+          "description": " Contact us on 19294 for further details & package confirmation."
+        },
+        {
+          "description": "Deposit of 500 Euro is required for Confirmation."
+        },
+        {
+          "description": "Payment can be done in EUR or via online payment link with same official bank exchange rate plus credit card percentage bank fees."
+        },
+        {
+          "description": "Optional tours are based on minimum 15 pax."
+        },
+        {
+          "description": " Military Travel Clearance is the client own responsibility to have before travel (if needed). "
+        }
+      ]
+    },
+    "hotels": [
+      {
+        "name": "President Hotel 3 Standard Room",
+        "image": "hotel-venice.jpg",
+        "MealPlan": "Bed & Breakfast",
+        "price": {
+          "singleRoom": "€2,090",
+          "doubleRoom": "€1,550",
+          "tripleRoom": "€1,000"
+        },
+        "nights": "6",
+        "city": "London"
+      }
+    ],
+    "flights": [
+      {
+        "Airline": "Egypt Air",
+        "Departure": "Cairo",
+        "Arrival": "Paris",
+        "DepartureDate": "2024-12-26",
+        "DepartTime": "09:35",
+        "ArrivalTime": "13:25",
+        "ReturnAirline": "Egypt Air",
+        "ReturnDate": "2025-01-02",
+        "ReturnTimeDepart": "15:00",
+        "ReturnTimeArrive": "20:30",
+        "ReturnDeparture": "Amsterdam",
+        "ReturnArrival": "Cairo"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "image": "/assets/explore.png",
+    "date": "15th Sept",
+    "name": "Venice, Zurich, Prague",
+    "duration": "10 Days, 9 Nights",
+    "price": "$2,390",
+    "type": "Honeymoon",
+    "details": {
+      "type": "Ground Trip",
+      "flight": "Emirates",
+      "Accommodation": "5 Stars",
+      "Transportation": "Included",
+      "Program": "Included",
+      "Inclusions": [
+        {
+          "title": "Accommodation",
+          "description": "3 nights in Venice, 3 nights in Zurich, 3 nights in Prague"
+        },
+        {
+          "title": "International flights",
+          "description": "International direct round trip economy ticket by Emirates"
+        }
+      ],
+      "Exclusions": [
+        {
+          "description": "Schengen entry visa (7,200 EGP per Adult & 4,200 EGP per Child)"
+        },
+        {
+          "description": "Optional Tours"
+        },
+        {
+          "description": "Any other items not mentioned above"
+        },
+        {
+          "description": "Paris City Tax: 8.11 EUR per person per Night, to be paid directly to the hotel upon check in."
+        },
+        {
+          "description": "Amsterdam City Tax: 3.00 EUR per person per Night, to be paid directly to the hotel upon check in/out."
+        }
+      ],
+      "Notes": [
+        {
+          "description": " Contact us on 19294 for further details & package confirmation."
+        },
+        {
+          "description": "Deposit of 500 Euro is required for Confirmation."
+        },
+        {
+          "description": "Payment can be done in EUR or via online payment link with same official bank exchange rate plus credit card percentage bank fees."
+        },
+        {
+          "description": "Optional tours are based on minimum 15 pax."
+        },
+        {
+          "description": " Military Travel Clearance is the client own responsibility to have before travel (if needed). "
+        }
+      ]
+    },
+    "hotels": [
+      {
+        "name": "President Hotel 3 Standard Room",
+        "image": "hotel-venice.jpg",
+        "MealPlan": "Bed & Breakfast",
+        "price": {
+          "singleRoom": "€2,090",
+          "doubleRoom": "€1,550",
+          "tripleRoom": "€1,000"
+        },
+        "nights": "6",
+        "city": "London"
+      }
+    ],
+    "flights": [
+      {
+        "Airline": "Egypt Air",
+        "Departure": "Cairo",
+        "Arrival": "Paris",
+        "DepartureDate": "2024-12-26",
+        "DepartTime": "09:35",
+        "ArrivalTime": "13:25",
+        "ReturnAirline": "Egypt Air",
+        "ReturnDate": "2025-01-02",
+        "ReturnTimeDepart": "15:00",
+        "ReturnTimeArrive": "20:30",
+        "ReturnDeparture": "Amsterdam",
+        "ReturnArrival": "Cairo"
+      }
+    ]
+  }
+]

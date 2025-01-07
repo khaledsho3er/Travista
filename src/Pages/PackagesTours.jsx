@@ -1,80 +1,52 @@
-import React, { useState } from "react";
-import IconButton from "@mui/material/IconButton";
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  IconButton,
+} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import SinglePackage from "../components/singlePackage";
-import { Box, Typography, Card, CardContent, Grid } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Filter from "../components/filter";
+import SinglePackage from "../components/singlePackage";
 
 function PackagesTours() {
-  const [selectedFilter, setSelectedFilter] = useState(""); // Manage selected filter state
+  const [selectedFilter, setSelectedFilter] = useState("");
   const [selectedPackage, setSelectedPackage] = useState(null);
+  const [packages, setPackages] = useState([]);
 
-  const tours = [
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "10th Aug",
-      name: "Madriad, Barcelona, Rome",
-      duration: "10 Days, 9 Nights",
-      price: "$2,390",
-      type: "sports",
-    },
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "10th Aug",
-      name: "Venice, zurich, Prague",
-      duration: "10 Days, 9 Nights",
-      price: "$2,390",
-      type: "HoneyMoon",
-    },
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "10th Aug",
-      name: "Zurich, Paris, Rome, Florence",
-      duration: "10 Days, 9 Nights",
-      price: "$2,390",
-      type: "family",
-    },
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "10th Aug",
-      name: "Venice, Barcelona, Prague",
-      duration: "10 Days, 9 Nights",
-      price: "$2,390",
-      type: "sports",
-    },
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "10th Aug",
-      name: "Venice, Barcelona, Prague",
-      duration: "10 Days, 9 Nights",
-      price: "$2,390",
-      type: "sports",
-    },
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "10th Aug",
-      name: "Zurich, Paris, Rome, Florence",
-      duration: "10 Days, 9 Nights",
-      price: "$2,390",
-      type: "sports",
-    },
-  ];
+  useEffect(() => {
+    // Simulate fetching data
+    const fetchPackagesData = async () => {
+      try {
+        const response = await fetch("/json/packages.json"); // Adjust to match your actual file path
+        const data = await response.json();
+        setPackages(data);
+      } catch (error) {
+        console.error("Error loading packages:", error);
+      }
+    };
 
-  const handlePackageClick = (tour) => setSelectedPackage(tour);
+    fetchPackagesData();
+  }, []);
 
-  const handleFilterChange = (filter) => setSelectedFilter(filter); // Update selected filter
+  const handleFilterChange = (filter) => setSelectedFilter(filter);
 
-  const filteredTours = selectedFilter
-    ? tours.filter(
-        (tour) => tour.type.toLowerCase() === selectedFilter.toLowerCase()
+  const handlePackageClick = (packageId) => {
+    const pkg = packages.find((pkg) => pkg.id === packageId);
+    setSelectedPackage(pkg); // Open modal with selected package
+  };
+
+  const filteredPackages = selectedFilter
+    ? packages.filter((pkg) =>
+        pkg.type.toLowerCase().includes(selectedFilter.toLowerCase())
       )
-    : tours;
-
+    : packages;
   return (
     <Box className="packages-page">
       <Navbar />
-
       <Box className="hero">
         <Box
           sx={{
@@ -98,20 +70,20 @@ function PackagesTours() {
         </Box>
       </Box>
 
-      <div className="packages-tours-body">
-        <Box className="packages-tours">
-          <Box sx={{ display: "flex", gap: "10px", padding: "20px 0" }}>
-            <Filter onFilterChange={handleFilterChange} /> {/* Pass callback */}
-          </Box>
-          {filteredTours.length > 0 ? (
-            <Grid container spacing={3}>
-              {filteredTours.map((tour, index) => (
-                <Grid item xs={12} sm={6} md={4} key={index}>
-                  <Card onClick={() => handlePackageClick(tour)}>
+      <Box className="packages-tours-body">
+        <Box sx={{ display: "flex", gap: "10px", padding: "20px 20px" }}>
+          <Filter onFilterChange={handleFilterChange} />
+        </Box>
+        {filteredPackages.length > 0 ? (
+          <Grid container spacing={3}>
+            {filteredPackages &&
+              filteredPackages.map((pkg) => (
+                <Grid item xs={12} sm={6} md={4} key={pkg.id}>
+                  <Card onClick={() => handlePackageClick(pkg.id)}>
                     <CardContent
                       sx={{
                         height: "350px",
-                        background: `url(${tour.image})`,
+                        background: `url(${pkg.image})`,
                         color: "white",
                         position: "relative",
                         borderRadius: "12px",
@@ -132,7 +104,7 @@ function PackagesTours() {
                         }}
                         variant="subtitle2"
                       >
-                        {tour.date}
+                        {pkg.date}
                       </Typography>
                       <IconButton
                         sx={{
@@ -160,48 +132,48 @@ function PackagesTours() {
                         }}
                       >
                         <Typography fontWeight={800} variant="h4" gutterBottom>
-                          {tour.name}
+                          {pkg.name}
                         </Typography>
                         <Typography
                           variant="body1"
                           color="#777777"
                           fontWeight={500}
                         >
-                          {tour.duration}
+                          {pkg.duration}
                         </Typography>
                         <Typography
                           variant="subtitle1"
                           sx={{ color: "#266ef1" }}
                         >
-                          {tour.price}
+                          {pkg.price}
                         </Typography>
                       </Box>
                     </CardContent>
                   </Card>
                 </Grid>
               ))}
-            </Grid>
-          ) : (
-            <Typography
-              variant="h6"
-              color="textSecondary"
-              textAlign="center"
-              sx={{ padding: "20px" }}
-            >
-              No packages found
-            </Typography>
-          )}
-        </Box>
-      </div>
+          </Grid>
+        ) : (
+          <Typography
+            variant="h6"
+            color="textSecondary"
+            textAlign="center"
+            sx={{ padding: "20px" }}
+          >
+            No packages found
+          </Typography>
+        )}
+      </Box>
 
+      {/* Slide-Up Modal */}
       {selectedPackage && (
         <Box
           className={`slide-up-modal ${selectedPackage ? "show" : ""}`}
           onClick={() => setSelectedPackage(null)}
         >
-          <Box onClick={(e) => e.stopPropagation()}>
+          <Box className="modal-content" onClick={(e) => e.stopPropagation()}>
             <SinglePackage
-              tour={selectedPackage}
+              packageDetails={selectedPackage}
               onClose={() => setSelectedPackage(null)}
             />
           </Box>
