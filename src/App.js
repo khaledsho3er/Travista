@@ -19,8 +19,12 @@ import BuildMyPackageSteps from "./Pages/BMPsteps";
 import CareersPage from "./Pages/Careers";
 import BlogsPage from "./Pages/Blogs";
 import ScrollToTop from "./context/scrollToTop";
+import Dashboard from "./Pages/Dashboard";
+import Sidebar from "./components/Dashboard/sidebar";
+import { Toaster } from 'react-hot-toast';
 function App() {
   return (
+  <>
     <Router>
       <ScrollToTop />
       <Routes>
@@ -46,9 +50,25 @@ function App() {
           Component={BuildMyPackageSteps}
         />
 
-        <Route exact path="/Blogs" Component={BlogsPage} />
       </Routes>
     </Router>
+    <Router>
+      <div className="flex h-screen bg-gray-100">
+        <Sidebar />
+        <div className="flex-1 overflow-auto">
+          <Routes>
+          <Route exact path="/Dashboard" Component={Dashboard} />            {/* <Route path="/packages" element={<Packages />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/employees" element={<Employees />} />
+            <Route path="/forms" element={<Forms />} />
+            <Route path="/notifications" element={<Notifications />} /> */}
+          </Routes>
+        </div>
+        <Toaster position="top-right" />
+      </div>
+    </Router>
+</>
+    
   );
 }
 
