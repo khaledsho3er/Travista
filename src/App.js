@@ -19,56 +19,48 @@ import BuildMyPackageSteps from "./Pages/BMPsteps";
 import CareersPage from "./Pages/Careers";
 import BlogsPage from "./Pages/Blogs";
 import ScrollToTop from "./context/scrollToTop";
-import Dashboard from "./Pages/Dashboard";
-import Sidebar from "./components/Dashboard/sidebar";
-import { Toaster } from 'react-hot-toast';
+import AdminDashboard from "./Pages/adminDashboard";
 function App() {
   return (
-  <>
-    <Router>
-      <ScrollToTop />
-      <Routes>
-        <Route exact path="/" Component={Home} />
-        <Route exact path="/login" Component={TravistaSignIn} />
-        <Route exact path="/SignUp" Component={TravistaSignUp} />
-        <Route exact path="/packages" Component={PackagesTours} />
-        <Route exact path="/careers" Component={CareersPage} />
-        {/* <Route exact path="/singlePackage" Component={SinglePackage} /> */}
-        <Route exact path="/loading" Component={TravistaLoading} />
-        {/* <Route exact path="/pp" Component={PreferencePackage} />
+    <>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route exact path="/" Component={Home} />
+          <Route exact path="/login" Component={TravistaSignIn} />
+          <Route exact path="/SignUp" Component={TravistaSignUp} />
+          <Route exact path="/packages" Component={PackagesTours} />
+          <Route exact path="/careers" Component={CareersPage} />
+          {/* <Route exact path="/singlePackage" Component={SinglePackage} /> */}
+          <Route exact path="/loading" Component={TravistaLoading} />
+          {/* <Route exact path="/pp" Component={PreferencePackage} />
         <Route exact path="/pi" Component={PersonalInfo} /> */}
-        <Route exact path="/account" Component={AccountPage} />
-        <Route exact path="/faqs" Component={FAQsPage} />
-        <Route exact path="/applyforvisa" Component={ApplyForVisa} />
-        <Route exact path="/singleblog" Component={SingleBLog} />
-        <Route exact path="/buildmypackage" Component={BuildMyPackage} />
-        <Route exact path="/About" Component={AboutPage} />
-        <Route exact path="/contactus" Component={ContactUs} />
-        <Route
-          exact
-          path="/buildmypackagesteps"
-          Component={BuildMyPackageSteps}
-        />
-
-      </Routes>
-    </Router>
-    <Router>
-      <div className="flex h-screen bg-gray-100">
-        <Sidebar />
-        <div className="flex-1 overflow-auto">
-          <Routes>
-          <Route exact path="/Dashboard" Component={Dashboard} />            {/* <Route path="/packages" element={<Packages />} />
+          <Route exact path="/account" Component={AccountPage} />
+          <Route exact path="/faqs" Component={FAQsPage} />
+          <Route exact path="/applyforvisa" Component={ApplyForVisa} />
+          <Route exact path="/singleblog" Component={SingleBLog} />
+          <Route exact path="/buildmypackage" Component={BuildMyPackage} />
+          <Route exact path="/About" Component={AboutPage} />
+          <Route exact path="/contactus" Component={ContactUs} />
+          <Route
+            exact
+            path="/buildmypackagesteps"
+            Component={BuildMyPackageSteps}
+          />
+          <Route exact path="/blogs" Component={BlogsPage} />
+        </Routes>
+      </Router>
+      <Router>
+        <Routes>
+          <Route exact path="/Dashboard" Component={AdminDashboard} />{" "}
+          {/* <Route path="/packages" element={<Packages />} />
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/employees" element={<Employees />} />
             <Route path="/forms" element={<Forms />} />
             <Route path="/notifications" element={<Notifications />} /> */}
-          </Routes>
-        </div>
-        <Toaster position="top-right" />
-      </div>
-    </Router>
-</>
-    
+        </Routes>
+      </Router>
+    </>
   );
 }
 
