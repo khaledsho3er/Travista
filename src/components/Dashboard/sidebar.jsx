@@ -15,11 +15,11 @@ function Sidebar() {
 
   const menuItems = [
     { path: "/Dashboard", icon: Home, label: "Dashboard" },
-    { path: "/packages", icon: Package, label: "Packages" },
-    { path: "/blogs", icon: FileText, label: "Blogs" },
-    { path: "/employees", icon: Users, label: "Employees" },
-    { path: "/forms", icon: FormInput, label: "Forms" },
-    { path: "/notifications", icon: Bell, label: "Notifications" },
+    { path: "/dashboard-packages", icon: Package, label: "Packages" },
+    { path: "/dashboard-blogs", icon: FileText, label: "Blogs" },
+    { path: "/dashboard-employees", icon: Users, label: "Employees" },
+    { path: "/dashboard-forms", icon: FormInput, label: "Forms" },
+    { path: "/dashboard-notifications", icon: Bell, label: "Notifications" },
   ];
 
   return (
