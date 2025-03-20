@@ -20,6 +20,7 @@ import CareersPage from "./Pages/Careers";
 import BlogsPage from "./Pages/Blogs";
 import ScrollToTop from "./context/scrollToTop";
 import AdminDashboard from "./Pages/adminDashboard";
+import DashboardPackages from "./components/Dashboard/package";
 function App() {
   return (
     <>
@@ -53,11 +54,11 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/Dashboard" Component={AdminDashboard} />{" "}
-          {/* <Route path="/packages" element={<Packages />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/employees" element={<Employees />} />
-            <Route path="/forms" element={<Forms />} />
-            <Route path="/notifications" element={<Notifications />} /> */}
+          <Route path="/dashboard-packages" element={<DashboardPackages />} />
+          {/* <Route path="/dashboard-blogs" element={<Blogs />} />
+          <Route path="/dashboard-employees" element={<Employees />} />
+          <Route path="/dashboard-forms" element={<Forms />} />
+          <Route path="/dashboard-notifications" element={<Notifications />} /> */}
         </Routes>
       </Router>
     </>

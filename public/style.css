@@ -915,7 +915,7 @@ textarea.form-input {
   width: 400px;
   height: 400px;
   object-fit: cover;
-  padding: 100px 130px 100px 300px;
+  margin-right: 64px;
 }
 
 .ApplyForVisa-header h1 {
@@ -1222,12 +1222,14 @@ textarea.form-input {
   width: 400px;
   height: 400px;
   object-fit: cover;
-  padding: 100px 170px 100px 300px;
+  /* padding: 100px 170px 100px 300px; */
+  margin-top: 98px;
+  margin-right: 84px;
 }
 .build-my-package-header .overlay-photo {
   position: absolute;
   top: -22px; /* Positioning above the main image */
-  left: 610px; /* Adjust horizontal position */
+  left: 1073px; /* Adjust horizontal position */
   width: 80px; /* Size of the smaller photo */
   height: 117px;
   z-index: 10; /* Ensures it appears above the main image */
@@ -1246,7 +1248,7 @@ textarea.form-input {
   padding-left: 15px;
   text-align: justify;
   line-height: 25px;
-  margin-right: -72px;
+  margin-right: 74px;
 }
 .build-my-package-header span {
   color: #ffffff;
@@ -2200,12 +2202,14 @@ textarea.form-input {
   width: 25rem;
   height: 20rem;
   object-fit: cover;
-  padding: 3rem 7rem 3rem 12rem;
+  /* padding: 3rem 7rem 3rem 12rem; */
   border-radius: 20px;
+  margin-right: 92px;
+  margin-top: 98px;
 }
 .careers-header .overlay-photo {
   position: absolute;
-  top: 47%; /* Positioning above the main image */
+  top: 57.5%; /* Positioning above the main image */
   left: 33%; /* Adjust horizontal position */
   width: 80px; /* Size of the smaller photo */
   height: 117px;
