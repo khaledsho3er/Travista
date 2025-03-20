@@ -1,13 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import PackagesTours from "./Pages/PackagesTours";
-// import SinglePackage from "./components/singlePackage";
 import TravistaLoading from "./components/loading";
 import TravistaSignIn from "./Pages/login";
 import TravistaSignUp from "./Pages/signup";
-// import PreferencePackage from "./components/preferencePackage";
-// import PersonalInfo from "./components/personalInfo";
 import AccountPage from "./Pages/Account";
 import FAQsPage from "./Pages/FAQs";
 import ApplyForVisa from "./Pages/ApplyForVisa";
@@ -19,10 +16,13 @@ import BuildMyPackageSteps from "./Pages/BMPsteps";
 import CareersPage from "./Pages/Careers";
 import BlogsPage from "./Pages/Blogs";
 import ScrollToTop from "./context/scrollToTop";
-import AdminDashboard from "./Pages/adminDashboard";
+import DashboardLayout from "./components/Dashboard/Dashboard-layout";
 import DashboardPackages from "./components/Dashboard/package";
+import AdminDashboard from "./Pages/adminDashboard";
 import { UserProvider } from "./utils/userContext";
+
 function App() {
+  
   return (
     <>
       <UserProvider>
@@ -57,15 +57,14 @@ function App() {
 
       <Router>
         <Routes>
-          <Route exact path="/Dashboard" Component={AdminDashboard} />{" "}
-          <Route path="/dashboard-packages" element={<DashboardPackages />} />
-          {/* <Route path="/dashboard-blogs" element={<Blogs />} />
-          <Route path="/dashboard-employees" element={<Employees />} />
-          <Route path="/dashboard-forms" element={<Forms />} />
-          <Route path="/dashboard-notifications" element={<Notifications />} /> */}
+         <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="packages" element={<DashboardPackages />} />
+        </Route>
         </Routes>
       </Router>
     </>
+
   );
 }
 

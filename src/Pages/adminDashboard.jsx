@@ -5,7 +5,6 @@ import { Toaster } from "react-hot-toast";
 const AdminDashboard = () => {
   return (
     <div className="flex h-screen bg-gray-100">
-      <Sidebar />
       <div className="flex-1 overflow-auto">
         <Dashboard />
       </div>
