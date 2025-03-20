@@ -20,58 +20,44 @@ import DashboardLayout from "./components/Dashboard/Dashboard-layout";
 import DashboardPackages from "./components/Dashboard/package";
 import AdminDashboard from "./Pages/adminDashboard";
 import { UserProvider } from "./utils/userContext";
-import CityManagement from "./components/Dashboard/cities"
+import CityManagement from "./components/Dashboard/cities";
 function App() {
-  
   return (
     <>
       <UserProvider>
         <Router>
           <ScrollToTop />
           <Routes>
-            <Route exact path="/" Component={Home} />
-            <Route exact path="/login" Component={TravistaSignIn} />
-            <Route exact path="/SignUp" Component={TravistaSignUp} />
-            <Route exact path="/packages" Component={PackagesTours} />
-            <Route exact path="/careers" Component={CareersPage} />
-            {/* <Route exact path="/singlePackage" Component={SinglePackage} /> */}
-            <Route exact path="/loading" Component={TravistaLoading} />
-            {/* <Route exact path="/pp" Component={PreferencePackage} />
-        <Route exact path="/pi" Component={PersonalInfo} /> */}
-            <Route exact path="/account" Component={AccountPage} />
-            <Route exact path="/faqs" Component={FAQsPage} />
-            <Route exact path="/applyforvisa" Component={ApplyForVisa} />
-            <Route exact path="/singleblog" Component={SingleBLog} />
-            <Route exact path="/buildmypackage" Component={BuildMyPackage} />
-            <Route exact path="/About" Component={AboutPage} />
-            <Route exact path="/contactus" Component={ContactUs} />
+            {/* Public Routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<TravistaSignIn />} />
+            <Route path="/SignUp" element={<TravistaSignUp />} />
+            <Route path="/packages" element={<PackagesTours />} />
+            <Route path="/careers" element={<CareersPage />} />
+            <Route path="/loading" element={<TravistaLoading />} />
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="/faqs" element={<FAQsPage />} />
+            <Route path="/applyforvisa" element={<ApplyForVisa />} />
+            <Route path="/singleblog" element={<SingleBLog />} />
+            <Route path="/buildmypackage" element={<BuildMyPackage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contactus" element={<ContactUs />} />
             <Route
-              exact
               path="/buildmypackagesteps"
-              Component={BuildMyPackageSteps}
+              element={<BuildMyPackageSteps />}
             />
-            <Route exact path="/blogs" Component={BlogsPage} />
+            <Route path="/blogs" element={<BlogsPage />} />
+
+            {/* Admin Dashboard Routes */}
+            <Route path="/dashboard" element={<DashboardLayout />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="packages" element={<DashboardPackages />} />
+              <Route path="cities" element={<CityManagement />} />
+            </Route>
           </Routes>
         </Router>
       </UserProvider>
-
-      <Router>
-        <Routes>
-          <Route exact path="/Dashboard" Component={AdminDashboard} />{" "}
-          <Route path="/dashboard-packages" element={<DashboardPackages />} />
-          <Route path="/dashboard-cities" element={<CityManagement/>}/>
-          {/* <Route path="/dashboard-blogs" element={<Blogs />} />
-          <Route path="/dashboard-employees" element={<Employees />} />
-          <Route path="/dashboard-forms" element={<Forms />} />
-          <Route path="/dashboard-notifications" element={<Notifications />} /> */}
-
-         <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="packages" element={<DashboardPackages />} />
-        </Routes>
-      </Router>
     </>
-
   );
 }
 

@@ -6,6 +6,7 @@ import BlogsForm from "./blogs";
 import Employees from "./employees";
 import Forms from "./forms";
 import NotificationsTable from "./Notifications";
+import CityManagement from "./cities";
 
 function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard"); // Use lowercase
@@ -24,6 +25,8 @@ function DashboardLayout() {
         return <Forms />;
       case "notifications":
         return <NotificationsTable />;
+      case "cities":
+        return <CityManagement />;
       default:
         return <Dashboard />;
     }
