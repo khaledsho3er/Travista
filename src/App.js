@@ -22,6 +22,7 @@ import ScrollToTop from "./context/scrollToTop";
 import AdminDashboard from "./Pages/adminDashboard";
 import DashboardPackages from "./components/Dashboard/package";
 import { UserProvider } from "./utils/userContext";
+import CityManagement from "./components/Dashboard/cities"
 function App() {
   return (
     <>
@@ -59,6 +60,7 @@ function App() {
         <Routes>
           <Route exact path="/Dashboard" Component={AdminDashboard} />{" "}
           <Route path="/dashboard-packages" element={<DashboardPackages />} />
+          <Route path="/dashboard-cities" element={<CityManagement/>}/>
           {/* <Route path="/dashboard-blogs" element={<Blogs />} />
           <Route path="/dashboard-employees" element={<Employees />} />
           <Route path="/dashboard-forms" element={<Forms />} />

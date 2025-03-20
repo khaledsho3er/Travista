@@ -9,6 +9,7 @@ import {
   Bell,
   Plane,
 } from "lucide-react";
+import { PiCity } from "react-icons/pi";
 
 function Sidebar() {
   const location = useLocation();
@@ -20,6 +21,7 @@ function Sidebar() {
     { path: "/dashboard-employees", icon: Users, label: "Employees" },
     { path: "/dashboard-forms", icon: FormInput, label: "Forms" },
     { path: "/dashboard-notifications", icon: Bell, label: "Notifications" },
+    { path: "/dashboard-cities", icon: PiCity, label: "cities" },
   ];
 
   return (
