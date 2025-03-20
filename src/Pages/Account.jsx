@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PackageCards from "../components/Cards";
-
+import EditProfile from "../components/editProfile";
+import { Typography } from "@mui/material";
 import { Box, Grid, Button } from "@mui/material";
+import { useUser } from "../utils/userContext";
+
 const AccountPage = () => {
   const [activeTab, setActiveTab] = useState("saved");
-
+  const { userSession, setUserSession } = useUser();
   const tours = [
     {
       image: "/assets/packages-page/tours/1.png",
@@ -39,19 +42,19 @@ const AccountPage = () => {
               sx={{ display: "flex", gap: "10px", padding: "20px 10px 20px" }}
             >
               <Button
-                className="btn btn-secondary btn-inverse"
+                className="btn btn-inverse btn-secondary"
                 sx={{ fontSize: "10px ", color: "black !important" }}
               >
                 Packages
               </Button>
               <Button
-                className="btn btn-secondary btn-inverse"
+                className="btn btn-inverse btn-secondary"
                 sx={{ fontSize: "10px", color: "black !important" }}
               >
                 Tours
               </Button>
               <Button
-                className="btn btn-secondary btn-inverse"
+                className="btn btn-inverse btn-secondary"
                 sx={{ fontSize: "10px", color: "black !important" }}
               >
                 Articles
@@ -67,11 +70,14 @@ const AccountPage = () => {
           </Box>
         );
       case "editProfile":
-        return <div className="content">Edit Profile content goes here.</div>;
+        return (
+          <EditProfile userData={userSession} setUserData={setUserSession} />
+        );
       default:
         return null;
     }
   };
+  if (!userSession) return <Typography>Loading...</Typography>;
 
   return (
     <>
@@ -79,7 +85,7 @@ const AccountPage = () => {
 
       <div className="account-page">
         <header className="account-header">
-          <h1>Hey, Mohamed</h1>
+          <h1>Hey, {userSession.firstName}</h1>
           <p>
             You can manage all your bookings, saved articles, and profile
             information here.
