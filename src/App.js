@@ -19,36 +19,52 @@ import ScrollToTop from "./context/scrollToTop";
 import DashboardLayout from "./components/Dashboard/Dashboard-layout";
 import DashboardPackages from "./components/Dashboard/package";
 import AdminDashboard from "./Pages/adminDashboard";
+import { UserProvider } from "./utils/userContext";
 
 function App() {
+  
   return (
-    <Router>
-      <ScrollToTop />
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<TravistaSignIn />} />
-        <Route path="/SignUp" element={<TravistaSignUp />} />
-        <Route path="/packages" element={<PackagesTours />} />
-        <Route path="/careers" element={<CareersPage />} />
-        <Route path="/loading" element={<TravistaLoading />} />
-        <Route path="/account" element={<AccountPage />} />
-        <Route path="/faqs" element={<FAQsPage />} />
-        <Route path="/applyforvisa" element={<ApplyForVisa />} />
-        <Route path="/singleblog" element={<SingleBLog />} />
-        <Route path="/buildmypackage" element={<BuildMyPackage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contactus" element={<ContactUs />} />
-        <Route path="/buildmypackagesteps" element={<BuildMyPackageSteps />} />
-        <Route path="/blogs" element={<BlogsPage />} />
+    <>
+      <UserProvider>
+        <Router>
+          <ScrollToTop />
+          <Routes>
+            <Route exact path="/" Component={Home} />
+            <Route exact path="/login" Component={TravistaSignIn} />
+            <Route exact path="/SignUp" Component={TravistaSignUp} />
+            <Route exact path="/packages" Component={PackagesTours} />
+            <Route exact path="/careers" Component={CareersPage} />
+            {/* <Route exact path="/singlePackage" Component={SinglePackage} /> */}
+            <Route exact path="/loading" Component={TravistaLoading} />
+            {/* <Route exact path="/pp" Component={PreferencePackage} />
+        <Route exact path="/pi" Component={PersonalInfo} /> */}
+            <Route exact path="/account" Component={AccountPage} />
+            <Route exact path="/faqs" Component={FAQsPage} />
+            <Route exact path="/applyforvisa" Component={ApplyForVisa} />
+            <Route exact path="/singleblog" Component={SingleBLog} />
+            <Route exact path="/buildmypackage" Component={BuildMyPackage} />
+            <Route exact path="/About" Component={AboutPage} />
+            <Route exact path="/contactus" Component={ContactUs} />
+            <Route
+              exact
+              path="/buildmypackagesteps"
+              Component={BuildMyPackageSteps}
+            />
+            <Route exact path="/blogs" Component={BlogsPage} />
+          </Routes>
+        </Router>
+      </UserProvider>
 
-        {/* Admin Dashboard Routes */}
-        <Route path="/dashboard" element={<DashboardLayout />}>
+      <Router>
+        <Routes>
+         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="packages" element={<DashboardPackages />} />
         </Route>
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </>
+
   );
 }
 

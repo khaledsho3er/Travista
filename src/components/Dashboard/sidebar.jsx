@@ -27,11 +27,11 @@ function Sidebar({ setActiveSection }) {
   };
 
   return (
-    <div className="w-64 bg-white shadow-lg h-screen">
-      <div className="p-4 border-b">
-        <div className="flex items-center gap-2">
-          <Plane className="h-8 w-8 text-blue-600" />
-          <h1 className="text-2xl font-bold text-blue-600">Travista</h1>
+    <div className="bg-white h-screen shadow-lg w-64">
+      <div className="border-b p-4">
+        <div className="flex gap-2 items-center">
+          <Plane className="h-8 text-blue-600 w-8" />
+          <h1 className="text-2xl text-blue-600 font-bold">Travista</h1>
         </div>
       </div>
       <nav className="p-4">

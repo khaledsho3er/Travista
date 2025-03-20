@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   TextField,
@@ -11,10 +11,68 @@ import {
   Checkbox,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import IconButton from "@mui/material/IconButton";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const TravistaSignUp = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    console.log("Form submitted with data:", formData);
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match!");
+      console.log("Password mismatch!");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          phoneNumber: formData.phoneNumber, // Fix the field name
+          birthDate: formData.birthDate || null, // Optional
+        }),
+      });
+
+      const data = await response.json();
+      console.log("API Response:", data);
+
+      if (!response.ok) throw new Error(data.message || "Signup failed");
+
+      alert("Signup successful!");
+      navigate("/login");
+    } catch (error) {
+      console.error("Signup error:", error);
+      setError(error.message);
+    }
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   return (
     <>
       <Navbar />{" "}
@@ -80,7 +138,7 @@ const TravistaSignUp = () => {
             </Typography>
 
             {/* Form */}
-            <Box component="form" noValidate>
+            <Box component="form" noValidate onSubmit={handleSubmit}>
               <Box
                 sx={{
                   display: "flex",
@@ -92,18 +150,16 @@ const TravistaSignUp = () => {
                 <TextField
                   size="small"
                   margin="normal"
-                  required
-                  sx={{ width: "100%" }}
-                  label="First name"
                   name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
                 />
                 <TextField
                   size="small"
                   margin="normal"
-                  required
-                  sx={{ width: "100%" }}
-                  label="Last name"
                   name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
                 />
               </Box>
 
@@ -111,6 +167,8 @@ const TravistaSignUp = () => {
                 size="small"
                 margin="normal"
                 required
+                value={formData.email}
+                onChange={handleChange}
                 sx={{ width: "100%", mb: 2 }}
                 label="Email"
                 name="email"
@@ -122,7 +180,9 @@ const TravistaSignUp = () => {
                 required
                 sx={{ width: "100%", mb: 2 }}
                 label="Phone number"
-                name="phone"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">+20</InputAdornment>
@@ -138,10 +198,18 @@ const TravistaSignUp = () => {
                 label="Password"
                 name="password"
                 type="password"
+                value={formData.password}
+                onChange={handleChange}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <VisibilityIcon />
+                      <IconButton onClick={handleClickShowPassword}>
+                        {showPassword ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </IconButton>
                     </InputAdornment>
                   ),
                 }}
@@ -154,6 +222,8 @@ const TravistaSignUp = () => {
                 label="Confirm password"
                 name="confirmPassword"
                 type="password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -211,6 +281,11 @@ const TravistaSignUp = () => {
           </Box>
         </Grid>
       </Grid>
+      {error && (
+        <Typography color="error" sx={{ mb: 2 }}>
+          {error}
+        </Typography>
+      )}
     </>
   );
 };
