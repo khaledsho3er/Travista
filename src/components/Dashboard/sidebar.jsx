@@ -8,15 +8,24 @@ import {
   Bell,
   Plane,
 } from "lucide-react";
+import { PiCity } from "react-icons/pi";
 
 function Sidebar({ setActiveSection }) {
   const menuItems = [
+//     { path: "/Dashboard", icon: Home, label: "Dashboard" },
+//     { path: "/dashboard-packages", icon: Package, label: "Packages" },
+//     { path: "/dashboard-blogs", icon: FileText, label: "Blogs" },
+//     { path: "/dashboard-employees", icon: Users, label: "Employees" },
+//     { path: "/dashboard-forms", icon: FormInput, label: "Forms" },
+//     { path: "/dashboard-notifications", icon: Bell, label: "Notifications" },
+//     { path: "/dashboard-cities", icon: PiCity, label: "cities" },
     { id: "dashboard", icon: Home, label: "Dashboard" },
     { id: "packages", icon: Package, label: "Packages" },
     { id: "blogs", icon: FileText, label: "Blogs" },
     { id: "employees", icon: Users, label: "Employees" },
     { id: "forms", icon: FormInput, label: "Forms" },
     { id: "notifications", icon: Bell, label: "Notifications" },
+  {id:"cities", icon:PiCity, label:"cities"},
   ];
 
   const [activeSection, setActive] = useState("dashboard");
