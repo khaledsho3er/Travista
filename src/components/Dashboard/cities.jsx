@@ -80,18 +80,29 @@ const CityManagement = () => {
       return;
     }
 
-    console.log("City Data Sent:", cityData); // Debugging log
+    console.log("City Data Sent:", cityData); // Log data before sending
 
     try {
+      let response;
       if (selectedCity) {
-        await axios.put(
+        // Update City
+        response = await axios.put(
           `http://localhost:5000/api/cities/${selectedCity.cityId}`,
-          cityData
+          cityData,
+          { headers: { "Content-Type": "application/json" } }
         );
       } else {
-        await axios.post("http://localhost:5000/api/cities", cityData);
+        // Add City
+        response = await axios.post(
+          "http://localhost:5000/api/cities",
+          cityData,
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
       }
 
+      console.log("Server Response:", response.data); // Log API response
       fetchCities(); // Refresh city list
       handleClose(); // Close modal
     } catch (error) {
@@ -190,12 +201,15 @@ const CityManagement = () => {
           />
           <Box sx={{ mt: 2 }}>
             <Select
-              sx={{ width: "100%", zIndex: 9999 }}
               options={countryOptions}
               value={countryOptions.find((c) => c.value === cityData.country)}
               onChange={handleCountryChange}
               placeholder="Select a Country"
               isSearchable
+              styles={{
+                menuPortal: (base) => ({ ...base, zIndex: 9999 }), // Fix z-index issue
+              }}
+              menuPortalTarget={document.body} // Render dropdown outside Dialog
             />
           </Box>
         </DialogContent>
