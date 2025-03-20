@@ -21,36 +21,40 @@ import BlogsPage from "./Pages/Blogs";
 import ScrollToTop from "./context/scrollToTop";
 import AdminDashboard from "./Pages/adminDashboard";
 import DashboardPackages from "./components/Dashboard/package";
+import { UserProvider } from "./utils/userContext";
 function App() {
   return (
     <>
-      <Router>
-        <ScrollToTop />
-        <Routes>
-          <Route exact path="/" Component={Home} />
-          <Route exact path="/login" Component={TravistaSignIn} />
-          <Route exact path="/SignUp" Component={TravistaSignUp} />
-          <Route exact path="/packages" Component={PackagesTours} />
-          <Route exact path="/careers" Component={CareersPage} />
-          {/* <Route exact path="/singlePackage" Component={SinglePackage} /> */}
-          <Route exact path="/loading" Component={TravistaLoading} />
-          {/* <Route exact path="/pp" Component={PreferencePackage} />
+      <UserProvider>
+        <Router>
+          <ScrollToTop />
+          <Routes>
+            <Route exact path="/" Component={Home} />
+            <Route exact path="/login" Component={TravistaSignIn} />
+            <Route exact path="/SignUp" Component={TravistaSignUp} />
+            <Route exact path="/packages" Component={PackagesTours} />
+            <Route exact path="/careers" Component={CareersPage} />
+            {/* <Route exact path="/singlePackage" Component={SinglePackage} /> */}
+            <Route exact path="/loading" Component={TravistaLoading} />
+            {/* <Route exact path="/pp" Component={PreferencePackage} />
         <Route exact path="/pi" Component={PersonalInfo} /> */}
-          <Route exact path="/account" Component={AccountPage} />
-          <Route exact path="/faqs" Component={FAQsPage} />
-          <Route exact path="/applyforvisa" Component={ApplyForVisa} />
-          <Route exact path="/singleblog" Component={SingleBLog} />
-          <Route exact path="/buildmypackage" Component={BuildMyPackage} />
-          <Route exact path="/About" Component={AboutPage} />
-          <Route exact path="/contactus" Component={ContactUs} />
-          <Route
-            exact
-            path="/buildmypackagesteps"
-            Component={BuildMyPackageSteps}
-          />
-          <Route exact path="/blogs" Component={BlogsPage} />
-        </Routes>
-      </Router>
+            <Route exact path="/account" Component={AccountPage} />
+            <Route exact path="/faqs" Component={FAQsPage} />
+            <Route exact path="/applyforvisa" Component={ApplyForVisa} />
+            <Route exact path="/singleblog" Component={SingleBLog} />
+            <Route exact path="/buildmypackage" Component={BuildMyPackage} />
+            <Route exact path="/About" Component={AboutPage} />
+            <Route exact path="/contactus" Component={ContactUs} />
+            <Route
+              exact
+              path="/buildmypackagesteps"
+              Component={BuildMyPackageSteps}
+            />
+            <Route exact path="/blogs" Component={BlogsPage} />
+          </Routes>
+        </Router>
+      </UserProvider>
+
       <Router>
         <Routes>
           <Route exact path="/Dashboard" Component={AdminDashboard} />{" "}
