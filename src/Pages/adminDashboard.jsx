@@ -1,6 +1,6 @@
 import React from "react";
 import Dashboard from "./Dashboard";
-import Sidebar from "../components/Dashboard/sidebar";
+// import Sidebar from "../components/Dashboard/sidebar";
 import { Toaster } from "react-hot-toast";
 const AdminDashboard = () => {
   return (

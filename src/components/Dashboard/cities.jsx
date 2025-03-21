@@ -20,7 +20,8 @@ import { Add, Edit, Delete } from "@mui/icons-material";
 import axios from "axios";
 import Select from "react-select";
 import countries from "world-countries";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // Format country data for dropdown
 const countryOptions = countries.map((country) => ({
   value: country.name.common, // Country name
@@ -76,7 +77,7 @@ const CityManagement = () => {
   // Add or Update City
   const handleSave = async () => {
     if (!cityData.name || !cityData.country) {
-      alert("Please enter a valid city name and select a country.");
+      toast.warning("Please enter a valid city name and select a country.");
       return;
     }
 
@@ -91,6 +92,7 @@ const CityManagement = () => {
           cityData,
           { headers: { "Content-Type": "application/json" } }
         );
+        toast.success("City updated successfully!");
       } else {
         // Add City
         response = await axios.post(
@@ -100,6 +102,7 @@ const CityManagement = () => {
             headers: { "Content-Type": "application/json" },
           }
         );
+        toast.success("City added successfully!");
       }
 
       console.log("Server Response:", response.data); // Log API response
@@ -110,6 +113,7 @@ const CityManagement = () => {
         "Error saving city:",
         error.response?.data || error.message
       );
+      toast.error("Error saving city");
     }
   };
 
@@ -118,9 +122,12 @@ const CityManagement = () => {
     if (!window.confirm("Are you sure you want to delete this city?")) return;
     try {
       await axios.delete(`http://localhost:5000/api/cities/${cityId}`, {});
+      toast.success("City deleted successfully!");
+
       fetchCities();
     } catch (error) {
       console.error("Error deleting city:", error);
+      toast.error("Error deleting city");
     }
   };
 
@@ -222,6 +229,7 @@ const CityManagement = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <ToastContainer position="top-right" autoClose={3000} />
     </Box>
   );
 };

@@ -7,6 +7,11 @@ import Employees from "./employees";
 import Forms from "./forms";
 import NotificationsTable from "./Notifications";
 import CityManagement from "./cities";
+import SeasonManagement from "./seasons";
+import HotelManagement from "./hotels";
+import NewsletterManagement from "./newsletter";
+import FAQManagement from "./faqsManagement";
+import SocialMediaManagement from "./SocialMediaManagement";
 
 function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard"); // Use lowercase
@@ -27,6 +32,17 @@ function DashboardLayout() {
         return <NotificationsTable />;
       case "cities":
         return <CityManagement />;
+      case "seasons":
+        return <SeasonManagement />;
+      case "hotels":
+        return <HotelManagement />;
+      case "newsletter":
+        return <NewsletterManagement />;
+      case "FaqsManagement":
+        return <FAQManagement />;
+      case "SocialMedia":
+        return <SocialMediaManagement />;
+
       default:
         return <Dashboard />;
     }
