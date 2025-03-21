@@ -9,6 +9,10 @@ import {
   Plane,
 } from "lucide-react";
 import { PiCity } from "react-icons/pi";
+import { LuHotel } from "react-icons/lu";
+import { ImNewspaper } from "react-icons/im";
+import { BsQuestionOctagon } from "react-icons/bs";
+import { IoShareSocialOutline } from "react-icons/io5";
 
 function Sidebar({ setActiveSection }) {
   const menuItems = [
@@ -26,6 +30,11 @@ function Sidebar({ setActiveSection }) {
     { id: "forms", icon: FormInput, label: "Forms" },
     { id: "notifications", icon: Bell, label: "Notifications" },
     { id: "cities", icon: PiCity, label: "cities" },
+    { id: "seasons", icon: Plane, label: "Seasons" },
+    { id: "hotels", icon: LuHotel, label: "Hotels" },
+    { id: "newsletter", icon: ImNewspaper, label: "Newsletters" },
+    { id: "FaqsManagement", icon: BsQuestionOctagon, label: "FAQs Management" },
+    { id: "SocialMedia", icon: IoShareSocialOutline, label: "Social Media" },
   ];
 
   const [activeSection, setActive] = useState("dashboard");

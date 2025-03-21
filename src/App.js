@@ -21,6 +21,11 @@ import DashboardPackages from "./components/Dashboard/package";
 import AdminDashboard from "./Pages/adminDashboard";
 import { UserProvider } from "./utils/userContext";
 import CityManagement from "./components/Dashboard/cities";
+import SeasonManagement from "./components/Dashboard/seasons";
+import HotelManagement from "./components/Dashboard/hotels";
+import NewsletterManagement from "./components/Dashboard/newsletter";
+import FAQManagement from "./components/Dashboard/faqsManagement";
+import SocialMediaManagement from "./components/Dashboard/SocialMediaManagement";
 function App() {
   return (
     <>
@@ -53,6 +58,11 @@ function App() {
               <Route index element={<AdminDashboard />} />
               <Route path="packages" element={<DashboardPackages />} />
               <Route path="cities" element={<CityManagement />} />
+              <Route path="seasons" element={<SeasonManagement />} />
+              <Route path="hotels" element={<HotelManagement />} />
+              <Route path="newsletter" element={<NewsletterManagement />} />
+              <Route path="FaqsManagement" element={<FAQManagement />} />
+              <Route path="SocialMedia" element={<SocialMediaManagement />} />
             </Route>
           </Routes>
         </Router>
