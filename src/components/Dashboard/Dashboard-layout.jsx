@@ -16,6 +16,7 @@ import VisaApplicationsTable from "./VisaLead";
 import ArticleList from "./Articles/ArticleList";
 // import BlogEditor from "./blogEditor";
 import { Outlet } from "react-router-dom"; // Outlet for rendering pages
+import CountryManagement from "./countries";
 
 function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard"); // Use lowercase
@@ -36,6 +37,8 @@ function DashboardLayout() {
         return <VisaApplicationsTable />;
       case "notifications":
         return <NotificationsTable />;
+      case "countries":
+        return <CountryManagement />;
       case "cities":
         return <CityManagement />;
       case "seasons":

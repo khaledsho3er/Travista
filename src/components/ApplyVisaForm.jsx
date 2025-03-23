@@ -4,7 +4,7 @@ import axios from "axios";
 
 const ApplyForVisaForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
-  const [fileName, setFileName] = useState("No file chosen");
+  const [showSchengenQuestion, setShowSchengenQuestion] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -16,46 +16,84 @@ const ApplyForVisaForm = () => {
     travelDate: "",
     jobStatus: "",
     visaRenewal: "",
+    previousVisaNumber: "",
+    previousVisaExpiry: "",
+    passportNumber: "",
     agreedToTerms: false,
-    bankStatement: null,
+    bankStatement: "",
   });
 
-  const handleFileChange = (event) => {
-    if (event.target.files.length > 0) {
-      setFileName(event.target.files[0].name);
-      setFormData({ ...formData, bankStatement: event.target.files[0] });
-    } else {
-      setFileName("No file chosen");
-    }
-  };
+  // ✅ List of Schengen Countries
+  const schengenCountries = [
+    "Austria",
+    "Belgium",
+    "Czech Republic",
+    "Denmark",
+    "Estonia",
+    "Finland",
+    "France",
+    "Germany",
+    "Greece",
+    "Hungary",
+    "Iceland",
+    "Italy",
+    "Latvia",
+    "Liechtenstein",
+    "Lithuania",
+    "Luxembourg",
+    "Malta",
+    "Netherlands",
+    "Norway",
+    "Poland",
+    "Portugal",
+    "Slovakia",
+    "Slovenia",
+    "Spain",
+    "Sweden",
+    "Switzerland",
+  ];
 
+  // ✅ Travel Purposes (ENUM)
+  const travelPurposes = [
+    "Business",
+    "Tourism",
+    "Study",
+    "Family Visit",
+    "Work Visa",
+    "Transit",
+  ];
+
+  // ✅ Handle Input Change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleCheckboxChange = (e) => {
-    setFormData({ ...formData, agreedToTerms: e.target.checked });
+  // ✅ Handle Country Selection & Show/Hide Schengen Question
+  const handleCountryChange = (e) => {
+    const country = e.target.value;
+    setSelectedCountry(country);
+    setFormData({ ...formData, country });
+
+    // ✅ If the country is in Schengen, hide the question
+    if (schengenCountries.includes(country)) {
+      setShowSchengenQuestion(false);
+      setFormData((prev) => ({ ...prev, schengenBefore: "N/A" }));
+    } else {
+      setShowSchengenQuestion(true);
+      setFormData((prev) => ({ ...prev, schengenBefore: "" }));
+    }
   };
 
+  // ✅ Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    Object.keys(formData).forEach((key) => {
-      data.append(key, formData[key]);
-    });
-
-    console.log(
-      `Data to be submitted: ${fileName}`,
-      Object.fromEntries(data.entries())
-    );
+    console.log("Submitting Data:", formData);
 
     try {
-      await axios.post("http://localhost:5000/api/visa-leads", data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await axios.post("http://localhost:5000/api/visa-leads", formData);
       alert("Application submitted successfully");
     } catch (error) {
-      console.error(`Error submitting application: ${fileName}`, error);
+      console.error("Error submitting application:", error);
     }
   };
 
@@ -65,7 +103,7 @@ const ApplyForVisaForm = () => {
         <input
           type="text"
           name="firstName"
-          placeholder="First name"
+          placeholder="First Name"
           className="form-input"
           required
           onChange={handleChange}
@@ -73,7 +111,7 @@ const ApplyForVisaForm = () => {
         <input
           type="text"
           name="lastName"
-          placeholder="Last name"
+          placeholder="Last Name"
           className="form-input"
           required
           onChange={handleChange}
@@ -87,21 +125,19 @@ const ApplyForVisaForm = () => {
         <input
           type="tel"
           name="phoneNumber"
-          placeholder="Phone number"
+          placeholder="Phone Number"
           className="form-input phone-input"
           required
           onChange={handleChange}
         />
       </div>
 
+      {/* ✅ Country Selection */}
       <select
         className="form-input"
         name="country"
         value={selectedCountry}
-        onChange={(e) => {
-          setSelectedCountry(e.target.value);
-          handleChange(e);
-        }}
+        onChange={handleCountryChange}
         required
       >
         <option value="">Select Country</option>
@@ -112,33 +148,46 @@ const ApplyForVisaForm = () => {
         ))}
       </select>
 
-      <input
-        type="text"
-        name="purpose"
-        placeholder="Purpose of Travel"
-        className="form-input"
-        required
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="invitation"
-        placeholder="Invitation"
-        className="form-input"
-        required
-        onChange={handleChange}
-      />
-
+      {/* ✅ Purpose of Travel */}
       <select
         className="form-input"
-        name="schengenBefore"
+        name="purpose"
         required
         onChange={handleChange}
       >
-        <option value="">Have you visited Schengen before?</option>
+        <option value="">Purpose of Travel</option>
+        {travelPurposes.map((purpose) => (
+          <option key={purpose} value={purpose}>
+            {purpose}
+          </option>
+        ))}
+      </select>
+
+      {/* ✅ Invitation (Yes/No) */}
+      <select
+        className="form-input"
+        name="invitation"
+        required
+        onChange={handleChange}
+      >
+        <option value="">Do you have an Invitation?</option>
         <option value="Yes">Yes</option>
         <option value="No">No</option>
       </select>
+
+      {/* ✅ Show "Have you visited Schengen before?" only if NOT a Schengen country */}
+      {showSchengenQuestion && (
+        <select
+          className="form-input"
+          name="schengenBefore"
+          required
+          onChange={handleChange}
+        >
+          <option value="">Have you visited Schengen before?</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      )}
 
       <input
         type="date"
@@ -157,26 +206,14 @@ const ApplyForVisaForm = () => {
         onChange={handleChange}
       />
 
-      <label className="form-label">
-        Upload Bank Statement (PDF, JPG, PNG)
-      </label>
-      <div className="file-input">
-        <input
-          type="file"
-          className="form-input"
-          accept=".pdf, .jpg, .png"
-          required
-          onChange={handleFileChange}
-        />
-      </div>
-
+      {/* ✅ Bank Statement (Yes/No) */}
       <select
         className="form-input"
-        name="visaRenewal"
+        name="bankStatement"
         required
         onChange={handleChange}
       >
-        <option value="">Visa Renewal?</option>
+        <option value="">Do you have a Bank Statement?</option>
         <option value="Yes">Yes</option>
         <option value="No">No</option>
       </select>
@@ -185,10 +222,12 @@ const ApplyForVisaForm = () => {
         <input
           type="checkbox"
           name="agreedToTerms"
-          onChange={handleCheckboxChange}
+          onChange={(e) =>
+            setFormData({ ...formData, agreedToTerms: e.target.checked })
+          }
           required
         />
-        I agree to terms and privacy policy.
+        I agree to the terms and privacy policy.
       </label>
 
       <button type="submit" className="submit-button">

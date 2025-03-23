@@ -19,24 +19,20 @@ import {
 import { Add, Edit, Delete } from "@mui/icons-material";
 import axios from "axios";
 import Select from "react-select";
-import countries from "world-countries";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// Format country data for dropdown
-const countryOptions = countries.map((country) => ({
-  value: country.name.common, // Country name
-  label: country.name.common, // Display name
-}));
 
 const CityManagement = () => {
   const [cities, setCities] = useState([]);
+  const [countries, setCountries] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState(null);
   const [cityData, setCityData] = useState({ name: "", country: "" });
 
-  // Fetch cities from API
+  // Fetch cities and countries from API
   useEffect(() => {
     fetchCities();
+    fetchCountries();
   }, []);
 
   const fetchCities = async () => {
@@ -45,6 +41,17 @@ const CityManagement = () => {
       setCities(response.data);
     } catch (error) {
       console.error("Error fetching cities:", error);
+      toast.error("Error fetching cities");
+    }
+  };
+
+  const fetchCountries = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/countries");
+      setCountries(response.data);
+    } catch (error) {
+      console.error("Error fetching countries:", error);
+      toast.error("Error fetching countries");
     }
   };
 
@@ -81,7 +88,7 @@ const CityManagement = () => {
       return;
     }
 
-    console.log("City Data Sent:", cityData); // Log data before sending
+    console.log("City Data Sent:", cityData); // Debugging log
 
     try {
       let response;
@@ -105,7 +112,7 @@ const CityManagement = () => {
         toast.success("City added successfully!");
       }
 
-      console.log("Server Response:", response.data); // Log API response
+      console.log("Server Response:", response.data); // Debugging log
       fetchCities(); // Refresh city list
       handleClose(); // Close modal
     } catch (error) {
@@ -121,9 +128,8 @@ const CityManagement = () => {
   const handleDelete = async (cityId) => {
     if (!window.confirm("Are you sure you want to delete this city?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/cities/${cityId}`, {});
+      await axios.delete(`http://localhost:5000/api/cities/${cityId}`);
       toast.success("City deleted successfully!");
-
       fetchCities();
     } catch (error) {
       console.error("Error deleting city:", error);
@@ -195,7 +201,7 @@ const CityManagement = () => {
       </TableContainer>
 
       {/* Add/Edit City Dialog */}
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} fullWidth>
         <DialogTitle>{selectedCity ? "Edit City" : "Add City"}</DialogTitle>
         <DialogContent>
           <TextField
@@ -208,8 +214,8 @@ const CityManagement = () => {
           />
           <Box sx={{ mt: 2 }}>
             <Select
-              options={countryOptions}
-              value={countryOptions.find((c) => c.value === cityData.country)}
+              options={countries.map((c) => ({ value: c.name, label: c.name }))}
+              value={countries.find((c) => c.name === cityData.country)}
               onChange={handleCountryChange}
               placeholder="Select a Country"
               isSearchable

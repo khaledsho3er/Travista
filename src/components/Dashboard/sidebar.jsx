@@ -26,6 +26,7 @@ function Sidebar({ setActiveSection }) {
     { id: "forms", icon: FormInput, label: "Forms" },
     { id: "Visa", icon: FaWpforms, label: "Visa" },
     { id: "notifications", icon: Bell, label: "Notifications" },
+    { id: "countries", icon: PiCity, label: "Countries" },
     { id: "cities", icon: PiCity, label: "cities" },
     { id: "seasons", icon: Plane, label: "Seasons" },
     { id: "hotels", icon: LuHotel, label: "Hotels" },

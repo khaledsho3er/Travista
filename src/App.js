@@ -30,6 +30,7 @@ import VisaApplicationsTable from "./components/Dashboard/VisaLead";
 import ArticleForm from "./components/Dashboard/Articles/ArticleForm";
 import ArticleDetails from "./components/Dashboard/Articles/ArticleDetails";
 import ArticleList from "./components/Dashboard/Articles/ArticleList";
+import CountryManagement from "./components/Dashboard/countries";
 function App() {
   return (
     <>
@@ -61,6 +62,7 @@ function App() {
             <Route path="/dashboard" element={<DashboardLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="packages" element={<DashboardPackages />} />
+              <Route path="countries" element={<CountryManagement />} />
               <Route path="cities" element={<CityManagement />} />
               <Route path="seasons" element={<SeasonManagement />} />
               <Route path="hotels" element={<HotelManagement />} />
