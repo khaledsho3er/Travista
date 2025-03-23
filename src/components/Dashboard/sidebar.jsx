@@ -14,19 +14,14 @@ import { ImNewspaper } from "react-icons/im";
 import { BsQuestionOctagon } from "react-icons/bs";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FaWpforms } from "react-icons/fa6";
+import { GrArticle } from "react-icons/gr";
 
 function Sidebar({ setActiveSection }) {
   const menuItems = [
-    //     { path: "/Dashboard", icon: Home, label: "Dashboard" },
-    //     { path: "/dashboard-packages", icon: Package, label: "Packages" },
-    //     { path: "/dashboard-blogs", icon: FileText, label: "Blogs" },
-    //     { path: "/dashboard-employees", icon: Users, label: "Employees" },
-    //     { path: "/dashboard-forms", icon: FormInput, label: "Forms" },
-    //     { path: "/dashboard-notifications", icon: Bell, label: "Notifications" },
-    //     { path: "/dashboard-cities", icon: PiCity, label: "cities" },
     { id: "dashboard", icon: Home, label: "Dashboard" },
     { id: "packages", icon: Package, label: "Packages" },
     { id: "blogs", icon: FileText, label: "Blogs" },
+    { id: "articles", icon: GrArticle, label: "Articles" },
     { id: "employees", icon: Users, label: "Employees" },
     { id: "forms", icon: FormInput, label: "Forms" },
     { id: "Visa", icon: FaWpforms, label: "Visa" },

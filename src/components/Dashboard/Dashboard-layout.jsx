@@ -13,7 +13,9 @@ import NewsletterManagement from "./newsletter";
 import FAQManagement from "./faqsManagement";
 import SocialMediaManagement from "./SocialMediaManagement";
 import VisaApplicationsTable from "./VisaLead";
+import ArticleList from "./Articles/ArticleList";
 // import BlogEditor from "./blogEditor";
+import { Outlet } from "react-router-dom"; // Outlet for rendering pages
 
 function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard"); // Use lowercase
@@ -46,7 +48,8 @@ function DashboardLayout() {
         return <FAQManagement />;
       case "SocialMedia":
         return <SocialMediaManagement />;
-
+      case "articles":
+        return <ArticleList />;
       default:
         return <Dashboard />;
     }
@@ -55,7 +58,10 @@ function DashboardLayout() {
   return (
     <div className="flex">
       <Sidebar setActiveSection={setActiveSection} />
-      <div className="flex-1 p-6">{renderSection()}</div>
+      <div className="flex-1 p-6">
+        {renderSection()}
+        <Outlet />
+      </div>
     </div>
   );
 }

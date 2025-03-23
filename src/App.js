@@ -27,6 +27,9 @@ import NewsletterManagement from "./components/Dashboard/newsletter";
 import FAQManagement from "./components/Dashboard/faqsManagement";
 import SocialMediaManagement from "./components/Dashboard/SocialMediaManagement";
 import VisaApplicationsTable from "./components/Dashboard/VisaLead";
+import ArticleForm from "./components/Dashboard/Articles/ArticleForm";
+import ArticleDetails from "./components/Dashboard/Articles/ArticleDetails";
+import ArticleList from "./components/Dashboard/Articles/ArticleList";
 function App() {
   return (
     <>
@@ -65,6 +68,10 @@ function App() {
               <Route path="faqsmanagement" element={<FAQManagement />} />
               <Route path="socialmedia" element={<SocialMediaManagement />} />
               <Route path="visalead" element={<VisaApplicationsTable />} />
+              <Route path="articles" element={<ArticleList />} />
+              <Route path="articles/new" element={<ArticleForm />} />
+              <Route path="articles/edit/:id" element={<ArticleForm />} />
+              <Route path="articles/:id" element={<ArticleDetails />} />
             </Route>
           </Routes>
         </Router>

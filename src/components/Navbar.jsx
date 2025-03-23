@@ -394,7 +394,9 @@ function Navbar() {
                       transition: "color 0.3s ease-in-out",
                     }}
                   />
-                  Welcome, {userSession.firstName}
+                  {userSession?.firstName
+                    ? `Welcome, ${userSession?.firstName}`
+                    : "Welcome"}{" "}
                 </Button>
               ) : (
                 <Button
@@ -529,7 +531,9 @@ function Navbar() {
                       transition: "color 0.3s ease-in-out",
                     }}
                   />
-                  Welcome, {userSession.firstName}
+                  {userSession?.firstName
+                    ? `Welcome, ${userSession?.firstName}`
+                    : "Welcome"}
                 </Button>
               ) : (
                 <Button
