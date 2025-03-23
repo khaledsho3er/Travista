@@ -12,6 +12,8 @@ import HotelManagement from "./hotels";
 import NewsletterManagement from "./newsletter";
 import FAQManagement from "./faqsManagement";
 import SocialMediaManagement from "./SocialMediaManagement";
+import VisaApplicationsTable from "./VisaLead";
+// import BlogEditor from "./blogEditor";
 
 function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard"); // Use lowercase
@@ -28,6 +30,8 @@ function DashboardLayout() {
         return <Employees />;
       case "forms":
         return <Forms />;
+      case "Visa":
+        return <VisaApplicationsTable />;
       case "notifications":
         return <NotificationsTable />;
       case "cities":

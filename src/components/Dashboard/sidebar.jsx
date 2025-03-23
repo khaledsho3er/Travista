@@ -13,6 +13,7 @@ import { LuHotel } from "react-icons/lu";
 import { ImNewspaper } from "react-icons/im";
 import { BsQuestionOctagon } from "react-icons/bs";
 import { IoShareSocialOutline } from "react-icons/io5";
+import { FaWpforms } from "react-icons/fa6";
 
 function Sidebar({ setActiveSection }) {
   const menuItems = [
@@ -28,6 +29,7 @@ function Sidebar({ setActiveSection }) {
     { id: "blogs", icon: FileText, label: "Blogs" },
     { id: "employees", icon: Users, label: "Employees" },
     { id: "forms", icon: FormInput, label: "Forms" },
+    { id: "Visa", icon: FaWpforms, label: "Visa" },
     { id: "notifications", icon: Bell, label: "Notifications" },
     { id: "cities", icon: PiCity, label: "cities" },
     { id: "seasons", icon: Plane, label: "Seasons" },

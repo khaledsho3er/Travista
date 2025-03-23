@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import Navbar from "../components/Navbar";
-import MessageForm from "../components/messageForm";
 import Footer from "../components/Footer";
 function ContactUs() {
   return (
@@ -75,7 +74,7 @@ function ContactUs() {
             </p>
           </Box>
           <Box className="FAQs-form-section">
-            <MessageForm />
+            <contactUsForm />
           </Box>
         </div>
       </section>

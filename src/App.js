@@ -26,6 +26,7 @@ import HotelManagement from "./components/Dashboard/hotels";
 import NewsletterManagement from "./components/Dashboard/newsletter";
 import FAQManagement from "./components/Dashboard/faqsManagement";
 import SocialMediaManagement from "./components/Dashboard/SocialMediaManagement";
+import VisaApplicationsTable from "./components/Dashboard/VisaLead";
 function App() {
   return (
     <>
@@ -61,8 +62,9 @@ function App() {
               <Route path="seasons" element={<SeasonManagement />} />
               <Route path="hotels" element={<HotelManagement />} />
               <Route path="newsletter" element={<NewsletterManagement />} />
-              <Route path="FaqsManagement" element={<FAQManagement />} />
-              <Route path="SocialMedia" element={<SocialMediaManagement />} />
+              <Route path="faqsmanagement" element={<FAQManagement />} />
+              <Route path="socialmedia" element={<SocialMediaManagement />} />
+              <Route path="visalead" element={<VisaApplicationsTable />} />
             </Route>
           </Routes>
         </Router>
