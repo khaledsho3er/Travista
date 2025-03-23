@@ -44,7 +44,10 @@ const ApplyForVisaForm = () => {
       data.append(key, formData[key]);
     });
 
-    console.log("Data to be submitted:", Object.fromEntries(data.entries()));
+    console.log(
+      `Data to be submitted: ${fileName}`,
+      Object.fromEntries(data.entries())
+    );
 
     try {
       await axios.post("http://localhost:5000/api/visa-leads", data, {
@@ -52,7 +55,7 @@ const ApplyForVisaForm = () => {
       });
       alert("Application submitted successfully");
     } catch (error) {
-      console.error("Error submitting application", error);
+      console.error(`Error submitting application: ${fileName}`, error);
     }
   };
 

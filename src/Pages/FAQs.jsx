@@ -22,7 +22,9 @@ function FAQsPage() {
           If you have any questions not mentioned below, contact us with how we
           could help you.
         </p>
-        <button className="FAQs-contact-btn" onClick={handleContact}>Contact Us</button>
+        <button className="FAQs-contact-btn" onClick={handleContact}>
+          Contact Us
+        </button>
       </header>
       <section className="FAQs-filter-section">
         <select className="FAQs-filter">
@@ -48,7 +50,7 @@ function FAQsPage() {
             </p>
           </Box>
           <Box className="FAQs-form-section">
-            <MessageForm />
+            <MessageForm type={"faq"} />
           </Box>
         </div>
       </section>

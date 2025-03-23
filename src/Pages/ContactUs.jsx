@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import MessageForm from "../components/messageForm";
 function ContactUs() {
   return (
     <Box className="contact-us-page">
@@ -74,7 +75,7 @@ function ContactUs() {
             </p>
           </Box>
           <Box className="FAQs-form-section">
-            <contactUsForm />
+            <MessageForm type={"contactUs"} />
           </Box>
         </div>
       </section>

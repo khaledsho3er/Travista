@@ -187,6 +187,7 @@ const VisaApplicationsTable = () => {
                 <strong>Visa Renewal:</strong>{" "}
                 {selectedApplication?.visaRenewal}
               </Typography>
+
               <Typography>
                 <strong>Travel Date:</strong>{" "}
                 {new Date(selectedApplication?.travelDate).toLocaleDateString()}
@@ -199,6 +200,21 @@ const VisaApplicationsTable = () => {
 
             {/* Right Column - Status & Email Note */}
             <Box sx={{ flex: 1 }}>
+              <Typography sx={{ mb: 2 }}>
+                <strong>Bank Statement:</strong>{" "}
+                <a
+                  href={selectedApplication?.bankStatement}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: "blue",
+                    textDecoration: "underline",
+                    fontSize: "14px",
+                  }}
+                >
+                  {selectedApplication?.bankStatement}
+                </a>
+              </Typography>
               <TextField
                 label="Email Note"
                 multiline

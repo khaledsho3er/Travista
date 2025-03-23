@@ -1,35 +1,123 @@
-import React from "react";
+import React, { useState } from "react";
 
-const MessageForm = () => {
+const MessageForm = ({ type }) => {
+  const [formData, setFormData] = useState({
+    type: type, // "contactUs" or "faq"
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+    agreedToTerms: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/form-lead/submit",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const data = await response.json();
+      console.log("Response:", data);
+      alert(data.message || "Form submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Error submitting form. Please try again.");
+    }
+  };
+
   return (
-    <form class="contact-form">
-      <div class="form-row">
-        <input type="text" placeholder="First name" class="form-input" />
-        <input type="text" placeholder="Last name" class="form-input" />
+    <form className="contact-form" onSubmit={handleSubmit}>
+      <div className="form-row">
+        <input
+          type="text"
+          name="firstName"
+          placeholder="First name"
+          className="form-input"
+          value={formData.firstName}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Last name"
+          className="form-input"
+          value={formData.lastName}
+          onChange={handleChange}
+          required
+        />
       </div>
-      <input type="email" placeholder="Email" class="form-input" />
-      <div class="form-row">
-        <select class="form-input country-code">
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        className="form-input"
+        value={formData.email}
+        onChange={handleChange}
+        required
+      />
+      <div className="form-row">
+        <select className="form-input country-code" disabled>
           <option value="+20">+20</option>
         </select>
         <input
           type="tel"
+          name="phone"
           placeholder="Phone number"
-          class="form-input phone-input"
+          className="form-input phone-input"
+          value={formData.phone}
+          onChange={handleChange}
+          required
         />
       </div>
-      <input type="text" placeholder="Subject" class="form-input" />
+      <input
+        type="text"
+        name="subject"
+        placeholder="Subject"
+        className="form-input"
+        value={formData.subject}
+        onChange={handleChange}
+        required
+      />
       <textarea
+        name="message"
         placeholder="Describe how we can help you..."
-        class="form-input"
+        className="form-input"
+        value={formData.message}
+        onChange={handleChange}
+        required
       ></textarea>
-      <label class="terms-label">
-        <input type="checkbox" /> I agree to terms and privacy policy.
+      <label className="terms-label">
+        <input
+          type="checkbox"
+          name="agreedToTerms"
+          checked={formData.agreedToTerms}
+          onChange={handleChange}
+          required
+        />{" "}
+        I agree to terms and privacy policy.
       </label>
-      <button type="submit" class="submit-button">
+      <button type="submit" className="submit-button">
         Send Message
       </button>
     </form>
   );
 };
+
 export default MessageForm;
