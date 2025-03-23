@@ -22,7 +22,9 @@ const ArticleList = () => {
 
   const fetchArticles = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/articles");
+      const response = await axios.get(
+        "http://localhost:5000/api/articles/articles"
+      );
       setArticles(response.data);
     } catch (error) {
       toast.error("Error fetching articles");
@@ -55,7 +57,7 @@ const ArticleList = () => {
                 <CardMedia
                   component="img"
                   height="180"
-                  image={`http://localhost:5000/uploads/${article.featuredImage}`} // Display uploaded image
+                  image={`http://localhost:5000${article.featuredImage}`} // Display uploaded image
                   alt="Featured Image"
                 />
               )}

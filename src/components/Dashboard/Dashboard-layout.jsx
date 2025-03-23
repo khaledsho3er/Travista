@@ -60,7 +60,7 @@ function DashboardLayout() {
       <Sidebar setActiveSection={setActiveSection} />
       <div className="flex-1 p-6">
         {renderSection()}
-        <Outlet />
+        {/* <Outlet /> */}
       </div>
     </div>
   );
