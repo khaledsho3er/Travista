@@ -78,7 +78,7 @@ const CityManagement = () => {
 
   // Handle country dropdown change
   const handleCountryChange = (selectedOption) => {
-    setCityData({ ...cityData, country: selectedOption.value });
+    setCityData({ ...cityData, country: selectedOption.value }); // Store country ID
   };
 
   // Add or Update City
@@ -125,10 +125,12 @@ const CityManagement = () => {
   };
 
   // Delete City
-  const handleDelete = async (cityId) => {
+  const handleDelete = async (selectedCity) => {
     if (!window.confirm("Are you sure you want to delete this city?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/cities/${cityId}`);
+      await axios.delete(
+        `http://localhost:5000/api/cities/${selectedCity._id}`
+      );
       toast.success("City deleted successfully!");
       fetchCities();
     } catch (error) {
@@ -177,7 +179,9 @@ const CityManagement = () => {
               <TableRow key={city.cityId}>
                 <TableCell>{city.cityId}</TableCell>
                 <TableCell>{city.name}</TableCell>
-                <TableCell>{city.country}</TableCell>
+                <TableCell>
+                  {city.country ? city.country.name : "No Country"}
+                </TableCell>
                 <TableCell>
                   <Button
                     color="primary"
@@ -214,8 +218,16 @@ const CityManagement = () => {
           />
           <Box sx={{ mt: 2 }}>
             <Select
-              options={countries.map((c) => ({ value: c.name, label: c.name }))}
-              value={countries.find((c) => c.name === cityData.country)}
+              options={countries.map((c) => ({ value: c._id, label: c.name }))}
+              value={
+                countries.find((c) => c._id === cityData.country)
+                  ? {
+                      value: cityData.country,
+                      label: countries.find((c) => c._id === cityData.country)
+                        ?.name,
+                    }
+                  : null
+              }
               onChange={handleCountryChange}
               placeholder="Select a Country"
               isSearchable
