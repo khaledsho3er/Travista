@@ -48,7 +48,7 @@ const TravistaSignIn = () => {
       console.log("User session set:", userSession);
 
       alert("Login successful!");
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       console.error("Login error:", error);
       setError(error.message);

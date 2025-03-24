@@ -24,6 +24,7 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     setUserSession(null);
     localStorage.removeItem("userSession");
+    window.location.href = "/";
   };
 
   return (

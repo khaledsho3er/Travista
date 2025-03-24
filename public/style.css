@@ -1377,6 +1377,8 @@ textarea.form-input {
   border-radius: 2rem;
 }
 .contact-us-hero-image img {
+  margin: auto;
+
   width: 90%;
   border-radius: 2rem;
 }
@@ -2211,8 +2213,8 @@ textarea.form-input {
 }
 .careers-header .overlay-photo {
   position: absolute;
-  top: 57.5%; /* Positioning above the main image */
-  left: 33%; /* Adjust horizontal position */
+  top: 40.121%; /* Positioning above the main image */
+  left: 45%; /* Adjust horizontal position */
   width: 80px; /* Size of the smaller photo */
   height: 117px;
   z-index: 10; /* Ensures it appears above the main image */

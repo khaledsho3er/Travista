@@ -9,11 +9,12 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../utils/userContext";
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import CloseIcon from "@mui/icons-material/Close";
+import { useLocation } from "react-router-dom";
 
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 // Define the background type for each route
@@ -355,7 +356,7 @@ function Navbar() {
                 </Button>
               </Link>
 
-              {userSession.firstName ? (
+              {userSession?.firstName ? (
                 <Button
                   color="inherit"
                   onClick={handleMyAccount}
@@ -492,7 +493,7 @@ function Navbar() {
             </Box>
 
             <Box>
-              {userSession.firstName ? (
+              {userSession?.firstName ? (
                 <Button
                   color="inherit"
                   onClick={handleMyAccount}
