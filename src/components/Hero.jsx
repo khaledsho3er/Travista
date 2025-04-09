@@ -1,53 +1,79 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Hero() {
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [heroData, setHeroData] = useState(null);
+  const navigate = useNavigate();
 
-  const handleExplorePackagesClick = () => {
-    navigate("/packages"); // Navigate to Explore Packages page
-  };
+  useEffect(() => {
+    const fetchHero = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/hero/active"); // adjust base URL as needed
+        setHeroData(res.data);
+      } catch (err) {
+        console.error("Failed to fetch hero data", err);
+      }
+    };
 
-  const handleBuildPackageClick = () => {
-    navigate("/buildmypackage"); // Navigate to Build My Package page
-  };
+    fetchHero();
+  }, []);
+
+  if (!heroData) return null;
 
   return (
-    <>
-      <div className="hero-section">
-        <Box
+    <div
+      style={{
+        height: "90vh",
+        background: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(http://localhost:5000${heroData.imageUrl})`,
+        backgroundPosition: "top",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        position: "relative",
+      }}
+    >
+      <Box
+        sx={{
+          zIndex: 2,
+          width: "90%",
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          gap: "2rem",
+        }}
+      >
+        <Typography
+          variant="h2"
           sx={{
-            zIndex: 2,
-            width: "90%",
-            margin: "0 auto",
-            display: "flex",
-            flexDirection: "column",
-            gap: "2rem",
+            color: "white",
+            fontWeight: "700",
+            textAlign: "center",
+            fontSize: "5rem",
           }}
         >
-          <Typography
-            variant="h2"
-            sx={{
-              color: "white",
-              fontWeight: "700",
-              textAlign: "center",
-              fontSize: "5rem",
-            }}
-          >
-            We exist to reveal a world <br /> of greater travel possibility.
-          </Typography>
+          {heroData.caption}
+        </Typography>
 
-          <Box className="hero-btns">
-            <Button className="btn btn-primary" onClick={handleExplorePackagesClick}>
-              Explore Packages & Tours
-            </Button>
-            <Button className="btn btn-secondary" onClick={handleBuildPackageClick}>Build My Package</Button>
-          </Box>
+        <Box className="hero-btns">
+          <Button
+            className="btn btn-primary"
+            onClick={() => navigate("/packages")}
+          >
+            Explore Packages & Tours
+          </Button>
+          <Button
+            className="btn btn-secondary"
+            onClick={() => navigate("/buildmypackage")}
+          >
+            Build My Package
+          </Button>
         </Box>
-      </div>
-      <div className="overlay"></div>
-    </>
+      </Box>
+    </div>
   );
 }
 

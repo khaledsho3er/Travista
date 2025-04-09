@@ -14,39 +14,185 @@ import {
   TableRow,
   TextField,
   Paper,
+  Select,
+  MenuItem,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
+import { useEmployee } from "../../utils/empContext"; // Import your EmpContext
+import { MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Employees() {
+  const { employee } = useEmployee(); // Get the logged-in employee from the context
   const [employees, setEmployees] = useState([]);
   const [open, setOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false); // For edit dialog
   const [newEmployee, setNewEmployee] = useState({
     name: "",
+    username: "",
+    empId: "",
     email: "",
-    number: "",
+    password: "",
+    phone: "",
     role: "",
   });
+  const [selectedEmployee, setSelectedEmployee] = useState(null); // For selected employee in edit
+  const [showPassword, setShowPassword] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(true); // Check if the employee is authorized
 
+  // Only fetch employee data if the employee is authenticated and an admin
   useEffect(() => {
-    fetch("./json/employees.json")
-      .then((response) => response.json())
+    if (!employee) {
+      console.error("Employee not authenticated.");
+      return; // Don't fetch if no employee is logged in
+    }
+
+    if (employee.role !== "admin") {
+      setIsAuthorized(false);
+      return;
+    }
+
+    fetch("http://localhost:5000/api/employees", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include", // Send the session cookie with the request
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch employees");
+        }
+        return response.json();
+      })
       .then((data) => setEmployees(data))
       .catch((error) => console.error("Error fetching employee data:", error));
-  }, []);
+  }, [employee]); // Re-run effect when `employee` changes
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewEmployee({ ...newEmployee, [name]: value });
   };
 
-  const handleAddEmployee = () => {
-    setEmployees([...employees, newEmployee]);
-    setNewEmployee({ name: "", email: "", number: "", role: "" });
-    setOpen(false);
+  const handleAddEmployee = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/empauth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // Send the session cookie with the request
+        body: JSON.stringify(newEmployee),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to add employee");
+      }
+
+      const data = await res.json();
+      setEmployees([...employees, data]);
+      setNewEmployee({
+        name: "",
+        username: "",
+        empId: "",
+        email: "",
+        password: "",
+        phone: "",
+        role: "",
+      });
+      setOpen(false);
+      toast.success("Employee added successfully!");
+    } catch (error) {
+      console.error("Error adding employee:", error);
+      toast.error("Error adding employee");
+    }
   };
+
+  const handleClickShowPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  const handleEditEmployee = (employee) => {
+    setSelectedEmployee(employee);
+    setNewEmployee(employee);
+    setEditOpen(true);
+  };
+
+  const handleUpdateEmployee = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/employees/${newEmployee._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // Send the session cookie with the request
+          body: JSON.stringify(newEmployee),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to update employee");
+      }
+
+      const updatedEmployee = await res.json();
+      setEmployees(
+        employees.map((emp) =>
+          emp._id === updatedEmployee._id ? updatedEmployee : emp
+        )
+      );
+      setEditOpen(false);
+      toast.success("Employee updated successfully!");
+    } catch (error) {
+      console.error("Error updating employee:", error);
+      toast.error("Error updating employee");
+    }
+  };
+
+  const handleDeleteEmployee = async (_id) => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/employees/${_id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to delete employee");
+      }
+
+      setEmployees(employees.filter((emp) => emp._id !== _id));
+      toast.success("Employee deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting employee:", error);
+      toast.error("Error deleting employee");
+    }
+  };
+
+  if (!isAuthorized) {
+    return (
+      <Dialog open={!isAuthorized}>
+        <DialogTitle>Unauthorized</DialogTitle>
+        <DialogContent>You are not authorized to view this page.</DialogContent>
+        <DialogActions>
+          <Button onClick={() => setIsAuthorized(true)} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  }
 
   return (
     <Box>
-      <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
+      <Button
+        sx={{ mb: 2, mt: 2 }}
+        variant="contained"
+        color="primary"
+        onClick={() => setOpen(true)}
+      >
         Add Employee
       </Button>
       <TableContainer component={Paper}>
@@ -57,20 +203,37 @@ function Employees() {
               <TableCell>Email</TableCell>
               <TableCell>Number</TableCell>
               <TableCell>Role</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {employees.map((employee, index) => (
-              <TableRow key={index}>
-                <TableCell>{employee.name}</TableCell>
-                <TableCell>{employee.email}</TableCell>
-                <TableCell>{employee.number}</TableCell>
-                <TableCell>{employee.role}</TableCell>
+            {employees.map((emp) => (
+              <TableRow key={emp._id}>
+                <TableCell>{emp.name}</TableCell>
+                <TableCell>{emp.email}</TableCell>
+                <TableCell>{emp.phone}</TableCell>
+                <TableCell>{emp.role}</TableCell>
+                <TableCell>
+                  <Button
+                    onClick={() => handleEditEmployee(emp)}
+                    color="primary"
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    onClick={() => handleDeleteEmployee(emp._id)}
+                    color="secondary"
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Add Employee Dialog */}
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Add New Employee</DialogTitle>
         <DialogContent>
@@ -84,6 +247,22 @@ function Employees() {
           />
           <TextField
             margin="dense"
+            label="Username"
+            name="username"
+            fullWidth
+            value={newEmployee.username}
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="dense"
+            label="Employee ID"
+            name="empId"
+            fullWidth
+            value={newEmployee.empId}
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="dense"
             label="Email"
             name="email"
             fullWidth
@@ -92,20 +271,46 @@ function Employees() {
           />
           <TextField
             margin="dense"
-            label="Number"
-            name="number"
+            label="Password"
+            type={showPassword ? "text" : "password"}
+            name="password"
             fullWidth
-            value={newEmployee.number}
+            value={newEmployee.password}
             onChange={handleInputChange}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleClickShowPassword}>
+                    {showPassword ? (
+                      <MdOutlineVisibility />
+                    ) : (
+                      <MdOutlineVisibilityOff />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <TextField
+            margin="dense"
+            label="Phone"
+            name="phone"
+            fullWidth
+            value={newEmployee.phone}
+            onChange={handleInputChange}
+          />
+          <Select
             margin="dense"
             label="Role"
             name="role"
             fullWidth
             value={newEmployee.role}
             onChange={handleInputChange}
-          />
+          >
+            <MenuItem value={"admin"}>Admin</MenuItem>
+            <MenuItem value={"marketingTeam"}>Marketing Team</MenuItem>
+            <MenuItem value={"employee"}>Employee</MenuItem>
+          </Select>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)} color="secondary">
@@ -116,6 +321,75 @@ function Employees() {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Edit Employee Dialog */}
+      <Dialog open={editOpen} onClose={() => setEditOpen(false)}>
+        <DialogTitle>Edit Employee</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            label="Name"
+            name="name"
+            fullWidth
+            value={newEmployee.name}
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="dense"
+            label="Username"
+            name="username"
+            fullWidth
+            value={newEmployee.username}
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="dense"
+            label="Employee ID"
+            name="empId"
+            fullWidth
+            value={newEmployee.empId}
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="dense"
+            label="Email"
+            name="email"
+            fullWidth
+            value={newEmployee.email}
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="dense"
+            label="Phone"
+            name="phone"
+            fullWidth
+            value={newEmployee.phone}
+            onChange={handleInputChange}
+          />
+          <Select
+            margin="dense"
+            label="Role"
+            name="role"
+            fullWidth
+            value={newEmployee.role}
+            onChange={handleInputChange}
+          >
+            <MenuItem value={"admin"}>Admin</MenuItem>
+            <MenuItem value={"marketingTeam"}>Marketing Team</MenuItem>
+            <MenuItem value={"employee"}>Employee</MenuItem>
+          </Select>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setEditOpen(false)} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleUpdateEmployee} color="primary">
+            Update
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <ToastContainer position="top-right" autoClose={3000} />
     </Box>
   );
 }
