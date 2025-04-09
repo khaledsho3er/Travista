@@ -187,7 +187,12 @@ function Employees() {
 
   return (
     <Box>
-      <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
+      <Button
+        sx={{ mb: 2, mt: 2 }}
+        variant="contained"
+        color="primary"
+        onClick={() => setOpen(true)}
+      >
         Add Employee
       </Button>
       <TableContainer component={Paper}>
