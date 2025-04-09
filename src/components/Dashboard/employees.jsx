@@ -213,7 +213,7 @@ function Employees() {
                     onClick={() => handleEditEmployee(emp)}
                     color="primary"
                   >
-                    Edit
+                    Update
                   </Button>
                   <Button
                     onClick={() => handleDeleteEmployee(emp._id)}
