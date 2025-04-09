@@ -7,6 +7,7 @@ import {
   FormInput,
   Bell,
   Plane,
+  LogOut,
 } from "lucide-react";
 import { PiCity } from "react-icons/pi";
 import { LuHotel } from "react-icons/lu";
@@ -15,7 +16,8 @@ import { BsQuestionOctagon } from "react-icons/bs";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FaWpforms } from "react-icons/fa6";
 import { GrArticle } from "react-icons/gr";
-
+import { FaRegImage } from "react-icons/fa";
+import { useEmployee } from "../../utils/empContext"; // Import EmployeeContext
 function Sidebar({ setActiveSection }) {
   const menuItems = [
     { id: "dashboard", icon: Home, label: "Dashboard" },
@@ -32,22 +34,27 @@ function Sidebar({ setActiveSection }) {
     { id: "hotels", icon: LuHotel, label: "Hotels" },
     { id: "newsletter", icon: ImNewspaper, label: "Newsletters" },
     { id: "FaqsManagement", icon: BsQuestionOctagon, label: "FAQs Management" },
+    { id: "dashboardHero", icon: FaRegImage, label: "Hero Section" },
     { id: "SocialMedia", icon: IoShareSocialOutline, label: "Social Media" },
   ];
-
+  const { logout } = useEmployee(); // Get employee data from context
   const [activeSection, setActive] = useState("dashboard");
 
   const handleClick = (id) => {
     setActive(id);
     setActiveSection(id); // Pass the selected section to parent
   };
-
+  const handleLogout = () => {
+    logout();
+  };
   return (
-    <div className="bg-white h-screen shadow-lg w-64">
+    <div className="bg-white h-screen-auto shadow-lg w-64">
       <div className="border-b p-4">
         <div className="flex gap-2 items-center">
-          <Plane className="h-8 text-blue-600 w-8" />
-          <h1 className="text-2xl text-blue-600 font-bold">Travista</h1>
+          {/* <Plane className="h-8 text-blue-600 w-8" /> */}
+          <h1 className="text-2xl text-blue-300 font-bold center">
+            <img src="Assets/main-logo.png" alt="logo" />
+          </h1>
         </div>
       </div>
       <nav className="p-4">
@@ -70,6 +77,13 @@ function Sidebar({ setActiveSection }) {
             </button>
           );
         })}
+        <button
+          onClick={handleLogout}
+          className="flex items-center w-full text-left gap-3 p-3 rounded-lg mb-2 transition-colors text-red-600 hover:bg-red-50"
+        >
+          <LogOut className="h-5 w-5" />
+          <span>Logout</span>
+        </button>
       </nav>
     </div>
   );

@@ -5,6 +5,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import InputIcon from "@mui/icons-material/Input";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import { useEmployee } from "../utils/empContext"; // Import EmployeeContext
 
 function StatCard({ icon: Icon, title, value, trend }) {
   return (
@@ -56,6 +57,8 @@ function RecentActivity({ title, items }) {
 }
 
 function Dashboard() {
+  const { employee } = useEmployee();
+
   const stats = [
     { icon: InventoryIcon, title: "Total Packages", value: "124", trend: 12 },
     { icon: PeopleIcon, title: "Active Customers", value: "832", trend: 8 },
@@ -80,6 +83,9 @@ function Dashboard() {
   return (
     <div className="p-8">
       <div className="mb-8">
+        <h1 className="text-2xl font-bold text-gray-900">
+          Welcome {employee.name}
+        </h1>
         <h1 className="text-2xl font-bold text-gray-900">Dashboard Overview</h1>
         <p className="text-gray-500">Welcome to Travista Dashboard</p>
       </div>

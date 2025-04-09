@@ -17,6 +17,7 @@ import ArticleList from "./Articles/ArticleList";
 // import BlogEditor from "./blogEditor";
 import { Outlet } from "react-router-dom"; // Outlet for rendering pages
 import CountryManagement from "./countries";
+import DashboardHero from "./Articles/HeroSection";
 
 function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard"); // Use lowercase
@@ -49,6 +50,8 @@ function DashboardLayout() {
         return <NewsletterManagement />;
       case "FaqsManagement":
         return <FAQManagement />;
+      case "dashboardHero":
+        return <DashboardHero />;
       case "SocialMedia":
         return <SocialMediaManagement />;
       case "articles":
