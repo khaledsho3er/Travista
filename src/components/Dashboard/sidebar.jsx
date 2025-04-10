@@ -9,6 +9,7 @@ import { FaWpforms } from "react-icons/fa6";
 import { GrArticle } from "react-icons/gr";
 import { FaRegImage } from "react-icons/fa";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
+import ViewCarouselIcon from "@mui/icons-material/ViewCarousel";
 import { useEmployee } from "../../utils/empContext"; // Import EmployeeContext
 function Sidebar({ setActiveSection }) {
   const menuItems = [
@@ -27,6 +28,7 @@ function Sidebar({ setActiveSection }) {
     { id: "newsletter", icon: ImNewspaper, label: "Newsletters" },
     { id: "FaqsManagement", icon: BsQuestionOctagon, label: "FAQs Management" },
     { id: "dashboardHero", icon: FaRegImage, label: "Hero Section" },
+    { id: "banners", icon: ViewCarouselIcon, label: "Banner Management" },
     { id: "SocialMedia", icon: IoShareSocialOutline, label: "Social Media" },
   ];
   const { logout } = useEmployee(); // Get employee data from context

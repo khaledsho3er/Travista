@@ -40,6 +40,7 @@ import EmpRegistrationForm from "./components/Dashboard/registerFormEmp";
 import { EmpProvider } from "./utils/empContext";
 import RequireEmployeeAuth from "./utils/RequireEmployeeAuth";
 import BlogManager from "./components/Dashboard/BlogManagement";
+import BannerDashboard from "./components/Dashboard/BannerManagement";
 
 function App() {
   return (
@@ -106,6 +107,7 @@ function App() {
             <Route path="DashboardHero" element={<TravistaLoading />} />
             <Route path="socialmedia" element={<SocialMediaManagement />} />
             <Route path="visalead" element={<VisaApplicationsTable />} />
+            <Route path="banners" element={<BannerDashboard />} />
             <Route path="articles" element={<ArticleList />} />
             <Route path="new" element={<ArticleForm />} />
             <Route path="edit/:id" element={<ArticleForm />} />
