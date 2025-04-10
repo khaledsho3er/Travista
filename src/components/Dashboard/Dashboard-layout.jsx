@@ -18,6 +18,7 @@ import CountryManagement from "./countries";
 import DashboardHero from "./Articles/HeroSection";
 import BlogManager from "./BlogManagement";
 import BannerDashboard from "./BannerManagement";
+import CommentManagement from "./commentsManagment";
 
 function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard"); // Use lowercase
@@ -60,6 +61,8 @@ function DashboardLayout() {
         return <ArticleList />;
       case "banners":
         return <BannerDashboard />;
+      case "CommentManagement":
+        return <CommentManagement />;
       default:
         return <Dashboard />;
     }
