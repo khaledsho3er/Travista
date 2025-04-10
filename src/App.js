@@ -39,6 +39,7 @@ import EmpLoginForm from "./components/Dashboard/loginFormEmp";
 import EmpRegistrationForm from "./components/Dashboard/registerFormEmp";
 import { EmpProvider } from "./utils/empContext";
 import RequireEmployeeAuth from "./utils/RequireEmployeeAuth";
+import BlogManager from "./components/Dashboard/BlogManagement";
 
 function App() {
   return (
@@ -56,7 +57,7 @@ function App() {
           <Route path="/account" element={<AccountPage />} />
           <Route path="/faqs" element={<FAQsPage />} />
           <Route path="/applyforvisa" element={<ApplyForVisa />} />
-          <Route path="/singleblog" element={<SingleBLog />} />
+          <Route path="/singleblog/:id" element={<SingleBLog />} />
           <Route path="/buildmypackage" element={<BuildMyPackage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contactus" element={<ContactUs />} />
@@ -96,6 +97,7 @@ function App() {
             <Route index element={<AdminDashboard />} />
             <Route path="packages" element={<DashboardPackages />} />
             <Route path="countries" element={<CountryManagement />} />
+            <Route path="BlogManagement" element={<BlogManager />} />
             <Route path="cities" element={<CityManagement />} />
             <Route path="seasons" element={<SeasonManagement />} />
             <Route path="hotels" element={<HotelManagement />} />
@@ -105,9 +107,9 @@ function App() {
             <Route path="socialmedia" element={<SocialMediaManagement />} />
             <Route path="visalead" element={<VisaApplicationsTable />} />
             <Route path="articles" element={<ArticleList />} />
-            <Route path="articles/new" element={<ArticleForm />} />
-            <Route path="articles/edit/:id" element={<ArticleForm />} />
-            <Route path="articles/:id" element={<ArticleDetails />} />
+            <Route path="new" element={<ArticleForm />} />
+            <Route path="edit/:id" element={<ArticleForm />} />
+            <Route path=":id" element={<ArticleDetails />} />
           </Route>
         </Routes>
       </UserProvider>

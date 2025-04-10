@@ -6,7 +6,7 @@ const RequireEmployeeAuth = ({ children }) => {
   const { employee } = useEmployee();
 
   if (!employee) {
-    return <Navigate to="/emp-" replace />;
+    return <Navigate to="/employee/login" replace />;
   }
 
   return children;

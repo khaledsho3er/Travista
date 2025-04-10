@@ -29,6 +29,8 @@ const backgroundMap = {
   "/signup": "light",
   "/packages": "dark",
   "/buildmypackagesteps": "light",
+  "/blog": "light",
+  "/applyforvisa": "light",
 };
 function Navbar() {
   const location = useLocation();
