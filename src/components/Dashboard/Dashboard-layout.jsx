@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Sidebar from "./sidebar";
 import Dashboard from "../../Pages/Dashboard";
 import DashboardPackages from "./package";
-import BlogsForm from "./blogs";
 import Employees from "./employees";
 import Forms from "./forms";
 import NotificationsTable from "./Notifications";
@@ -15,9 +14,9 @@ import SocialMediaManagement from "./SocialMediaManagement";
 import VisaApplicationsTable from "./VisaLead";
 import ArticleList from "./Articles/ArticleList";
 // import BlogEditor from "./blogEditor";
-import { Outlet } from "react-router-dom"; // Outlet for rendering pages
 import CountryManagement from "./countries";
 import DashboardHero from "./Articles/HeroSection";
+import BlogManager from "./BlogManagement";
 
 function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard"); // Use lowercase
@@ -28,8 +27,8 @@ function DashboardLayout() {
         return <Dashboard />;
       case "packages":
         return <DashboardPackages />;
-      case "blogs":
-        return <BlogsForm />;
+      // case "blogs":
+      //   return <BlogsForm />;
       case "employees":
         return <Employees />;
       case "forms":
@@ -38,6 +37,8 @@ function DashboardLayout() {
         return <VisaApplicationsTable />;
       case "notifications":
         return <NotificationsTable />;
+      case "BlogManagement":
+        return <BlogManager />;
       case "countries":
         return <CountryManagement />;
       case "cities":

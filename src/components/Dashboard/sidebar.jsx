@@ -1,37 +1,29 @@
 import React, { useState } from "react";
-import {
-  Home,
-  Package,
-  FileText,
-  Users,
-  FormInput,
-  Bell,
-  Plane,
-  LogOut,
-} from "lucide-react";
+import { Home, Package, Users, FormInput, Bell, LogOut } from "lucide-react";
 import { PiCity } from "react-icons/pi";
 import { LuHotel } from "react-icons/lu";
 import { ImNewspaper } from "react-icons/im";
-import { BsQuestionOctagon } from "react-icons/bs";
+import { BsQuestionOctagon, BsFilePost } from "react-icons/bs";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FaWpforms } from "react-icons/fa6";
 import { GrArticle } from "react-icons/gr";
 import { FaRegImage } from "react-icons/fa";
+import AcUnitIcon from "@mui/icons-material/AcUnit";
 import { useEmployee } from "../../utils/empContext"; // Import EmployeeContext
 function Sidebar({ setActiveSection }) {
   const menuItems = [
     { id: "dashboard", icon: Home, label: "Dashboard" },
     { id: "packages", icon: Package, label: "Packages" },
-    { id: "blogs", icon: FileText, label: "Blogs" },
     { id: "articles", icon: GrArticle, label: "Articles" },
-    { id: "employees", icon: Users, label: "Employees" },
+    { id: "BlogManagement", icon: BsFilePost, label: "Blog Management" },
     { id: "forms", icon: FormInput, label: "Forms" },
     { id: "Visa", icon: FaWpforms, label: "Visa" },
     { id: "notifications", icon: Bell, label: "Notifications" },
     { id: "countries", icon: PiCity, label: "Countries" },
     { id: "cities", icon: PiCity, label: "cities" },
-    { id: "seasons", icon: Plane, label: "Seasons" },
+    { id: "seasons", icon: AcUnitIcon, label: "Seasons" },
     { id: "hotels", icon: LuHotel, label: "Hotels" },
+    { id: "employees", icon: Users, label: "Employees" },
     { id: "newsletter", icon: ImNewspaper, label: "Newsletters" },
     { id: "FaqsManagement", icon: BsQuestionOctagon, label: "FAQs Management" },
     { id: "dashboardHero", icon: FaRegImage, label: "Hero Section" },

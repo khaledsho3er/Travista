@@ -11,14 +11,13 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 function BlogsPage() {
-
   const [blogData, setBlogData] = useState([]);
   const [displayCount, setDisplayCount] = useState(9);
   const [selectedCategory, setSelectedCategory] = useState("All articles");
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
-    fetch("/json/blog.json")
+    fetch("http://localhost:5000/api/blog")
       .then((response) => response.json())
       .then((data) => setBlogData(data))
       .catch((error) => console.error("Error fetching blog data:", error));
@@ -139,17 +138,21 @@ function BlogsPage() {
 
       <Box className="Blogs-grid">
         {displayedBlogs.map((blog) => (
-          <Box key={blog.id} className="Blog-card">
+          <Box key={blog._id} className="Blog-card">
             <Box className="Blog-card-image-container">
-            <Link to={`/singleblog`} style={{ textDecoration: "none" }}>
-
-              <img
-                src={blog.image}
-                alt={blog.title}
-                className="Blog-card-image"
-              />
+              <Link
+                to={`/singleblog/${blog._id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <img
+                  src={`http://localhost:5000/uploads/${blog.featuredImage}`}
+                  alt={blog.title}
+                  className="Blog-card-image"
+                />
               </Link>
-              <Typography className="Blog-category">{blog.category}</Typography>
+              <Typography className="Blog-category">
+                {blog.category.charAt(0).toUpperCase() + blog.category.slice(1)}
+              </Typography>
             </Box>
             <Box className="Blog-card-content">
               <Typography className="Blog-date">{blog.date}</Typography>
