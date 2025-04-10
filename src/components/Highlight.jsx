@@ -1,28 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
-const UpcomingTrip = [
-  {
-    image: "/assets/latest-trip.png",
-    title: "Discover Central Europe",
-    destinations: "Vienna, Budapest, Prague, Innsbruck, Kitzbühel, and Vienna",
-    description:
-      "Unleash your inner wanderer in Central Europe's enchanting embrace. From fairytale castles to cobblestone streets, embark on a whimsical adventure you'll never forget. Let us be your guide to a magical journey through the heart of Europe.",
-  },
-];
+import axios from "axios"; // Import axios for making API requests
 
 function Highlight() {
+  const [activeBanner, setActiveBanner] = useState(null); // State to store the active banner data
   const navigate = useNavigate(); // Initialize useNavigate
 
+  // Fetch active banner data from the API
+  useEffect(() => {
+    const fetchActiveBanner = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/banners/active"
+        );
+        setActiveBanner(response.data); // Update state with the active banner data
+      } catch (error) {
+        console.error("Error fetching active banner:", error);
+      }
+    };
+
+    fetchActiveBanner();
+  }, []); // Run once when the component mounts
+
+  // Handle package click navigation
   const handlePackageClick = () => {
     navigate("/packages"); // Navigate to Explore Packages page
   };
+
+  // Check if activeBanner is loaded before rendering content
+  if (!activeBanner) {
+    return <Typography>Loading...</Typography>; // Loading state
+  }
+
   return (
     <Box
       sx={{
-        background: `url('${UpcomingTrip[0].image}')`,
-        height: "95vh",
+        background: `url('http://localhost:5000${activeBanner.image}')`,
+        backgroundColor: "rgba(0, 0, 0, 0.5)", // Fallback color in case image fails to load
+        backgroundBlendMode: "darken",
+        height: "90vh",
         backgroundSize: "cover", // Ensures the background image covers the container
         backgroundPosition: "center", // Centers the background image
         backgroundRepeat: "no-repeat",
@@ -32,6 +49,33 @@ function Highlight() {
       }}
       className="highlight-section container-padding"
     >
+      <Box
+        className="Single-Blog-date-container"
+        sx={{
+          zIndex: 1,
+          backgroundColor: "#ffffff",
+          padding: "1rem",
+          borderRadius: "8px",
+          position: "absolute",
+          top: "2rem",
+          right: "2rem",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <span className="Single-Blog-month">
+          {new Date(activeBanner.date)
+            .toLocaleString("default", { month: "long" })
+            .toUpperCase()}{" "}
+          {/* Converts the month to uppercase */}
+        </span>
+        <span className="Single-Blog-day">
+          {new Date(activeBanner.date).getDate()} {/* Get day as number */}
+        </span>
+        <span className="Single-Blog-year">
+          {new Date(activeBanner.date).getFullYear()} {/* Get year as number */}
+        </span>
+      </Box>
       <Box
         sx={{
           display: "flex",
@@ -51,7 +95,7 @@ function Highlight() {
             gap: "2rem",
             color: "white",
             alignItems: "flex-start",
-            width: "60%%",
+            width: "60%",
             textAlign: "left",
             zIndex: 2, // Brings the text content above other elements
           }}
@@ -59,12 +103,14 @@ function Highlight() {
         >
           <br></br>
           <Typography variant="h4" fontSize="7rem" fontWeight="900">
-            {UpcomingTrip[0].title}
+            {activeBanner.title} {/* Display banner title */}
           </Typography>
           <Typography variant="h5" fontWeight="700">
-            {UpcomingTrip[0].destinations}
+            {activeBanner.destinations} {/* Display banner destinations */}
           </Typography>
-          <Typography variant="body1">{UpcomingTrip[0].description}</Typography>
+          <Typography variant="body1">
+            {activeBanner.description} {/* Display banner description */}
+          </Typography>
           <Box className="highlight-btns" display="flex" gap="2rem">
             <Button
               className="btn btn-secondary"
