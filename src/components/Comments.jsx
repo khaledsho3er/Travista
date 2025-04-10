@@ -51,7 +51,10 @@ function Comments() {
   };
 
   return (
-    <Box className="comments-section" sx={{position:"flex", padding:"2px 0px 150px "}}>
+    <Box
+      className="comments-section"
+      sx={{ position: "flex", padding: "2px 0px 150px " }}
+    >
       <Typography variant="h4" color={"white"} fontWeight={800} p={15}>
         Don’t just take our word for it.
       </Typography>
