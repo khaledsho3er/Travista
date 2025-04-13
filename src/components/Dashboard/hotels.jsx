@@ -13,19 +13,19 @@ import {
   TableHead,
   TableRow,
   TextField,
+  MenuItem,
+  Select as SelectDropdown,
   Typography,
   Paper,
-  MenuItem,
-  Select,
 } from "@mui/material";
 import { Add, Edit, Delete } from "@mui/icons-material";
 import axios from "axios";
-import SelectDropdown from "react-select";
+import Select from "react-select";
 import countries from "world-countries";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// Extract country names
+// Country options for react-select
 const countryOptions = countries.map((c) => ({
   value: c.name.common,
   label: c.name.common,
@@ -34,10 +34,12 @@ const countryOptions = countries.map((c) => ({
 const hotelCategories = ["Luxury", "Budget", "Business", "Resort"];
 const mealsOptions = ["Breakfast", "Lunch", "Dinner", "All-Inclusive"];
 const amenitiesOptions = ["WiFi", "Pool", "Gym", "Parking"];
+
 const starOptions = [1, 2, 3, 4, 5].map((star) => ({
   value: star,
   label: `${star} ⭐`,
 }));
+
 const HotelManagement = () => {
   const [hotels, setHotels] = useState([]);
   const [cities, setCities] = useState([]);
@@ -48,7 +50,7 @@ const HotelManagement = () => {
     city: "",
     country: "",
     locationURL: "",
-    stars: "",
+    stars: null,
     meals: [],
     categories: [],
     amenities: [],
@@ -87,7 +89,7 @@ const HotelManagement = () => {
             city: "",
             country: "",
             locationURL: "",
-            stars: "",
+            stars: null,
             meals: [],
             categories: [],
             amenities: [],
@@ -108,19 +110,21 @@ const HotelManagement = () => {
   const handleMultiSelectChange = (field, selectedOptions) => {
     setHotelData({
       ...hotelData,
-      [field]: selectedOptions
-        ? selectedOptions.map((option) => option.value)
-        : [],
+      [field]: selectedOptions ? selectedOptions.map((opt) => opt.value) : [],
+    });
+  };
+
+  const handleSelectChange = (field, selectedOption) => {
+    setHotelData({
+      ...hotelData,
+      [field]: selectedOption ? selectedOption.value : "",
     });
   };
 
   const handleSave = async () => {
-    if (
-      !hotelData.name ||
-      !hotelData.city ||
-      !hotelData.country ||
-      !hotelData.stars
-    ) {
+    const { name, city, country, stars } = hotelData;
+
+    if (!name || !city || !country || !stars) {
       toast.warning("Please fill in all required fields.");
       return;
     }
@@ -141,6 +145,7 @@ const HotelManagement = () => {
       handleClose();
     } catch (error) {
       toast.error("Error saving hotel");
+      console.error("Hotel creation error:", error);
     }
   };
 
@@ -157,6 +162,8 @@ const HotelManagement = () => {
 
   return (
     <Box sx={{ p: 3 }}>
+      <ToastContainer />
+
       <Typography variant="h4" sx={{ mb: 3 }}>
         Manage Hotels
       </Typography>
@@ -249,38 +256,52 @@ const HotelManagement = () => {
               mt: 2,
             }}
           >
-            <Select
-              value={hotelData.city || ""}
-              name="city"
-              onChange={handleChange}
+            <TextField
+              margin="normal"
               fullWidth
-              sx={{ mt: 2 }}
-              displayEmpty
-              renderValue={(value) => (value ? value : "Select City")}
+              label="City"
+              name="city"
+              value={hotelData.city}
+              onChange={handleChange}
+              select
             >
               {cities.map((city) => (
-                <MenuItem key={city.cityId} value={city.name}>
+                <MenuItem key={city._id} value={city.name}>
                   {city.name}
                 </MenuItem>
               ))}
-            </Select>
-            <SelectDropdown
+            </TextField>
+            <Typography variant="body2" gutterBottom>
+              Country
+            </Typography>
+            <Select
+              menuPortalTarget={document.body}
+              styles={{
+                menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+              }}
               options={countryOptions}
-              onChange={(selected) =>
-                handleMultiSelectChange("country", [selected])
+              value={
+                hotelData.country
+                  ? { value: hotelData.country, label: hotelData.country }
+                  : null
               }
-              placeholder="Select Country"
-              menuPortalTarget={document.body}
-              styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+              onChange={(opt) => handleSelectChange("country", opt)}
             />
-            <SelectDropdown
-              options={starOptions}
-              onChange={(selected) =>
-                handleMultiSelectChange("stars", [selected])
-              }
-              placeholder="Select Stars"
+            <Typography variant="body2" gutterBottom>
+              Stars
+            </Typography>
+            <Select
               menuPortalTarget={document.body}
-              styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+              styles={{
+                menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+              }}
+              options={starOptions}
+              value={
+                hotelData.stars
+                  ? starOptions.find((opt) => opt.value === hotelData.stars)
+                  : null
+              }
+              onChange={(opt) => handleSelectChange("stars", opt)}
             />
           </Box>
           <TextField
@@ -292,38 +313,53 @@ const HotelManagement = () => {
             sx={{ mt: 2 }}
           />
           <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-            <SelectDropdown
-              styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-              options={hotelCategories.map((c) => ({ value: c, label: c }))}
-              isMulti
-              onChange={(selected) =>
-                handleMultiSelectChange("categories", selected)
-              }
-              placeholder="Select Categories"
-              menuPortalTarget={document.body}
-            />
-            <SelectDropdown
-              styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-              options={mealsOptions.map((m) => ({ value: m, label: m }))}
-              isMulti
-              onChange={(selected) =>
-                handleMultiSelectChange("meals", selected)
-              }
-              placeholder="Select Meals"
-              menuPortalTarget={document.body}
-            />
-            <SelectDropdown
-              styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-              options={amenitiesOptions.map((a) => ({ value: a, label: a }))}
-              isMulti
-              onChange={(selected) =>
-                handleMultiSelectChange("amenities", selected)
-              }
-              placeholder="Select Amenities"
-              menuPortalTarget={document.body}
-            />
+            <Box mt={2}>
+              <Typography variant="body2">Meals</Typography>
+              <Select
+                menuPortalTarget={document.body}
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                }}
+                options={mealsOptions.map((m) => ({ value: m, label: m }))}
+                isMulti
+                value={hotelData.meals.map((m) => ({ value: m, label: m }))}
+                onChange={(opts) => handleMultiSelectChange("meals", opts)}
+              />
+            </Box>
+
+            <Box mt={2}>
+              <Typography variant="body2">Categories</Typography>
+              <Select
+                menuPortalTarget={document.body}
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                }}
+                options={hotelCategories.map((c) => ({ value: c, label: c }))}
+                isMulti
+                value={hotelData.categories.map((c) => ({
+                  value: c,
+                  label: c,
+                }))}
+                onChange={(opts) => handleMultiSelectChange("categories", opts)}
+              />
+            </Box>
+
+            <Box mt={2}>
+              <Typography variant="body2">Amenities</Typography>
+              <Select
+                menuPortalTarget={document.body}
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                }}
+                options={amenitiesOptions.map((a) => ({ value: a, label: a }))}
+                isMulti
+                value={hotelData.amenities.map((a) => ({ value: a, label: a }))}
+                onChange={(opts) => handleMultiSelectChange("amenities", opts)}
+              />
+            </Box>
           </Box>
         </DialogContent>
+
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
             Cancel

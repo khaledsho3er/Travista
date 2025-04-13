@@ -42,6 +42,8 @@ import RequireEmployeeAuth from "./utils/RequireEmployeeAuth";
 import BlogManager from "./components/Dashboard/BlogManagement";
 import BannerDashboard from "./components/Dashboard/BannerManagement";
 import CommentManagement from "./components/Dashboard/commentsManagment";
+import TourCategoriesTable from "./components/Dashboard/tourCategories";
+import ToursDashboard from "./components/Dashboard/tours";
 
 function App() {
   return (
@@ -103,6 +105,8 @@ function App() {
             <Route path="cities" element={<CityManagement />} />
             <Route path="seasons" element={<SeasonManagement />} />
             <Route path="hotels" element={<HotelManagement />} />
+            <Route path="tour-categories" element={<TourCategoriesTable />} />
+            <Route path="tours" element={<ToursDashboard />} />
             <Route path="newsletter" element={<NewsletterManagement />} />
             <Route path="faqsmanagement" element={<FAQManagement />} />
             <Route path="DashboardHero" element={<TravistaLoading />} />

@@ -11,6 +11,9 @@ import { FaRegImage } from "react-icons/fa";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import AddCommentIcon from "@mui/icons-material/AddComment";
 import ViewCarouselIcon from "@mui/icons-material/ViewCarousel";
+import { MdOutlineTour } from "react-icons/md";
+import { TbCategoryPlus } from "react-icons/tb";
+
 import { useEmployee } from "../../utils/empContext"; // Import EmployeeContext
 function Sidebar({ setActiveSection }) {
   const menuItems = [
@@ -25,6 +28,8 @@ function Sidebar({ setActiveSection }) {
     { id: "cities", icon: PiCity, label: "cities" },
     { id: "seasons", icon: AcUnitIcon, label: "Seasons" },
     { id: "hotels", icon: LuHotel, label: "Hotels" },
+    { id: "tour-categories", icon: TbCategoryPlus, label: "Tour Categories" },
+    { id: "tours", icon: MdOutlineTour, label: "Tours" },
     { id: "employees", icon: Users, label: "Employees" },
     { id: "newsletter", icon: ImNewspaper, label: "Newsletters" },
     { id: "FaqsManagement", icon: BsQuestionOctagon, label: "FAQs Management" },

@@ -19,6 +19,8 @@ import DashboardHero from "./Articles/HeroSection";
 import BlogManager from "./BlogManagement";
 import BannerDashboard from "./BannerManagement";
 import CommentManagement from "./commentsManagment";
+import TourCategoriesTable from "./tourCategories";
+import ToursDashboard from "./tours";
 
 function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard"); // Use lowercase
@@ -63,6 +65,10 @@ function DashboardLayout() {
         return <BannerDashboard />;
       case "CommentManagement":
         return <CommentManagement />;
+      case "tour-categories":
+        return <TourCategoriesTable />;
+      case "tours":
+        return <ToursDashboard />;
       default:
         return <Dashboard />;
     }
