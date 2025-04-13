@@ -12,6 +12,12 @@ import {
   Autocomplete,
   Alert,
   Snackbar,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import { Add, Delete } from "@mui/icons-material";
 import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
@@ -79,7 +85,11 @@ const EditPackage = ({
   const [countries, setCountries] = useState([]);
   const [loadingCountries, setLoadingCountries] = useState(false);
   const [deleting, setDeleting] = useState(false);
-
+  const [isActive, setIsActive] = useState(packageData?.isActive || true);
+  const [selectedTour, setSelectedTour] = useState(
+    packageData?.tour?._id || ""
+  );
+  const [availableTours, setAvailableTours] = useState([]);
   // const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB limit
   // const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB limit for images
 
@@ -119,7 +129,26 @@ const EditPackage = ({
       setTotalNights(packageData.totalNights?.toString() || "");
     }
   }, [packageData]);
+  useEffect(() => {
+    const fetchTours = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/tours");
+        setAvailableTours(response.data);
+      } catch (error) {
+        console.error("Error fetching tours:", error);
+        setError("Failed to load tours");
+      }
+    };
 
+    if (open) {
+      fetchTours();
+      // Initialize form with package data
+      if (packageData) {
+        setIsActive(packageData.isActive);
+        setSelectedTour(packageData.tour?._id || "");
+      }
+    }
+  }, [open, packageData]);
   // const validateFileSize = (file, maxSize) => {
   //   if (file.size > maxSize) {
   //     throw new Error(
@@ -198,6 +227,7 @@ const EditPackage = ({
       // Create the package data object
       const updatedPackageData = {
         travistaID: packageData.travistaID,
+        isActive,
         departureDate: packageData.departureDate,
         destinations: destinations
           .filter((dest) => dest?.name?.trim() !== "")
@@ -225,6 +255,7 @@ const EditPackage = ({
           })),
         includes: includes.filter((item) => item.trim() !== ""),
         excludes: excludes.filter((item) => item.trim() !== ""),
+        tour: selectedTour || undefined, // Add tour reference
       };
 
       // Important: Append as JSON string
@@ -855,7 +886,43 @@ const EditPackage = ({
           >
             Add Exclude Point
           </Button>
+          <Divider textAlign="left">Tours / Daily Program</Divider>
 
+          <Stack spacing={2}>
+            {/* Add Tour Selection Dropdown */}
+            <FormControl fullWidth>
+              <InputLabel>Associated Tour</InputLabel>
+              <Select
+                value={selectedTour}
+                onChange={(e) => setSelectedTour(e.target.value)}
+                label="Associated Tour"
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {availableTours.map((tour) => (
+                  <MenuItem key={tour._id} value={tour._id}>
+                    {tour.name} ({tour.startDate?.split("T")[0]} to{" "}
+                    {tour.endDate?.split("T")[0]})
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            {/* Add Active Toggle Switch */}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isActive}
+                  onChange={(e) => setIsActive(e.target.checked)}
+                  color="primary"
+                />
+              }
+              label={isActive ? "Active" : "Inactive"}
+              labelPlacement="start"
+              sx={{ justifyContent: "space-between", ml: 0 }}
+            />
+          </Stack>
           {/* PDF Upload Section */}
           <Divider textAlign="left">Additional Documents</Divider>
           <Stack spacing={2}>

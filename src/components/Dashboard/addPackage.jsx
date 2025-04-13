@@ -12,6 +12,12 @@ import {
   Autocomplete,
   Alert,
   Snackbar,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import { Add, Delete } from "@mui/icons-material";
 import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
@@ -20,7 +26,7 @@ import { createPackage } from "../../services/packageService";
 import { getAllCities } from "../../services/cityService";
 import { getAllHotels } from "../../services/hotelServices";
 import { getAllCountries } from "../../services/countryService";
-
+import axios from "axios";
 const currencyOptions = currencyCodes.data.map((c) => ({
   value: c.code,
   label: `${c.code} - ${c.currency}`,
@@ -72,6 +78,9 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   const [loadingHotels, setLoadingHotels] = useState(false);
   const [countries, setCountries] = useState([]);
   const [loadingCountries, setLoadingCountries] = useState(false);
+  const [isActive, setIsActive] = useState(true);
+  const [selectedTour, setSelectedTour] = useState("");
+  const [availableTours, setAvailableTours] = useState([]);
 
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB limit
   const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB limit for images
@@ -81,6 +90,39 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
       throw new Error(
         `File size exceeds the limit of ${maxSize / (1024 * 1024)}MB`
       );
+    }
+  };
+  useEffect(() => {
+    const fetchTours = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/tours");
+        setAvailableTours(response.data);
+      } catch (error) {
+        console.error("Error fetching tours:", error);
+        setError("Failed to load tours");
+      }
+    };
+
+    if (open) {
+      fetchTours();
+    }
+  }, [open]);
+  // Add this function to handle tour selection
+  const handleTourSelect = (event) => {
+    const tourId = event.target.value;
+    setSelectedTour(tourId);
+
+    if (tourId) {
+      const selected = availableTours.find((tour) => tour._id === tourId);
+      if (selected) {
+        // Here you can populate form fields with the selected tour data
+        // For example:
+        setDestinations(selected.destinations || [""]);
+        setTotalDays(selected.totalDays || "");
+        setTotalNights(selected.totalNights || "");
+        setIsActive(selected.isActive || true);
+        // ... populate other fields as needed ...
+      }
     }
   };
 
@@ -165,6 +207,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
       // Add other package data
       const packageData = {
         travistaID: travistaID, // Ensure ID is included
+        isActive,
         departureDate: new Date(),
         destinations: destinations
           .filter((dest) => dest?.name?.trim() !== "")
@@ -192,6 +235,8 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
           })),
         includes: includes.filter((item) => item.trim() !== ""),
         excludes: excludes.filter((item) => item.trim() !== ""),
+
+        tour: selectedTour || undefined,
       };
 
       // Add package data to FormData
@@ -221,7 +266,18 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
 
   const resetForm = () => {
     setDestinations([""]);
-    setFlights([{ airline: "", date: "", route: "", depart: "", arrival: "" }]);
+    setFlights([
+      {
+        airline: "",
+        date: "",
+        from: "",
+        to: "",
+        departureDate: "",
+        departureTime: "",
+        arrivalDate: "",
+        arrivalTime: "",
+      },
+    ]);
     setHotels([
       {
         city: "",
@@ -241,6 +297,8 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
     setPdfFile(null);
     setTotalDays("");
     setTotalNights("");
+    setIsActive(true);
+    setSelectedTour(""); // Reset tour selection
   };
 
   useEffect(() => {
@@ -726,7 +784,40 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
           >
             Add Exclude Point
           </Button>
-
+          <Divider textAlign="left">Tour /Daily Programs</Divider>
+          <Stack spacing={3}>
+            {/* Add Tour Selection Dropdown at the top */}
+            <FormControl fullWidth>
+              <InputLabel id="tour-select-label">
+                Select Existing Tour
+              </InputLabel>
+              <Select
+                labelId="tour-select-label"
+                value={selectedTour}
+                onChange={handleTourSelect}
+                label="Select Existing Tour"
+              >
+                {availableTours.map((tour) => (
+                  <MenuItem key={tour._id} value={tour._id}>
+                    {tour.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            {/* Add Active Toggle Switch */}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isActive}
+                  onChange={(e) => setIsActive(e.target.checked)}
+                  color="primary"
+                />
+              }
+              label={isActive ? "Active" : "Inactive"}
+              labelPlacement="start"
+              sx={{ justifyContent: "space-between", ml: 0 }}
+            />
+          </Stack>
           {/* PDF Upload Section */}
           <Divider textAlign="left">Additional Documents</Divider>
           <Stack spacing={2}>
