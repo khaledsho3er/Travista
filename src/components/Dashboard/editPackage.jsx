@@ -1,4 +1,4 @@
-// components/AddPackage.js
+// components/EditPackage.js
 import React, { useState, useEffect } from "react";
 import {
   Box,
@@ -16,11 +16,11 @@ import {
 import { Add, Delete } from "@mui/icons-material";
 import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
 import currencyCodes from "currency-codes";
-import { createPackage } from "../../services/packageService";
+import { updatePackage, deletePackage } from "../../services/packageService";
 import { getAllCities } from "../../services/cityService";
 import { getAllHotels } from "../../services/hotelServices";
 import { getAllCountries } from "../../services/countryService";
-
+import axios from "axios";
 const currencyOptions = currencyCodes.data.map((c) => ({
   value: c.code,
   label: `${c.code} - ${c.currency}`,
@@ -46,7 +46,13 @@ const contentBoxStyle = {
   boxShadow: 24,
 };
 
-const AddPackage = ({ open, handleClose, onPackageCreated }) => {
+const EditPackage = ({
+  open,
+  handleClose,
+  packageData,
+  onPackageUpdated,
+  onPackageDeleted,
+}) => {
   const [destinations, setDestinations] = useState([""]);
   const [flights, setFlights] = useState([
     { airline: "", date: "", route: "", depart: "", arrival: "" },
@@ -72,9 +78,47 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   const [loadingHotels, setLoadingHotels] = useState(false);
   const [countries, setCountries] = useState([]);
   const [loadingCountries, setLoadingCountries] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB limit
   const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB limit for images
+
+  useEffect(() => {
+    if (packageData) {
+      // Set form fields with packageData
+      setDestinations(
+        packageData.destinations.map((dest) => ({ name: dest })) || [""]
+      );
+      setFlights(
+        packageData.flights || [
+          { airline: "", date: "", route: "", depart: "", arrival: "" },
+        ]
+      );
+      setHotels(
+        packageData.hotels || [
+          {
+            city: "",
+            nights: "",
+            hotelName: "",
+            single: "",
+            double: "",
+            triple: "",
+          },
+        ]
+      );
+      setIncludes(packageData.includes || [""]);
+      setExcludes(packageData.excludes || [""]);
+      setGeneralNotes(packageData.generalNotes || [""]);
+      setSelectedCurrency(
+        currencyOptions.find(
+          (opt) => opt.value === packageData.packagePrice?.currency
+        ) || null
+      );
+      setPackagePrice(packageData.packagePrice?.amount?.toString() || "");
+      setTotalDays(packageData.totalDays?.toString() || "");
+      setTotalNights(packageData.totalNights?.toString() || "");
+    }
+  }, [packageData]);
 
   const validateFileSize = (file, maxSize) => {
     if (file.size > maxSize) {
@@ -124,12 +168,6 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
     });
   };
 
-  const generateRandomTravistaID = () => {
-    const timestamp = Date.now();
-    const random = Math.floor(Math.random() * 10000);
-    return `TRAV-${timestamp}-${random}`;
-  };
-
   const handleSubmit = async () => {
     try {
       setLoading(true);
@@ -147,25 +185,20 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
         throw new Error("Please fill in all required fields");
       }
 
-      // Generate a random travistaID
-      const travistaID = generateRandomTravistaID();
-      console.log("Generated TravistaID:", travistaID); // Debug log
-
-      // Create FormData for file uploads
       const formData = new FormData();
 
-      // Add files to FormData if they exist
-      if (packagePicture) {
+      // Only append files if they're new
+      if (packagePicture && packagePicture instanceof File) {
         formData.append("packagePicture", packagePicture);
       }
-      if (pdfFile) {
+      if (pdfFile && pdfFile instanceof File) {
         formData.append("pdfDocument", pdfFile);
       }
 
-      // Add other package data
-      const packageData = {
-        travistaID: travistaID, // Ensure ID is included
-        departureDate: new Date(),
+      // Create the package data object
+      const updatedPackageData = {
+        travistaID: packageData.travistaID,
+        departureDate: packageData.departureDate,
         destinations: destinations
           .filter((dest) => dest?.name?.trim() !== "")
           .map((dest) => dest.name),
@@ -194,27 +227,44 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
         excludes: excludes.filter((item) => item.trim() !== ""),
       };
 
-      // Add package data to FormData
-      formData.append("packageData", JSON.stringify(packageData));
+      // Important: Append as JSON string
+      formData.append("packageData", JSON.stringify(updatedPackageData));
 
-      // Debug log to check the data being sent
-      console.log("Package Data:", packageData);
+      // Debug what's being sent
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
 
-      // Send to backend
-      const response = await createPackage(formData);
+      const response = await axios.put(
+        `http://localhost:5000/api/packages/${packageData._id}`,
+        updatedPackageData
+      );
+
+      if (!response || !response.data) {
+        throw new Error("Invalid response from server");
+      }
 
       setSuccess(true);
-      onPackageCreated?.(response.data);
-
-      // Reset form and close modal after 2 seconds
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      onPackageUpdated?.(response.data);
     } catch (err) {
-      console.error("Package creation error:", err);
-      setError(err.message || "Failed to create package. Please try again.");
+      console.error("Package update error:", err);
+      setError(err.message || "Failed to update package. Please try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      setDeleting(true);
+      await deletePackage(packageData._id);
+      onPackageDeleted?.(packageData._id);
+      handleClose();
+    } catch (err) {
+      console.error("Package deletion error:", err);
+      setError(err.message || "Failed to delete package. Please try again.");
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -275,9 +325,10 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
     };
 
     if (open) {
-      fetchHotels(); // along with fetchCities
+      fetchHotels();
     }
   }, [open]);
+
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -301,20 +352,28 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
     <Modal open={open} onClose={handleClose} sx={blurModalStyle}>
       <Box sx={contentBoxStyle}>
         <Typography variant="h5" mb={2}>
-          Add New Travel Package
+          Edit Travel Package
         </Typography>
         <Stack spacing={3}>
           {/* Main Details */}
           <Divider textAlign="left">Package Picture</Divider>
-          {packagePicture && (
+          {packagePicture ? (
             <Box
               component="img"
               src={URL.createObjectURL(packagePicture)}
               sx={{ height: 150, width: "auto", borderRadius: 2, mb: 2 }}
             />
+          ) : (
+            packageData?.packagePicture && (
+              <Box
+                component="img"
+                src={`http://localhost:5000/${packageData.packagePicture}`}
+                sx={{ height: 150, width: "auto", borderRadius: 2, mb: 2 }}
+              />
+            )
           )}
           <Button variant="contained" component="label">
-            Upload Picture
+            Upload New Picture
             <input
               type="file"
               accept="image/*"
@@ -328,7 +387,10 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
             label="Departure Date"
             type="date"
             InputLabelProps={{ shrink: true }}
+            value={packageData?.departureDate?.split("T")[0] || ""}
+            disabled
           />
+
           {destinations.map((dest, index) => (
             <Stack key={index} direction="row" spacing={2}>
               <Autocomplete
@@ -460,19 +522,55 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
           {flights.map((flight, index) => (
             <Stack spacing={2} key={index}>
               <Stack direction="row" spacing={2}>
-                <TextField fullWidth label="Airline Name" sx={{ flex: 2 }} />
+                <TextField
+                  fullWidth
+                  label="Airline Name"
+                  sx={{ flex: 2 }}
+                  value={flight.airline}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].airline = e.target.value;
+                    setFlights(newFlights);
+                  }}
+                />
                 <TextField
                   fullWidth
                   type="date"
                   label="Date"
                   InputLabelProps={{ shrink: true }}
                   sx={{ flex: 1 }}
+                  value={flight.date}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].date = e.target.value;
+                    setFlights(newFlights);
+                  }}
                 />
               </Stack>
 
               <Stack direction="row" spacing={2}>
-                <TextField label="From" fullWidth sx={{ flex: 1 }} />
-                <TextField label="To" fullWidth sx={{ flex: 1 }} />
+                <TextField
+                  label="From"
+                  fullWidth
+                  sx={{ flex: 1 }}
+                  value={flight.route}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].route = e.target.value;
+                    setFlights(newFlights);
+                  }}
+                />
+                <TextField
+                  label="To"
+                  fullWidth
+                  sx={{ flex: 1 }}
+                  value={flight.route}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].route = e.target.value;
+                    setFlights(newFlights);
+                  }}
+                />
               </Stack>
 
               <Stack direction="row" spacing={2}>
@@ -482,8 +580,24 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                   fullWidth
                   InputLabelProps={{ shrink: true }}
                   sx={{ flex: 1 }}
+                  value={flight.depart}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].depart = e.target.value;
+                    setFlights(newFlights);
+                  }}
                 />
-                <TextField label="Departure Time" fullWidth sx={{ flex: 1 }} />
+                <TextField
+                  label="Departure Time"
+                  fullWidth
+                  sx={{ flex: 1 }}
+                  value={flight.depart}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].depart = e.target.value;
+                    setFlights(newFlights);
+                  }}
+                />
               </Stack>
 
               <Stack direction="row" spacing={2}>
@@ -493,8 +607,24 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                   fullWidth
                   InputLabelProps={{ shrink: true }}
                   sx={{ flex: 1 }}
+                  value={flight.arrival}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].arrival = e.target.value;
+                    setFlights(newFlights);
+                  }}
                 />
-                <TextField label="Arrival Time" fullWidth sx={{ flex: 1 }} />
+                <TextField
+                  label="Arrival Time"
+                  fullWidth
+                  sx={{ flex: 1 }}
+                  value={flight.arrival}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].arrival = e.target.value;
+                    setFlights(newFlights);
+                  }}
+                />
               </Stack>
 
               <Stack direction="row" spacing={2} justifyContent="flex-end">
@@ -729,20 +859,29 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
           {/* PDF Upload Section */}
           <Divider textAlign="left">Additional Documents</Divider>
           <Stack spacing={2}>
-            {pdfFile && (
+            {pdfFile ? (
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 <Typography variant="body1">{pdfFile.name}</Typography>
                 <IconButton onClick={() => setPdfFile(null)}>
                   <Delete />
                 </IconButton>
               </Box>
+            ) : (
+              packageData?.pdfDocument && (
+                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                  <Typography variant="body1">Current PDF Document</Typography>
+                  <IconButton onClick={() => setPdfFile(null)}>
+                    <Delete />
+                  </IconButton>
+                </Box>
+              )
             )}
             <Button
               variant="contained"
               component="label"
               sx={{ alignSelf: "flex-start" }}
             >
-              Upload PDF Document
+              Upload New PDF Document
               <input
                 type="file"
                 accept=".pdf"
@@ -753,14 +892,23 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
           </Stack>
 
           <Divider />
-          <Button
-            variant="contained"
-            onClick={handleSubmit}
-            disabled={loading}
-            sx={{ mt: 2 }}
-          >
-            {loading ? "Creating Package..." : "Submit Package"}
-          </Button>
+          <Stack direction="row" spacing={2} justifyContent="space-between">
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleDelete}
+              disabled={deleting || loading}
+            >
+              {deleting ? "Deleting..." : "Delete Package"}
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleSubmit}
+              disabled={loading || deleting}
+            >
+              {loading ? "Updating Package..." : "Update Package"}
+            </Button>
+          </Stack>
         </Stack>
 
         <Snackbar
@@ -789,7 +937,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
             onClose={() => setSuccess(false)}
             sx={{ width: "100%" }}
           >
-            Package created successfully! Redirecting...
+            Package updated successfully!
           </Alert>
         </Snackbar>
       </Box>
@@ -797,4 +945,4 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   );
 };
 
-export default AddPackage;
+export default EditPackage;
