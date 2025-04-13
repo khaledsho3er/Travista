@@ -2,23 +2,23 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Typography } from "@mui/material";
 import styled from "styled-components";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const FormContainer = styled.div`
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-`;
+// const FormContainer = styled.div`
+//   max-width: 900px;
+//   margin: 2rem auto;
+//   padding: 2rem;
+//   background: #fff;
+//   border-radius: 8px;
+//   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+// `;
 
-const FormTitle = styled.h2`
-  color: #2c3e50;
-  text-align: center;
-  margin-bottom: 2rem;
-`;
+// const FormTitle = styled.h2`
+//   color: #2c3e50;
+//   text-align: center;
+//   margin-bottom: 2rem;
+// `;
 
 const FormGroup = styled.div`
   margin-bottom: 1.5rem;
@@ -54,15 +54,15 @@ const Select = styled.select`
   background-color: white;
 `;
 
-const TextArea = styled.textarea`
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  min-height: 100px;
-  resize: vertical;
-`;
+// const TextArea = styled.textarea`
+//   width: 100%;
+//   padding: 0.75rem;
+//   border: 1px solid #ddd;
+//   border-radius: 4px;
+//   font-size: 1rem;
+//   min-height: 100px;
+//   resize: vertical;
+// `;
 
 const Button = styled.button`
   background-color: #3498db;
@@ -261,7 +261,7 @@ const CreateTourForm = ({ onClose }) => {
   };
 
   const handleDayChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, checked } = e.target;
     if (name === "included") {
       setDay((prev) => ({
         ...prev,

@@ -210,6 +210,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
       setTimeout(() => {
         window.location.reload();
       }, 2000);
+      resetForm();
     } catch (err) {
       console.error("Package creation error:", err);
       setError(err.message || "Failed to create package. Please try again.");

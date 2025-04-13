@@ -28,21 +28,20 @@ const ArticleForm = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
-
   useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/articles/${id}`
+        );
+        setArticleData(response.data);
+      } catch (error) {
+        toast.error("Error fetching article");
+      }
+    };
+
     if (id) fetchArticle();
   }, [id]);
-
-  const fetchArticle = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/api/articles/${id}`
-      );
-      setArticleData(response.data);
-    } catch (error) {
-      toast.error("Error fetching article");
-    }
-  };
 
   const handleChange = (e) => {
     setArticleData({ ...articleData, [e.target.name]: e.target.value });

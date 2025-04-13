@@ -5,7 +5,6 @@ import {
   Link,
   Typography,
   Box,
-  Paper,
   Grid,
   CssBaseline,
 } from "@mui/material";

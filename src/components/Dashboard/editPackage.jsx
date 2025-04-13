@@ -16,7 +16,7 @@ import {
 import { Add, Delete } from "@mui/icons-material";
 import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
 import currencyCodes from "currency-codes";
-import { updatePackage, deletePackage } from "../../services/packageService";
+import { deletePackage } from "../../services/packageService";
 import { getAllCities } from "../../services/cityService";
 import { getAllHotels } from "../../services/hotelServices";
 import { getAllCountries } from "../../services/countryService";
@@ -80,8 +80,8 @@ const EditPackage = ({
   const [loadingCountries, setLoadingCountries] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
-  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB limit
-  const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB limit for images
+  // const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB limit
+  // const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB limit for images
 
   useEffect(() => {
     if (packageData) {
@@ -120,13 +120,13 @@ const EditPackage = ({
     }
   }, [packageData]);
 
-  const validateFileSize = (file, maxSize) => {
-    if (file.size > maxSize) {
-      throw new Error(
-        `File size exceeds the limit of ${maxSize / (1024 * 1024)}MB`
-      );
-    }
-  };
+  // const validateFileSize = (file, maxSize) => {
+  //   if (file.size > maxSize) {
+  //     throw new Error(
+  //       `File size exceeds the limit of ${maxSize / (1024 * 1024)}MB`
+  //     );
+  //   }
+  // };
 
   const handleAddItem = (setter, defaultValue) => {
     setter((prev) => [...prev, defaultValue]);
@@ -148,25 +148,25 @@ const EditPackage = ({
     setArr(newArr);
   };
 
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      if (!file) resolve(null);
+  // const convertToBase64 = (file) => {
+  //   return new Promise((resolve, reject) => {
+  //     if (!file) resolve(null);
 
-      try {
-        validateFileSize(
-          file,
-          file.type.startsWith("image/") ? MAX_IMAGE_SIZE : MAX_FILE_SIZE
-        );
+  //     try {
+  //       validateFileSize(
+  //         file,
+  //         file.type.startsWith("image/") ? MAX_IMAGE_SIZE : MAX_FILE_SIZE
+  //       );
 
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  };
+  //       const reader = new FileReader();
+  //       reader.readAsDataURL(file);
+  //       reader.onload = () => resolve(reader.result);
+  //       reader.onerror = (error) => reject(error);
+  //     } catch (err) {
+  //       reject(err);
+  //     }
+  //   });
+  // };
 
   const handleSubmit = async () => {
     try {
@@ -268,29 +268,29 @@ const EditPackage = ({
     }
   };
 
-  const resetForm = () => {
-    setDestinations([""]);
-    setFlights([{ airline: "", date: "", route: "", depart: "", arrival: "" }]);
-    setHotels([
-      {
-        city: "",
-        nights: "",
-        hotelName: "",
-        single: "",
-        double: "",
-        triple: "",
-      },
-    ]);
-    setIncludes([""]);
-    setExcludes([""]);
-    setPackagePicture(null);
-    setGeneralNotes([""]);
-    setSelectedCurrency(null);
-    setPackagePrice("");
-    setPdfFile(null);
-    setTotalDays("");
-    setTotalNights("");
-  };
+  // const resetForm = () => {
+  //   setDestinations([""]);
+  //   setFlights([{ airline: "", date: "", route: "", depart: "", arrival: "" }]);
+  //   setHotels([
+  //     {
+  //       city: "",
+  //       nights: "",
+  //       hotelName: "",
+  //       single: "",
+  //       double: "",
+  //       triple: "",
+  //     },
+  //   ]);
+  //   setIncludes([""]);
+  //   setExcludes([""]);
+  //   setPackagePicture(null);
+  //   setGeneralNotes([""]);
+  //   setSelectedCurrency(null);
+  //   setPackagePrice("");
+  //   setPdfFile(null);
+  //   setTotalDays("");
+  //   setTotalNights("");
+  // };
 
   useEffect(() => {
     const fetchCities = async () => {

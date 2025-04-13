@@ -10,23 +10,19 @@ const ArticleDetails = () => {
   const [article, setArticle] = useState(null);
 
   useEffect(() => {
-    fetchArticle();
-    const fetchData = async () => {
-      await fetchArticle();
+    const fetchArticle = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/articles/${id}`
+        );
+        setArticle(response.data);
+      } catch (error) {
+        toast.error("Error fetching article");
+      }
     };
-    fetchData();
-  }, []);
 
-  const fetchArticle = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/api/articles/${id}`
-      );
-      setArticle(response.data);
-    } catch (error) {
-      toast.error("Error fetching article");
-    }
-  };
+    fetchArticle();
+  }, [id]);
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this article?"))

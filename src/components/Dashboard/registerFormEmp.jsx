@@ -4,7 +4,6 @@ import {
   TextField,
   Typography,
   Box,
-  Paper,
   Grid,
   CssBaseline,
   Link,
@@ -56,6 +55,7 @@ const EmpRegistrationForm = () => {
       setTimeout(() => {
         navigate("/employee/login");
       }, 1500);
+      console.log(response.data);
     } catch (err) {
       setError("Registration failed. Please try again.");
       setSuccess("");

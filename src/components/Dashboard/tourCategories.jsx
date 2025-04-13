@@ -76,32 +76,32 @@ const TourCategoriesTable = () => {
     }
 
     try {
-      let response;
       if (selectedCategory) {
         // Update Category
-        response = await axios.put(
+        await axios.put(
           `http://localhost:5000/api/tour-categories/${selectedCategory._id}`,
           categoryData,
           { headers: { "Content-Type": "application/json" } }
         );
-        toast.success("Category updated successfully!");
+        toast.success("Tour Category updated successfully!");
       } else {
         // Add Category
-        response = await axios.post(
+        await axios.post(
           "http://localhost:5000/api/tour-categories",
           categoryData,
           {
             headers: { "Content-Type": "application/json" },
           }
         );
-        toast.success("Category added successfully!");
+
+        toast.success("Tour Category added successfully!");
       }
 
       fetchCategories(); // Refresh category list
       handleClose(); // Close modal
     } catch (error) {
-      console.error("Error saving category:", error);
-      toast.error("Error saving category");
+      console.error("Error saving tour category:", error);
+      toast.error("Error saving tour category");
     }
   };
 
@@ -113,11 +113,11 @@ const TourCategoriesTable = () => {
       await axios.delete(
         `http://localhost:5000/api/tour-categories/${categoryId}`
       );
-      toast.success("Category deleted successfully!");
+      toast.success("Tour Category deleted successfully!");
       fetchCategories();
     } catch (error) {
-      console.error("Error deleting category:", error);
-      toast.error("Error deleting category");
+      console.error("Error deleting tour category:", error);
+      toast.error("Error deleting tour category");
     }
   };
 
@@ -161,7 +161,10 @@ const TourCategoriesTable = () => {
               <TableRow key={category._id}>
                 <TableCell>{category.tourCategoryId}</TableCell>
                 <TableCell>{category.name}</TableCell>
-                <TableCell>{category.description}</TableCell>
+                <TableCell>{`${category.description
+                  .split(" ")
+                  .slice(0, 6)
+                  .join(" ")}...`}</TableCell>
                 <TableCell>
                   <Button
                     color="primary"
