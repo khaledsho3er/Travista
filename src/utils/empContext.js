@@ -6,7 +6,15 @@ export const EmpProvider = ({ children }) => {
   const [employee, setEmployee] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Check session on mount
+  // 1️⃣ Try loading from localStorage on mount (optional, improves perceived speed)
+  useEffect(() => {
+    const savedEmployee = localStorage.getItem("employee");
+    if (savedEmployee) {
+      setEmployee(JSON.parse(savedEmployee));
+    }
+  }, []);
+
+  // 2️⃣ Check actual session on server
   useEffect(() => {
     fetch("http://localhost:5000/api/empauth/session", {
       credentials: "include",
@@ -19,6 +27,15 @@ export const EmpProvider = ({ children }) => {
       .catch(() => setLoading(false));
   }, []);
 
+  // 3️⃣ Sync employee state to localStorage
+  useEffect(() => {
+    if (employee) {
+      localStorage.setItem("employee", JSON.stringify(employee));
+    } else {
+      localStorage.removeItem("employee");
+    }
+  }, [employee]);
+
   const login = async (credentials) => {
     const res = await fetch("http://localhost:5000/api/empauth/login", {
       method: "POST",
@@ -28,17 +45,8 @@ export const EmpProvider = ({ children }) => {
     });
 
     const data = await res.json();
-    console.log("Login response:", data); // Debugging log
     if (res.ok) {
       setEmployee(data.employee);
-      // Check session after successful login
-      fetch("http://localhost:5000/api/empauth/session", {
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((sessionData) => {
-          console.log("Session data after login:", sessionData); // Debugging log
-        });
     } else {
       throw new Error(data.message || "Login failed");
     }
