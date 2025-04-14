@@ -8,6 +8,7 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Typography,
 } from "@mui/material";
 
 const NotificationsTable = () => {
@@ -22,6 +23,9 @@ const NotificationsTable = () => {
 
   return (
     <Box sx={{ padding: "2rem" }}>
+      <Typography variant="h4" sx={{ mb: 3 }}>
+        Notifications
+      </Typography>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>

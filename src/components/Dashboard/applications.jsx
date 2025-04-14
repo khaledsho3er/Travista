@@ -71,7 +71,9 @@ const ApplicationManager = () => {
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center", padding: 16 }}>
-        <Typography variant="h5">Package Applications</Typography>
+        <Typography variant="h4" sx={{ mb: 3 }}>
+          Applications Management
+        </Typography>
       </div>
 
       {applications.map((app) => (

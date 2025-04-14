@@ -9,16 +9,16 @@ import {
   TableHead,
   TableRow,
   Paper,
-  IconButton,
+  Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  Button,
   TextField,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import { Delete, Edit } from "@mui/icons-material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Forms = () => {
   const [forms, setForms] = useState([]);
@@ -37,6 +37,7 @@ const Forms = () => {
         setForms(data);
       } catch (error) {
         console.error("Error fetching forms:", error);
+        toast.error("Failed to fetch forms");
       }
     };
     fetchForms();
@@ -59,16 +60,21 @@ const Forms = () => {
       });
       setForms(forms.filter((form) => form._id !== selectedForm._id));
       setOpenDeleteDialog(false);
+      toast.success("Form deleted successfully");
     } catch (error) {
       console.error("Error deleting form:", error);
+      toast.error("Failed to delete form");
     }
   };
 
   return (
     <Box>
+      <ToastContainer position="top-right" autoClose={3000} />
+
       <Typography variant="h4" gutterBottom>
         Forms Submissions
       </Typography>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="form submissions table">
           <TableHead>
@@ -85,18 +91,7 @@ const Forms = () => {
           <TableBody>
             {forms.map((form) => (
               <TableRow key={form._id}>
-                <TableCell
-                // sx={{
-                //   borderRadius: "10px",
-                //   padding: "15px 10px",
-                //   textAlign: "center",
-                //   width: "100px",
-                //   color:
-                //     form.type === "contactUs" ? "#897466FF" : "#759039FF",
-                //   backgroundColor:
-                //     form.type === "contactUs" ? "#ffd7be" : "#c7f464",
-                // }}
-                >
+                <TableCell>
                   {form.type === "contactUs" ? "Contact Us" : "FAQs"}
                 </TableCell>
                 <TableCell>
@@ -107,12 +102,20 @@ const Forms = () => {
                 <TableCell>{form.subject}</TableCell>
                 <TableCell>{form.message}</TableCell>
                 <TableCell>
-                  <IconButton onClick={() => handleEditClick(form)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton onClick={() => handleDeleteClick(form)}>
-                    <DeleteIcon />
-                  </IconButton>
+                  <Button
+                    color="primary"
+                    startIcon={<Edit />}
+                    onClick={() => handleEditClick(form)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    color="error"
+                    startIcon={<Delete />}
+                    onClick={() => handleDeleteClick(form)}
+                  >
+                    Delete
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

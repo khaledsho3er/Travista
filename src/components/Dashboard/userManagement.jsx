@@ -59,8 +59,8 @@ const UsersTable = () => {
 
   return (
     <>
-      <Typography variant="h5" sx={{ mb: 2 }}>
-        Users
+      <Typography variant="h4" sx={{ mb: 3 }}>
+        Users Management
       </Typography>
       <TableContainer component={Paper}>
         <Table>
@@ -81,18 +81,27 @@ const UsersTable = () => {
                 <TableCell>{user.phoneNumber}</TableCell>
                 <TableCell>{user.role}</TableCell>
                 <TableCell align="right">
-                  <IconButton onClick={() => openDialog(user, "view")}>
-                    <Visibility />
-                  </IconButton>
-                  <IconButton onClick={() => openDialog(user, "edit")}>
-                    <Edit />
-                  </IconButton>
-                  <IconButton
+                  <Button
+                    color="primary"
+                    startIcon={<Visibility />}
+                    onClick={() => openDialog(user, "view")}
+                  >
+                    View
+                  </Button>
+                  <Button
+                    color="primary"
+                    startIcon={<Edit />}
+                    onClick={() => openDialog(user, "edit")}
+                  >
+                    Update
+                  </Button>
+                  <Button
                     onClick={() => deleteUser(user._id)}
                     color="error"
+                    startIcon={<Delete />}
                   >
-                    <Delete />
-                  </IconButton>
+                    Delete
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

@@ -120,19 +120,16 @@ function SinglePackage({ tour, onClose }) {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to submit application");
-      }
+      if (!response.ok) throw new Error("Submission failed");
 
       setSuccess(true);
-      // Optionally reset form here
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
+
   if (success) {
     return (
       <Box
@@ -823,10 +820,10 @@ function SinglePackage({ tour, onClose }) {
       <Typography variant="subtitle2" mt={1} color="#777777">
         Select your preferred travel date and accommodation type...
       </Typography>
-      <Typography variant="body2" color="#777777" mt={4} mb={2}>
+      <Typography variant="body2" color="#777777" mt={4} mb={0}>
         Preferred date
       </Typography>
-      <Grid container spacing={2} mb={7}>
+      <Grid container spacing={2} mb={2}>
         {[
           new Date(tour?.departureDate).toLocaleDateString("en-GB", {
             day: "numeric",
@@ -1255,7 +1252,7 @@ function SinglePackage({ tour, onClose }) {
             float: "right",
           }}
         >
-          Finish
+          {loading ? "Submitting..." : "Finish"}
         </Button>
       </Box>
     </Box>

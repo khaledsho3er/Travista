@@ -46,6 +46,7 @@ import TourCategoriesTable from "./components/Dashboard/tourCategories";
 import ToursDashboard from "./components/Dashboard/tours";
 import UsersTable from "./components/Dashboard/userManagement";
 import ApplicationManager from "./components/Dashboard/applications";
+import VisaDocumentsTable from "./components/Dashboard/visaDocuments";
 
 function App() {
   return (
@@ -113,6 +114,7 @@ function App() {
             <Route path="applications" element={<ApplicationManager />} />
             <Route path="faqsmanagement" element={<FAQManagement />} />
             <Route path="DashboardHero" element={<TravistaLoading />} />
+            <Route path="visaDocuments" element={<VisaDocumentsTable />} />
             <Route path="socialmedia" element={<SocialMediaManagement />} />
             <Route path="userManagement" element={<UsersTable />} />
             <Route path="visalead" element={<VisaApplicationsTable />} />

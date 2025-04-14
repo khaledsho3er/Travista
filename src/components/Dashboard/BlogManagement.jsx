@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { X } from "lucide-react";
+import { Typography } from "@mui/material";
 
 const BlogManager = () => {
   const [blogs, setBlogs] = useState([]);
@@ -133,7 +134,10 @@ const BlogManager = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Blog Management</h1>
+      <Typography variant="h4" sx={{ mb: 3 }}>
+        Blog Management
+      </Typography>
+
       <button
         className="bg-blue-600 text-white px-4 py-2 rounded mb-6"
         onClick={() => {
