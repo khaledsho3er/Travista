@@ -974,7 +974,13 @@ function SinglePackage({ tour, onClose }) {
             label="First name"
             name="firstName"
             value={formData.firstName}
-            onChange={handleChange}
+            onChange={(e) => {
+              const { name, value } = e.target;
+              setFormData((prev) => ({
+                ...prev,
+                [name]: value,
+              }));
+            }}
             InputProps={{
               style: {
                 borderRadius: "10px",
@@ -1013,7 +1019,13 @@ function SinglePackage({ tour, onClose }) {
           autoComplete="email"
           type="email"
           value={formData.email}
-          onChange={handleChange}
+          onChange={(e) => {
+            const { name, value } = e.target;
+            setFormData((prev) => ({
+              ...prev,
+              [name]: value,
+            }));
+          }}
           InputProps={{
             style: {
               borderRadius: "10px",
@@ -1026,8 +1038,14 @@ function SinglePackage({ tour, onClose }) {
               size="small"
               margin="normal"
               value={formData.countryCode}
-              onChange={handleChange}
-              name="countryCode" // Add name attribute
+              onChange={(e) => {
+                const { name, value } = e.target;
+                setFormData((prev) => ({
+                  ...prev,
+                  [name]: value,
+                }));
+              }}
+              name="countryCode"
               InputProps={{
                 style: {
                   borderRadius: "10px",
@@ -1049,7 +1067,13 @@ function SinglePackage({ tour, onClose }) {
             label="Phone Number"
             name="phone"
             value={formData.phone}
-            onChange={handleChange}
+            onChange={(e) => {
+              const { name, value } = e.target;
+              setFormData((prev) => ({
+                ...prev,
+                [name]: value,
+              }));
+            }}
             InputProps={{
               style: {
                 borderRadius: "10px",
@@ -1065,7 +1089,13 @@ function SinglePackage({ tour, onClose }) {
           placeholder="Do you need help with Visa or have any special requests?"
           name="notes"
           value={formData.notes}
-          onChange={handleChange}
+          onChange={(e) => {
+            const { name, value } = e.target;
+            setFormData((prev) => ({
+              ...prev,
+              [name]: value,
+            }));
+          }}
           InputProps={{
             style: {
               borderRadius: "10px",
