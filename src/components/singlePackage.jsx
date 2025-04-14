@@ -23,117 +23,174 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BedIcon from "@mui/icons-material/Bed";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { FaCheck } from "react-icons/fa";
-function SinglePackage() {
+import ProgramPopup from "./dailyProgram"; // Import the new component
+
+function SinglePackage({ tour, onClose }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
-  const [currentStep, setCurrentStep] = useState(1); // Step state
-  const [selectedRoom, setSelectedRoom] = useState(""); // Room selection state
-  // const [selectedDate, setSelectedDate] = useState(""); // Date selection state
+  const [currentStep, setCurrentStep] = useState(1);
+  const [selectedRoom, setSelectedRoom] = useState("");
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [countryCode, setCountryCode] = useState("+1");
-
-  const details = {
-    type: "Ground Trip",
-    title: "Paris, Amsterdam, Barcelona",
-    duration: "9 Days, 8 Nights",
-    flight: "Egypt Air",
-    Accommodation: "4 Stars",
-    Transportation: "Included",
-    Program: "Included",
-    Inclusions: [
-      {
-        title: "Accommodation",
-        description:
-          "3 nights in Vienna, 3 nights in Prague, and 3 nights in Munich",
-      },
-      {
-        title: "International flights",
-        description:
-          "International direct round trip economy ticket by Egypt Air",
-      },
-      {
-        title: "Local Transportation",
-        description: "Internal flight ticket from Amsterdam to Barcelona",
-      },
-    ],
-    Exclusions: [
-      {
-        title: "Accommodation",
-        description:
-          "3 nights in Vienna, 3 nights in Prague, and 3 nights in Munich",
-      },
-      {
-        title: "International flights",
-        description:
-          "International direct round trip economy ticket by Egypt Air",
-      },
-      {
-        title: "Local Transportation",
-        description: "Internal flight ticket from Amsterdam to Barcelona",
-      },
-    ],
-    Notes: [
-      {
-        description:
-          "Contact us on 19294 for further details & package confirmation.",
-      },
-      {
-        description: "Rates are not valid during Peak Periods",
-      },
-      {
-        description:
-          "Payment can be done in USD or via online payment link with same official bank exchange rate plus credit card percentage bank fees.",
-      },
-      {
-        description:
-          " Travista reserves the right to change prices without prior notice according to hotels & airlines availability at time of actual confirmation.",
-      },
-      {
-        description:
-          "Military Travel Clearance is the client own responsibility to have before travel (if needed)",
-      },
-    ],
-  };
   const [activeTab, setActiveTab] = useState(0);
+  const [selectedHotel, setSelectedHotel] = useState(null);
+  const [selectedFlight, setSelectedFlight] = useState(null);
+  const [showProgramPopup, setShowProgramPopup] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    countryCode: "+1", // Initialize here
+    adults: 1, // Initialize here
+    children: 0, // Initialize here
+    notes: "",
+    roomType: "", // Initialize here (removed selectedRoom state)
+    packageId: tour._id,
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  // Format the package data for display
+  const packageDetails = {
+    type: tour?.type || "Package",
+    title: tour?.destinations?.join(", ") || "",
+    duration: `${tour?.totalDays || 0} Days, ${tour?.totalNights || 0} Nights`,
+    flight: tour?.flights?.length > 0 ? "Included" : "Not specified",
+    Accommodation: tour?.hotels?.length > 0 ? "Included" : "Not specified",
+    Transportation: tour?.hotels ? "Included" : "Not included",
+    Program: tour?.tour && tour.tour.length > 0 ? "Included" : "Not included",
+    Inclusions:
+      tour?.includes?.map((item) => ({
+        title: item.split(":")[0] || "Inclusion",
+        description: item.split(":")[1] || "",
+      })) || [],
+    Exclusions:
+      tour?.excludes?.map((item) => ({
+        title: item.split(":")[0] || "Exclusion",
+        description: item.split(":")[1] || "",
+      })) || [],
+    generalNotes:
+      tour?.generalNotes?.map((note) => ({
+        description: note,
+      })) || [],
+  };
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
   };
 
   const handleNext = () => {
-    setCurrentStep((prevStep) => Math.min(prevStep + 1, 4));
+    setCurrentStep((prevStep) => Math.min(prevStep + 1, 5));
   };
-  const handleFinish = () => {
-    navigate("/");
+
+  const handleFinish = (e) => {
+    handleSubmit();
   };
+
   const handleBack = () => {
     setCurrentStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
   const handleRoomChange = (room) => setSelectedRoom(room);
-  // const handleDateChange = (date) => setSelectedDate(date);
   const handleAdultsChange = (value) =>
     setAdults((prev) => Math.max(0, prev + value));
   const handleChildrenChange = (value) =>
     setChildren((prev) => Math.max(0, prev + value));
   const handleCountryCodeChange = (event) => setCountryCode(event.target.value);
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/applications", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to submit application");
+      }
+
+      setSuccess(true);
+      // Optionally reset form here
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  if (success) {
+    return (
+      <Box
+        sx={{
+          width: isSmallScreen ? "100%" : "40%",
+          padding: isSmallScreen ? "16px" : "32px",
+          position: "relative",
+        }}
+      >
+        <IconButton
+          sx={{ position: "absolute", top: 16, right: 16 }}
+          aria-label="close"
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </IconButton>
+
+        <Box sx={{ mt: 4, textAlign: "center" }}>
+          <Typography variant="h5" color="primary" gutterBottom>
+            Application Submitted Successfully!
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 3 }}>
+            Thank you for applying for our {tour.packageName} package.
+          </Typography>
+          <Button
+            variant="contained"
+            sx={{
+              mt: 3,
+              backgroundColor: "#142328",
+              "&:hover": {
+                backgroundColor: "#0f1c24",
+              },
+            }}
+            onClick={() => {
+              onClose();
+              navigate("/");
+            }}
+          >
+            Return Home
+          </Button>
+        </Box>
+      </Box>
+    );
+  }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const renderTabContent = () => {
     switch (activeTab) {
       case 0:
         return (
           <Box>
-            {/* <Typography variant="h6" fontWeight="bold" mt={2}>
-              Inclusions
-            </Typography> */}
-            {details.Inclusions.map((item, index) => (
+            {packageDetails.Inclusions.map((item, index) => (
               <Box display="flex" alignItems="flex-start" mb={2} key={index}>
                 <FaCheck
                   color="#750046"
@@ -155,10 +212,7 @@ function SinglePackage() {
       case 1:
         return (
           <Box>
-            {/* <Typography variant="h6" fontWeight="bold" mt={2}>
-              Exclusions
-            </Typography> */}
-            {details.Exclusions.map((item, index) => (
+            {packageDetails.Exclusions.map((item, index) => (
               <Box display="flex" alignItems="flex-start" mb={2} key={index}>
                 <FaCheck
                   color="#750046"
@@ -180,10 +234,7 @@ function SinglePackage() {
       case 2:
         return (
           <Box>
-            {/* <Typography variant="h6" fontWeight="bold" mt={2}>
-              Details
-            </Typography> */}
-            {details.Notes.map((item, index) => (
+            {packageDetails.generalNotes.map((item, index) => (
               <Box display="flex" alignItems="flex-start" mb={2} key={index}>
                 <FaCheck
                   color="#750046"
@@ -191,9 +242,6 @@ function SinglePackage() {
                   style={{ marginRight: "8px", marginTop: "4px" }}
                 />
                 <Box>
-                  <Typography variant="body1" fontWeight="bold">
-                    {item.title}
-                  </Typography>
                   <Typography variant="body2" color="textSecondary">
                     {item.description}
                   </Typography>
@@ -202,38 +250,24 @@ function SinglePackage() {
             ))}
           </Box>
         );
-
       default:
         return null;
     }
   };
+
+  // Hotel data - you might want to get this from the tour prop if available
   const hotels = [
     {
-      name: "Bandos Island Resort 4* or Similar - Garden Villa",
-      image: "hotel-a.jpg", // Replace with the actual image path
-      MealPlan: "Half Board",
-      price: "€890",
-      nights: "3",
-      city: "Maldives",
-    },
-    {
-      name: "Oblu Helengeli 4* Or Similar Lagoon Villa with Pool",
-      image: "hotel-a.jpg", // Replace with the actual image path
-      MealPlan: "All Inclusive",
-      price: "€1450",
-      nights: "3",
-      city: "Maldives",
-    },
-    {
-      name: "Bandoss Island Resort 4* or Similar - Garden Villa",
-      image: "hotel-a.jpg", // Replace with the actual image path
-      MealPlan: "Half Board",
-      price: "€890",
-      nights: "3",
-      city: "Maldives",
+      name: tour?.hotels?.[0]?.hotelName || "Standard Accommodation",
+      image: tour?.packagePicture || "default-hotel.jpg",
+      MealPlan: tour?.mealPlan || "Half Board",
+      price: `${tour?.hotels[0].single || "0"} ${
+        tour?.packagePrice?.currency || ""
+      }`,
+      nights: tour?.totalNights || 0,
+      city: tour?.destinations?.[0] || "Destination",
     },
   ];
-  const [selectedHotel, setSelectedHotel] = useState(null); // State to track selected hotel
 
   const HotelAccommodation = ({ hotels, selectedHotel, setSelectedHotel }) => {
     return (
@@ -244,20 +278,18 @@ function SinglePackage() {
           position: "relative",
         }}
       >
-        <Link to="/packages">
-          <IconButton
-            sx={{ position: "absolute", top: 16, right: 16 }}
-            aria-label="close"
-            onClick={() => setOpen(false)}
-          >
-            <CloseIcon />
-          </IconButton>
-        </Link>
+        <IconButton
+          sx={{ position: "absolute", top: 16, right: 16 }}
+          aria-label="close"
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </IconButton>
 
         <IconButton
           sx={{ position: "absolute", top: 16, left: 16 }}
           aria-label="return"
-          onClick={handleBack} // Use the handleBack function to navigate to the previous step
+          onClick={handleBack}
         >
           <ArrowBackIcon />
         </IconButton>
@@ -301,13 +333,7 @@ function SinglePackage() {
                   },
                 }}
               >
-                <Table
-                  sx={{
-                    width: "100%",
-                    borderCollapse: "collapse",
-                  }}
-                >
-                  {/* Table Header */}
+                <Table sx={{ width: "100%", borderCollapse: "collapse" }}>
                   <TableHead>
                     <TableRow>
                       <TableCell
@@ -362,8 +388,6 @@ function SinglePackage() {
                       </TableCell>
                     </TableRow>
                   </TableHead>
-
-                  {/* Table Body */}
                   <TableBody>
                     <TableRow>
                       <TableCell
@@ -437,42 +461,246 @@ function SinglePackage() {
       </Box>
     );
   };
+  const flights = [
+    {
+      airline: tour?.flights.airline || "Egypt Air",
+      FlightDate:
+        new Date(tour?.flights.date).toLocaleDateString("en-GB", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }) || "1/1/2025",
+      departureDate:
+        new Date(tour?.flights.departureDate).toLocaleDateString("en-GB", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }) || "1/1/2025",
+      arrivalDate:
+        new Date(tour?.flights.arrivalDate).toLocaleDateString("en-GB", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }) || "1/1/2025",
+      departureTime:
+        new Date(tour?.flights.departureTime).toLocaleTimeString("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+        }) || "12:00",
+      arrivalTime:
+        new Date(tour?.flights.arrivalTime).toLocaleTimeString("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+        }) || "15:00",
+      FlightFrom: tour?.flights.from || "Cairo",
+      FlightTo: tour?.flights.to || "London",
+    },
+  ];
+  const FlightSchedule = ({ flights, selectedFlight, setSelectedFlight }) => {
+    return (
+      <Box
+        sx={{
+          width: isSmallScreen ? "100%" : "40%",
+          padding: isSmallScreen ? "16px" : "32px",
+          position: "relative",
+        }}
+      >
+        <IconButton
+          sx={{ position: "absolute", top: 16, right: 16 }}
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </IconButton>
 
+        <IconButton
+          sx={{ position: "absolute", top: 16, left: 16 }}
+          onClick={handleBack}
+        >
+          <ArrowBackIcon />
+        </IconButton>
+
+        <Box sx={{ mt: 4 }}>
+          <Typography variant="h5" fontWeight="bold" mb={2}>
+            Flight Schedule
+          </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              overflowY: "auto",
+              maxHeight: "500px",
+              "&::-webkit-scrollbar": {
+                width: "6px",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "#750046",
+                borderRadius: "3px",
+              },
+            }}
+          >
+            {flights.map((flight, index) => (
+              <Box
+                key={index}
+                onClick={() => setSelectedFlight(index)}
+                sx={{
+                  p: 2,
+                  border: `2px solid ${
+                    selectedFlight === index ? "#750046" : "#ddd"
+                  }`,
+                  borderRadius: "12px",
+                  backgroundColor:
+                    selectedFlight === index ? "#f9f9f9" : "transparent",
+                  cursor: "pointer",
+                  transition: "all 0.3s",
+                  "&:hover": {
+                    borderColor: "#750046",
+                  },
+                }}
+              >
+                <Table sx={{ width: "100%", borderCollapse: "collapse" }}>
+                  <TableHead>
+                    <TableRow>
+                      {["Airline", "Date", "Route", "Depart", "Arrival"].map(
+                        (header) => (
+                          <TableCell
+                            key={header}
+                            sx={{
+                              fontWeight: "bold",
+                              color: "#750046",
+                              borderBottom: "2px solid #ddd",
+                              textAlign: "left",
+                            }}
+                          >
+                            {header}
+                          </TableCell>
+                        )
+                      )}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell
+                        sx={{
+                          borderBottom: "1px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        {flight.airline}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          borderBottom: "1px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        {flight.date}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          borderBottom: "1px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        {flight.from}/{flight.to}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          borderBottom: "1px solid #ddd",
+                          textAlign: "left",
+                        }}
+                      >
+                        {flight.departureDate} / {flight.departureTime}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          borderBottom: "1px solid #ddd",
+                          textAlign: "left",
+                          color: flight.isNextDay ? "red" : "inherit",
+                          fontStyle: flight.isNextDay ? "italic" : "normal",
+                        }}
+                      >
+                        {flight.arrivalDate} / {flight.arrivalTime}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Box>
+            ))}
+          </Box>
+        </Box>
+
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{
+            width: "100%",
+            padding: "12px",
+            borderRadius: "25px",
+            fontWeight: "bold",
+            textTransform: "none",
+            marginTop: "20px",
+            backgroundColor: "#0f1c24",
+            "&:hover": {
+              backgroundColor: "#fff",
+              border: "2px solid #0f1c24",
+              color: "#0f1c24",
+            },
+          }}
+          onClick={handleNext}
+        >
+          Confirm Flight
+        </Button>
+      </Box>
+    );
+  };
   const ComponentOne = () => (
     <Box sx={{ width: "40%", padding: "32px", position: "relative" }}>
       <IconButton
         sx={{ position: "absolute", top: 16, right: 16 }}
         aria-label="close"
-        onClick={() => setOpen(false)}
+        onClick={onClose}
       >
         <CloseIcon />
       </IconButton>
 
       <Box display="flex" alignItems="center" gap="8px">
         <div
-          variant="contained"
-          sx={{
+          style={{
             backgroundColor: "#ffffff",
             color: "#00695c",
             fontSize: "0.8rem",
             borderRadius: "3px",
-            textTransform: "none",
             padding: "4px 12px",
-            border: "2px",
-            borderColor: "#00695c",
+            border: "2px solid #00695c",
           }}
         >
-          {details.type}
+          {packageDetails.type}
         </div>
       </Box>
 
       <Typography variant="h4" fontWeight="bold" mt={2}>
-        {details.title}
+        {packageDetails.title}
       </Typography>
       <Typography variant="subtitle1" color="textSecondary" mt={1}>
-        {details.duration}
+        {packageDetails.duration}
       </Typography>
-      <Typography variant="body2" color="textSecondary" mt={1} mb={2}>
+      <Typography
+        variant="body2"
+        color="textSecondary"
+        mt={1}
+        mb={2}
+        onClick={() => setShowProgramPopup(true)}
+        sx={{
+          cursor: "pointer",
+          textDecoration: "underline",
+          "&:hover": {
+            color: "#750046",
+          },
+        }}
+      >
+        {" "}
         Read more +
       </Typography>
 
@@ -482,7 +710,7 @@ function SinglePackage() {
             Flights
           </Typography>
           <Typography variant="body2" fontWeight="bold">
-            {details.flight}
+            {packageDetails.flight}
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -490,7 +718,7 @@ function SinglePackage() {
             Accommodation
           </Typography>
           <Typography variant="body2" fontWeight="bold">
-            {details.Accommodation}
+            {packageDetails.Accommodation}
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -498,7 +726,7 @@ function SinglePackage() {
             Transportation
           </Typography>
           <Typography variant="body2" fontWeight="bold">
-            {details.Transportation}
+            {packageDetails.Transportation}
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -506,7 +734,7 @@ function SinglePackage() {
             Program
           </Typography>
           <Typography variant="body2" fontWeight="bold">
-            {details.Program}
+            {packageDetails.Program}
           </Typography>
         </Grid>
       </Grid>
@@ -519,16 +747,15 @@ function SinglePackage() {
         sx={{
           mt: 3,
           mb: 2,
-
           "& .MuiTabs-indicator": {
-            backgroundColor: "#750046", // Change the indicator color
+            backgroundColor: "#750046",
           },
           "& .MuiTab-root": {
-            color: "#757575", // Default tab text color
+            color: "#757575",
           },
           "& .MuiTab-root.Mui-selected": {
-            color: "#750046", // Active tab text color
-            fontWeight: "bold", // Optional: Make the selected tab text bold
+            color: "#750046",
+            fontWeight: "bold",
           },
         }}
       >
@@ -571,20 +798,18 @@ function SinglePackage() {
         position: "relative",
       }}
     >
-      <Link to="/packages">
-        <IconButton
-          sx={{ position: "absolute", top: 16, right: 16 }}
-          aria-label="close"
-          onClick={() => setOpen(false)}
-        >
-          <CloseIcon />
-        </IconButton>
-      </Link>
+      <IconButton
+        sx={{ position: "absolute", top: 16, right: 16 }}
+        aria-label="close"
+        onClick={onClose}
+      >
+        <CloseIcon />
+      </IconButton>
 
       <IconButton
         sx={{ position: "absolute", top: 16, left: 16 }}
         aria-label="return"
-        onClick={handleBack} // Use the handleBack function to navigate to the previous step
+        onClick={handleBack}
       >
         <ArrowBackIcon />
       </IconButton>
@@ -602,12 +827,16 @@ function SinglePackage() {
         Preferred date
       </Typography>
       <Grid container spacing={2} mb={7}>
-        {["10th May 2024 - 19th May 2024"].map((date) => (
+        {[
+          new Date(tour?.departureDate).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          }),
+        ].map((date) => (
           <Grid item xs={isSmallScreen ? 12 : 6} key={date}>
             <Typography
-              variant="outlined"
               sx={{
-                textTransform: "none",
                 padding: "10px 0px",
                 margin: "3rem 0rem",
                 fontWeight: "bold",
@@ -625,9 +854,24 @@ function SinglePackage() {
       </Typography>
       <Box sx={{ mb: 4 }}>
         {[
-          { label: "Single Room", price: "€3,490" },
-          { label: "Double Room", price: "€2,490" },
-          { label: "Triple Room", price: "€2,390" },
+          {
+            label: "Single Room",
+            price: `${tour?.hotels[0]?.single || "0"} ${
+              tour?.packagePrice?.currency || ""
+            }`,
+          },
+          {
+            label: "Double Room",
+            price: `${Math.round(tour?.hotels[0]?.double || "0") || "0"} ${
+              tour?.packagePrice?.currency || ""
+            }`,
+          },
+          {
+            label: "Triple Room",
+            price: `${Math.round(tour?.hotels[0]?.triple || "0") || "0"} ${
+              tour?.packagePrice?.currency || ""
+            }`,
+          },
         ].map((room, index) => (
           <Box
             key={index}
@@ -641,10 +885,7 @@ function SinglePackage() {
               mb: 1,
               cursor: "pointer",
               borderColor: selectedRoom === room.label ? "#86205d" : "#ddd",
-              bgcolor:
-                (selectedRoom === room.label) & room.price
-                  ? "#ffffff"
-                  : "transparent",
+              bgcolor: selectedRoom === room.label ? "#ffffff" : "transparent",
               ":hover": {
                 borderColor: "#86205d",
                 backgroundColor: "#86205d",
@@ -704,20 +945,18 @@ function SinglePackage() {
       <IconButton
         sx={{ position: "absolute", top: 16, right: 16 }}
         aria-label="close"
-        onClick={() => setOpen(false)}
+        onClick={onClose}
       >
         <CloseIcon />
       </IconButton>
 
-      <Link to="/packages">
-        <IconButton
-          sx={{ position: "absolute", top: 16, left: 16 }}
-          aria-label="return"
-          onClick={handleBack} // Use the handleBack function to navigate to the previous step
-        >
-          <ArrowBackIcon />
-        </IconButton>
-      </Link>
+      <IconButton
+        sx={{ position: "absolute", top: 16, left: 16 }}
+        aria-label="return"
+        onClick={handleBack}
+      >
+        <ArrowBackIcon />
+      </IconButton>
       <Typography
         variant={isSmallScreen ? "h5" : "h4"}
         fontWeight="bold"
@@ -728,7 +967,7 @@ function SinglePackage() {
       <Typography variant="subtitle2" mt={1} color="#777777">
         Tell us more about you
       </Typography>
-      <Box component="form" noValidate>
+      <Box component="form" onSubmit={handleSubmit} noValidate>
         <Box sx={{ display: "flex", gap: 2, mb: 1 }}>
           <TextField
             size="small"
@@ -737,6 +976,8 @@ function SinglePackage() {
             sx={{ width: "80%" }}
             label="First name"
             name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
             InputProps={{
               style: {
                 borderRadius: "10px",
@@ -750,6 +991,14 @@ function SinglePackage() {
             sx={{ width: "100%" }}
             label="Last name"
             name="lastName"
+            value={formData.lastName}
+            onChange={(e) => {
+              const { name, value } = e.target;
+              setFormData((prev) => ({
+                ...prev,
+                [name]: value,
+              }));
+            }}
             InputProps={{
               style: {
                 borderRadius: "10px",
@@ -765,6 +1014,9 @@ function SinglePackage() {
           label="Email"
           name="email"
           autoComplete="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
           InputProps={{
             style: {
               borderRadius: "10px",
@@ -776,9 +1028,9 @@ function SinglePackage() {
             <Select
               size="small"
               margin="normal"
-              value={countryCode}
-              onChange={handleCountryCodeChange}
-              mt
+              value={formData.countryCode}
+              onChange={handleChange}
+              name="countryCode" // Add name attribute
               InputProps={{
                 style: {
                   borderRadius: "10px",
@@ -799,6 +1051,8 @@ function SinglePackage() {
             sx={{ flex: 1 }}
             label="Phone Number"
             name="phone"
+            value={formData.phone}
+            onChange={handleChange}
             InputProps={{
               style: {
                 borderRadius: "10px",
@@ -806,13 +1060,22 @@ function SinglePackage() {
             }}
           />
         </Box>
-        <textarea
-          placeholder="Do you need help in Visa....?"
-          class="textarea-input"
-        ></textarea>
-        {/* Counters for Adults and Children */}
+        <TextField
+          multiline
+          rows={3}
+          fullWidth
+          margin="normal"
+          placeholder="Do you need help with Visa or have any special requests?"
+          name="notes"
+          value={formData.notes}
+          onChange={handleChange}
+          InputProps={{
+            style: {
+              borderRadius: "10px",
+            },
+          }}
+        />
         <Box sx={{ display: "flex", gap: 4 }}>
-          {/* Adults Counter */}
           <Box
             sx={{
               display: "flex",
@@ -837,25 +1100,36 @@ function SinglePackage() {
               }}
             >
               <IconButton
-                onClick={() => handleAdultsChange(-1)}
-                disabled={adults <= 0}
+                onClick={() =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    adults: Math.max(1, prev.adults - 1),
+                  }))
+                }
+                disabled={formData.adults <= 0}
                 sx={{
-                  backgroundColor: adults > 0 ? "#f0f0f0" : "transparent",
+                  backgroundColor:
+                    formData.adults > 0 ? "#f0f0f0" : "transparent",
                   borderRadius: "50%",
-                  width: "30px", // Set button width
-                  height: "30px", // Set button height
+                  width: "30px",
+                  height: "30px",
                 }}
               >
                 <RemoveIcon fontSize="small" />
               </IconButton>
-              <Typography>{adults}</Typography>
+              <Typography>{formData.adults}</Typography>
               <IconButton
-                onClick={() => handleAdultsChange(1)}
+                onClick={() =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    adults: prev.adults + 1,
+                  }))
+                }
                 sx={{
                   backgroundColor: "#f0f0f0",
                   borderRadius: "50%",
-                  width: "30px", // Set button width
-                  height: "30px", // Set button height
+                  width: "30px",
+                  height: "30px",
                 }}
               >
                 <AddIcon fontSize="small" />
@@ -863,7 +1137,6 @@ function SinglePackage() {
             </Box>
           </Box>
 
-          {/* Children Counter */}
           <Box
             sx={{
               display: "flex",
@@ -883,25 +1156,36 @@ function SinglePackage() {
                 border: "1px solid #e0e0e0",
                 borderRadius: "12px",
                 padding: "4px 8px",
-                width: "250px", // Set width to make it uniform
+                width: "250px",
                 justifyContent: "space-between",
               }}
             >
               <IconButton
-                onClick={() => handleChildrenChange(-1)}
-                disabled={children <= 0}
+                onClick={() =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    children: Math.max(0, prev.children - 1),
+                  }))
+                }
+                disabled={formData.children <= 0}
                 sx={{
-                  backgroundColor: children > 0 ? "#f0f0f0" : "transparent",
+                  backgroundColor:
+                    formData.children > 0 ? "#f0f0f0" : "transparent",
                   borderRadius: "50%",
-                  width: "30px", // Set button width
-                  height: "30px", // Set button height
+                  width: "30px",
+                  height: "30px",
                 }}
               >
                 <RemoveIcon fontSize="small" />
               </IconButton>
-              <Typography>{children}</Typography>
+              <Typography>{formData.children}</Typography>
               <IconButton
-                onClick={() => handleChildrenChange(1)}
+                onClick={() =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    children: prev.children + 1,
+                  }))
+                }
                 sx={{
                   backgroundColor: "#f0f0f0",
                   borderRadius: "50%",
@@ -914,24 +1198,49 @@ function SinglePackage() {
             </Box>
           </Box>
         </Box>
+        {error && (
+          <Typography color="error" sx={{ mt: 2 }}>
+            {error}
+          </Typography>
+        )}
       </Box>
-      <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 3 }}>
-        <hr></hr>
-      </Box>
-      <hr style={{ margin: "0px 0 30px 0px " }}></hr>
+      <hr style={{ margin: "0px 0 30px 0px" }} />
 
       <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 3 }}>
         <Box>
           <Typography variant="body2" color="textSecondary">
-            10th May - 19th May
+            {new Date(tour?.departureDate).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            Selected Room: {selectedRoom}
           </Typography>
           <Typography variant="body1" color="textPrimary">
-            €2,390
+            {selectedRoom === "Single Room"
+              ? `${Math.round(tour?.hotels[0]?.single) || "0"} ${
+                  tour?.packagePrice?.currency || ""
+                }`
+              : selectedRoom === "Double Room"
+              ? `${Math.round(tour?.hotels[0]?.double) || "0"} ${
+                  tour?.packagePrice?.currency || ""
+                }`
+              : selectedRoom === "Triple Room"
+              ? `${Math.round(tour?.hotels[0]?.triple) || "0"} ${
+                  tour?.packagePrice?.currency || ""
+                }`
+              : `${tour?.packagePrice?.amount || "0"} ${
+                  tour?.packagePrice?.currency || ""
+                }`}
           </Typography>
         </Box>
         <Button
+          type="submit"
           variant="contained"
           sx={{
+            type: "submit",
             backgroundColor: "#142328",
             width: isSmallScreen ? "100%" : "30%",
             padding: "12px",
@@ -939,13 +1248,12 @@ function SinglePackage() {
             fontWeight: "bold",
             textTransform: "none",
             color: "#ffffff",
-            ":hover": {
+            "&:hover": {
               backgroundColor: "#0f1c24",
             },
             ml: "auto",
             float: "right",
           }}
-          onClick={handleFinish}
         >
           Finish
         </Button>
@@ -968,7 +1276,6 @@ function SinglePackage() {
           position: "relative",
         }}
       >
-        {/* Image on the left */}
         <Box
           sx={{
             position: "relative",
@@ -978,13 +1285,12 @@ function SinglePackage() {
           }}
         >
           <img
-            src="/assets/explore.png"
-            alt="Trip location"
+            src={`http://localhost:5000/${tour?.packagePicture}`}
+            alt={tour?.packageName || "Package"}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </Box>
 
-        {/* Dynamic Component Rendering */}
         {currentStep === 1 ? (
           <ComponentOne />
         ) : currentStep === 2 ? (
@@ -994,10 +1300,22 @@ function SinglePackage() {
             setSelectedHotel={setSelectedHotel}
           />
         ) : currentStep === 3 ? (
-          <ComponentTwo /> // Removed nextStep prop
+          <FlightSchedule
+            flights={flights}
+            selectedFlight={selectedFlight}
+            setSelectedFlight={setSelectedFlight}
+          />
         ) : currentStep === 4 ? (
+          <ComponentTwo />
+        ) : currentStep === 5 ? (
           <ComponentThree />
         ) : null}
+        {showProgramPopup && (
+          <ProgramPopup
+            packageId={tour.tour}
+            onClose={() => setShowProgramPopup(false)}
+          />
+        )}
       </Box>
     </Slide>
   );

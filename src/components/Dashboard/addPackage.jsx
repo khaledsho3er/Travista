@@ -63,6 +63,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   const [includes, setIncludes] = useState([""]);
   const [excludes, setExcludes] = useState([""]);
   const [packagePicture, setPackagePicture] = useState(null);
+  const [packageName, setPackageName] = useState("");
   const [generalNotes, setGeneralNotes] = useState([""]);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [packagePrice, setPackagePrice] = useState("");
@@ -206,6 +207,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
 
       // Add other package data
       const packageData = {
+        packageName,
         travistaID: travistaID, // Ensure ID is included
         isActive,
         departureDate: new Date(),
@@ -288,6 +290,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
         triple: "",
       },
     ]);
+    setPackageName("");
     setIncludes([""]);
     setExcludes([""]);
     setPackagePicture(null);
@@ -381,7 +384,12 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               onChange={(e) => setPackagePicture(e.target.files[0])}
             />
           </Button>
-
+          <TextField
+            fullWidth
+            label="Package Name"
+            value={packageName}
+            onChange={(e) => setPackageName(e.target.value)}
+          />
           <TextField
             fullWidth
             label="Departure Date"

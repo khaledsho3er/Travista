@@ -95,6 +95,11 @@ const DashboardPackages = () => {
               />
               <CardContent>
                 <Typography gutterBottom variant="h6" component="div">
+                  {packageItem.destinations?.length > 0
+                    ? packageItem.destinations.join(" / ")
+                    : "Unknown Destination"}
+                </Typography>
+                <Typography gutterBottom variant="h6" component="div">
                   {packageItem.travistaID}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">

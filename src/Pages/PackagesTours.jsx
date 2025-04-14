@@ -1,75 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SinglePackage from "../components/singlePackage";
 import { Box, Typography, Card, CardContent, Grid } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Filter from "../components/filter";
+import axios from "axios"; // Make sure to install axios using npm or yarn
 
 function PackagesTours() {
   const [selectedFilter, setSelectedFilter] = useState(""); // Manage selected filter state
   const [selectedPackage, setSelectedPackage] = useState(null);
+  const [packages, setPackages] = useState([]); // State to store fetched packages
 
-  const tours = [
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "10th Aug",
-      name: "Madriad, Barcelona, Rome",
-      duration: "10 Days, 9 Nights",
-      price: "$2,390",
-      type: "sports",
-    },
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "10th Aug",
-      name: "Venice, zurich, Prague",
-      duration: "10 Days, 9 Nights",
-      price: "$2,390",
-      type: "HoneyMoon",
-    },
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "10th Aug",
-      name: "Zurich, Paris, Rome, Florence",
-      duration: "10 Days, 9 Nights",
-      price: "$2,390",
-      type: "family",
-    },
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "10th Aug",
-      name: "Venice, Barcelona, Prague",
-      duration: "10 Days, 9 Nights",
-      price: "$2,390",
-      type: "sports",
-    },
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "10th Aug",
-      name: "Venice, Barcelona, Prague",
-      duration: "10 Days, 9 Nights",
-      price: "$2,390",
-      type: "sports",
-    },
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "10th Aug",
-      name: "Zurich, Paris, Rome, Florence",
-      duration: "10 Days, 9 Nights",
-      price: "$2,390",
-      type: "sports",
-    },
-  ];
+  // Fetch packages when component mounts
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/packages/");
+        setPackages(response.data); // Assuming response.data is the array of packages
+      } catch (error) {
+        console.error("Error fetching packages", error);
+      }
+    };
 
-  const handlePackageClick = (tour) => setSelectedPackage(tour);
+    fetchPackages();
+  }, []); // Empty dependency array to fetch only once when the component mounts
+
+  const handlePackageClick = (packageDetails) =>
+    setSelectedPackage(packageDetails);
 
   const handleFilterChange = (filter) => setSelectedFilter(filter); // Update selected filter
 
-  const filteredTours = selectedFilter
-    ? tours.filter(
-        (tour) => tour.type.toLowerCase() === selectedFilter.toLowerCase()
+  const filteredPackages = selectedFilter
+    ? packages.filter(
+        (packageDetails) =>
+          packageDetails.type.toLowerCase() === selectedFilter.toLowerCase()
       )
-    : tours;
+    : packages;
 
   return (
     <Box className="packages-page">
@@ -101,17 +68,18 @@ function PackagesTours() {
       <div className="packages-tours-body">
         <Box className="packages-tours">
           <Box sx={{ display: "flex", gap: "10px", padding: "20px 0" }}>
-            <Filter onFilterChange={handleFilterChange} /> {/* Pass callback */}
+            <Filter onFilterChange={handleFilterChange} packages={packages} />{" "}
+            {/* Pass packages as a prop */}
           </Box>
-          {filteredTours.length > 0 ? (
+          {filteredPackages.length > 0 ? (
             <Grid container spacing={3}>
-              {filteredTours.map((tour, index) => (
+              {filteredPackages.map((packageDetails, index) => (
                 <Grid item xs={12} sm={6} md={4} key={index}>
-                  <Card onClick={() => handlePackageClick(tour)}>
+                  <Card onClick={() => handlePackageClick(packageDetails)}>
                     <CardContent
                       sx={{
                         height: "350px",
-                        background: `url(${tour.image})`,
+                        backgroundImage: `url(http://localhost:5000/${packageDetails.packagePicture})`,
                         color: "white",
                         position: "relative",
                         borderRadius: "12px",
@@ -132,7 +100,13 @@ function PackagesTours() {
                         }}
                         variant="subtitle2"
                       >
-                        {tour.date}
+                        {new Date(
+                          packageDetails.departureDate
+                        ).toLocaleDateString("en-GB", {
+                          day: "2-digit",
+                          month: "long",
+                          year: "numeric",
+                        })}
                       </Typography>
                       <IconButton
                         sx={{
@@ -160,20 +134,28 @@ function PackagesTours() {
                         }}
                       >
                         <Typography fontWeight={800} variant="h4" gutterBottom>
-                          {tour.name}
+                          {`${packageDetails.destinations[0]} / ${packageDetails.destinations[1]}`}{" "}
                         </Typography>
                         <Typography
                           variant="body1"
                           color="#777777"
                           fontWeight={500}
                         >
-                          {tour.duration}
+                          {`${packageDetails.totalDays} days / ${packageDetails.totalNights} nights`}
+                        </Typography>
+                        <Typography
+                          variant="body1"
+                          color="#777777"
+                          fontWeight={500}
+                        >
+                          {`${packageDetails.destinations[0]} / ${packageDetails.destinations[1]}`}
                         </Typography>
                         <Typography
                           variant="subtitle1"
                           sx={{ color: "#266ef1" }}
                         >
-                          {tour.price}
+                          {packageDetails.packagePrice.amount}{" "}
+                          {packageDetails.packagePrice.currency}
                         </Typography>
                       </Box>
                     </CardContent>
