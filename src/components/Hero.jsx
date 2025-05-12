@@ -10,9 +10,7 @@ function Hero() {
   useEffect(() => {
     const fetchHero = async () => {
       try {
-        const res = await axios.get(
-          "https://158.220.96.121:8080/api/hero/active"
-        ); // adjust base URL as needed
+        const res = await axios.get("https://158.220.96.121/api/hero/active"); // adjust base URL as needed
         setHeroData(res.data);
       } catch (err) {
         console.error("Failed to fetch hero data", err);
