@@ -14,6 +14,7 @@ import {
   TableRow,
   TextField,
   Paper,
+  Typography,
   Select,
   MenuItem,
   IconButton,
@@ -23,6 +24,7 @@ import { useEmployee } from "../../utils/empContext"; // Import your EmpContext
 import { MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Delete, Edit } from "@mui/icons-material";
 
 function Employees() {
   const { employee } = useEmployee(); // Get the logged-in employee from the context
@@ -187,6 +189,9 @@ function Employees() {
 
   return (
     <Box>
+      <Typography variant="h4" sx={{ mb: 3 }}>
+        Employees
+      </Typography>
       <Button
         sx={{ mb: 2, mt: 2 }}
         variant="contained"
@@ -215,14 +220,16 @@ function Employees() {
                 <TableCell>{emp.role}</TableCell>
                 <TableCell>
                   <Button
-                    onClick={() => handleEditEmployee(emp)}
                     color="primary"
+                    startIcon={<Edit />}
+                    onClick={() => handleEditEmployee(emp)}
                   >
                     Update
                   </Button>
                   <Button
                     onClick={() => handleDeleteEmployee(emp._id)}
-                    color="secondary"
+                    color="error"
+                    startIcon={<Delete />}
                   >
                     Delete
                   </Button>

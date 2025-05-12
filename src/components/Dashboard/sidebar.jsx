@@ -11,7 +11,7 @@ import { FaRegImage } from "react-icons/fa";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import AddCommentIcon from "@mui/icons-material/AddComment";
 import ViewCarouselIcon from "@mui/icons-material/ViewCarousel";
-import { MdOutlineTour } from "react-icons/md";
+import { MdOutlineTour, MdOutlineTravelExplore } from "react-icons/md";
 import { TbCategoryPlus } from "react-icons/tb";
 
 import { useEmployee } from "../../utils/empContext"; // Import EmployeeContext
@@ -23,6 +23,12 @@ function Sidebar({ setActiveSection }) {
     { id: "BlogManagement", icon: BsFilePost, label: "Blog Management" },
     { id: "forms", icon: FormInput, label: "Forms" },
     { id: "Visa", icon: FaWpforms, label: "Visa" },
+    {
+      id: "visaDocuments",
+      icon: MdOutlineTravelExplore,
+      label: "Visa Management",
+    },
+    { id: "applications", icon: Users, label: "Applications" },
     { id: "notifications", icon: Bell, label: "Notifications" },
     { id: "countries", icon: PiCity, label: "Countries" },
     { id: "cities", icon: PiCity, label: "cities" },
@@ -31,6 +37,7 @@ function Sidebar({ setActiveSection }) {
     { id: "tour-categories", icon: TbCategoryPlus, label: "Tour Categories" },
     { id: "tours", icon: MdOutlineTour, label: "Tours" },
     { id: "employees", icon: Users, label: "Employees" },
+    { id: "userManagement", icon: Users, label: "User Management" },
     { id: "newsletter", icon: ImNewspaper, label: "Newsletters" },
     { id: "FaqsManagement", icon: BsQuestionOctagon, label: "FAQs Management" },
     { id: "dashboardHero", icon: FaRegImage, label: "Hero Section" },

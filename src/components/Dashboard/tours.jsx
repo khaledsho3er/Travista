@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateTourForm from "./CreateTourForm";
-
+import { Typography } from "@mui/material";
 const ToursDashboard = () => {
   const [tours, setTours] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -42,7 +42,9 @@ const ToursDashboard = () => {
       <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Tours</h1>
+        <Typography variant="h4" sx={{ mb: 3 }}>
+          Tours Management
+        </Typography>{" "}
         <button
           onClick={() => setShowModal(true)}
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"

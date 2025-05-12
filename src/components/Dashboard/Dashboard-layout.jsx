@@ -21,6 +21,9 @@ import BannerDashboard from "./BannerManagement";
 import CommentManagement from "./commentsManagment";
 import TourCategoriesTable from "./tourCategories";
 import ToursDashboard from "./tours";
+import UsersTable from "./userManagement";
+import ApplicationManager from "./applications";
+import VisaDocumentsTable from "./visaDocuments";
 
 function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard"); // Use lowercase
@@ -69,6 +72,12 @@ function DashboardLayout() {
         return <TourCategoriesTable />;
       case "tours":
         return <ToursDashboard />;
+      case "userManagement":
+        return <UsersTable />;
+      case "applications":
+        return <ApplicationManager />;
+      case "visaDocuments":
+        return <VisaDocumentsTable />;
       default:
         return <Dashboard />;
     }
