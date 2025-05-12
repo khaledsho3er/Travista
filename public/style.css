@@ -206,7 +206,7 @@ a.nav-link {
   height: 100vh;
   background: url("/assets/comments.png");
   text-align: center;
-  repeat: no-repeat;
+  background-repeat: no-repeat;
   background-size: cover;
 }
 
