@@ -60,7 +60,7 @@ function ContactUs() {
           </button>
 
           <Box className="contact-us-hero-image">
-            <img src="Assets/contactus.png" alt="contactus.png" />
+            <img src="assets/contactus.png" alt="contactus.png" />
           </Box>
         </Box>
         <Box className="contact-us-trips-container">

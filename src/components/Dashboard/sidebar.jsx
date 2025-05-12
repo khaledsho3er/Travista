@@ -58,7 +58,7 @@ function Sidebar({ setActiveSection }) {
         <div className="flex gap-2 items-center">
           {/* <Plane className="h-8 text-blue-600 w-8" /> */}
           <h1 className="text-2xl text-blue-300 font-bold center">
-            <img src="Assets/main-logo.png" alt="logo" />
+            <img src="assets/main-logo.png" alt="logo" />
           </h1>
         </div>
       </div>
