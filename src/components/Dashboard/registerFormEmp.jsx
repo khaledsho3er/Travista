@@ -38,7 +38,7 @@ const EmpRegistrationForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/empauth/register",
+        "https://158.220.96.121/api/empauth/register",
         formData,
         { withCredentials: true }
       );

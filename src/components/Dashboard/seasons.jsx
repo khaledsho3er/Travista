@@ -38,7 +38,7 @@ const SeasonManagement = () => {
 
   const fetchSeasons = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/seasons");
+      const response = await axios.get("https://158.220.96.121/api/seasons");
       setSeasons(response.data);
     } catch (error) {
       console.error("Error fetching seasons:", error);
@@ -81,7 +81,7 @@ const SeasonManagement = () => {
       if (selectedSeason) {
         // Update season
         response = await axios.put(
-          `http://localhost:5000/api/seasons/${selectedSeason.seasonId}`,
+          `https://158.220.96.121/api/seasons/${selectedSeason.seasonId}`,
           {
             name: seasonData.name,
             startDate: new Date(seasonData.startDate).toISOString(),
@@ -91,7 +91,7 @@ const SeasonManagement = () => {
         toast.success("Season updated successfully!");
       } else {
         // Add season
-        response = await axios.post("http://localhost:5000/api/seasons", {
+        response = await axios.post("https://158.220.96.121/api/seasons", {
           name: seasonData.name,
           startDate: new Date(seasonData.startDate).toISOString(),
           endDate: new Date(seasonData.endDate).toISOString(),
@@ -115,7 +115,7 @@ const SeasonManagement = () => {
   const handleDelete = async (seasonId) => {
     if (!window.confirm("Are you sure you want to delete this season?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/seasons/${seasonId}`);
+      await axios.delete(`https://158.220.96.121/api/seasons/${seasonId}`);
       toast.success("Season deleted successfully!");
       fetchSeasons();
     } catch (error) {

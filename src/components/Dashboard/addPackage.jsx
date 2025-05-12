@@ -95,7 +95,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   useEffect(() => {
     const fetchTours = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/tours");
+        const response = await axios.get("https://158.220.96.121/api/tours");
         setAvailableTours(response.data);
       } catch (error) {
         console.error("Error fetching tours:", error);

@@ -90,7 +90,7 @@ const ApplyForVisaForm = () => {
     console.log("Submitting Data:", formData);
 
     try {
-      await axios.post("http://localhost:5000/api/visa-leads", formData);
+      await axios.post("https://158.220.96.121/api/visa-leads", formData);
       alert("Application submitted successfully");
     } catch (error) {
       console.error("Error submitting application:", error);

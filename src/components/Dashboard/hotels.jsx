@@ -62,7 +62,7 @@ const HotelManagement = () => {
 
   const fetchHotels = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/hotels");
+      const response = await axios.get("https://158.220.96.121/api/hotels");
       setHotels(response.data);
     } catch (error) {
       toast.error("Error fetching hotels");
@@ -71,7 +71,7 @@ const HotelManagement = () => {
 
   const fetchCities = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/cities");
+      const response = await axios.get("https://158.220.96.121/api/cities");
       setCities(response.data);
     } catch (error) {
       toast.error("Error fetching cities");
@@ -131,12 +131,12 @@ const HotelManagement = () => {
     try {
       if (selectedHotel) {
         await axios.put(
-          `http://localhost:5000/api/hotels/${selectedHotel.hotelId}`,
+          `https://158.220.96.121/api/hotels/${selectedHotel.hotelId}`,
           hotelData
         );
         toast.success("Hotel updated successfully!");
       } else {
-        await axios.post("http://localhost:5000/api/hotels", hotelData);
+        await axios.post("https://158.220.96.121/api/hotels", hotelData);
         toast.success("Hotel added successfully!");
       }
 
@@ -151,7 +151,7 @@ const HotelManagement = () => {
   const handleDelete = async (hotelId) => {
     if (!window.confirm("Are you sure you want to delete this hotel?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/hotels/${hotelId}`);
+      await axios.delete(`https://158.220.96.121/api/hotels/${hotelId}`);
       toast.success("Hotel deleted successfully!");
       fetchHotels();
     } catch (error) {

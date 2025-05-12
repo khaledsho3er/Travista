@@ -90,7 +90,7 @@ const DashboardPackages = () => {
               <CardMedia
                 component="img"
                 sx={{ height: 300, objectFit: "cover", borderRadius: "10px" }}
-                image={`http://localhost:5000/${packageItem.packagePicture}`}
+                image={`https://158.220.96.121/${packageItem.packagePicture}`}
                 alt={packageItem.travistaID}
               />
               <CardContent>

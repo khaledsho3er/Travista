@@ -37,7 +37,7 @@ const CityManagement = () => {
 
   const fetchCities = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/cities");
+      const response = await axios.get("https://158.220.96.121/api/cities");
       setCities(response.data);
     } catch (error) {
       console.error("Error fetching cities:", error);
@@ -47,7 +47,7 @@ const CityManagement = () => {
 
   const fetchCountries = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/countries");
+      const response = await axios.get("https://158.220.96.121/api/countries");
       setCountries(response.data);
     } catch (error) {
       console.error("Error fetching countries:", error);
@@ -95,7 +95,7 @@ const CityManagement = () => {
       if (selectedCity) {
         // Update City
         response = await axios.put(
-          `http://localhost:5000/api/cities/${selectedCity.cityId}`,
+          `https://158.220.96.121/api/cities/${selectedCity.cityId}`,
           cityData,
           { headers: { "Content-Type": "application/json" } }
         );
@@ -103,7 +103,7 @@ const CityManagement = () => {
       } else {
         // Add City
         response = await axios.post(
-          "http://localhost:5000/api/cities",
+          "https://158.220.96.121/api/cities",
           cityData,
           {
             headers: { "Content-Type": "application/json" },
@@ -129,7 +129,7 @@ const CityManagement = () => {
     if (!window.confirm("Are you sure you want to delete this city?")) return;
     try {
       await axios.delete(
-        `http://localhost:5000/api/cities/${selectedCity._id}`
+        `https://158.220.96.121/api/cities/${selectedCity._id}`
       );
       toast.success("City deleted successfully!");
       fetchCities();

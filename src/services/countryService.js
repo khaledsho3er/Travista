@@ -1,7 +1,7 @@
 // services/countryService.js
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/countries";
+const API_URL = "https://158.220.96.121/api/countries";
 
 export const getAllCountries = async () => {
   try {

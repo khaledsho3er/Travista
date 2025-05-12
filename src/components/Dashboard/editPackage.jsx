@@ -132,7 +132,7 @@ const EditPackage = ({
   useEffect(() => {
     const fetchTours = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/tours");
+        const response = await axios.get("https://158.220.96.121/api/tours");
         setAvailableTours(response.data);
       } catch (error) {
         console.error("Error fetching tours:", error);
@@ -267,7 +267,7 @@ const EditPackage = ({
       }
 
       const response = await axios.put(
-        `http://localhost:5000/api/packages/${packageData._id}`,
+        `https://158.220.96.121/api/packages/${packageData._id}`,
         updatedPackageData
       );
 
@@ -398,7 +398,7 @@ const EditPackage = ({
             packageData?.packagePicture && (
               <Box
                 component="img"
-                src={`http://localhost:5000/${packageData.packagePicture}`}
+                src={`https://158.220.96.121/${packageData.packagePicture}`}
                 sx={{ height: 150, width: "auto", borderRadius: 2, mb: 2 }}
               />
             )
