@@ -11,13 +11,11 @@
 }
 
 .slide-up-modal .single-package {
+  position: relative;
   width: 100%;
-  height: 75vh; /* Fixed height at 75% of viewport */
   background-color: white;
-  border-radius: 12px 12px 0 0;
-  overflow: hidden;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 20px;
+  transform: translateY(-100%);
 }
 
 .slide-up-modal.show {

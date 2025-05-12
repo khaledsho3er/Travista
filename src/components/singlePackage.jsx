@@ -1306,59 +1306,59 @@ function SinglePackage({ tour, onClose }) {
 
   return (
     <Slide direction="up" in={open} mountOnEnter unmountOnExit>
-      <div className="slide-up-modal show">
+      <Box
+        display="flex"
+        sx={{
+          width: "100%",
+          margin: "30px auto",
+          backgroundColor: "#ffffff",
+          borderRadius: "20px",
+          maxHeight: "700px",
+          overflow: "hidden",
+          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+          position: "relative",
+        }}
+      >
         <Box
-          display="flex"
-          className="single-package"
           sx={{
-            backgroundColor: "#ffffff",
-            borderRadius: "20px 20px 0 0",
-            overflow: "hidden",
-            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
             position: "relative",
+            width: "55%",
+            zIndex: 9999,
           }}
         >
-          <Box
-            sx={{
-              position: "relative",
-              width: "55%",
-              zIndex: 9999,
-            }}
-          >
-            <img
-              src={`https://158.220.96.121/${tour?.packagePicture}`}
-              alt={tour?.packageName || "Package"}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-          </Box>
-
-          {currentStep === 1 ? (
-            <ComponentOne />
-          ) : currentStep === 2 ? (
-            <HotelAccommodation
-              hotels={hotels}
-              selectedHotel={selectedHotel}
-              setSelectedHotel={setSelectedHotel}
-            />
-          ) : currentStep === 3 ? (
-            <FlightSchedule
-              flights={flights}
-              selectedFlight={selectedFlight}
-              setSelectedFlight={setSelectedFlight}
-            />
-          ) : currentStep === 4 ? (
-            <ComponentTwo />
-          ) : currentStep === 5 ? (
-            <ComponentThree />
-          ) : null}
-          {showProgramPopup && (
-            <ProgramPopup
-              packageId={tour.tour}
-              onClose={() => setShowProgramPopup(false)}
-            />
-          )}
+          <img
+            src={`https://158.220.96.121/${tour?.packagePicture}`}
+            alt={tour?.packageName || "Package"}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
         </Box>
-      </div>
+
+        {currentStep === 1 ? (
+          <ComponentOne />
+        ) : currentStep === 2 ? (
+          <HotelAccommodation
+            hotels={hotels}
+            selectedHotel={selectedHotel}
+            setSelectedHotel={setSelectedHotel}
+          />
+        ) : currentStep === 3 ? (
+          <FlightSchedule
+            flights={flights}
+            selectedFlight={selectedFlight}
+            setSelectedFlight={setSelectedFlight}
+          />
+        ) : currentStep === 4 ? (
+          <ComponentTwo />
+        ) : currentStep === 5 ? (
+          <ComponentThree />
+        ) : null}
+        {showProgramPopup && (
+          <ProgramPopup
+            packageId={tour.tour}
+            onClose={() => setShowProgramPopup(false)}
+          />
+        )}
+      </Box>
     </Slide>
   );
 }
