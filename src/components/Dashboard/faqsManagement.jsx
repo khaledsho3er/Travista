@@ -38,7 +38,7 @@ const FAQManagement = () => {
 
   const fetchFAQs = async () => {
     try {
-      const response = await axios.get("https://158.220.96.121/api/faqs");
+      const response = await axios.get("http://localhost:5000/api/faqs");
       setFaqs(response.data);
     } catch (error) {
       toast.error("Error fetching FAQs");
@@ -76,12 +76,12 @@ const FAQManagement = () => {
     try {
       if (selectedFAQ) {
         await axios.put(
-          `https://158.220.96.121/api/faqs/${selectedFAQ.faqId}`,
+          `http://localhost:5000/api/faqs/${selectedFAQ.faqId}`,
           faqData
         );
         toast.success("FAQ updated successfully!");
       } else {
-        await axios.post("https://158.220.96.121/api/faqs", faqData);
+        await axios.post("http://localhost:5000/api/faqs", faqData);
         toast.success("FAQ added successfully!");
       }
 
@@ -96,7 +96,7 @@ const FAQManagement = () => {
   const handleDelete = async (faqId) => {
     if (!window.confirm("Are you sure you want to delete this FAQ?")) return;
     try {
-      await axios.delete(`https://158.220.96.121/api/faqs/${faqId}`);
+      await axios.delete(`http://localhost:5000/api/faqs/${faqId}`);
       toast.success("FAQ deleted successfully!");
       fetchFAQs();
     } catch (error) {

@@ -34,7 +34,7 @@ const NewsletterManagement = () => {
   const fetchSubscribers = async () => {
     try {
       const response = await axios.get(
-        "https://158.220.96.121/api/newsletter/subscribers"
+        "http://localhost:5000/api/newsletter/subscribers"
       );
       setSubscribers(response.data);
     } catch (error) {
@@ -61,7 +61,7 @@ const NewsletterManagement = () => {
 
     try {
       const response = await axios.post(
-        "https://158.220.96.121/api/newsletter/subscribe",
+        "http://localhost:5000/api/newsletter/subscribe",
         { email }
       );
       toast.success(response.data.message);
@@ -76,7 +76,7 @@ const NewsletterManagement = () => {
   const handleUnsubscribe = async (subscriberEmail) => {
     try {
       const response = await axios.put(
-        "https://158.220.96.121/api/newsletter/unsubscribe",
+        "http://localhost:5000/api/newsletter/unsubscribe",
         { email: subscriberEmail }
       );
       toast.info(response.data.message);
@@ -91,7 +91,7 @@ const NewsletterManagement = () => {
     if (!window.confirm("Are you sure you want to delete this subscriber?"))
       return;
     try {
-      await axios.delete("https://158.220.96.121/api/newsletter/delete", {
+      await axios.delete("http://localhost:5000/api/newsletter/delete", {
         data: { email: subscriberEmail },
       });
       toast.success("Subscriber deleted successfully");

@@ -177,9 +177,9 @@ const CreateTourForm = ({ onClose }) => {
     const fetchData = async () => {
       try {
         const [categoriesRes, countriesRes, citiesRes] = await Promise.all([
-          axios.get("https://158.220.96.121/api/tour-categories"),
-          axios.get("https://158.220.96.121/api/countries"),
-          axios.get("https://158.220.96.121/api/cities"),
+          axios.get("http://localhost:5000/api/tour-categories"),
+          axios.get("http://localhost:5000/api/countries"),
+          axios.get("http://localhost:5000/api/cities"),
         ]);
         setCategories(categoriesRes.data);
         setCountries(countriesRes.data);
@@ -310,7 +310,7 @@ const CreateTourForm = ({ onClose }) => {
     setIsSubmitting(true);
 
     try {
-      await axios.post("https://158.220.96.121/api/tours", tour);
+      await axios.post("http://localhost:5000/api/tours", tour);
       toast.success("Tour created successfully!");
 
       // Reset form

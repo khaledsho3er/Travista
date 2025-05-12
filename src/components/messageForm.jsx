@@ -24,7 +24,7 @@ const MessageForm = ({ type }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://158.220.96.121/api/form-lead/submit",
+        "http://localhost:5000/api/form-lead/submit",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

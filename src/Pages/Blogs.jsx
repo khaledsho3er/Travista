@@ -17,7 +17,7 @@ function BlogsPage() {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
-    fetch("https://158.220.96.121/api/blog")
+    fetch("http://localhost:5000/api/blog")
       .then((response) => response.json())
       .then((data) => setBlogData(data))
       .catch((error) => console.error("Error fetching blog data:", error));
@@ -145,7 +145,7 @@ function BlogsPage() {
                 style={{ textDecoration: "none" }}
               >
                 <img
-                  src={`https://158.220.96.121/uploads/${blog.featuredImage}`}
+                  src={`http://localhost:5000/uploads/${blog.featuredImage}`}
                   alt={blog.title}
                   className="Blog-card-image"
                 />

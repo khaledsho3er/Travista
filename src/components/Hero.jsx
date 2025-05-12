@@ -10,7 +10,7 @@ function Hero() {
   useEffect(() => {
     const fetchHero = async () => {
       try {
-        const res = await axios.get("https://158.220.96.121/api/hero/active"); // adjust base URL as needed
+        const res = await axios.get("http://localhost:5000/api/hero/active"); // adjust base URL as needed
         setHeroData(res.data);
       } catch (err) {
         console.error("Failed to fetch hero data", err);
@@ -26,7 +26,7 @@ function Hero() {
     <div
       style={{
         height: "90vh",
-        background: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://158.220.96.121${heroData.imageUrl})`,
+        background: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(http://localhost:5000${heroData.imageUrl})`,
         backgroundPosition: "top",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",

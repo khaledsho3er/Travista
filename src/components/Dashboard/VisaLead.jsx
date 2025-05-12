@@ -37,7 +37,7 @@ const VisaApplicationsTable = () => {
 
   const fetchApplications = async () => {
     try {
-      const response = await axios.get("https://158.220.96.121/api/visa-leads");
+      const response = await axios.get("http://localhost:5000/api/visa-leads");
       setApplications(response.data);
     } catch (error) {
       toast.error("Error fetching visa applications");
@@ -59,7 +59,7 @@ const VisaApplicationsTable = () => {
   const handleUpdateApplication = async () => {
     try {
       await axios.put(
-        `https://158.220.96.121/api/visa-leads/${selectedApplication._id}`,
+        `http://localhost:5000/api/visa-leads/${selectedApplication._id}`,
         { status, emailNote }
       );
       fetchApplications();
@@ -73,7 +73,7 @@ const VisaApplicationsTable = () => {
   const handleDeleteApplication = async () => {
     try {
       await axios.delete(
-        `https://158.220.96.121/api/visa-leads/${selectedApplication._id}`
+        `http://localhost:5000/api/visa-leads/${selectedApplication._id}`
       );
       fetchApplications();
       setOpenDelete(false);

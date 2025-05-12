@@ -32,7 +32,7 @@ const ArticleForm = () => {
     const fetchArticle = async () => {
       try {
         const response = await axios.get(
-          `https://158.220.96.121/api/articles/${id}`
+          `http://localhost:5000/api/articles/${id}`
         );
         setArticleData(response.data);
       } catch (error) {
@@ -61,10 +61,10 @@ const ArticleForm = () => {
 
     try {
       if (id) {
-        await axios.put(`https://158.220.96.121/api/articles/${id}`, formData);
+        await axios.put(`http://localhost:5000/api/articles/${id}`, formData);
         toast.success("Article updated successfully!");
       } else {
-        await axios.post("https://158.220.96.121/api/articles", formData);
+        await axios.post("http://localhost:5000/api/articles", formData);
         toast.success("Article created successfully!");
       }
       navigate("/articles");

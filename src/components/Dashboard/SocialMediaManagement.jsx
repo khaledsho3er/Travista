@@ -45,7 +45,7 @@ const SocialMediaManagement = () => {
   const fetchSocials = async () => {
     try {
       const response = await axios.get(
-        "https://158.220.96.121/api/social-media"
+        "http://localhost:5000/api/social-media"
       );
       setSocials(response.data);
     } catch (error) {
@@ -110,12 +110,12 @@ const SocialMediaManagement = () => {
     try {
       if (selectedSocial) {
         await axios.put(
-          `https://158.220.96.121/api/social-media/${selectedSocial.socialId}`,
+          `http://localhost:5000/api/social-media/${selectedSocial.socialId}`,
           { url: socialData.url, platform }
         );
         toast.success("Social media link updated successfully!");
       } else {
-        await axios.post("https://158.220.96.121/api/social-media", {
+        await axios.post("http://localhost:5000/api/social-media", {
           url: socialData.url,
           platform,
         });
@@ -135,7 +135,7 @@ const SocialMediaManagement = () => {
     )
       return;
     try {
-      await axios.delete(`https://158.220.96.121/api/social-media/${socialId}`);
+      await axios.delete(`http://localhost:5000/api/social-media/${socialId}`);
       toast.success("Social media link deleted successfully!");
       fetchSocials();
     } catch (error) {

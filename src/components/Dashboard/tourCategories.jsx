@@ -38,7 +38,7 @@ const TourCategoriesTable = () => {
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
-        "https://158.220.96.121/api/tour-categories"
+        "http://localhost:5000/api/tour-categories"
       );
       setCategories(response.data);
     } catch (error) {
@@ -79,7 +79,7 @@ const TourCategoriesTable = () => {
       if (selectedCategory) {
         // Update Category
         await axios.put(
-          `https://158.220.96.121/api/tour-categories/${selectedCategory._id}`,
+          `http://localhost:5000/api/tour-categories/${selectedCategory._id}`,
           categoryData,
           { headers: { "Content-Type": "application/json" } }
         );
@@ -87,7 +87,7 @@ const TourCategoriesTable = () => {
       } else {
         // Add Category
         await axios.post(
-          "https://158.220.96.121/api/tour-categories",
+          "http://localhost:5000/api/tour-categories",
           categoryData,
           {
             headers: { "Content-Type": "application/json" },
@@ -111,7 +111,7 @@ const TourCategoriesTable = () => {
       return;
     try {
       await axios.delete(
-        `https://158.220.96.121/api/tour-categories/${categoryId}`
+        `http://localhost:5000/api/tour-categories/${categoryId}`
       );
       toast.success("Tour Category deleted successfully!");
       fetchCategories();

@@ -10,7 +10,7 @@ function SingleBlog() {
   const [blog, setBlog] = useState(null);
 
   useEffect(() => {
-    fetch(`https://158.220.96.121/api/blog/${id}`)
+    fetch(`http://localhost:5000/api/blog/${id}`)
       .then((res) => res.json())
       .then((data) => setBlog(data))
       .catch((err) => console.error("Error fetching blog:", err));
@@ -31,7 +31,7 @@ function SingleBlog() {
           <>
             <p key={`text-${index}`}>{text}</p>
             <img
-              src={`https://158.220.96.121/uploads/${image}`}
+              src={`http://localhost:5000/uploads/${image}`}
               alt="Embedded Content"
               key={`img-${index}`}
               style={{ width: "100%", margin: "20px 0" }}
@@ -79,7 +79,7 @@ function SingleBlog() {
       </Box>
       <Box className="Single-Blog-image-hero">
         <img
-          src={`https://158.220.96.121/uploads/${blog.featuredImage}`}
+          src={`http://localhost:5000/uploads/${blog.featuredImage}`}
           alt="Blog Hero"
         />
       </Box>

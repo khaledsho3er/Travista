@@ -34,7 +34,7 @@ function ContactUs() {
     try {
       console.log("Submitting comment:", commentData);
       const res = await axios.post(
-        "https://158.220.96.121/api/comments",
+        "http://localhost:5000/api/comments",
         commentData
       );
       console.log("Comment submitted successfully:", res.data);
