@@ -11,7 +11,7 @@ function Hero() {
     const fetchHero = async () => {
       try {
         const res = await axios.get(
-          "http://158.220.96.121:8080/api/hero/active"
+          "https://158.220.96.121:8080/api/hero/active"
         ); // adjust base URL as needed
         setHeroData(res.data);
       } catch (err) {
