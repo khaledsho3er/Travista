@@ -12,7 +12,7 @@ const ToursDashboard = () => {
 
   const fetchTours = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/tours");
+      const res = await axios.get("https://158.220.96.121/api/tours");
       setTours(res.data);
     } catch (error) {
       toast.error("Failed to load tours");

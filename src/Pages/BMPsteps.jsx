@@ -18,17 +18,11 @@ function BuildMyPackageSteps() {
   const renderContent = () => {
     switch (currentStep) {
       case 1:
-        return (
-          <StepOne/>
-        );
+        return <StepOne />;
       case 2:
-        return (
-         <StepTwo/>
-        );
+        return <StepTwo />;
       case 3:
-        return (
-          <StepThree/>
-        );
+        return <StepThree />;
       default:
         return null;
     }
@@ -41,11 +35,11 @@ function BuildMyPackageSteps() {
         <section className="BMP-steps-hero">
           <div className="BMP-steps-hero-content-container">
             <Box className="BMP-steps-hero-image-left">
-              <img src="Assets/zinzibar.jpg" alt="Hero 1" />
+              <img src="assets/zinzibar.jpg" alt="Hero 1" />
             </Box>
             <Box className="BMP-steps-content">{renderContent()}</Box>
             <Box className="BMP-steps-hero-image-right">
-              <img src="Assets/zinzibar.jpg" alt="Hero 2" />
+              <img src="assets/zinzibar.jpg" alt="Hero 2" />
             </Box>
           </div>
         </section>
@@ -64,7 +58,7 @@ function BuildMyPackageSteps() {
           disabled={currentStep === 3}
         >
           {currentStep === 3 ? "Finish" : "Next"}
-          </button>
+        </button>
       </Box>
     </Box>
   );

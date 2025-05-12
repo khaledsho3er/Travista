@@ -25,7 +25,7 @@ const BlogManager = () => {
   });
 
   const fetchBlogs = async () => {
-    const { data } = await axios.get("http://localhost:5000/api/blog");
+    const { data } = await axios.get("https://158.220.96.121/api/blog");
     setBlogs(data);
   };
 
@@ -92,11 +92,11 @@ const BlogManager = () => {
 
     if (selectedBlog) {
       await axios.put(
-        `http://localhost:5000/api/blog/${selectedBlog._id}`,
+        `https://158.220.96.121/api/blog/${selectedBlog._id}`,
         formData
       );
     } else {
-      await axios.post("http://localhost:5000/api/blog", formData);
+      await axios.post("https://158.220.96.121/api/blog", formData);
     }
     fetchBlogs();
     setForm({
@@ -173,7 +173,7 @@ const BlogManager = () => {
           >
             {blog.featuredImage && (
               <img
-                src={`http://localhost:5000/uploads/${blog.featuredImage}`}
+                src={`https://158.220.96.121/uploads/${blog.featuredImage}`}
                 alt="Featured"
                 className="h-40 w-full object-cover"
               />

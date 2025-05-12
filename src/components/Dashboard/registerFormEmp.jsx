@@ -38,7 +38,7 @@ const EmpRegistrationForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/empauth/register",
+        "https://158.220.96.121/api/empauth/register",
         formData,
         { withCredentials: true }
       );
@@ -76,7 +76,7 @@ const EmpRegistrationForm = () => {
 
       <Grid item xs={12} sm={4} md={6} lg={8}>
         <img
-          src="/Assets/main-logo.png"
+          src="assets/main-logo.png"
           alt="Travista Logo"
           style={{ width: "100%", height: "auto" }}
         />

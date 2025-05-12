@@ -13,7 +13,7 @@ const ArticleDetails = () => {
     const fetchArticle = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/articles/${id}`
+          `https://158.220.96.121/api/articles/${id}`
         );
         setArticle(response.data);
       } catch (error) {
@@ -28,7 +28,7 @@ const ArticleDetails = () => {
     if (!window.confirm("Are you sure you want to delete this article?"))
       return;
     try {
-      await axios.delete(`http://localhost:5000/api/articles/${id}`);
+      await axios.delete(`https://158.220.96.121/api/articles/${id}`);
       toast.success("Article deleted successfully!");
       navigate("/articles"); // Redirect back to article list
     } catch (error) {
@@ -49,7 +49,7 @@ const ArticleDetails = () => {
         <CardMedia
           component="img"
           height="300"
-          image={`http://localhost:5000${article.featuredImage}`}
+          image={`https://158.220.96.121${article.featuredImage}`}
           alt="Featured Image"
           sx={{ mt: 2 }}
         />

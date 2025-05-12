@@ -56,7 +56,7 @@ function Employees() {
       return;
     }
 
-    fetch("http://localhost:5000/api/employees", {
+    fetch("https://158.220.96.121/api/employees", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ function Employees() {
 
   const handleAddEmployee = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/empauth/register", {
+      const res = await fetch("https://158.220.96.121/api/empauth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -125,7 +125,7 @@ function Employees() {
   const handleUpdateEmployee = async () => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/employees/${newEmployee._id}`,
+        `https://158.220.96.121/api/employees/${newEmployee._id}`,
         {
           method: "PUT",
           headers: {
@@ -156,7 +156,7 @@ function Employees() {
 
   const handleDeleteEmployee = async (_id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/employees/${_id}`, {
+      const res = await fetch(`https://158.220.96.121/api/employees/${_id}`, {
         method: "DELETE",
         credentials: "include",
       });

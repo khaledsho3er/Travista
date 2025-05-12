@@ -34,7 +34,7 @@ function ContactUs() {
     try {
       console.log("Submitting comment:", commentData);
       const res = await axios.post(
-        "http://localhost:5000/api/comments",
+        "https://158.220.96.121/api/comments",
         commentData
       );
       console.log("Comment submitted successfully:", res.data);
@@ -60,7 +60,7 @@ function ContactUs() {
           </button>
 
           <Box className="contact-us-hero-image">
-            <img src="Assets/contactus.png" alt="contactus.png" />
+            <img src="assets/contactus.png" alt="contactus.png" />
           </Box>
         </Box>
         <Box className="contact-us-trips-container">

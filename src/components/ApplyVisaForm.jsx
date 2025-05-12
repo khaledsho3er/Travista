@@ -108,20 +108,21 @@ const ApplyForVisaForm = () => {
 
     try {
       // Submit the form data
-      await axios.post("http://localhost:5000/api/visa-leads", {
+      await axios.post("https://158.220.96.121/api/visa-leads", {
         ...formData,
         visaType: selectedVisaType,
       });
 
       // Fetch the documents for the selected visa type
       const docRes = await axios.get(
-        `http://localhost:5000/api/visa-documents/${selectedVisaType}`
+        `https://158.220.96.121/api/visa-documents/${selectedVisaType}`
       );
       // Filter only PDF documents and get the fileUrl
       setVisaDocuments(docRes.data);
 
       // Show the dialog with PDF documents
       setShowDialog(true);
+
     } catch (error) {
       console.error("Error submitting application:", error);
     }
