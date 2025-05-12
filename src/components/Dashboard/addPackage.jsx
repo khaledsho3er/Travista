@@ -64,6 +64,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   const [excludes, setExcludes] = useState([""]);
   const [packagePicture, setPackagePicture] = useState(null);
   const [packageName, setPackageName] = useState("");
+  const [packageType, setPackageType] = useState("");
   const [generalNotes, setGeneralNotes] = useState([""]);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [packagePrice, setPackagePrice] = useState("");
@@ -208,6 +209,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
       // Add other package data
       const packageData = {
         packageName,
+        packageType,
         travistaID: travistaID, // Ensure ID is included
         isActive,
         departureDate: new Date(),
@@ -291,6 +293,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
       },
     ]);
     setPackageName("");
+    setPackageType("");
     setIncludes([""]);
     setExcludes([""]);
     setPackagePicture(null);
@@ -390,6 +393,30 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
             value={packageName}
             onChange={(e) => setPackageName(e.target.value)}
           />
+          <FormControl fullWidth>
+            <InputLabel id="package-type-label">Package Type</InputLabel>
+            <Select
+              labelId="package-type-label"
+              id="package-type"
+              value={packageType || ""}
+              onChange={(e) => setPackageType(e.target.value)}
+              label="Package Type"
+            >
+              <MenuItem value="nature">Nature</MenuItem>
+              <MenuItem value="history">History</MenuItem>
+              <MenuItem value="adventure">Adventure</MenuItem>
+              <MenuItem value="city">City</MenuItem>
+              <MenuItem value="sports">Sports</MenuItem>
+              <MenuItem value="romantic">Romantic</MenuItem>
+              <MenuItem value="family">Family</MenuItem>
+              <MenuItem value="summer">Summer</MenuItem>
+              <MenuItem value="winter">Winter</MenuItem>
+              <MenuItem value="honeymoon">Honeymoon</MenuItem>
+              <MenuItem value="shopping">Shopping</MenuItem>
+              <MenuItem value="hajj">Hajj</MenuItem>
+              <MenuItem value="umrah">Umrah</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             fullWidth
             label="Departure Date"
