@@ -23,7 +23,7 @@ const VisaDocumentDialog = ({ documentUrl, onClose }) => {
             }}
           >
             <a
-              href={`http://localhost:5000/${documentUrl.fileUrl}`}
+              href={`https://158.220.96.121/${documentUrl.fileUrl}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"

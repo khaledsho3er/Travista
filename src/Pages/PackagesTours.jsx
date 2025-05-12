@@ -16,7 +16,9 @@ function PackagesTours() {
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/packages/");
+        const response = await axios.get(
+          "https://158.220.96.121/api/packages/"
+        );
         setPackages(response.data); // Assuming response.data is the array of packages
       } catch (error) {
         console.error("Error fetching packages", error);
@@ -79,7 +81,7 @@ function PackagesTours() {
                     <CardContent
                       sx={{
                         height: "350px",
-                        backgroundImage: `url(http://localhost:5000/${packageDetails.packagePicture})`,
+                        backgroundImage: `url(https://158.220.96.121/${packageDetails.packagePicture})`,
                         color: "white",
                         position: "relative",
                         borderRadius: "12px",

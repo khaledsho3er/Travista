@@ -27,7 +27,7 @@ const ApplicationManager = () => {
 
   const fetchApplications = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/applications");
+      const res = await axios.get("https://158.220.96.121/api/applications");
       setApplications(res.data.data || []);
     } catch (err) {
       console.error(err);
@@ -36,7 +36,7 @@ const ApplicationManager = () => {
 
   const deleteApplication = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/applications/${id}`);
+      await axios.delete(`https://158.220.96.121/api/applications/${id}`);
       fetchApplications();
     } catch (err) {
       console.error(err);
@@ -46,7 +46,7 @@ const ApplicationManager = () => {
   const updateApplication = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/api/applications/${editApp._id}`,
+        `https://158.220.96.121/api/applications/${editApp._id}`,
         editApp
       );
       setEditApp(null);

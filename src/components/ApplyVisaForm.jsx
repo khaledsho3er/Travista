@@ -71,7 +71,9 @@ const ApplyForVisaForm = () => {
   useEffect(() => {
     const fetchVisaTypes = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/visa-documents");
+        const res = await axios.get(
+          "https://158.220.96.121/api/visa-documents"
+        );
         setVisaTypes(res.data);
       } catch (error) {
         console.error("Failed to load visa types", error);
@@ -122,7 +124,6 @@ const ApplyForVisaForm = () => {
 
       // Show the dialog with PDF documents
       setShowDialog(true);
-
     } catch (error) {
       console.error("Error submitting application:", error);
     }

@@ -11,7 +11,7 @@ const ProgramPopup = ({ packageId, onClose }) => {
     const fetchDailyProgram = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/tours/${packageId}`
+          `https://158.220.96.121/api/tours/${packageId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch daily program");

@@ -112,7 +112,7 @@ function SinglePackage({ tour, onClose }) {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:5000/api/applications", {
+      const response = await fetch("https://158.220.96.121/api/applications", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1312,7 +1312,7 @@ function SinglePackage({ tour, onClose }) {
           }}
         >
           <img
-            src={`http://localhost:5000/${tour?.packagePicture}`}
+            src={`https://158.220.96.121/${tour?.packagePicture}`}
             alt={tour?.packageName || "Package"}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
