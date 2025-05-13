@@ -93,16 +93,16 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   const [selectedTour, setSelectedTour] = useState("");
   const [availableTours, setAvailableTours] = useState([]);
 
-  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB limit
-  const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB limit for images
+  // const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB limit
+  // const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB limit for images
 
-  const validateFileSize = (file, maxSize) => {
-    if (file.size > maxSize) {
-      throw new Error(
-        `File size exceeds the limit of ${maxSize / (1024 * 1024)}MB`
-      );
-    }
-  };
+  // const validateFileSize = (file, maxSize) => {
+  //   if (file.size > maxSize) {
+  //     throw new Error(
+  //       `File size exceeds the limit of ${maxSize / (1024 * 1024)}MB`
+  //     );
+  //   }
+  // };
   useEffect(() => {
     const fetchTours = async () => {
       try {
@@ -157,25 +157,25 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
     setArr(newArr);
   };
 
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      if (!file) resolve(null);
+  // const convertToBase64 = (file) => {
+  //   return new Promise((resolve, reject) => {
+  //     if (!file) resolve(null);
 
-      try {
-        validateFileSize(
-          file,
-          file.type.startsWith("image/") ? MAX_IMAGE_SIZE : MAX_FILE_SIZE
-        );
+  //     try {
+  //       validateFileSize(
+  //         file,
+  //         file.type.startsWith("image/") ? MAX_IMAGE_SIZE : MAX_FILE_SIZE
+  //       );
 
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  };
+  //       const reader = new FileReader();
+  //       reader.readAsDataURL(file);
+  //       reader.onload = () => resolve(reader.result);
+  //       reader.onerror = (error) => reject(error);
+  //     } catch (err) {
+  //       reject(err);
+  //     }
+  //   });
+  // };
 
   const generateRandomTravistaID = () => {
     const timestamp = Date.now();

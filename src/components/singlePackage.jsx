@@ -31,12 +31,9 @@ import ProgramPopup from "./dailyProgram"; // Import the new component
 
 function SinglePackage({ tour, onClose }) {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(true);
+  const [open] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedRoom, setSelectedRoom] = useState("");
-  const [adults, setAdults] = useState(1);
-  const [children, setChildren] = useState(0);
-  const [countryCode, setCountryCode] = useState("+1");
   const [activeTab, setActiveTab] = useState(0);
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [selectedFlight, setSelectedFlight] = useState(null);
@@ -92,39 +89,71 @@ function SinglePackage({ tour, onClose }) {
     setCurrentStep((prevStep) => Math.min(prevStep + 1, 5));
   };
 
-  const handleFinish = (e) => {
-    handleSubmit();
-  };
-
   const handleBack = () => {
     setCurrentStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
   const handleRoomChange = (room) => setSelectedRoom(room);
-  const handleAdultsChange = (value) =>
-    setAdults((prev) => Math.max(0, prev + value));
-  const handleChildrenChange = (value) =>
-    setChildren((prev) => Math.max(0, prev + value));
-  const handleCountryCodeChange = (event) => setCountryCode(event.target.value);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  // Fix the handleSubmit function
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+    if (e) e.preventDefault();
 
     try {
-      const response = await fetch("https://158.220.96.121/api/applications", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      setLoading(true);
+      setError(null);
 
-      if (!response.ok) throw new Error("Submission failed");
+      // Validate required fields
+      if (
+        !formData.firstName ||
+        !formData.lastName ||
+        !formData.email ||
+        !formData.phone
+      ) {
+        setError("Please fill in all required fields");
+        setLoading(false);
+        return;
+      }
+      // Make sure roomType is set in formData
+      const submissionData = {
+        ...formData,
+        roomType: selectedRoom,
+        packageId: tour._id,
+      };
+      console.log("Submitting form data:", formData);
 
+      // Make API call to submit the form
+      const response = await fetch(
+        `https://158.220.96.121/api/applications/${tour._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(submissionData),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to submit application");
+      }
+
+      // Handle success
       setSuccess(true);
+      onClose(); // Optional: close the form after successful submission
     } catch (err) {
-      setError(err.message);
+      console.error("Error submitting form:", err);
+      setError(
+        err.message || "An error occurred while submitting your application"
+      );
     } finally {
       setLoading(false);
     }
@@ -174,14 +203,6 @@ function SinglePackage({ tour, onClose }) {
       </Box>
     );
   }
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
   const renderTabContent = () => {
     switch (activeTab) {
       case 0:
@@ -473,41 +494,54 @@ function SinglePackage({ tour, onClose }) {
       </Box>
     );
   };
-  const flights = [
-    {
-      airline: tour?.flights.airline || "Egypt Air",
-      FlightDate:
-        new Date(tour?.flights.date).toLocaleDateString("en-GB", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        }) || "1/1/2025",
-      departureDate:
-        new Date(tour?.flights.departureDate).toLocaleDateString("en-GB", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        }) || "1/1/2025",
-      arrivalDate:
-        new Date(tour?.flights.arrivalDate).toLocaleDateString("en-GB", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        }) || "1/1/2025",
-      departureTime:
-        new Date(tour?.flights.departureTime).toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit",
-        }) || "12:00",
-      arrivalTime:
-        new Date(tour?.flights.arrivalTime).toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit",
-        }) || "15:00",
-      FlightFrom: tour?.flights.from || "Cairo",
-      FlightTo: tour?.flights.to || "London",
-    },
-  ];
+  const flights =
+    tour?.flights?.length > 0
+      ? tour.flights.map((flight) => ({
+          airline: flight.airline || "Egypt Air",
+          FlightDate:
+            new Date(flight.date).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            }) || "1/1/2025",
+          departureDate:
+            new Date(flight.departureDate).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            }) || "1/1/2025",
+          arrivalDate:
+            new Date(flight.arrivalDate).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            }) || "1/1/2025",
+          departureTime:
+            new Date(flight.departureTime).toLocaleTimeString("en-GB", {
+              hour: "2-digit",
+              minute: "2-digit",
+            }) || "12:00",
+          arrivalTime:
+            new Date(flight.arrivalTime).toLocaleTimeString("en-GB", {
+              hour: "2-digit",
+              minute: "2-digit",
+            }) || "15:00",
+          FlightFrom: flight.from || "Cairo",
+          FlightTo: flight.to || "London",
+        }))
+      : [
+          {
+            airline: "Egypt Air",
+            date: "1/1/2025",
+            departureDate: "1/1/2025",
+            arrivalDate: "1/1/2025",
+            departureTime: "12:00",
+            arrivalTime: "15:00",
+            from: "Cairo",
+            to: "London",
+            isNextDay: false,
+          },
+        ];
   const FlightSchedule = ({ flights, selectedFlight, setSelectedFlight }) => {
     return (
       <Box
@@ -683,7 +717,7 @@ function SinglePackage({ tour, onClose }) {
             backgroundColor: "#ffffff",
             color: "#00695c",
             fontSize: "0.8rem",
-            borderRadius: "3px",
+            borderRadius: "9px",
             padding: "4px 12px",
             border: "2px solid #00695c",
           }}
@@ -981,6 +1015,11 @@ function SinglePackage({ tour, onClose }) {
         Tell us more about you
       </Typography>
       <Box component="form" onSubmit={handleSubmit} noValidate>
+        {error && (
+          <Typography color="error" sx={{ mt: 2 }}>
+            {error}
+          </Typography>
+        )}
         <Box sx={{ display: "flex", gap: 2, mb: 1 }}>
           <TextField
             size="small"
@@ -990,13 +1029,7 @@ function SinglePackage({ tour, onClose }) {
             label="First name"
             name="firstName"
             value={formData.firstName}
-            onChange={(e) => {
-              const { name, value } = e.target;
-              setFormData((prev) => ({
-                ...prev,
-                [name]: value,
-              }));
-            }}
+            onChange={handleInputChange}
             InputProps={{
               style: {
                 borderRadius: "10px",
@@ -1011,13 +1044,7 @@ function SinglePackage({ tour, onClose }) {
             label="Last name"
             name="lastName"
             value={formData.lastName}
-            onChange={(e) => {
-              const { name, value } = e.target;
-              setFormData((prev) => ({
-                ...prev,
-                [name]: value,
-              }));
-            }}
+            onChange={handleInputChange}
             InputProps={{
               style: {
                 borderRadius: "10px",
@@ -1035,13 +1062,7 @@ function SinglePackage({ tour, onClose }) {
           autoComplete="email"
           type="email"
           value={formData.email}
-          onChange={(e) => {
-            const { name, value } = e.target;
-            setFormData((prev) => ({
-              ...prev,
-              [name]: value,
-            }));
-          }}
+          onChange={handleInputChange}
           InputProps={{
             style: {
               borderRadius: "10px",
@@ -1083,13 +1104,7 @@ function SinglePackage({ tour, onClose }) {
             label="Phone Number"
             name="phone"
             value={formData.phone}
-            onChange={(e) => {
-              const { name, value } = e.target;
-              setFormData((prev) => ({
-                ...prev,
-                [name]: value,
-              }));
-            }}
+            onChange={handleInputChange}
             InputProps={{
               style: {
                 borderRadius: "10px",
@@ -1105,13 +1120,7 @@ function SinglePackage({ tour, onClose }) {
           placeholder="Do you need help with Visa or have any special requests?"
           name="notes"
           value={formData.notes}
-          onChange={(e) => {
-            const { name, value } = e.target;
-            setFormData((prev) => ({
-              ...prev,
-              [name]: value,
-            }));
-          }}
+          onChange={handleInputChange}
           InputProps={{
             style: {
               borderRadius: "10px",
@@ -1152,7 +1161,7 @@ function SinglePackage({ tour, onClose }) {
                 disabled={formData.adults <= 0}
                 sx={{
                   backgroundColor:
-                    formData.adults > 0 ? "#f0f0f0" : "transparent",
+                    formData.adults > 1 ? "#f0f0f0" : "transparent",
                   borderRadius: "50%",
                   width: "30px",
                   height: "30px",
@@ -1241,11 +1250,6 @@ function SinglePackage({ tour, onClose }) {
             </Box>
           </Box>
         </Box>
-        {error && (
-          <Typography color="error" sx={{ mt: 2 }}>
-            {error}
-          </Typography>
-        )}
       </Box>
       <hr style={{ margin: "0px 0 30px 0px" }} />
 
@@ -1280,8 +1284,10 @@ function SinglePackage({ tour, onClose }) {
           </Typography>
         </Box>
         <Button
+          onClick={handleSubmit}
           type="submit"
           variant="contained"
+          disabled={loading}
           sx={{
             type: "submit",
             backgroundColor: "#142328",
