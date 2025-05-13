@@ -6,7 +6,7 @@ function Timeline() {
     <Box>
       <Box className="about-background-section">
         <Box className="about-image-container">
-          <img src="assets/about/timeline.png" alt="Timeline" />
+          <img src="assets/timeline.png" alt="Timeline" />
           <Box className="about-card-container">
             {" "}
             {/* Corrected className */}

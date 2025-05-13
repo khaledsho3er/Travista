@@ -33,6 +33,7 @@ import ArticleForm from "./components/Dashboard/Articles/ArticleForm";
 import ArticleDetails from "./components/Dashboard/Articles/ArticleDetails";
 import ArticleList from "./components/Dashboard/Articles/ArticleList";
 import CountryManagement from "./components/Dashboard/countries";
+import NotFound from "./Pages/NotFound";
 
 // Employee auth
 import EmpLoginForm from "./components/Dashboard/loginFormEmp";
@@ -129,6 +130,7 @@ function App() {
             <Route path="edit/:id" element={<ArticleForm />} />
             <Route path=":id" element={<ArticleDetails />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </UserProvider>
     </Router>
