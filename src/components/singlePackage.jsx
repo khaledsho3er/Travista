@@ -695,7 +695,7 @@ function SinglePackage({ tour, onClose }) {
     );
   };
   const ComponentOne = () => (
-    <Box sx={{ width: "40%", padding: "32px", position: "relative" }}>
+    <Box sx={{ width: "100%", padding: "32px", position: "relative" }}>
       <IconButton
         sx={{ position: "absolute", top: 16, right: 16 }}
         aria-label="close"
@@ -957,6 +957,7 @@ function SinglePackage({ tour, onClose }) {
           fontWeight: "bold",
           textTransform: "none",
           color: "#ffffff",
+          marginBottom: "20px",
           ml: "auto",
           float: "right",
           "&:hover": {
@@ -981,7 +982,7 @@ function SinglePackage({ tour, onClose }) {
     return (
       <Box
         sx={{
-          width: isSmallScreen ? "100%" : "40%",
+          width: "100%",
           padding: isSmallScreen ? "16px" : "32px",
           position: "relative",
           height: "auto",
@@ -1255,7 +1256,7 @@ function SinglePackage({ tour, onClose }) {
             </Box>
           </Box>
         </Box>
-        <hr style={{ margin: "0px 0 30px 0px" }} />
+        <hr style={{ margin: "20px 0 30px 0px" }} />
 
         <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 3 }}>
           <Box>
@@ -1323,7 +1324,7 @@ function SinglePackage({ tour, onClose }) {
           bottom: 0,
           left: 0,
           width: "100%",
-          height: "75vh", // 75% of the screen height
+          height: "90vh", // 75% of the screen height
           backgroundColor: "#ffffff",
           borderTopLeftRadius: "20px",
           borderTopRightRadius: "20px",
