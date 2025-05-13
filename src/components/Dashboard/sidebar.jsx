@@ -13,6 +13,7 @@ import AddCommentIcon from "@mui/icons-material/AddComment";
 import ViewCarouselIcon from "@mui/icons-material/ViewCarousel";
 import { MdOutlineTour, MdOutlineTravelExplore } from "react-icons/md";
 import { TbCategoryPlus } from "react-icons/tb";
+import { CiSquareQuestion } from "react-icons/ci";
 
 import { useEmployee } from "../../utils/empContext"; // Import EmployeeContext
 function Sidebar({ setActiveSection }) {
@@ -29,6 +30,11 @@ function Sidebar({ setActiveSection }) {
       label: "Visa Management",
     },
     { id: "applications", icon: Users, label: "Applications" },
+    {
+      id: "BMPApplications",
+      icon: CiSquareQuestion,
+      label: "Build My Package",
+    },
     { id: "notifications", icon: Bell, label: "Notifications" },
     { id: "countries", icon: PiCity, label: "Countries" },
     { id: "cities", icon: PiCity, label: "cities" },

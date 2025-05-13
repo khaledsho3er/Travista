@@ -24,6 +24,7 @@ import ToursDashboard from "./tours";
 import UsersTable from "./userManagement";
 import ApplicationManager from "./applications";
 import VisaDocumentsTable from "./visaDocuments";
+import BMPApplicationManager from "./BMPApplications";
 
 function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard"); // Use lowercase
@@ -76,6 +77,8 @@ function DashboardLayout() {
         return <UsersTable />;
       case "applications":
         return <ApplicationManager />;
+      case "BMPApplications":
+        return <BMPApplicationManager />;
       case "visaDocuments":
         return <VisaDocumentsTable />;
       default:
