@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import PackagesTours from "./Pages/PackagesTours";
@@ -17,7 +17,7 @@ import CareersPage from "./Pages/Careers";
 import BlogsPage from "./Pages/Blogs";
 import ScrollToTop from "./context/scrollToTop";
 import { UserProvider } from "./utils/userContext";
-
+import { initScrollbarVisibility } from "./utils/scrollbarVisibility";
 // Dashboard & Employee
 import DashboardLayout from "./components/Dashboard/Dashboard-layout";
 import AdminDashboard from "./Pages/adminDashboard";
@@ -49,6 +49,10 @@ import ApplicationManager from "./components/Dashboard/applications";
 import VisaDocumentsTable from "./components/Dashboard/visaDocuments";
 
 function App() {
+  useEffect(() => {
+    // Initialize scrollbar visibility enhancement
+    initScrollbarVisibility();
+  }, []);
   return (
     <Router>
       <ScrollToTop />

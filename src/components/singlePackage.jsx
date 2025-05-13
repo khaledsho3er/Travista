@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -30,6 +30,7 @@ import { FaCheck } from "react-icons/fa";
 import ProgramPopup from "./dailyProgram"; // Import the new component
 
 function SinglePackage({ tour, onClose }) {
+  const modalRef = useRef(null); // Create a ref for the modal content
   const navigate = useNavigate();
   const [open] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
@@ -55,7 +56,32 @@ function SinglePackage({ tour, onClose }) {
   const [success, setSuccess] = useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  // Inside your component function, add this effect
+  useEffect(() => {
+    // Add scroll event listener to the modal content
+    const modalContent = modalRef.current;
 
+    if (modalContent) {
+      const handleScroll = () => {
+        modalContent.classList.add("scrolling-active");
+
+        // Remove the class after scrolling stops
+        clearTimeout(modalContent.scrollTimer);
+        modalContent.scrollTimer = setTimeout(() => {
+          modalContent.classList.remove("scrolling-active");
+        }, 1500);
+      };
+
+      modalContent.addEventListener("scroll", handleScroll);
+
+      return () => {
+        if (modalContent.scrollTimer) {
+          clearTimeout(modalContent.scrollTimer);
+        }
+        modalContent.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, []);
   // Format the package data for display
   const packageDetails = {
     type: tour?.type || "Package",
@@ -163,7 +189,7 @@ function SinglePackage({ tour, onClose }) {
     return (
       <Box
         sx={{
-          width: isSmallScreen ? "100%" : "40%",
+          width: isSmallScreen ? "100%" : "100%",
           padding: isSmallScreen ? "16px" : "32px",
           position: "relative",
         }}
@@ -306,7 +332,7 @@ function SinglePackage({ tour, onClose }) {
     return (
       <Box
         sx={{
-          width: isSmallScreen ? "100%" : "40%",
+          width: isSmallScreen ? "100%" : "100%",
           padding: isSmallScreen ? "16px" : "32px",
           position: "relative",
         }}
@@ -539,7 +565,7 @@ function SinglePackage({ tour, onClose }) {
     return (
       <Box
         sx={{
-          width: isSmallScreen ? "100%" : "40%",
+          width: isSmallScreen ? "100%" : "100%",
           padding: isSmallScreen ? "16px" : "32px",
           position: "relative",
         }}
@@ -833,7 +859,7 @@ function SinglePackage({ tour, onClose }) {
   const ComponentTwo = () => (
     <Box
       sx={{
-        width: isSmallScreen ? "100%" : "40%",
+        width: isSmallScreen ? "100%" : "100%",
         padding: isSmallScreen ? "16px" : "32px",
         position: "relative",
       }}

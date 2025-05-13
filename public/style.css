@@ -16,6 +16,68 @@
   --dark-green: #10462e;
 }
 
+/* Custom Scrollbar Styles */
+:root {
+  --scrollbar-width: 8px;
+  --scrollbar-track-color: transparent;
+  --scrollbar-thumb-color: var(--maroon);
+  --scrollbar-thumb-hover-color: var(--maroon);
+}
+
+/* For Webkit browsers (Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-color);
+}
+
+/* Make scrollbar visible on hover and when scrolling */
+*:hover::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+*:hover {
+  scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+}
+
+/* For Edge and IE */
+* {
+  -ms-overflow-style: none;
+}
+
+*:hover {
+  -ms-overflow-style: auto;
+}
+
+/* Add a class to apply when scrolling is active */
+.scrolling-active::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color) !important;
+}
+
+/* JavaScript will add this class when scrolling */
+
 /* Default Styles */
 .btn {
   border: none;

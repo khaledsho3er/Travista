@@ -12,22 +12,32 @@ import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Diversity2Icon from "@mui/icons-material/Diversity2";
 import MosqueIcon from "@mui/icons-material/Mosque";
-const Filter = ({ onFilterChange }) => {
+const Filter = ({ onFilterChange, selectedFilter }) => {
   const filters = [
-    { label: "NATURE", icon: <NatureIcon /> },
-    { label: "HISTORY", icon: <HistoryIcon /> },
-    { label: "ADVENTURE", icon: <AdventureIcon /> },
-    { label: "CITY", icon: <CityIcon /> },
-    { label: "SPORTS", icon: <SportsBasketballIcon /> },
-    { label: "ROMANTIC", icon: <FavoriteIcon /> },
-    { label: "FAMILY", icon: <Diversity2Icon /> },
-    { label: "SUMMER", icon: <BeachAccessIcon /> },
-    { label: "WINTER", icon: <WinterIcon /> },
-    { label: "HONEYMOON", icon: <LoyaltyIcon /> },
-    { label: "SHOPPING", icon: <ShoppingBasketIcon /> },
-    { label: "HAJJ", icon: <MosqueIcon /> },
-    { label: "UMRAH", icon: <MosqueIcon /> },
+    { label: "NATURE", value: "nature", icon: <NatureIcon /> },
+    { label: "HISTORY", value: "history", icon: <HistoryIcon /> },
+    { label: "ADVENTURE", value: "adventure", icon: <AdventureIcon /> },
+    { label: "CITY", value: "city", icon: <CityIcon /> },
+    { label: "SPORTS", value: "sports", icon: <SportsBasketballIcon /> },
+    { label: "ROMANTIC", value: "romantic", icon: <FavoriteIcon /> },
+    { label: "FAMILY", value: "family", icon: <Diversity2Icon /> },
+    { label: "SUMMER", value: "summer", icon: <BeachAccessIcon /> },
+    { label: "WINTER", value: "winter", icon: <WinterIcon /> },
+    { label: "HONEYMOON", value: "honeymoon", icon: <LoyaltyIcon /> },
+    { label: "SHOPPING", value: "shopping", icon: <ShoppingBasketIcon /> },
+    { label: "HAJJ", value: "hajj", icon: <MosqueIcon /> },
+    { label: "UMRAH", value: "umrah", icon: <MosqueIcon /> },
   ];
+
+  const handleFilterClick = (filterValue) => {
+    // If the clicked filter is already selected, deselect it (pass empty string)
+    if (selectedFilter === filterValue) {
+      onFilterChange("");
+    } else {
+      // Otherwise, select the new filter
+      onFilterChange(filterValue);
+    }
+  };
 
   return (
     <Box
@@ -61,14 +71,15 @@ const Filter = ({ onFilterChange }) => {
                 flexDirection: "column",
                 alignItems: "center",
                 minWidth: "80px",
-                color: "black",
+                color:
+                  selectedFilter === filter.value ? "var(--maroon)" : "black",
                 transition: "color 0.3s",
                 cursor: "pointer",
                 "&:hover": {
                   color: "var(--maroon)",
                 },
               }}
-              onClick={() => onFilterChange(filter.label)} // Call the callback
+              onClick={() => handleFilterClick(filter.value)}
             >
               <Box sx={{ fontSize: "2rem" }}>{filter.icon}</Box>
               <Typography

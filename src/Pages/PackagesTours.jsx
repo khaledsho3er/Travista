@@ -31,12 +31,16 @@ function PackagesTours() {
   const handlePackageClick = (packageDetails) =>
     setSelectedPackage(packageDetails);
 
-  const handleFilterChange = (filter) => setSelectedFilter(filter); // Update selected filter
+  const handleFilterChange = (filter) => {
+    setSelectedFilter(filter); // Update selected filter
+  };
 
+  // Filter packages based on packageType (case-insensitive)
   const filteredPackages = selectedFilter
     ? packages.filter(
         (packageDetails) =>
-          packageDetails.type.toLowerCase() === selectedFilter.toLowerCase()
+          packageDetails.packageType?.toLowerCase() ===
+          selectedFilter.toLowerCase()
       )
     : packages;
 
@@ -70,14 +74,19 @@ function PackagesTours() {
       <div className="packages-tours-body">
         <Box className="packages-tours">
           <Box sx={{ display: "flex", gap: "10px", padding: "20px 0" }}>
-            <Filter onFilterChange={handleFilterChange} packages={packages} />{" "}
-            {/* Pass packages as a prop */}
+            <Filter
+              onFilterChange={handleFilterChange}
+              selectedFilter={selectedFilter}
+            />
           </Box>
           {filteredPackages.length > 0 ? (
             <Grid container spacing={3}>
               {filteredPackages.map((packageDetails, index) => (
                 <Grid item xs={12} sm={6} md={4} key={index}>
-                  <Card onClick={() => handlePackageClick(packageDetails)}>
+                  <Card
+                    onClick={() => handlePackageClick(packageDetails)}
+                    style={{ borderRadius: "12px" }}
+                  >
                     <CardContent
                       sx={{
                         height: "350px",
@@ -116,6 +125,9 @@ function PackagesTours() {
                           top: "10px",
                           right: "10px",
                           color: "white",
+                          "&:hover": {
+                            color: "red",
+                          },
                         }}
                       >
                         <FavoriteIcon />
