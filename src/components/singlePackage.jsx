@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Box,
   Typography,
@@ -498,7 +498,7 @@ function SinglePackage({ tour, onClose }) {
     tour?.flights?.length > 0
       ? tour.flights.map((flight) => ({
           airline: flight.airline || "Egypt Air",
-          FlightDate:
+          date:
             new Date(flight.date).toLocaleDateString("en-GB", {
               day: "numeric",
               month: "long",
@@ -516,18 +516,11 @@ function SinglePackage({ tour, onClose }) {
               month: "long",
               year: "numeric",
             }) || "1/1/2025",
-          departureTime:
-            new Date(flight.departureTime).toLocaleTimeString("en-GB", {
-              hour: "2-digit",
-              minute: "2-digit",
-            }) || "12:00",
-          arrivalTime:
-            new Date(flight.arrivalTime).toLocaleTimeString("en-GB", {
-              hour: "2-digit",
-              minute: "2-digit",
-            }) || "15:00",
-          FlightFrom: flight.from || "Cairo",
-          FlightTo: flight.to || "London",
+          departureTime: flight.departureTime || "12:00",
+          arrivalTime: flight.arrivalTime || "15:00",
+          from: flight.from || "Cairo",
+          to: flight.to || "London",
+          isNextDay: false,
         }))
       : [
           {
@@ -979,131 +972,98 @@ function SinglePackage({ tour, onClose }) {
     </Box>
   );
 
-  const ComponentThree = () => (
-    <Box
-      sx={{
-        width: isSmallScreen ? "100%" : "40%",
-        padding: isSmallScreen ? "16px" : "32px",
-        position: "relative",
-        height: "auto",
-        borderTopRightRadius: "20px",
-      }}
-    >
-      <IconButton
-        sx={{ position: "absolute", top: 16, right: 16 }}
-        aria-label="close"
-        onClick={onClose}
+  const ComponentThree = () => {
+    const firstNameRef = useRef(null);
+    const lastNameRef = useRef(null);
+    const emailRef = useRef(null);
+    const phoneRef = useRef(null);
+    const notesRef = useRef(null);
+    return (
+      <Box
+        sx={{
+          width: isSmallScreen ? "100%" : "40%",
+          padding: isSmallScreen ? "16px" : "32px",
+          position: "relative",
+          height: "auto",
+          borderTopRightRadius: "20px",
+        }}
       >
-        <CloseIcon />
-      </IconButton>
+        <IconButton
+          sx={{ position: "absolute", top: 16, right: 16 }}
+          aria-label="close"
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </IconButton>
 
-      <IconButton
-        sx={{ position: "absolute", top: 16, left: 16 }}
-        aria-label="return"
-        onClick={handleBack}
-      >
-        <ArrowBackIcon />
-      </IconButton>
-      <Typography
-        variant={isSmallScreen ? "h5" : "h4"}
-        fontWeight="bold"
-        mt={3}
-      >
-        Let's get personal
-      </Typography>
-      <Typography variant="subtitle2" mt={1} color="#777777">
-        Tell us more about you
-      </Typography>
-      <Box component="form" onSubmit={handleSubmit} noValidate>
-        {error && (
-          <Typography color="error" sx={{ mt: 2 }}>
-            {error}
-          </Typography>
-        )}
-        <Box sx={{ display: "flex", gap: 2, mb: 1 }}>
-          <TextField
-            size="small"
-            margin="normal"
-            required
-            sx={{ width: "80%" }}
-            label="First name"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-            InputProps={{
-              style: {
-                borderRadius: "10px",
-              },
-            }}
-          />
-          <TextField
-            size="small"
-            margin="normal"
-            required
-            sx={{ width: "100%" }}
-            label="Last name"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-            InputProps={{
-              style: {
-                borderRadius: "10px",
-              },
-            }}
-          />
-        </Box>
-        <TextField
-          size="small"
-          margin="normal"
-          required
-          sx={{ width: "100%", mb: 2, borderRadius: "30px" }}
-          label="Email"
-          name="email"
-          autoComplete="email"
-          type="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          InputProps={{
-            style: {
-              borderRadius: "10px",
-            },
-          }}
-        />
-        <Box sx={{ display: "flex", gap: 2, mb: 1 }}>
-          <FormControl sx={{ minWidth: 80, mt: 2 }}>
-            <Select
+        <IconButton
+          sx={{ position: "absolute", top: 16, left: 16 }}
+          aria-label="return"
+          onClick={handleBack}
+        >
+          <ArrowBackIcon />
+        </IconButton>
+        <Typography
+          variant={isSmallScreen ? "h5" : "h4"}
+          fontWeight="bold"
+          mt={3}
+        >
+          Let's get personal
+        </Typography>
+        <Typography variant="subtitle2" mt={1} color="#777777">
+          Tell us more about you
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate>
+          {error && (
+            <Typography color="error" sx={{ mt: 2 }}>
+              {error}
+            </Typography>
+          )}
+          <Box sx={{ display: "flex", gap: 2, mb: 1 }}>
+            <TextField
+              inputRef={firstNameRef}
               size="small"
               margin="normal"
-              value={formData.countryCode}
-              onChange={(e) => {
-                const { name, value } = e.target;
-                setFormData((prev) => ({
-                  ...prev,
-                  [name]: value,
-                }));
-              }}
-              name="countryCode"
+              required
+              sx={{ width: "80%" }}
+              label="First name"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
               InputProps={{
                 style: {
                   borderRadius: "10px",
                 },
               }}
-            >
-              <MenuItem value="+1">+1 (USA)</MenuItem>
-              <MenuItem value="+20">+20 (Egypt)</MenuItem>
-              <MenuItem value="+44">+44 (UK)</MenuItem>
-              <MenuItem value="+61">+61 (Australia)</MenuItem>
-            </Select>
-          </FormControl>
-
+            />
+            <TextField
+              inputRef={lastNameRef}
+              size="small"
+              margin="normal"
+              required
+              sx={{ width: "100%" }}
+              label="Last name"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              InputProps={{
+                style: {
+                  borderRadius: "10px",
+                },
+              }}
+            />
+          </Box>
           <TextField
+            inputRef={emailRef}
             size="small"
             margin="normal"
             required
-            sx={{ flex: 1 }}
-            label="Phone Number"
-            name="phone"
-            value={formData.phone}
+            sx={{ width: "100%", mb: 2, borderRadius: "30px" }}
+            label="Email"
+            name="email"
+            autoComplete="email"
+            type="email"
+            value={formData.email}
             onChange={handleInputChange}
             InputProps={{
               style: {
@@ -1111,204 +1071,249 @@ function SinglePackage({ tour, onClose }) {
               },
             }}
           />
-        </Box>
-        <TextField
-          multiline
-          rows={3}
-          fullWidth
-          margin="normal"
-          placeholder="Do you need help with Visa or have any special requests?"
-          name="notes"
-          value={formData.notes}
-          onChange={handleInputChange}
-          InputProps={{
-            style: {
-              borderRadius: "10px",
-            },
-          }}
-        />
-        <Box sx={{ display: "flex", gap: 4 }}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "left",
-              color: "#777777",
-              fontSize: "20px",
+          <Box sx={{ display: "flex", gap: 2, mb: 1 }}>
+            <FormControl sx={{ minWidth: 80, mt: 2 }}>
+              <Select
+                size="small"
+                margin="normal"
+                value={formData.countryCode}
+                onChange={(e) => {
+                  const { name, value } = e.target;
+                  setFormData((prev) => ({
+                    ...prev,
+                    [name]: value,
+                  }));
+                }}
+                name="countryCode"
+                InputProps={{
+                  style: {
+                    borderRadius: "10px",
+                  },
+                }}
+              >
+                <MenuItem value="+1">+1 (USA)</MenuItem>
+                <MenuItem value="+20">+20 (Egypt)</MenuItem>
+                <MenuItem value="+44">+44 (UK)</MenuItem>
+                <MenuItem value="+61">+61 (Australia)</MenuItem>
+              </Select>
+            </FormControl>
+
+            <TextField
+              inputRef={phoneRef}
+              size="small"
+              margin="normal"
+              required
+              sx={{ flex: 1 }}
+              label="Phone Number"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              InputProps={{
+                style: {
+                  borderRadius: "10px",
+                },
+              }}
+            />
+          </Box>
+          <TextField
+            inputRef={notesRef}
+            multiline
+            rows={3}
+            fullWidth
+            margin="normal"
+            placeholder="Do you need help with Visa or have any special requests?"
+            name="notes"
+            value={formData.notes}
+            onChange={handleInputChange}
+            InputProps={{
+              style: {
+                borderRadius: "10px",
+              },
             }}
-          >
-            <Typography variant="body1" gutterBottom>
-              Adults
-            </Typography>
+          />
+          <Box sx={{ display: "flex", gap: 4 }}>
             <Box
               sx={{
                 display: "flex",
-                alignItems: "center",
-                border: "1px solid #e0e0e0",
-                borderRadius: "12px",
-                padding: "4px 8px",
-                width: "250px",
-                justifyContent: "space-between",
+                flexDirection: "column",
+                alignItems: "left",
+                color: "#777777",
+                fontSize: "20px",
               }}
             >
-              <IconButton
-                onClick={() =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    adults: Math.max(1, prev.adults - 1),
-                  }))
-                }
-                disabled={formData.adults <= 0}
+              <Typography variant="body1" gutterBottom>
+                Adults
+              </Typography>
+              <Box
                 sx={{
-                  backgroundColor:
-                    formData.adults > 1 ? "#f0f0f0" : "transparent",
-                  borderRadius: "50%",
-                  width: "30px",
-                  height: "30px",
+                  display: "flex",
+                  alignItems: "center",
+                  border: "1px solid #e0e0e0",
+                  borderRadius: "12px",
+                  padding: "4px 8px",
+                  width: "250px",
+                  justifyContent: "space-between",
                 }}
               >
-                <RemoveIcon fontSize="small" />
-              </IconButton>
-              <Typography>{formData.adults}</Typography>
-              <IconButton
-                onClick={() =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    adults: prev.adults + 1,
-                  }))
-                }
-                sx={{
-                  backgroundColor: "#f0f0f0",
-                  borderRadius: "50%",
-                  width: "30px",
-                  height: "30px",
-                }}
-              >
-                <AddIcon fontSize="small" />
-              </IconButton>
+                <IconButton
+                  onClick={() =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      adults: Math.max(1, prev.adults - 1),
+                    }))
+                  }
+                  disabled={formData.adults <= 0}
+                  sx={{
+                    backgroundColor:
+                      formData.adults > 1 ? "#f0f0f0" : "transparent",
+                    borderRadius: "50%",
+                    width: "30px",
+                    height: "30px",
+                  }}
+                >
+                  <RemoveIcon fontSize="small" />
+                </IconButton>
+                <Typography>{formData.adults}</Typography>
+                <IconButton
+                  onClick={() =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      adults: prev.adults + 1,
+                    }))
+                  }
+                  sx={{
+                    backgroundColor: "#f0f0f0",
+                    borderRadius: "50%",
+                    width: "30px",
+                    height: "30px",
+                  }}
+                >
+                  <AddIcon fontSize="small" />
+                </IconButton>
+              </Box>
             </Box>
-          </Box>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "left",
-              color: "#777777",
-              fontSize: "20px",
-            }}
-          >
-            <Typography variant="body1" gutterBottom>
-              Children
-            </Typography>
             <Box
               sx={{
                 display: "flex",
-                alignItems: "center",
-                border: "1px solid #e0e0e0",
-                borderRadius: "12px",
-                padding: "4px 8px",
-                width: "250px",
-                justifyContent: "space-between",
+                flexDirection: "column",
+                alignItems: "left",
+                color: "#777777",
+                fontSize: "20px",
               }}
             >
-              <IconButton
-                onClick={() =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    children: Math.max(0, prev.children - 1),
-                  }))
-                }
-                disabled={formData.children <= 0}
+              <Typography variant="body1" gutterBottom>
+                Children
+              </Typography>
+              <Box
                 sx={{
-                  backgroundColor:
-                    formData.children > 0 ? "#f0f0f0" : "transparent",
-                  borderRadius: "50%",
-                  width: "30px",
-                  height: "30px",
+                  display: "flex",
+                  alignItems: "center",
+                  border: "1px solid #e0e0e0",
+                  borderRadius: "12px",
+                  padding: "4px 8px",
+                  width: "250px",
+                  justifyContent: "space-between",
                 }}
               >
-                <RemoveIcon fontSize="small" />
-              </IconButton>
-              <Typography>{formData.children}</Typography>
-              <IconButton
-                onClick={() =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    children: prev.children + 1,
-                  }))
-                }
-                sx={{
-                  backgroundColor: "#f0f0f0",
-                  borderRadius: "50%",
-                  width: "30px",
-                  height: "30px",
-                }}
-              >
-                <AddIcon fontSize="small" />
-              </IconButton>
+                <IconButton
+                  onClick={() =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      children: Math.max(0, prev.children - 1),
+                    }))
+                  }
+                  disabled={formData.children <= 0}
+                  sx={{
+                    backgroundColor:
+                      formData.children > 0 ? "#f0f0f0" : "transparent",
+                    borderRadius: "50%",
+                    width: "30px",
+                    height: "30px",
+                  }}
+                >
+                  <RemoveIcon fontSize="small" />
+                </IconButton>
+                <Typography>{formData.children}</Typography>
+                <IconButton
+                  onClick={() =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      children: prev.children + 1,
+                    }))
+                  }
+                  sx={{
+                    backgroundColor: "#f0f0f0",
+                    borderRadius: "50%",
+                    width: "30px",
+                    height: "30px",
+                  }}
+                >
+                  <AddIcon fontSize="small" />
+                </IconButton>
+              </Box>
             </Box>
           </Box>
         </Box>
-      </Box>
-      <hr style={{ margin: "0px 0 30px 0px" }} />
+        <hr style={{ margin: "0px 0 30px 0px" }} />
 
-      <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 3 }}>
-        <Box>
-          <Typography variant="body2" color="textSecondary">
-            {new Date(tour?.departureDate).toLocaleDateString("en-GB", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            Selected Room: {selectedRoom}
-          </Typography>
-          <Typography variant="body1" color="textPrimary">
-            {selectedRoom === "Single Room"
-              ? `${Math.round(tour?.hotels[0]?.single) || "0"} ${
-                  tour?.packagePrice?.currency || ""
-                }`
-              : selectedRoom === "Double Room"
-              ? `${Math.round(tour?.hotels[0]?.double) || "0"} ${
-                  tour?.packagePrice?.currency || ""
-                }`
-              : selectedRoom === "Triple Room"
-              ? `${Math.round(tour?.hotels[0]?.triple) || "0"} ${
-                  tour?.packagePrice?.currency || ""
-                }`
-              : `${tour?.packagePrice?.amount || "0"} ${
-                  tour?.packagePrice?.currency || ""
-                }`}
-          </Typography>
+        <Box sx={{ display: "flex", gap: 2, mb: 1, mt: 3 }}>
+          <Box>
+            <Typography variant="body2" color="textSecondary">
+              {new Date(tour?.departureDate).toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              Selected Room: {selectedRoom}
+            </Typography>
+            <Typography variant="body1" color="textPrimary">
+              {selectedRoom === "Single Room"
+                ? `${Math.round(tour?.hotels[0]?.single) || "0"} ${
+                    tour?.packagePrice?.currency || ""
+                  }`
+                : selectedRoom === "Double Room"
+                ? `${Math.round(tour?.hotels[0]?.double) || "0"} ${
+                    tour?.packagePrice?.currency || ""
+                  }`
+                : selectedRoom === "Triple Room"
+                ? `${Math.round(tour?.hotels[0]?.triple) || "0"} ${
+                    tour?.packagePrice?.currency || ""
+                  }`
+                : `${tour?.packagePrice?.amount || "0"} ${
+                    tour?.packagePrice?.currency || ""
+                  }`}
+            </Typography>
+          </Box>
+          <Button
+            onClick={handleSubmit}
+            type="submit"
+            variant="contained"
+            disabled={loading}
+            sx={{
+              type: "submit",
+              backgroundColor: "#142328",
+              width: isSmallScreen ? "100%" : "30%",
+              padding: "12px",
+              borderRadius: "25px",
+              fontWeight: "bold",
+              textTransform: "none",
+              color: "#ffffff",
+              "&:hover": {
+                backgroundColor: "#0f1c24",
+              },
+              ml: "auto",
+              float: "right",
+            }}
+          >
+            {loading ? "Submitting..." : "Finish"}
+          </Button>
         </Box>
-        <Button
-          onClick={handleSubmit}
-          type="submit"
-          variant="contained"
-          disabled={loading}
-          sx={{
-            type: "submit",
-            backgroundColor: "#142328",
-            width: isSmallScreen ? "100%" : "30%",
-            padding: "12px",
-            borderRadius: "25px",
-            fontWeight: "bold",
-            textTransform: "none",
-            color: "#ffffff",
-            "&:hover": {
-              backgroundColor: "#0f1c24",
-            },
-            ml: "auto",
-            float: "right",
-          }}
-        >
-          {loading ? "Submitting..." : "Finish"}
-        </Button>
       </Box>
-    </Box>
-  );
+    );
+  };
 
   return (
     <Slide direction="up" in={open} mountOnEnter unmountOnExit>
