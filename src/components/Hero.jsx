@@ -3,24 +3,29 @@ import { Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Hero() {
+function Hero({ onLoadingChange }) {
   const [heroData, setHeroData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchHero = async () => {
       try {
-        const res = await axios.get("https://158.220.96.121/api/hero/active"); // adjust base URL as needed
+        setLoading(true);
+        const res = await axios.get("https://158.220.96.121/api/hero/active");
         setHeroData(res.data);
       } catch (err) {
         console.error("Failed to fetch hero data", err);
+      } finally {
+        setLoading(false);
+        if (onLoadingChange) onLoadingChange("hero", false);
       }
     };
 
     fetchHero();
-  }, []);
+  }, [onLoadingChange]);
 
-  if (!heroData) return null;
+  if (loading || !heroData) return null;
 
   return (
     <div

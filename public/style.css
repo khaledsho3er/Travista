@@ -18,7 +18,7 @@
 
 /* Custom Scrollbar Styles */
 :root {
-  --scrollbar-width: 8px;
+  --scrollbar-width: 10px;
   --scrollbar-track-color: transparent;
   --scrollbar-thumb-color: var(--maroon);
   --scrollbar-thumb-hover-color: var(--maroon);
@@ -38,7 +38,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: #8c8b8b;
   border-radius: 10px;
   transition: background 0.3s ease;
 }
@@ -54,7 +54,7 @@
 
 /* For Firefox */
 * {
-  scrollbar-width: thin;
+  scrollbar-width: inherit;
   scrollbar-color: transparent transparent;
 }
 
