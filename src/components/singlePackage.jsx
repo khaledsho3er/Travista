@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -31,13 +31,13 @@ import ProgramPopup from "./dailyProgram"; // Import the new component
 
 function SinglePackage({ tour, onClose }) {
   const navigate = useNavigate();
-  const [open] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedRoom, setSelectedRoom] = useState("");
   const [activeTab, setActiveTab] = useState(0);
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [selectedFlight, setSelectedFlight] = useState(null);
   const [showProgramPopup, setShowProgramPopup] = useState(false);
+  const [expanded, setExpanded] = useState(false); // Track if modal is expanded
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -55,8 +55,25 @@ function SinglePackage({ tour, onClose }) {
   const [success, setSuccess] = useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const modalRef = useRef(null);
   // Format the package data for display
+  // Toggle expanded state when handle is clicked
+  const toggleExpanded = () => {
+    setExpanded(!expanded);
+  };
+  // Close modal when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
   const packageDetails = {
     type: tour?.type || "Package",
     title: tour?.destinations?.join(", ") || "",
@@ -1314,61 +1331,85 @@ function SinglePackage({ tour, onClose }) {
       </Box>
     );
   };
-
   return (
-    <Slide direction="up" in={open} mountOnEnter unmountOnExit>
+    <Slide direction="up" in={true} mountOnEnter unmountOnExit>
       <Box
-        display="flex"
+        ref={modalRef}
+        className={`slide-up-modal ${expanded ? "expanded" : ""} show`}
         sx={{
           width: "100%",
-          margin: "30px auto",
           backgroundColor: "#ffffff",
-          borderRadius: "20px",
-          maxHeight: "700px",
+          borderTopLeftRadius: "20px",
+          borderTopRightRadius: "20px",
           overflow: "hidden",
-          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+          boxShadow: "0px -4px 12px rgba(0, 0, 0, 0.1)",
           position: "relative",
         }}
       >
+        {/* Handle for expanding/collapsing */}
         <Box
+          className="slide-up-handle"
+          onClick={toggleExpanded}
           sx={{
-            position: "relative",
-            width: "55%",
-            zIndex: 9999,
+            width: "50px",
+            height: "5px",
+            backgroundColor: "#ddd",
+            borderRadius: "10px",
+            margin: "10px auto",
+            cursor: "pointer",
+          }}
+        />
+
+        <Box
+          display="flex"
+          flexDirection={isSmallScreen ? "column" : "row"}
+          sx={{
+            width: "100%",
+            height: "calc(100% - 25px)",
+            overflow: "auto",
           }}
         >
-          <img
-            src={`https://158.220.96.121/${tour?.packagePicture}`}
-            alt={tour?.packageName || "Package"}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-        </Box>
+          <Box
+            sx={{
+              position: "relative",
+              width: isSmallScreen ? "100%" : "55%",
+              height: isSmallScreen ? "200px" : "auto",
+              zIndex: 9999,
+            }}
+          >
+            <img
+              src={`https://158.220.96.121/${tour?.packagePicture}`}
+              alt={tour?.packageName || "Package"}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </Box>
 
-        {currentStep === 1 ? (
-          <ComponentOne />
-        ) : currentStep === 2 ? (
-          <HotelAccommodation
-            hotels={hotels}
-            selectedHotel={selectedHotel}
-            setSelectedHotel={setSelectedHotel}
-          />
-        ) : currentStep === 3 ? (
-          <FlightSchedule
-            flights={flights}
-            selectedFlight={selectedFlight}
-            setSelectedFlight={setSelectedFlight}
-          />
-        ) : currentStep === 4 ? (
-          <ComponentTwo />
-        ) : currentStep === 5 ? (
-          <ComponentThree />
-        ) : null}
-        {showProgramPopup && (
-          <ProgramPopup
-            packageId={tour.tour}
-            onClose={() => setShowProgramPopup(false)}
-          />
-        )}
+          {currentStep === 1 ? (
+            <ComponentOne />
+          ) : currentStep === 2 ? (
+            <HotelAccommodation
+              hotels={hotels}
+              selectedHotel={selectedHotel}
+              setSelectedHotel={setSelectedHotel}
+            />
+          ) : currentStep === 3 ? (
+            <FlightSchedule
+              flights={flights}
+              selectedFlight={selectedFlight}
+              setSelectedFlight={setSelectedFlight}
+            />
+          ) : currentStep === 4 ? (
+            <ComponentTwo />
+          ) : currentStep === 5 ? (
+            <ComponentThree />
+          ) : null}
+          {showProgramPopup && (
+            <ProgramPopup
+              packageId={tour.tour}
+              onClose={() => setShowProgramPopup(false)}
+            />
+          )}
+        </Box>
       </Box>
     </Slide>
   );
