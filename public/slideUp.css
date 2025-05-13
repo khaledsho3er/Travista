@@ -4,9 +4,9 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 75%; /* Initially shows 75% of the modal (leaving 25% of screen visible) */
-  transition: transform 0.5s ease-in-out, height 0.5s ease-in-out;
-  transform: translateY(100%); /* Start fully hidden */
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+  transform: translateY(100%);
   z-index: 10000;
   backdrop-filter: blur(10px);
 }
@@ -14,47 +14,24 @@
 .slide-up-modal .single-package {
   position: relative;
   width: 100%;
-  height: 100%;
   background-color: white;
   padding: 20px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  box-shadow: 0px -4px 12px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; /* Allow scrolling within the modal */
+  transform: translateY(-100%);
 }
 
-/* When the modal is shown */
 .slide-up-modal.show {
-  transform: translateY(25%); /* Show 75% of the modal (25% from bottom) */
+  transform: translateY(0);
   opacity: 1;
   visibility: visible;
 }
-
-/* When the modal is expanded to full screen */
-.slide-up-modal.expanded {
-  transform: translateY(0); /* Show full modal */
-  height: 100%;
-}
-
-/* Handle for expanding/collapsing the modal */
-.slide-up-handle {
-  width: 50px;
-  height: 5px;
-  background-color: #ddd;
-  border-radius: 10px;
-  margin: 10px auto;
-  cursor: pointer;
-}
-
-/* Second modal style */
 .slide-up-two-modal {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 75%; /* Initially shows 75% of the modal */
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  transition: transform 0.5s ease-in-out, height 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
   transform: translateY(100%);
   z-index: 1000;
 }
@@ -62,20 +39,11 @@
 .slide-up-two-modal .preference-package {
   position: relative;
   width: 100%;
-  height: 100%;
   background-color: white;
   padding: 20px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  box-shadow: 0px -4px 12px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
+  transform: translateY(-100%);
 }
 
 .slide-up-two-modal.show {
-  transform: translateY(25%); /* Show 75% of the modal (25% from bottom) */
-}
-
-.slide-up-two-modal.expanded {
-  transform: translateY(0); /* Show full modal */
-  height: 100%;
+  transform: translateY(0);
 }

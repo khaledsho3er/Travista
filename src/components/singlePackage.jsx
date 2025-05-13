@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import {
   Box,
   Typography,
@@ -31,13 +31,13 @@ import ProgramPopup from "./dailyProgram"; // Import the new component
 
 function SinglePackage({ tour, onClose }) {
   const navigate = useNavigate();
+  const [open] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedRoom, setSelectedRoom] = useState("");
   const [activeTab, setActiveTab] = useState(0);
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [selectedFlight, setSelectedFlight] = useState(null);
   const [showProgramPopup, setShowProgramPopup] = useState(false);
-  const [expanded, setExpanded] = useState(false); // Track if modal is expanded
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -55,25 +55,8 @@ function SinglePackage({ tour, onClose }) {
   const [success, setSuccess] = useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const modalRef = useRef(null);
-  // Format the package data for display
-  // Toggle expanded state when handle is clicked
-  const toggleExpanded = () => {
-    setExpanded(!expanded);
-  };
-  // Close modal when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        onClose();
-      }
-    };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [onClose]);
+  // Format the package data for display
   const packageDetails = {
     type: tour?.type || "Package",
     title: tour?.destinations?.join(", ") || "",
@@ -1331,49 +1314,37 @@ function SinglePackage({ tour, onClose }) {
       </Box>
     );
   };
+
   return (
-    <Slide direction="up" in={true} mountOnEnter unmountOnExit>
+    <Slide direction="up" in={open} mountOnEnter unmountOnExit>
       <Box
-        ref={modalRef}
-        className={`slide-up-modal ${expanded ? "expanded" : ""} show`}
         sx={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
           width: "100%",
+          height: "75vh", // 75% of the screen height
           backgroundColor: "#ffffff",
           borderTopLeftRadius: "20px",
           borderTopRightRadius: "20px",
-          overflow: "hidden",
           boxShadow: "0px -4px 12px rgba(0, 0, 0, 0.1)",
-          position: "relative",
+          overflowY: "auto",
+          zIndex: 1300,
+          transition: "transform 0.5s ease-in-out",
         }}
       >
-        {/* Handle for expanding/collapsing */}
-        <Box
-          className="slide-up-handle"
-          onClick={toggleExpanded}
-          sx={{
-            width: "50px",
-            height: "5px",
-            backgroundColor: "#ddd",
-            borderRadius: "10px",
-            margin: "10px auto",
-            cursor: "pointer",
-          }}
-        />
-
         <Box
           display="flex"
-          flexDirection={isSmallScreen ? "column" : "row"}
           sx={{
             width: "100%",
-            height: "calc(100% - 25px)",
-            overflow: "auto",
+            height: "100%",
           }}
         >
           <Box
             sx={{
               position: "relative",
-              width: isSmallScreen ? "100%" : "55%",
-              height: isSmallScreen ? "200px" : "auto",
+              width: "55%",
+              height: "100%",
               zIndex: 9999,
             }}
           >
@@ -1384,25 +1355,28 @@ function SinglePackage({ tour, onClose }) {
             />
           </Box>
 
-          {currentStep === 1 ? (
-            <ComponentOne />
-          ) : currentStep === 2 ? (
-            <HotelAccommodation
-              hotels={hotels}
-              selectedHotel={selectedHotel}
-              setSelectedHotel={setSelectedHotel}
-            />
-          ) : currentStep === 3 ? (
-            <FlightSchedule
-              flights={flights}
-              selectedFlight={selectedFlight}
-              setSelectedFlight={setSelectedFlight}
-            />
-          ) : currentStep === 4 ? (
-            <ComponentTwo />
-          ) : currentStep === 5 ? (
-            <ComponentThree />
-          ) : null}
+          <Box sx={{ flex: 1, overflowY: "auto" }}>
+            {currentStep === 1 ? (
+              <ComponentOne />
+            ) : currentStep === 2 ? (
+              <HotelAccommodation
+                hotels={hotels}
+                selectedHotel={selectedHotel}
+                setSelectedHotel={setSelectedHotel}
+              />
+            ) : currentStep === 3 ? (
+              <FlightSchedule
+                flights={flights}
+                selectedFlight={selectedFlight}
+                setSelectedFlight={setSelectedFlight}
+              />
+            ) : currentStep === 4 ? (
+              <ComponentTwo />
+            ) : currentStep === 5 ? (
+              <ComponentThree />
+            ) : null}
+          </Box>
+
           {showProgramPopup && (
             <ProgramPopup
               packageId={tour.tour}
