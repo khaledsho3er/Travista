@@ -52,13 +52,10 @@ function CareersPage() {
           </p>
           <button className="careers-hero-btn">View open postion</button>
         </Box>
-        <img
-          src="assets/careers/careersheropic.png"
-          alt="Careersimg.png"
-        />
+        <img src="assets/careersheropic.png" alt="Careersimg.png" />
         <img
           class="overlay-photo"
-          src="assets/careers/heroicon.png"
+          src="assets/heroicon.png"
           alt="OverlayImage"
         />
       </header>

@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Slider, Typography } from "@mui/material";
 
-function StepTwo() {
-  const [travellers, setTravellers] = useState(1);
-  const [flexibility, setFlexibility] = useState(2);
-  const [budget, setBudget] = useState(2390);
-  const [nights, setNights] = useState(1);
-
-
+function StepTwo({
+  departureCountry,
+  setDepartureCountry,
+  departureCity,
+  setDepartureCity,
+  travellers,
+  setTravellers,
+  budget,
+  setBudget,
+  travelDate,
+  setTravelDate,
+  flexibility,
+  setFlexibility,
+  nights,
+  setNights,
+}) {
   const handleBudgetChange = (event, newValue) => {
     setBudget(newValue);
   };
+
   return (
     <Box className="step-two-container">
       <h5>Step 2 of 3</h5>
@@ -18,130 +28,154 @@ function StepTwo() {
       <p>Select the starting point of your voyage...</p>
 
       <Box className="step-two-container-input-group">
-        <select className="step-two-container-dropdown">
-          <option>Departure country</option>
+        <select
+          className="step-two-container-dropdown"
+          value={departureCountry}
+          onChange={(e) => setDepartureCountry(e.target.value)}
+        >
+          <option value="">Departure country</option>
+          <option value="Egypt">Egypt</option>
+          <option value="USA">USA</option>
+          <option value="UK">UK</option>
+          {/* Add more countries as needed */}
         </select>
-        <select className="step-two-container-dropdown">
-          <option>Departure city</option>
+        <select
+          className="step-two-container-dropdown"
+          value={departureCity}
+          onChange={(e) => setDepartureCity(e.target.value)}
+        >
+          <option value="">Departure city</option>
+          <option value="Cairo">Cairo</option>
+          <option value="Alexandria">Alexandria</option>
+          <option value="New York">New York</option>
+          <option value="London">London</option>
+          {/* Add more cities as needed */}
         </select>
       </Box>
 
       <Box className="step-two-container-travellers-container">
-      <label className="step-two-travellers-label">No. of travellers</label>
-      <Box className="step-two-container-travellers-counter">
-        <span className="step-two-counter-travellers-value">{travellers}</span>
-        <div className="step-two-travellers-buttons">
-          <button
-            onClick={() => setTravellers(Math.max(1, travellers - 1))}
-            className="step-two-container-travellers-counter-btn"
-          >
-            -
-          </button>
-          <button
-            onClick={() => setTravellers(travellers + 1)}
-            className="step-two-container-travellers-counter-btn"
-          >
-            +
-          </button>
-        </div>
-      </Box>
-    </Box>
-    <Box className="budget-slider-container">
-      {/* Label */}
-      <Box className="budget-slider-label">
-        <Typography variant="subtitle1" className="budget-slider-title">
-          Budget per person
-        </Typography>
-
-        <Typography
-          variant="subtitle2"
-          className="budget-slider-current"
-        >
-          €{budget}/ Person
-        </Typography>
+        <label className="step-two-travellers-label">No. of travellers</label>
+        <Box className="step-two-container-travellers-counter">
+          <span className="step-two-counter-travellers-value">
+            {travellers}
+          </span>
+          <div className="step-two-travellers-buttons">
+            <button
+              onClick={() => setTravellers(Math.max(1, travellers - 1))}
+              className="step-two-container-travellers-counter-btn"
+            >
+              -
+            </button>
+            <button
+              onClick={() => setTravellers(travellers + 1)}
+              className="step-two-container-travellers-counter-btn"
+            >
+              +
+            </button>
+          </div>
+        </Box>
       </Box>
 
-      {/* Slider */}
-      <Box className="budget-slider-box">
-      <Slider
-          value={budget}
-          min={500}
-          max={5000}
-          step={100}
-          onChange={handleBudgetChange}
-          className="budget-slider"
-          valueLabelDisplay="off" // Disable default value label
-          componentsProps={{
-            thumb: {
-              "data-value": `€${budget}`, // Pass budget value dynamically
-            },
-          }}
-          sx={{
-            color: "#990066",
-          }}
-        />
-     
+      <Box className="budget-slider-container">
+        {/* Label */}
+        <Box className="budget-slider-label">
+          <Typography variant="subtitle1" className="budget-slider-title">
+            Budget per person
+          </Typography>
+
+          <Typography variant="subtitle2" className="budget-slider-current">
+            €{budget}/ Person
+          </Typography>
+        </Box>
+
+        {/* Slider */}
+        <Box className="budget-slider-box">
+          <Slider
+            value={budget}
+            min={500}
+            max={5000}
+            step={100}
+            onChange={handleBudgetChange}
+            className="budget-slider"
+            valueLabelDisplay="off" // Disable default value label
+            componentsProps={{
+              thumb: {
+                "data-value": `€${budget}`, // Pass budget value dynamically
+              },
+            }}
+            sx={{
+              color: "#990066",
+            }}
+          />
+        </Box>
+
+        {/* Description */}
+        <Box className="budget-slider-description">
+          <p>
+            The maximum amount per person including round-trip flight tickets,
+            accommodation in selected cities, an optional travel guide.
+          </p>
+        </Box>
       </Box>
 
-      {/* Description */}
-      <Box className="budget-slider-description">
-        <p>
-          The maximum amount per person including round-trip flight tickets,
-          accommodation in selected cities, an optional travel guide.
-        </p>
+      <Box className="step-two-container-travel-options">
+        <Box className="step-two-container-travel-date-left">
+          <label>Travel date</label>
+          <input
+            type="date"
+            className="step-two-container-travel-date-input"
+            value={travelDate}
+            onChange={(e) => setTravelDate(e.target.value)}
+            min={new Date().toISOString().split("T")[0]} // Set min date to today
+          />
+        </Box>
+        <Box className="step-two-container-travel-date-right">
+          <label>Flexibility</label>
+          <Box className="step-two-container-flexibility">
+            <span className="step-two-counter-flexibilty-value">
+              {" "}
+              {flexibility} days
+            </span>
+            <Box className="step-two-flexibility-buttons">
+              <button
+                onClick={() => setFlexibility(Math.max(0, flexibility - 1))}
+                className="step-two-container-flexibility-btn"
+              >
+                -
+              </button>
+              <button
+                onClick={() => setFlexibility(flexibility + 1)}
+                className="step-two-container-flexibility-btn"
+              >
+                +
+              </button>
+            </Box>
+          </Box>
+        </Box>
       </Box>
-    </Box>
 
-
-
-    <Box className="step-two-container-travel-options">
-  <Box className="step-two-container-travel-date-left">
-    <label>Travel date</label>
-    <select className="step-two-container-travel-date-dropdown">
-      <option>Select</option>
-    </select>
-  </Box>
-  <Box className="step-two-container-travel-date-right">
-    <label>Flexibility</label>
-    <Box className="step-two-container-flexibility">
-      <span className="step-two-counter-flexibilty-value"> {flexibility} days</span>
-      <Box className="step-two-flexibility-buttons">
-        <button
-          onClick={() => setFlexibility(Math.max(0, flexibility - 1))}
-          className="step-two-container-flexibility-btn"
-        >
-          -
-        </button>
-        <button
-          onClick={() => setFlexibility(flexibility + 1)}
-          className="step-two-container-flexibility-btn"
-        >
-          +
-        </button>
+      <Box className="step-two-container-travellers-container">
+        <label className="step-two-travellers-label">No. of Nights</label>
+        <Box className="step-two-container-travellers-counter">
+          <span className="step-two-counter-travellers-value">
+            {nights} Nights
+          </span>
+          <div className="step-two-travellers-buttons">
+            <button
+              onClick={() => setNights(Math.max(1, nights - 1))}
+              className="step-two-container-travellers-counter-btn"
+            >
+              -
+            </button>
+            <button
+              onClick={() => setNights(nights + 1)}
+              className="step-two-container-travellers-counter-btn"
+            >
+              +
+            </button>
+          </div>
+        </Box>
       </Box>
-    </Box>
-  </Box>
-</Box>
-<Box className="step-two-container-travellers-container">
-      <label className="step-two-travellers-label">No. of Nights</label>
-      <Box className="step-two-container-travellers-counter">
-        <span className="step-two-counter-travellers-value">{nights} Nights</span>
-        <div className="step-two-travellers-buttons">
-          <button
-            onClick={() => setNights(Math.max(1, nights - 1))}
-            className="step-two-container-travellers-counter-btn"
-          >
-            -
-          </button>
-          <button
-            onClick={() => setNights(nights + 1)}
-            className="step-two-container-travellers-counter-btn"
-          >
-            +
-          </button>
-        </div>
-      </Box>
-    </Box>
     </Box>
   );
 }

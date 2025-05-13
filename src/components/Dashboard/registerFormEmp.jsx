@@ -76,7 +76,7 @@ const EmpRegistrationForm = () => {
 
       <Grid item xs={12} sm={4} md={6} lg={8}>
         <img
-          src="assets/main-logo.png"
+          src="/assets/main-logo.png"
           alt="Travista Logo"
           style={{ width: "100%", height: "auto" }}
         />
