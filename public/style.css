@@ -1521,7 +1521,7 @@ textarea.form-input {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  gap: 223px;
+  gap: 238px;
 }
 
 .BMP-steps-hero-image-left {
@@ -2037,13 +2037,13 @@ textarea.form-input {
 }
 
 .BMI-steps-third-Content form input {
-  width: 95%;
+  width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
   border: 2px solid #ccc;
   border-radius: 10px;
   font-size: 14px;
-  height: 2rem;
+  height: 3rem;
   color: #000;
 }
 .form-row-phone {
