@@ -39,18 +39,18 @@ function SinglePackage({ tour, onClose }) {
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [selectedFlight, setSelectedFlight] = useState(null);
   const [showProgramPopup, setShowProgramPopup] = useState(false);
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-    countryCode: "+1", // Initialize here
-    adults: 1, // Initialize here
-    children: 0, // Initialize here
+    countryCode: "+1",
+    adults: 1,
+    children: 0,
     notes: "",
-    roomType: "", // Initialize here (removed selectedRoom state)
+    roomType: "",
     packageId: tour._id,
-  });
+  };
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -121,14 +121,66 @@ function SinglePackage({ tour, onClose }) {
 
   const handleRoomChange = (room) => setSelectedRoom(room);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  // };
+  const handleSubmit = async (updatedFormData) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      // Validate required fields
+      if (
+        !updatedFormData.firstName ||
+        !updatedFormData.lastName ||
+        !updatedFormData.email ||
+        !updatedFormData.phone
+      ) {
+        setError("Please fill in all required fields");
+        setLoading(false);
+        return;
+      }
+      // Make sure roomType is set in formData
+      const submissionData = {
+        ...updatedFormData,
+        roomType: selectedRoom,
+        packageId: tour._id,
+      };
+      console.log("Submitting form data:", updatedFormData);
+
+      // Make API call to submit the form
+      const response = await fetch(
+        `https://158.220.96.121/api/applications/${tour._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(submissionData),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to submit application");
+      }
+
+      // Handle success
+      setSuccess(true);
+      onClose(); // Optional: close the form after successful submission
+    } catch (err) {
+      console.error("Error submitting form:", err);
+      setError(
+        err.message || "An error occurred while submitting your application"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
-  // Fix the handleSubmit function
 
   if (success) {
     return (
@@ -943,77 +995,31 @@ function SinglePackage({ tour, onClose }) {
       </Button>
     </Box>
   );
-  const ComponentThree = ({
-    formData,
-    setFormData,
+
+  function ComponentThree({
+    initialFormData,
+    onSubmit,
     onClose,
     handleBack,
-    loading,
-    error,
     tour,
     selectedRoom,
-  }) => {
-    const firstNameRef = useRef(null);
-    const lastNameRef = useRef(null);
-    const emailRef = useRef(null);
-    const phoneRef = useRef(null);
-    const notesRef = useRef(null);
-    const handleSubmit = async (e) => {
-      if (e) e.preventDefault();
+    loading,
+    error,
+  }) {
+    const [formData, setFormData] = useState(initialFormData);
 
-      try {
-        setLoading(true);
-        setError(null);
-
-        // Validate required fields
-        if (
-          !formData.firstName ||
-          !formData.lastName ||
-          !formData.email ||
-          !formData.phone
-        ) {
-          setError("Please fill in all required fields");
-          setLoading(false);
-          return;
-        }
-        // Make sure roomType is set in formData
-        const submissionData = {
-          ...formData,
-          roomType: selectedRoom,
-          packageId: tour._id,
-        };
-        console.log("Submitting form data:", formData);
-
-        // Make API call to submit the form
-        const response = await fetch(
-          `https://158.220.96.121/api/applications/${tour._id}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(submissionData),
-          }
-        );
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || "Failed to submit application");
-        }
-
-        // Handle success
-        setSuccess(true);
-        onClose(); // Optional: close the form after successful submission
-      } catch (err) {
-        console.error("Error submitting form:", err);
-        setError(
-          err.message || "An error occurred while submitting your application"
-        );
-      } finally {
-        setLoading(false);
-      }
+    const handleInputChange = (e) => {
+      const { name, value, type, checked } = e.target;
+      setFormData({
+        ...formData,
+        [name]: type === "checkbox" ? checked : value,
+      });
     };
 
+    const handleSubmitForm = (e) => {
+      if (e) e.preventDefault();
+      onSubmit(formData);
+    };
     return (
       <Box
         sx={{
@@ -1049,7 +1055,7 @@ function SinglePackage({ tour, onClose }) {
         <Typography variant="subtitle2" mt={1} color="#777777">
           Tell us more about you
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate>
+        <Box component="form" onSubmit={handleSubmitForm} noValidate>
           {error && (
             <Typography color="error" sx={{ mt: 2 }}>
               {error}
@@ -1057,7 +1063,6 @@ function SinglePackage({ tour, onClose }) {
           )}
           <Box sx={{ display: "flex", gap: 2, mb: 1 }}>
             <TextField
-              inputRef={firstNameRef}
               size="small"
               margin="normal"
               required
@@ -1073,7 +1078,6 @@ function SinglePackage({ tour, onClose }) {
               }}
             />
             <TextField
-              inputRef={lastNameRef}
               size="small"
               margin="normal"
               required
@@ -1090,7 +1094,6 @@ function SinglePackage({ tour, onClose }) {
             />
           </Box>
           <TextField
-            inputRef={emailRef}
             size="small"
             margin="normal"
             required
@@ -1135,7 +1138,6 @@ function SinglePackage({ tour, onClose }) {
             </FormControl>
 
             <TextField
-              inputRef={phoneRef}
               size="small"
               margin="normal"
               required
@@ -1152,7 +1154,6 @@ function SinglePackage({ tour, onClose }) {
             />
           </Box>
           <TextField
-            inputRef={notesRef}
             multiline
             rows={3}
             fullWidth
@@ -1324,7 +1325,7 @@ function SinglePackage({ tour, onClose }) {
             </Typography>
           </Box>
           <Button
-            onClick={handleSubmit}
+            onClick={handleSubmitForm}
             type="submit"
             variant="contained"
             disabled={loading}
@@ -1349,7 +1350,7 @@ function SinglePackage({ tour, onClose }) {
         </Box>
       </Box>
     );
-  };
+  }
 
   return (
     <Slide direction="up" in={open} mountOnEnter unmountOnExit>
@@ -1410,14 +1411,14 @@ function SinglePackage({ tour, onClose }) {
               <ComponentTwo />
             ) : currentStep === 5 ? (
               <ComponentThree
-                formData={formData}
-                setFormData={setFormData}
+                initialFormData={initialFormData}
+                onSubmit={handleSubmit}
                 onClose={onClose}
                 handleBack={handleBack}
-                loading={loading}
-                error={error}
                 tour={tour}
                 selectedRoom={selectedRoom}
+                loading={loading}
+                error={error}
               />
             ) : null}
           </Box>

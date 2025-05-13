@@ -1,41 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Typography, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "axios"; // Import axios for making API requests
 
-function Highlight({ onLoadingChange }) {
-  const [activeBanner, setActiveBanner] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+function Highlight() {
+  const [activeBanner, setActiveBanner] = useState(null); // State to store the active banner data
+  const navigate = useNavigate(); // Initialize useNavigate
 
   // Fetch active banner data from the API
   useEffect(() => {
     const fetchActiveBanner = async () => {
       try {
-        setLoading(true);
         const response = await axios.get(
           "https://158.220.96.121/api/banners/active"
         );
-        setActiveBanner(response.data);
+        setActiveBanner(response.data); // Update state with the active banner data
       } catch (error) {
         console.error("Error fetching active banner:", error);
-      } finally {
-        setLoading(false);
-        if (onLoadingChange) onLoadingChange("highlight", false);
       }
     };
 
     fetchActiveBanner();
-  }, [onLoadingChange]);
+  }, []); // Run once when the component mounts
 
   // Handle package click navigation
   const handlePackageClick = () => {
-    navigate("/packages");
+    navigate("/packages"); // Navigate to Explore Packages page
   };
 
   // Check if activeBanner is loaded before rendering content
-  if (loading || !activeBanner) {
-    return null;
+  if (!activeBanner) {
+    return <Typography>Loading...</Typography>; // Loading state
   }
 
   return (
