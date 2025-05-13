@@ -55,7 +55,16 @@ const contentBoxStyle = {
 const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   const [destinations, setDestinations] = useState([""]);
   const [flights, setFlights] = useState([
-    { airline: "", date: "", route: "", depart: "", arrival: "" },
+    {
+      airline: "",
+      date: "",
+      from: "",
+      to: "",
+      departureDate: "",
+      departureTime: "",
+      arrivalDate: "",
+      arrivalTime: "",
+    },
   ]);
   const [hotels, setHotels] = useState([
     { city: "", nights: "", hotelName: "", single: "", double: "", triple: "" },
@@ -186,7 +195,8 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
         !totalDays ||
         !totalNights ||
         !packagePrice ||
-        !selectedCurrency
+        !selectedCurrency ||
+        !packageType
       ) {
         throw new Error("Please fill in all required fields");
       }
@@ -205,7 +215,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
       if (pdfFile) {
         formData.append("pdfDocument", pdfFile);
       }
-
+      console.log("flights data before submission:", flights); // Debug log
       // Add other package data
       const packageData = {
         packageName,
@@ -223,7 +233,9 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
           amount: parseFloat(packagePrice),
           currency: selectedCurrency?.value || "USD",
         },
-        flights: flights.filter((flight) => flight.airline.trim() !== ""),
+        flights: flights.filter(
+          (flight) => flight.airline && flight.airline.trim() !== ""
+        ),
         hotels: hotels
           .filter((hotel) => hotel.city?.name?.trim() !== "")
           .map((hotel) => ({
@@ -554,19 +566,55 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
           {flights.map((flight, index) => (
             <Stack spacing={2} key={index}>
               <Stack direction="row" spacing={2}>
-                <TextField fullWidth label="Airline Name" sx={{ flex: 2 }} />
+                <TextField
+                  fullWidth
+                  label="Airline Name"
+                  sx={{ flex: 2 }}
+                  value={flight.airline}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].airline = e.target.value;
+                    setFlights(newFlights);
+                  }}
+                />
                 <TextField
                   fullWidth
                   type="date"
                   label="Date"
                   InputLabelProps={{ shrink: true }}
                   sx={{ flex: 1 }}
+                  value={flight.date}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].date = e.target.value;
+                    setFlights(newFlights);
+                  }}
                 />
               </Stack>
 
               <Stack direction="row" spacing={2}>
-                <TextField label="From" fullWidth sx={{ flex: 1 }} />
-                <TextField label="To" fullWidth sx={{ flex: 1 }} />
+                <TextField
+                  label="From"
+                  fullWidth
+                  sx={{ flex: 1 }}
+                  value={flight.from}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].from = e.target.value;
+                    setFlights(newFlights);
+                  }}
+                />
+                <TextField
+                  label="To"
+                  fullWidth
+                  sx={{ flex: 1 }}
+                  value={flight.to}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].to = e.target.value;
+                    setFlights(newFlights);
+                  }}
+                />
               </Stack>
 
               <Stack direction="row" spacing={2}>
@@ -576,8 +624,24 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                   fullWidth
                   InputLabelProps={{ shrink: true }}
                   sx={{ flex: 1 }}
+                  value={flight.departureDate}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].departureDate = e.target.value;
+                    setFlights(newFlights);
+                  }}
                 />
-                <TextField label="Departure Time" fullWidth sx={{ flex: 1 }} />
+                <TextField
+                  label="Departure Time"
+                  fullWidth
+                  sx={{ flex: 1 }}
+                  value={flight.departureTime}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].departureTime = e.target.value;
+                    setFlights(newFlights);
+                  }}
+                />
               </Stack>
 
               <Stack direction="row" spacing={2}>
@@ -587,8 +651,24 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                   fullWidth
                   InputLabelProps={{ shrink: true }}
                   sx={{ flex: 1 }}
+                  value={flight.arrivalDate}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].arrivalDate = e.target.value;
+                    setFlights(newFlights);
+                  }}
                 />
-                <TextField label="Arrival Time" fullWidth sx={{ flex: 1 }} />
+                <TextField
+                  label="Arrival Time"
+                  fullWidth
+                  sx={{ flex: 1 }}
+                  value={flight.arrivalTime}
+                  onChange={(e) => {
+                    const newFlights = [...flights];
+                    newFlights[index].arrivalTime = e.target.value;
+                    setFlights(newFlights);
+                  }}
+                />
               </Stack>
 
               <Stack direction="row" spacing={2} justifyContent="flex-end">
@@ -605,9 +685,12 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               handleAddItem(setFlights, {
                 airline: "",
                 date: "",
-                route: "",
-                depart: "",
-                arrival: "",
+                from: "",
+                to: "",
+                departureDate: "",
+                departureTime: "",
+                arrivalDate: "",
+                arrivalTime: "",
               })
             }
           >
