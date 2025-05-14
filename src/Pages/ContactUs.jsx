@@ -51,7 +51,16 @@ function ContactUs() {
         <Box className="contact-us-header-titles">
           <Typography variant="h1">Contact Us</Typography>
           <p> Ask for anything or just leave us a note.</p>
-          <button className="contact-us-header-btn">Send a message</button>
+          <button
+            className="contact-us-header-btn"
+            onClick={() => {
+              document
+                .querySelector(".FAQs-form-section")
+                .scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            Send a message
+          </button>
           <button
             className="contact-us-header-btn"
             onClick={() => setOpenCommentDialog(true)}
@@ -73,7 +82,15 @@ function ContactUs() {
               Egypt
             </p>
             <Box className="contact-us-trips-btns">
-              <button className="contact-us-trips-btn-getdirections">
+              <button
+                className="contact-us-trips-btn-getdirections"
+                onClick={() =>
+                  window.open(
+                    "https://maps.google.com/?q=47-A,+Ramo+building,+Ahmed+Tayseer+St.,+Golf+land+11341,+Cairo,+Egypt",
+                    "_blank"
+                  )
+                }
+              >
                 Get Direction
               </button>
               <button className="contact-us-trips-btn-call">Call Office</button>
@@ -86,7 +103,15 @@ function ContactUs() {
             </Box>
             <p>18th Street, Deira - Dubai, United Arab Emirates</p>
             <Box className="contact-us-trips-btns">
-              <button className="contact-us-trips-btn-getdirections">
+              <button
+                className="contact-us-trips-btn-getdirections"
+                onClick={() =>
+                  window.open(
+                    "https://maps.google.com/?q=18th+Street,+Deira+-+Dubai,+United+Arab+Emirates",
+                    "_blank"
+                  )
+                }
+              >
                 Get Direction
               </button>
               <button className="contact-us-trips-btn-call">Call Office</button>
@@ -99,7 +124,15 @@ function ContactUs() {
             </Box>
             <p>C/ Paris, 45-47, 08029 - Barcelona, Spain</p>
             <Box className="contact-us-trips-btns">
-              <button className="contact-us-trips-btn-getdirections">
+              <button
+                className="contact-us-trips-btn-getdirections"
+                onClick={() =>
+                  window.open(
+                    "https://maps.google.com/?q=C/+Paris,+45-47,+08029+-+Barcelona,+Spain",
+                    "_blank"
+                  )
+                }
+              >
                 Get Direction
               </button>
               <button className="contact-us-trips-btn-call">Call Office</button>

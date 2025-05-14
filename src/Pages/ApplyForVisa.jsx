@@ -29,7 +29,16 @@ function ApplyForVisa() {
             to embark on your desired journey with ease. Discover a world of
             limitless possibilities by applying for your visa today.
           </p>
-          <button className="ApplyForVisa-contact-btn">Apply Now</button>
+          <button
+            className="ApplyForVisa-contact-btn"
+            onClick={() => {
+              document
+                .querySelector(".ApplyForVisa-form-section")
+                .scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            Apply Now
+          </button>
         </Box>
         <img src="assets/ApplyForVisaHero.png" alt="ApplyForVisa" />
       </header>
@@ -44,7 +53,12 @@ function ApplyForVisa() {
               Have any other questions in mind?
             </Typography>
 
-            <Button className="btn btn-primary btn-black" onClick={handleContact}>Contact Us</Button>
+            <Button
+              className="btn btn-primary btn-black"
+              onClick={handleContact}
+            >
+              Contact Us
+            </Button>
           </Box>
 
           <FAQsComponent />

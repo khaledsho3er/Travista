@@ -3,22 +3,25 @@ import { Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Hero() {
-  const [heroData, setHeroData] = useState(null);
+function Hero({ preloadedData = null }) {
+  const [heroData, setHeroData] = useState(preloadedData);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchHero = async () => {
-      try {
-        const res = await axios.get("https://158.220.96.121/api/hero/active"); // adjust base URL as needed
-        setHeroData(res.data);
-      } catch (err) {
-        console.error("Failed to fetch hero data", err);
-      }
-    };
+    // Only fetch if data wasn't provided from parent
+    if (!preloadedData) {
+      const fetchHero = async () => {
+        try {
+          const res = await axios.get("https://158.220.96.121/api/hero/active");
+          setHeroData(res.data);
+        } catch (err) {
+          console.error("Failed to fetch hero data", err);
+        }
+      };
 
-    fetchHero();
-  }, []);
+      fetchHero();
+    }
+  }, [preloadedData]);
 
   if (!heroData) return null;
 
