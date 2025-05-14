@@ -8,7 +8,7 @@ import PackageCard from "../components/PackageCard";
 import Comments from "../components/Comments";
 import FAQ from "../components/FAQsSection";
 import Footer from "../components/Footer";
-import TravistaLoading from "../components/loading";
+import StartingScreen from "../components/StartingScreen";
 import axios from "axios";
 
 function Home() {
@@ -31,8 +31,12 @@ function Home() {
     fetchHeroData();
   }, []);
 
+  const handleLoadComplete = () => {
+    setLoading(false);
+  };
+
   if (loading) {
-    return <TravistaLoading />;
+    return <StartingScreen onLoadComplete={handleLoadComplete} />;
   }
 
   return (
