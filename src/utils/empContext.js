@@ -19,12 +19,24 @@ export const EmpProvider = ({ children }) => {
     fetch("https://158.220.96.121/api/empauth/session", {
       credentials: "include",
     })
-      .then((res) => res.json())
+      .then((res) => {
+        console.log("Session check status:", res.status);
+        if (!res.ok) {
+          console.error("Session check failed:", res.status);
+          setLoading(false);
+          return { employee: null };
+        }
+        return res.json();
+      })
       .then((data) => {
+        console.log("Session data:", data);
         if (data.employee) setEmployee(data.employee);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((error) => {
+        console.error("Session check error:", error);
+        setLoading(false);
+      });
   }, []);
 
   // 3️⃣ Sync employee state to localStorage

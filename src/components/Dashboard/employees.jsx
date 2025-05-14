@@ -53,7 +53,22 @@ function Employees() {
       return; // Don't fetch if no employee is logged in
     }
 
-    if (employee.role !== "admin") {
+    // Detailed logging of the role check
+    console.log(
+      `Role check: '${employee.role}' === 'admin' is ${
+        employee.role === "admin"
+      }`
+    );
+    console.log("Employee object:", JSON.stringify(employee));
+
+    // Try trimming the role value in case there's whitespace
+    const trimmedRole = employee.role.trim();
+    console.log(
+      `Trimmed role: '${trimmedRole}' === 'admin' is ${trimmedRole === "admin"}`
+    );
+
+    // Check if the role is admin (try both with and without trimming)
+    if (employee.role !== "admin" && trimmedRole !== "admin") {
       console.error("Employee is not an admin:", employee.role);
       setIsAuthorized(false);
       return;
@@ -204,7 +219,21 @@ function Employees() {
           <Typography variant="caption" color="textSecondary">
             Current role: {employee?.role || "No role"}
           </Typography>
-          <Typography variant="caption" color="textSecondary">
+          <Typography variant="caption" color="textSecondary" display="block">
+            Role type: {employee?.role ? typeof employee.role : "N/A"}
+          </Typography>
+          <Typography variant="caption" color="textSecondary" display="block">
+            Role length: {employee?.role ? employee.role.length : "N/A"}
+          </Typography>
+          <Typography variant="caption" color="textSecondary" display="block">
+            Role code points:{" "}
+            {employee?.role
+              ? Array.from(employee.role)
+                  .map((c) => c.charCodeAt(0))
+                  .join(", ")
+              : "N/A"}
+          </Typography>
+          <Typography variant="caption" color="textSecondary" display="block">
             Required role: admin
           </Typography>
         </DialogContent>
