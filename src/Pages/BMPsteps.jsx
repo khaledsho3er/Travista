@@ -6,12 +6,14 @@ import StepOne from "../components/BMPsteps/stepOne";
 import StepThree from "../components/BMPsteps/stepThree";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import SuccessDialog from "../components/SuccessDialog";
 
 function BuildMyPackageSteps() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
   // Step 1 data
   const [tripType, setTripType] = useState("");
@@ -93,14 +95,23 @@ function BuildMyPackageSteps() {
 
       console.log("Form submitted successfully:", response.data);
 
-      // Navigate to success page or show success message
-      navigate("/buildmypackage", {
-        state: {
-          success: true,
-          message:
-            "Your package request has been submitted successfully! Our team will contact you soon.",
-        },
-      });
+      // Show success dialog instead of navigating
+      setShowSuccessDialog(true);
+
+      // Reset form fields
+      setTripType("");
+      setDepartureCountry("");
+      setDepartureCity("");
+      setTravellers(1);
+      setBudget("");
+      setTravelDate("");
+      setFlexibility("");
+      setNights(1);
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPhoneNumber("");
+      setCountryCode("+1");
     } catch (err) {
       console.error("Error submitting form:", err);
       setError(
@@ -110,6 +121,36 @@ function BuildMyPackageSteps() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCloseSuccessDialog = () => {
+    setShowSuccessDialog(false);
+    // Navigate to home page after closing dialog
+    navigate("/");
+  };
+
+  const validateForm = () => {
+    if (!tripType) {
+      setError("Please select a trip type");
+      return false;
+    }
+
+    if (!departureCountry || !departureCity) {
+      setError("Please select departure country and city");
+      return false;
+    }
+
+    if (!travelDate) {
+      setError("Please select a travel date");
+      return false;
+    }
+
+    if (!firstName || !lastName || !email || !phoneNumber) {
+      setError("Please fill in all personal information fields");
+      return false;
+    }
+
+    return true;
   };
 
   const renderContent = () => {
@@ -191,12 +232,19 @@ function BuildMyPackageSteps() {
         </button>
         <button
           className="steps-action-button steps-next-button"
-          onClick={handleNext}
+          onClick={currentStep === 3 ? handleSubmit : handleNext}
           disabled={loading}
         >
           {loading ? "Processing..." : currentStep === 3 ? "Finish" : "Next"}
         </button>
       </Box>
+
+      {/* Success Dialog */}
+      <SuccessDialog
+        open={showSuccessDialog}
+        onClose={handleCloseSuccessDialog}
+        formType="buildPackage"
+      />
     </Box>
   );
 }

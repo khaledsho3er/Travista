@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import countries from "world-countries";
 import axios from "axios";
 import VisaDocumentDialog from "./visaDialog";
+import SuccessDialog from "./SuccessDialog";
 
 const ApplyForVisaForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -10,6 +11,9 @@ const ApplyForVisaForm = () => {
   const [selectedVisaType, setSelectedVisaType] = useState("");
   const [visaDocuments, setVisaDocuments] = useState([]);
   const [showDialog, setShowDialog] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -108,6 +112,9 @@ const ApplyForVisaForm = () => {
       return;
     }
 
+    setLoading(true);
+    setError(null);
+
     try {
       // Submit the form data
       await axios.post("https://158.220.96.121/api/visa-leads", {
@@ -124,14 +131,45 @@ const ApplyForVisaForm = () => {
 
       // Show the dialog with PDF documents
       setShowDialog(true);
+
+      // Show success dialog after document dialog is closed
+      setShowSuccessDialog(true);
+
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        country: "",
+        purpose: "",
+        invitation: "",
+        schengenBefore: "",
+        travelDate: "",
+        jobStatus: "",
+        visaRenewal: "",
+        visaTypes: "",
+        previousVisaNumber: "",
+        previousVisaExpiry: "",
+        passportNumber: "",
+        agreedToTerms: false,
+        bankStatement: "",
+      });
     } catch (error) {
       console.error("Error submitting application:", error);
+      setError(error.response?.data?.message || "Failed to submit application");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleCloseSuccessDialog = () => {
+    setShowSuccessDialog(false);
   };
 
   return (
     <>
       <form className="ApplyForVisa-contact-form" onSubmit={handleSubmit}>
+        {error && <div className="error-message">{error}</div>}
         <div className="form-row">
           <input
             type="text"
@@ -283,8 +321,8 @@ const ApplyForVisaForm = () => {
           I agree to the terms and privacy policy.
         </label>
 
-        <button type="submit" className="submit-button">
-          Submit
+        <button type="submit" className="submit-button" disabled={loading}>
+          {loading ? "Submitting..." : "Submit"}
         </button>
       </form>
 
@@ -295,6 +333,13 @@ const ApplyForVisaForm = () => {
           onClose={() => setShowDialog(false)}
         />
       )}
+
+      {/* Success Dialog */}
+      <SuccessDialog
+        open={showSuccessDialog}
+        onClose={handleCloseSuccessDialog}
+        formType="visa"
+      />
     </>
   );
 };

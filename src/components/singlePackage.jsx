@@ -23,15 +23,14 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BedIcon from "@mui/icons-material/Bed";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { FaCheck } from "react-icons/fa";
 import ProgramPopup from "./dailyProgram"; // Import the new component
+import SuccessDialog from "./SuccessDialog";
 
 function SinglePackage({ tour, onClose }) {
   const modalRef = useRef(null); // Create a ref for the modal content
-  const navigate = useNavigate();
   const [open] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedRoom, setSelectedRoom] = useState("");
@@ -39,6 +38,7 @@ function SinglePackage({ tour, onClose }) {
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [selectedFlight, setSelectedFlight] = useState(null);
   const [showProgramPopup, setShowProgramPopup] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const initialFormData = {
     firstName: "",
     lastName: "",
@@ -53,7 +53,6 @@ function SinglePackage({ tour, onClose }) {
   };
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   // Inside your component function, add this effect
@@ -169,9 +168,8 @@ function SinglePackage({ tour, onClose }) {
         throw new Error(errorData.message || "Failed to submit application");
       }
 
-      // Handle success
-      setSuccess(true);
-      onClose(); // Optional: close the form after successful submission
+      // Show success dialog instead of success state
+      setShowSuccessDialog(true);
     } catch (err) {
       console.error("Error submitting form:", err);
       setError(
@@ -182,50 +180,11 @@ function SinglePackage({ tour, onClose }) {
     }
   };
 
-  if (success) {
-    return (
-      <Box
-        sx={{
-          width: isSmallScreen ? "100%" : "100%",
-          padding: isSmallScreen ? "16px" : "32px",
-          position: "relative",
-        }}
-      >
-        <IconButton
-          sx={{ position: "absolute", top: 16, right: 16 }}
-          aria-label="close"
-          onClick={onClose}
-        >
-          <CloseIcon />
-        </IconButton>
+  const handleCloseSuccessDialog = () => {
+    setShowSuccessDialog(false);
+    onClose(); // Close the package form after closing the success dialog
+  };
 
-        <Box sx={{ mt: 4, textAlign: "center" }}>
-          <Typography variant="h5" color="primary" gutterBottom>
-            Application Submitted Successfully!
-          </Typography>
-          <Typography variant="body1" sx={{ mb: 3 }}>
-            Thank you for applying for our {tour.packageName} package.
-          </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              mt: 3,
-              backgroundColor: "#142328",
-              "&:hover": {
-                backgroundColor: "#0f1c24",
-              },
-            }}
-            onClick={() => {
-              onClose();
-              navigate("/");
-            }}
-          >
-            Return Home
-          </Button>
-        </Box>
-      </Box>
-    );
-  }
   const renderTabContent = () => {
     switch (activeTab) {
       case 0:
@@ -1431,6 +1390,11 @@ function SinglePackage({ tour, onClose }) {
           )}
         </Box>
       </Box>
+      <SuccessDialog
+        open={showSuccessDialog}
+        onClose={handleCloseSuccessDialog}
+        formType="package"
+      />
     </Slide>
   );
 }
