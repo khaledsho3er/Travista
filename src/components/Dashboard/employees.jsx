@@ -42,7 +42,7 @@ function Employees() {
   });
   const [selectedEmployee, setSelectedEmployee] = useState(null); // For selected employee in edit
   const [showPassword, setShowPassword] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useState(true); // Check if the employee is authorized
+  const [isAuthorized, setIsAuthorized] = useState(false); // Start with false until we verify
 
   // Only fetch employee data if the employee is authenticated and an admin
   useEffect(() => {
@@ -59,6 +59,8 @@ function Employees() {
       return;
     }
 
+    // If we reach here, the employee is authorized
+    setIsAuthorized(true);
     console.log("Fetching employees as admin...");
 
     fetch("https://158.220.96.121/api/employees", {
@@ -197,10 +199,21 @@ function Employees() {
     return (
       <Dialog open={!isAuthorized}>
         <DialogTitle>Unauthorized</DialogTitle>
-        <DialogContent>You are not authorized to view this page.</DialogContent>
+        <DialogContent>
+          <Typography>You are not authorized to view this page.</Typography>
+          <Typography variant="caption" color="textSecondary">
+            Current role: {employee?.role || "No role"}
+          </Typography>
+          <Typography variant="caption" color="textSecondary">
+            Required role: admin
+          </Typography>
+        </DialogContent>
         <DialogActions>
-          <Button onClick={() => setIsAuthorized(true)} color="primary">
-            Close
+          <Button
+            onClick={() => (window.location.href = "/admin")}
+            color="primary"
+          >
+            Back to Dashboard
           </Button>
         </DialogActions>
       </Dialog>
