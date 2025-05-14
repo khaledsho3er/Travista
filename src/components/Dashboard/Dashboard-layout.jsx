@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./sidebar";
 import Dashboard from "../../Pages/Dashboard";
 import DashboardPackages from "./package";
@@ -28,6 +28,18 @@ import BMPApplicationManager from "./BMPApplications";
 
 function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard"); // Use lowercase
+
+  // Add effect to scroll to top when activeSection changes
+  useEffect(() => {
+    // Scroll to the top of the content area
+    const contentArea = document.querySelector(".flex-1");
+    if (contentArea) {
+      contentArea.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [activeSection]);
 
   const renderSection = () => {
     switch (activeSection) {

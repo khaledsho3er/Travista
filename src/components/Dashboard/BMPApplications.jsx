@@ -110,16 +110,16 @@ const BMPApplicationManager = () => {
   };
 
   // Extract country code and phone number from phoneNumber
-  const extractPhoneDetails = (phoneNumber) => {
-    if (!phoneNumber) return { countryCode: "", phone: "" };
+  // const extractPhoneDetails = (phoneNumber) => {
+  //   if (!phoneNumber) return { countryCode: "", phone: "" };
 
-    // Assuming format is like +201020189024
-    const match = phoneNumber.match(/^(\+\d+)(\d+)$/);
-    if (match) {
-      return { countryCode: match[1], phone: match[2] };
-    }
-    return { countryCode: "", phone: phoneNumber };
-  };
+  //   // Assuming format is like +201020189024
+  //   const match = phoneNumber.match(/^(\+\d+)(\d+)$/);
+  //   if (match) {
+  //     return { countryCode: match[1], phone: match[2] };
+  //   }
+  //   return { countryCode: "", phone: phoneNumber };
+  // };
 
   return (
     <div>

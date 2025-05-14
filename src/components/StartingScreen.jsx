@@ -5,25 +5,43 @@ import { motion } from "framer-motion";
 
 const StartingScreen = ({ onLoadComplete }) => {
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
 
   useEffect(() => {
+    // Ensure the screen shows for at least 5 seconds
+    const minTimeTimer = setTimeout(() => {
+      setMinTimeElapsed(true);
+    }, 5000);
+
     // Simulate loading progress
     const interval = setInterval(() => {
       setLoadingProgress((prev) => {
-        const newProgress = prev + Math.random() * 10;
+        const newProgress = prev + Math.random() * 5; // Slower progress to match 5 second minimum
         if (newProgress >= 100) {
           clearInterval(interval);
-          setTimeout(() => {
-            if (onLoadComplete) onLoadComplete();
-          }, 500);
           return 100;
         }
         return newProgress;
       });
     }, 200);
 
-    return () => clearInterval(interval);
-  }, [onLoadComplete]);
+    return () => {
+      clearTimeout(minTimeTimer);
+      clearInterval(interval);
+    };
+  }, []);
+
+  // Check if both minimum time has elapsed and loading is complete
+  useEffect(() => {
+    if (minTimeElapsed && loadingProgress >= 100) {
+      // Add a small delay for the 100% to be visible
+      const completeTimer = setTimeout(() => {
+        if (onLoadComplete) onLoadComplete();
+      }, 500);
+
+      return () => clearTimeout(completeTimer);
+    }
+  }, [minTimeElapsed, loadingProgress, onLoadComplete]);
 
   // Travel-related inspirational quotes
   const quotes = [

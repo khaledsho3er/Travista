@@ -43,7 +43,7 @@ function Employees() {
     role: "",
     active: true, // Default to active
   });
-  const [selectedEmployee, setSelectedEmployee] = useState(null); // For selected employee in edit
+  const [setSelectedEmployee] = useState(null); // For selected employee in edit
   const [showPassword, setShowPassword] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(true); // Check if the employee is authorized
 
@@ -102,6 +102,8 @@ function Employees() {
 
       const data = await res.json();
       setEmployees([...employees, data]);
+
+      // Reset form fields to initial state
       setNewEmployee({
         name: "",
         username: "",
@@ -112,7 +114,13 @@ function Employees() {
         role: "",
         active: true, // Default to active
       });
+
+      // Reset password visibility
+      setShowPassword(false);
+
+      // Close the dialog
       setOpen(false);
+
       toast.success("Employee added successfully!");
     } catch (error) {
       console.error("Error adding employee:", error);
@@ -183,6 +191,13 @@ function Employees() {
 
   const handleToggleActive = async (id, newActiveState) => {
     try {
+      // Immediately update the UI for better responsiveness
+      setEmployees(
+        employees.map((emp) =>
+          emp._id === id ? { ...emp, active: newActiveState } : emp
+        )
+      );
+
       const res = await fetch(
         `https://158.220.96.121/api/employees/${id}/toggle-status`,
         {
@@ -196,10 +211,17 @@ function Employees() {
       );
 
       if (!res.ok) {
+        // If the API call fails, revert the UI change
+        setEmployees(
+          employees.map((emp) =>
+            emp._id === id ? { ...emp, active: !newActiveState } : emp
+          )
+        );
         throw new Error("Failed to update employee status");
       }
 
       const updatedEmployee = await res.json();
+      // Update with the server response to ensure consistency
       setEmployees(
         employees.map((emp) =>
           emp._id === updatedEmployee._id ? updatedEmployee : emp
@@ -264,14 +286,14 @@ function Employees() {
                   <FormControlLabel
                     control={
                       <Switch
-                        checked={emp.active !== false}
+                        checked={emp.active === true}
                         onChange={() =>
                           handleToggleActive(emp._id, !emp.active)
                         }
                         color="primary"
                       />
                     }
-                    label={emp.active !== false ? "Active" : "Inactive"}
+                    label={emp.active === true ? "Active" : "Inactive"}
                   />
                 </TableCell>
                 <TableCell>

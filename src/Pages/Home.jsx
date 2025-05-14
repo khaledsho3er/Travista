@@ -24,7 +24,8 @@ function Home() {
       } catch (err) {
         console.error("Failed to fetch hero data", err);
       } finally {
-        setLoading(false);
+        // We don't set loading to false here anymore
+        // The StartingScreen will handle that after minimum time
       }
     };
 
