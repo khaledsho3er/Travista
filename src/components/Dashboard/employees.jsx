@@ -42,82 +42,35 @@ function Employees() {
   });
   const [selectedEmployee, setSelectedEmployee] = useState(null); // For selected employee in edit
   const [showPassword, setShowPassword] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useState(false); // Start with false until we verify
+  const [isAuthorized, setIsAuthorized] = useState(true); // Check if the employee is authorized
 
   // Only fetch employee data if the employee is authenticated and an admin
   useEffect(() => {
-    console.log("Current employee state:", employee); // Log the employee state
-
     if (!employee) {
       console.error("Employee not authenticated.");
       return; // Don't fetch if no employee is logged in
     }
 
-    // Detailed logging of the role check
-    console.log(
-      `Role check: '${employee.role}' === 'admin' is ${
-        employee.role === "admin"
-      }`
-    );
-
-    // Check if the role is admin
     if (employee.role !== "admin") {
-      console.error("Employee is not an admin:", employee.role);
       setIsAuthorized(false);
       return;
     }
 
-    // If we reach here, the employee is authorized
-    setIsAuthorized(true);
-    console.log("Fetching employees as admin...");
-
-    // First verify the session is still valid
-    fetch("https://158.220.96.121/api/empauth/session", {
-      credentials: "include",
+    fetch("https://158.220.96.121/api/employees", {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include", // Send the session cookie with the request
     })
       .then((response) => {
         if (!response.ok) {
-          setIsAuthorized(false);
-          throw new Error("Session invalid");
-        }
-        return response.json();
-      })
-      .then(() => {
-        // Now fetch employees with the verified session
-        return fetch("https://158.220.96.121/api/employees", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include", // Send the session cookie with the request
-        });
-      })
-      .then((response) => {
-        console.log("Employees API response status:", response.status);
-
-        if (!response.ok) {
-          if (response.status === 401) {
-            setIsAuthorized(false);
-            throw new Error("Unauthorized: Please log in again");
-          } else if (response.status === 403) {
-            setIsAuthorized(false);
-            throw new Error("Forbidden: Admin access required");
-          }
           throw new Error("Failed to fetch employees");
         }
         return response.json();
       })
-      .then((data) => {
-        console.log("Employees data:", data);
-        setEmployees(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching employee data:", error);
-        toast.error(error.message || "Error fetching employees");
-      });
+      .then((data) => setEmployees(data))
+      .catch((error) => console.error("Error fetching employee data:", error));
   }, [employee]); // Re-run effect when `employee` changes
 
   const handleInputChange = (e) => {
@@ -224,35 +177,10 @@ function Employees() {
     return (
       <Dialog open={!isAuthorized}>
         <DialogTitle>Unauthorized</DialogTitle>
-        <DialogContent>
-          <Typography>You are not authorized to view this page.</Typography>
-          <Typography variant="caption" color="textSecondary">
-            Current role: {employee?.role || "No role"}
-          </Typography>
-          <Typography variant="caption" color="textSecondary" display="block">
-            Role type: {employee?.role ? typeof employee.role : "N/A"}
-          </Typography>
-          <Typography variant="caption" color="textSecondary" display="block">
-            Role length: {employee?.role ? employee.role.length : "N/A"}
-          </Typography>
-          <Typography variant="caption" color="textSecondary" display="block">
-            Role code points:{" "}
-            {employee?.role
-              ? Array.from(employee.role)
-                  .map((c) => c.charCodeAt(0))
-                  .join(", ")
-              : "N/A"}
-          </Typography>
-          <Typography variant="caption" color="textSecondary" display="block">
-            Required role: admin
-          </Typography>
-        </DialogContent>
+        <DialogContent>You are not authorized to view this page.</DialogContent>
         <DialogActions>
-          <Button
-            onClick={() => (window.location.href = "/admin")}
-            color="primary"
-          >
-            Back to Dashboard
+          <Button onClick={() => setIsAuthorized(true)} color="primary">
+            Close
           </Button>
         </DialogActions>
       </Dialog>
