@@ -6,15 +6,62 @@ import {
   DialogContent,
   TextField,
   styled,
+  Button,
+  Paper,
+  Avatar,
 } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import MessageForm from "../components/messageForm";
-import axios from "axios"; // Make sure this is at the top if it's not already
+import axios from "axios";
+import SuccessDialog from "../components/SuccessDialog";
+import { FormatQuote } from "@mui/icons-material";
+
 const BlurredDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiBackdrop-root": {
     backdropFilter: "blur(5px)",
     backgroundColor: "rgba(0, 0, 0, 0.5)", // 50% dark overlay
+  },
+  "& .MuiPaper-root": {
+    borderRadius: "16px",
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
+    overflow: "hidden",
+  },
+}));
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  "& .MuiOutlinedInput-root": {
+    borderRadius: "12px",
+    transition: "all 0.3s ease",
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    backdropFilter: "blur(5px)",
+    "&:hover": {
+      backgroundColor: "rgba(255, 255, 255, 0.9)",
+    },
+    "&.Mui-focused": {
+      backgroundColor: "rgba(255, 255, 255, 0.9)",
+      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+    },
+  },
+  "& .MuiInputLabel-root": {
+    fontWeight: 500,
+  },
+}));
+
+const SubmitButton = styled(Button)(({ theme }) => ({
+  borderRadius: "12px",
+  padding: "12px 24px",
+  fontWeight: 600,
+  textTransform: "none",
+  fontSize: "1rem",
+  backgroundColor: "#750046",
+  color: "white",
+  transition: "all 0.3s ease",
+  boxShadow: "0 4px 12px rgba(117, 0, 70, 0.2)",
+  "&:hover": {
+    backgroundColor: "#5c0036",
+    boxShadow: "0 6px 16px rgba(117, 0, 70, 0.3)",
+    transform: "translateY(-2px)",
   },
 }));
 
@@ -25,6 +72,7 @@ function ContactUs() {
     author: "",
     memberSince: "",
   });
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
   const handleChange = (e) => {
     setCommentData({ ...commentData, [e.target.name]: e.target.value });
@@ -39,11 +87,23 @@ function ContactUs() {
       );
       console.log("Comment submitted successfully:", res.data);
       setOpenCommentDialog(false);
-      setCommentData({ content: "", author: "", memberSince: "" }); // Clear form after submit
+      // Show success dialog
+      setShowSuccessDialog(true);
+      // Clear form after submit
+      setCommentData({
+        content: "",
+        author: "",
+        memberSince: "",
+      });
     } catch (error) {
       console.error("Error submitting comment:", error);
     }
   };
+
+  const handleCloseSuccessDialog = () => {
+    setShowSuccessDialog(false);
+  };
+
   return (
     <Box className="contact-us-page">
       <Navbar />
@@ -160,51 +220,131 @@ function ContactUs() {
         </div>
       </section>
       <Footer />
+
+      {/* Enhanced Testimonial Dialog */}
       <BlurredDialog
         open={openCommentDialog}
         onClose={() => setOpenCommentDialog(false)}
         maxWidth="sm"
         fullWidth
       >
-        <DialogContent sx={{ py: 4, backgroundColor: "#FFFFFF56" }}>
-          <Typography variant="h5" fontWeight={700} mb={2}>
-            Write a Review
-          </Typography>
-          <Box display="flex" flexDirection="column" gap={2}>
-            <TextField
+        <Paper
+          elevation={0}
+          sx={{
+            py: 4,
+            px: 3,
+            background:
+              "linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%)",
+            backdropFilter: "blur(10px)",
+            borderRadius: "16px",
+          }}
+        >
+          <Box display="flex" alignItems="center" mb={3}>
+            <Avatar
+              sx={{
+                bgcolor: "#750046",
+                width: 56,
+                height: 56,
+                boxShadow: "0 4px 12px rgba(117, 0, 70, 0.2)",
+              }}
+            >
+              <FormatQuote />
+            </Avatar>
+            <Box ml={2}>
+              <Typography variant="h5" fontWeight={700}>
+                Share Your Experience
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Your testimonial helps others discover Travista
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box display="flex" flexDirection="column" gap={2.5}>
+            <StyledTextField
               multiline
-              rows={4}
-              label="Your Comment"
+              rows={5}
+              label="Your Testimonial"
               name="content"
               value={commentData.content}
               onChange={handleChange}
               fullWidth
+              placeholder="Tell us about your experience with Travista. What did you enjoy most about your journey?"
+              InputProps={{
+                sx: {
+                  "&::before": {
+                    content: '"""',
+                    position: "absolute",
+                    top: "-10px",
+                    left: "-10px",
+                    fontSize: "60px",
+                    color: "rgba(117, 0, 70, 0.1)",
+                    fontFamily: "serif",
+                  },
+                },
+              }}
             />
-            <TextField
-              label="Your Name"
-              name="author"
-              value={commentData.author}
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Member Since"
-              name="memberSince"
-              placeholder="e.g. 2023"
-              value={commentData.memberSince}
-              onChange={handleChange}
-              fullWidth
-            />
-            <button
-              className="btn btn-primary"
-              style={{ border: "1px solid var(--maroon)" }}
-              onClick={handleSubmitComment}
-            >
-              Submit Comment
-            </button>
+
+            <Box display="flex" gap={2} flexWrap="wrap">
+              <StyledTextField
+                label="Your Name"
+                name="author"
+                value={commentData.author}
+                onChange={handleChange}
+                fullWidth
+                sx={{ flex: "1 1 60%" }}
+                placeholder="John Doe"
+              />
+
+              <StyledTextField
+                label="Member Since"
+                name="memberSince"
+                placeholder="e.g. 2023"
+                value={commentData.memberSince}
+                onChange={handleChange}
+                fullWidth
+                sx={{ flex: "1 1 30%" }}
+              />
+            </Box>
+
+            <Box display="flex" justifyContent="space-between" mt={1}>
+              <Button
+                variant="outlined"
+                onClick={() => setOpenCommentDialog(false)}
+                sx={{
+                  borderRadius: "12px",
+                  borderColor: "#750046",
+                  color: "#750046",
+                  textTransform: "none",
+                  fontWeight: 600,
+                  "&:hover": {
+                    borderColor: "#5c0036",
+                    backgroundColor: "rgba(117, 0, 70, 0.05)",
+                  },
+                }}
+              >
+                Cancel
+              </Button>
+
+              <SubmitButton
+                onClick={handleSubmitComment}
+                disabled={!commentData.content || !commentData.author}
+              >
+                Submit Testimonial
+              </SubmitButton>
+            </Box>
           </Box>
-        </DialogContent>
+        </Paper>
       </BlurredDialog>
+
+      {/* Success Dialog */}
+      <SuccessDialog
+        open={showSuccessDialog}
+        onClose={handleCloseSuccessDialog}
+        formType="review"
+        customTitle="Thank You for Your Testimonial!"
+        customMessage="We appreciate you sharing your experience with Travista. Your testimonial will help future travelers discover the magic of our services."
+      />
     </Box>
   );
 }

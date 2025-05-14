@@ -8,7 +8,7 @@ import PackageCard from "../components/PackageCard";
 import Comments from "../components/Comments";
 import FAQ from "../components/FAQsSection";
 import Footer from "../components/Footer";
-import StartingScreen from "../components/StartingScreen";
+import TravistaLoading from "../components/loading";
 import axios from "axios";
 
 function Home() {
@@ -24,20 +24,15 @@ function Home() {
       } catch (err) {
         console.error("Failed to fetch hero data", err);
       } finally {
-        // We don't set loading to false here anymore
-        // The StartingScreen will handle that after minimum time
+        setLoading(false);
       }
     };
 
     fetchHeroData();
   }, []);
 
-  const handleLoadComplete = () => {
-    setLoading(false);
-  };
-
   if (loading) {
-    return <StartingScreen onLoadComplete={handleLoadComplete} />;
+    return <TravistaLoading />;
   }
 
   return (

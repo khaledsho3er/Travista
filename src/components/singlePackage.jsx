@@ -27,7 +27,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { FaCheck } from "react-icons/fa";
 import ProgramPopup from "./dailyProgram"; // Import the new component
-import SuccessDialog from "./SuccessDialog";
+import SuccessDialog from "./SuccessDialog"; // Import SuccessDialog component
 
 function SinglePackage({ tour, onClose }) {
   const modalRef = useRef(null); // Create a ref for the modal content
@@ -38,7 +38,6 @@ function SinglePackage({ tour, onClose }) {
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [selectedFlight, setSelectedFlight] = useState(null);
   const [showProgramPopup, setShowProgramPopup] = useState(false);
-  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const initialFormData = {
     firstName: "",
     lastName: "",
@@ -53,6 +52,7 @@ function SinglePackage({ tour, onClose }) {
   };
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false); // Add state for success dialog
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   // Inside your component function, add this effect
@@ -119,14 +119,6 @@ function SinglePackage({ tour, onClose }) {
   };
 
   const handleRoomChange = (room) => setSelectedRoom(room);
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
   const handleSubmit = async (updatedFormData) => {
     try {
       setLoading(true);
@@ -167,9 +159,11 @@ function SinglePackage({ tour, onClose }) {
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to submit application");
       }
-
-      // Show success dialog instead of success state
       setShowSuccessDialog(true);
+
+      // Handle success
+      // setSuccess(true);
+      //onClose(); // Optional: close the form after successful submission
     } catch (err) {
       console.error("Error submitting form:", err);
       setError(
@@ -179,7 +173,7 @@ function SinglePackage({ tour, onClose }) {
       setLoading(false);
     }
   };
-
+  // Add handler for closing the success dialog
   const handleCloseSuccessDialog = () => {
     setShowSuccessDialog(false);
     onClose(); // Close the package form after closing the success dialog
@@ -1394,6 +1388,8 @@ function SinglePackage({ tour, onClose }) {
         open={showSuccessDialog}
         onClose={handleCloseSuccessDialog}
         formType="package"
+        customTitle={`${tour.packageName} Package Application Submitted!`}
+        customMessage={`Thank you for applying for our ${tour.packageName} package. Our travel experts will review your request and contact you soon to finalize your dream vacation.`}
       />
     </Slide>
   );
