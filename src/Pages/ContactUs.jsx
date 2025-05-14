@@ -3,7 +3,6 @@ import {
   Box,
   Typography,
   Dialog,
-  DialogContent,
   TextField,
   styled,
   Button,
@@ -45,6 +44,23 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
   "& .MuiInputLabel-root": {
     fontWeight: 500,
+  },
+}));
+
+const QuoteTextField = styled(StyledTextField)(({ theme }) => ({
+  "& .MuiOutlinedInput-root": {
+    position: "relative",
+    "&::before": {
+      content: '"""',
+      position: "absolute",
+      top: "-10px",
+      left: "-10px",
+      fontSize: "60px",
+      color: "rgba(117, 0, 70, 0.1)",
+      fontFamily: "serif",
+      pointerEvents: "none",
+      zIndex: 1,
+    },
   },
 }));
 
@@ -261,7 +277,7 @@ function ContactUs() {
           </Box>
 
           <Box display="flex" flexDirection="column" gap={2.5}>
-            <StyledTextField
+            <QuoteTextField
               multiline
               rows={5}
               label="Your Testimonial"
@@ -270,19 +286,6 @@ function ContactUs() {
               onChange={handleChange}
               fullWidth
               placeholder="Tell us about your experience with Travista. What did you enjoy most about your journey?"
-              InputProps={{
-                sx: {
-                  "&::before": {
-                    content: '"""',
-                    position: "absolute",
-                    top: "-10px",
-                    left: "-10px",
-                    fontSize: "60px",
-                    color: "rgba(117, 0, 70, 0.1)",
-                    fontFamily: "serif",
-                  },
-                },
-              }}
             />
 
             <Box display="flex" gap={2} flexWrap="wrap">

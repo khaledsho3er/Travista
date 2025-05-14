@@ -1306,92 +1306,97 @@ function SinglePackage({ tour, onClose }) {
   }
 
   return (
-    <Slide direction="up" in={open} mountOnEnter unmountOnExit>
-      <Box
-        sx={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          width: "100%",
-          height: "90vh", // 75% of the screen height
-          backgroundColor: "#ffffff",
-          borderTopLeftRadius: "20px",
-          borderTopRightRadius: "20px",
-          boxShadow: "0px -4px 12px rgba(0, 0, 0, 0.1)",
-          overflowY: "auto",
-          zIndex: 1300,
-          transition: "transform 0.5s ease-in-out",
-        }}
-      >
+    <>
+      <Slide direction="up" in={open} mountOnEnter unmountOnExit>
         <Box
-          display="flex"
+          ref={modalRef}
           sx={{
+            position: "fixed",
+            bottom: 0,
+            left: 0,
             width: "100%",
-            height: "100%",
+            height: "90vh", // 75% of the screen height
+            backgroundColor: "#ffffff",
+            borderTopLeftRadius: "20px",
+            borderTopRightRadius: "20px",
+            boxShadow: "0px -4px 12px rgba(0, 0, 0, 0.1)",
+            overflowY: "auto",
+            zIndex: 1300,
+            transition: "transform 0.5s ease-in-out",
           }}
         >
           <Box
+            display="flex"
             sx={{
-              position: "relative",
-              width: "55%",
+              width: "100%",
               height: "100%",
-              zIndex: 9999,
             }}
           >
-            <img
-              src={`https://158.220.96.121/${tour?.packagePicture}`}
-              alt={tour?.packageName || "Package"}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-          </Box>
+            <Box
+              sx={{
+                position: "relative",
+                width: isSmallScreen ? "100%" : "55%",
+                height: "100%",
+                zIndex: 9999,
+                display: isSmallScreen ? "none" : "block",
+              }}
+            >
+              <img
+                src={`https://158.220.96.121/${tour?.packagePicture}`}
+                alt={tour?.packageName || "Package"}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            </Box>
 
-          <Box sx={{ flex: 1, overflowY: "auto" }}>
-            {currentStep === 1 ? (
-              <ComponentOne />
-            ) : currentStep === 2 ? (
-              <HotelAccommodation
-                hotels={hotels}
-                selectedHotel={selectedHotel}
-                setSelectedHotel={setSelectedHotel}
-              />
-            ) : currentStep === 3 ? (
-              <FlightSchedule
-                flights={flights}
-                selectedFlight={selectedFlight}
-                setSelectedFlight={setSelectedFlight}
-              />
-            ) : currentStep === 4 ? (
-              <ComponentTwo />
-            ) : currentStep === 5 ? (
-              <ComponentThree
-                initialFormData={initialFormData}
-                onSubmit={handleSubmit}
-                onClose={onClose}
-                handleBack={handleBack}
-                tour={tour}
-                selectedRoom={selectedRoom}
-                loading={loading}
-                error={error}
-              />
-            ) : null}
-          </Box>
+            <Box sx={{ flex: 1, overflowY: "auto" }}>
+              {currentStep === 1 ? (
+                <ComponentOne />
+              ) : currentStep === 2 ? (
+                <HotelAccommodation
+                  hotels={hotels}
+                  selectedHotel={selectedHotel}
+                  setSelectedHotel={setSelectedHotel}
+                />
+              ) : currentStep === 3 ? (
+                <FlightSchedule
+                  flights={flights}
+                  selectedFlight={selectedFlight}
+                  setSelectedFlight={setSelectedFlight}
+                />
+              ) : currentStep === 4 ? (
+                <ComponentTwo />
+              ) : currentStep === 5 ? (
+                <ComponentThree
+                  initialFormData={initialFormData}
+                  onSubmit={handleSubmit}
+                  onClose={onClose}
+                  handleBack={handleBack}
+                  tour={tour}
+                  selectedRoom={selectedRoom}
+                  loading={loading}
+                  error={error}
+                />
+              ) : null}
+            </Box>
 
-          {showProgramPopup && (
-            <ProgramPopup
-              packageId={tour.tour}
-              onClose={() => setShowProgramPopup(false)}
-            />
-          )}
+            {showProgramPopup && (
+              <ProgramPopup
+                packageId={tour.tour}
+                onClose={() => setShowProgramPopup(false)}
+              />
+            )}
+          </Box>
         </Box>
-      </Box>
+      </Slide>
+
       <SuccessDialog
         open={showSuccessDialog}
         onClose={handleCloseSuccessDialog}
         formType="package"
-        customTitle={`${tour.packageName} Package Application Submitted!`}
-        customMessage={`Thank you for applying for our ${tour.packageName} package. Our travel experts will review your request and contact you soon to finalize your dream vacation.`}
+        customTitle={`${tour?.packageName} Package Application Submitted!`}
+        customMessage={`Thank you for applying for our ${tour?.packageName} package. Our travel experts will review your request and contact you soon to finalize your dream vacation.`}
       />
-    </Slide>
+    </>
   );
 }
 

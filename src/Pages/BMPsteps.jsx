@@ -129,29 +129,29 @@ function BuildMyPackageSteps() {
     navigate("/");
   };
 
-  const validateForm = () => {
-    if (!tripType) {
-      setError("Please select a trip type");
-      return false;
-    }
+  // const validateForm = () => {
+  //   if (!tripType) {
+  //     setError("Please select a trip type");
+  //     return false;
+  //   }
 
-    if (!departureCountry || !departureCity) {
-      setError("Please select departure country and city");
-      return false;
-    }
+  //   if (!departureCountry || !departureCity) {
+  //     setError("Please select departure country and city");
+  //     return false;
+  //   }
 
-    if (!travelDate) {
-      setError("Please select a travel date");
-      return false;
-    }
+  //   if (!travelDate) {
+  //     setError("Please select a travel date");
+  //     return false;
+  //   }
 
-    if (!firstName || !lastName || !email || !phoneNumber) {
-      setError("Please fill in all personal information fields");
-      return false;
-    }
+  //   if (!firstName || !lastName || !email || !phoneNumber) {
+  //     setError("Please fill in all personal information fields");
+  //     return false;
+  //   }
 
-    return true;
-  };
+  //   return true;
+  // };
 
   const renderContent = () => {
     switch (currentStep) {
