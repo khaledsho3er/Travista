@@ -19,6 +19,8 @@ import {
   MenuItem,
   IconButton,
   InputAdornment,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import { useEmployee } from "../../utils/empContext"; // Import your EmpContext
 import { MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
@@ -39,6 +41,7 @@ function Employees() {
     password: "",
     phone: "",
     role: "",
+    active: true, // Default to active
   });
   const [selectedEmployee, setSelectedEmployee] = useState(null); // For selected employee in edit
   const [showPassword, setShowPassword] = useState(false);
@@ -78,6 +81,10 @@ function Employees() {
     setNewEmployee({ ...newEmployee, [name]: value });
   };
 
+  const handleSwitchChange = (e) => {
+    setNewEmployee({ ...newEmployee, active: e.target.checked });
+  };
+
   const handleAddEmployee = async () => {
     try {
       const res = await fetch("https://158.220.96.121/api/empauth/register", {
@@ -103,6 +110,7 @@ function Employees() {
         password: "",
         phone: "",
         role: "",
+        active: true, // Default to active
       });
       setOpen(false);
       toast.success("Employee added successfully!");
@@ -173,6 +181,39 @@ function Employees() {
     }
   };
 
+  const handleToggleActive = async (id, newActiveState) => {
+    try {
+      const res = await fetch(
+        `https://158.220.96.121/api/employees/${id}/toggle-status`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ active: newActiveState }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to update employee status");
+      }
+
+      const updatedEmployee = await res.json();
+      setEmployees(
+        employees.map((emp) =>
+          emp._id === updatedEmployee._id ? updatedEmployee : emp
+        )
+      );
+      toast.success(
+        `Employee ${newActiveState ? "activated" : "deactivated"} successfully!`
+      );
+    } catch (error) {
+      console.error("Error updating employee status:", error);
+      toast.error("Error updating employee status");
+    }
+  };
+
   if (!isAuthorized) {
     return (
       <Dialog open={!isAuthorized}>
@@ -208,6 +249,7 @@ function Employees() {
               <TableCell>Email</TableCell>
               <TableCell>Number</TableCell>
               <TableCell>Role</TableCell>
+              <TableCell>Status</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -218,6 +260,20 @@ function Employees() {
                 <TableCell>{emp.email}</TableCell>
                 <TableCell>{emp.phone}</TableCell>
                 <TableCell>{emp.role}</TableCell>
+                <TableCell>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={emp.active !== false}
+                        onChange={() =>
+                          handleToggleActive(emp._id, !emp.active)
+                        }
+                        color="primary"
+                      />
+                    }
+                    label={emp.active !== false ? "Active" : "Inactive"}
+                  />
+                </TableCell>
                 <TableCell>
                   <Button
                     color="primary"
@@ -318,6 +374,17 @@ function Employees() {
             <MenuItem value={"marketingTeam"}>Marketing Team</MenuItem>
             <MenuItem value={"employee"}>Employee</MenuItem>
           </Select>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={newEmployee.active}
+                onChange={handleSwitchChange}
+                name="active"
+                color="primary"
+              />
+            }
+            label="Active"
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)} color="secondary">
@@ -385,6 +452,17 @@ function Employees() {
             <MenuItem value={"marketingTeam"}>Marketing Team</MenuItem>
             <MenuItem value={"employee"}>Employee</MenuItem>
           </Select>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={newEmployee.active !== false}
+                onChange={handleSwitchChange}
+                name="active"
+                color="primary"
+              />
+            }
+            label="Active"
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setEditOpen(false)} color="secondary">

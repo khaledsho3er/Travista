@@ -37,7 +37,14 @@ const EmpLoginForm = () => {
       await login(formData);
       navigate("/admin");
     } catch (err) {
-      setError(err.message || "Login failed");
+      // Check if the error message indicates an inactive account
+      if (err.message && err.message.includes("inactive")) {
+        setError(
+          "Your account is inactive. Please contact your administrator."
+        );
+      } else {
+        setError(err.message || "Login failed");
+      }
     }
   };
 
