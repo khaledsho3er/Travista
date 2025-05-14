@@ -46,15 +46,20 @@ function Employees() {
 
   // Only fetch employee data if the employee is authenticated and an admin
   useEffect(() => {
+    console.log("Current employee state:", employee); // Log the employee state
+
     if (!employee) {
       console.error("Employee not authenticated.");
       return; // Don't fetch if no employee is logged in
     }
 
     if (employee.role !== "admin") {
+      console.error("Employee is not an admin:", employee.role);
       setIsAuthorized(false);
       return;
     }
+
+    console.log("Fetching employees as admin...");
 
     fetch("https://158.220.96.121/api/employees", {
       method: "GET",
@@ -64,13 +69,28 @@ function Employees() {
       credentials: "include", // Send the session cookie with the request
     })
       .then((response) => {
+        console.log("Employees API response status:", response.status);
+
         if (!response.ok) {
+          if (response.status === 401) {
+            setIsAuthorized(false);
+            throw new Error("Unauthorized: Please log in again");
+          } else if (response.status === 403) {
+            setIsAuthorized(false);
+            throw new Error("Forbidden: Admin access required");
+          }
           throw new Error("Failed to fetch employees");
         }
         return response.json();
       })
-      .then((data) => setEmployees(data))
-      .catch((error) => console.error("Error fetching employee data:", error));
+      .then((data) => {
+        console.log("Employees data:", data);
+        setEmployees(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching employee data:", error);
+        toast.error(error.message || "Error fetching employees");
+      });
   }, [employee]); // Re-run effect when `employee` changes
 
   const handleInputChange = (e) => {

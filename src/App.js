@@ -97,7 +97,7 @@ function App() {
           />
           {/* Employee Dashboard (Protected) */}
           <Route
-            path="/dashboard/*"
+            path="/admin/*"
             element={
               <EmpProvider>
                 <RequireEmployeeAuth>

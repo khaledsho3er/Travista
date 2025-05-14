@@ -55,7 +55,7 @@ function ContactUs() {
             className="contact-us-header-btn"
             onClick={() => {
               document
-                .querySelector(".FAQs-form-section")
+                .querySelector(".FAQs-form")
                 .scrollIntoView({ behavior: "smooth" });
             }}
           >

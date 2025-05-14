@@ -41,7 +41,7 @@ const ArticleList = () => {
         variant="contained"
         color="primary"
         sx={{ mb: 3 }}
-        onClick={() => navigate("/dashboard/articles/new")}
+        onClick={() => navigate("/admin/articles/new")}
       >
         New Article
       </Button>

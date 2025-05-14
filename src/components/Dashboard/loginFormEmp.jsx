@@ -35,7 +35,7 @@ const EmpLoginForm = () => {
 
     try {
       await login(formData);
-      navigate("/dashboard");
+      navigate("/admin");
     } catch (err) {
       setError(err.message || "Login failed");
     }
@@ -55,7 +55,7 @@ const EmpLoginForm = () => {
 
       <Grid item xs={12} sm={4} md={6} lg={8}>
         <img
-          src="assets/main-logo.png"
+          src="/assets/main-logo.png"
           alt="Travista Logo"
           style={{ width: "100%", height: "auto" }}
         />
@@ -146,9 +146,9 @@ const EmpLoginForm = () => {
             <Link href="#" variant="body2">
               Forgot Password?
             </Link>
-            <Link href="/employee/register" variant="body2" color="primary">
+            {/* <Link href="/employee/register" variant="body2" color="primary">
               Create Account
-            </Link>
+            </Link> */}
           </Box>
 
           <Typography sx={{ mt: 2, textAlign: "center", fontSize: "0.75rem" }}>

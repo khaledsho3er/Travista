@@ -33,7 +33,7 @@ function ApplyForVisa() {
             className="ApplyForVisa-contact-btn"
             onClick={() => {
               document
-                .querySelector(".ApplyForVisa-form-section")
+                .querySelector(".ApplyForVisa-form")
                 .scrollIntoView({ behavior: "smooth" });
             }}
           >
