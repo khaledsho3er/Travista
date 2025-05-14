@@ -18,11 +18,16 @@ export const EmpProvider = ({ children }) => {
   useEffect(() => {
     fetch("https://158.220.96.121/api/empauth/session", {
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then((res) => {
         console.log("Session check status:", res.status);
         if (!res.ok) {
           console.error("Session check failed:", res.status);
+          localStorage.removeItem("employee"); // Clear local storage on session failure
+          setEmployee(null);
           setLoading(false);
           return { employee: null };
         }
@@ -30,7 +35,9 @@ export const EmpProvider = ({ children }) => {
       })
       .then((data) => {
         console.log("Session data:", data);
-        if (data.employee) setEmployee(data.employee);
+        if (data.employee) {
+          setEmployee(data.employee);
+        }
         setLoading(false);
       })
       .catch((error) => {
@@ -53,11 +60,14 @@ export const EmpProvider = ({ children }) => {
       const res = await fetch("https://158.220.96.121/api/empauth/login", {
         method: "POST",
         credentials: "include", // Important: This sends cookies with the request
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(credentials),
       });
 
       const data = await res.json();
+      console.log("Login response:", data);
 
       if (!res.ok) {
         throw new Error(data.message || "Login failed");
@@ -66,6 +76,23 @@ export const EmpProvider = ({ children }) => {
       // Store the employee data in state
       if (data.employee) {
         setEmployee(data.employee);
+
+        // Verify session immediately after login
+        const sessionCheck = await fetch(
+          "https://158.220.96.121/api/empauth/session",
+          {
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        console.log("Session check after login:", sessionCheck.status);
+
+        if (!sessionCheck.ok) {
+          console.error("Session verification failed after login");
+        }
       } else {
         console.error("No employee data in response:", data);
         throw new Error("Invalid response format");

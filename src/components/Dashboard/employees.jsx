@@ -59,16 +59,9 @@ function Employees() {
         employee.role === "admin"
       }`
     );
-    console.log("Employee object:", JSON.stringify(employee));
 
-    // Try trimming the role value in case there's whitespace
-    const trimmedRole = employee.role.trim();
-    console.log(
-      `Trimmed role: '${trimmedRole}' === 'admin' is ${trimmedRole === "admin"}`
-    );
-
-    // Check if the role is admin (try both with and without trimming)
-    if (employee.role !== "admin" && trimmedRole !== "admin") {
+    // Check if the role is admin
+    if (employee.role !== "admin") {
       console.error("Employee is not an admin:", employee.role);
       setIsAuthorized(false);
       return;
@@ -78,13 +71,30 @@ function Employees() {
     setIsAuthorized(true);
     console.log("Fetching employees as admin...");
 
-    fetch("https://158.220.96.121/api/employees", {
-      method: "GET",
+    // First verify the session is still valid
+    fetch("https://158.220.96.121/api/empauth/session", {
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include", // Send the session cookie with the request
     })
+      .then((response) => {
+        if (!response.ok) {
+          setIsAuthorized(false);
+          throw new Error("Session invalid");
+        }
+        return response.json();
+      })
+      .then(() => {
+        // Now fetch employees with the verified session
+        return fetch("https://158.220.96.121/api/employees", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // Send the session cookie with the request
+        });
+      })
       .then((response) => {
         console.log("Employees API response status:", response.status);
 
