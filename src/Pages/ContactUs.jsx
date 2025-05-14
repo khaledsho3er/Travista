@@ -51,7 +51,7 @@ const QuoteTextField = styled(StyledTextField)(({ theme }) => ({
   "& .MuiOutlinedInput-root": {
     position: "relative",
     "&::before": {
-      content: '"""',
+      content: '"\u201C"', // LEFT DOUBLE QUOTATION MARK
       position: "absolute",
       top: "-10px",
       left: "-10px",
@@ -162,7 +162,7 @@ function ContactUs() {
                 className="contact-us-trips-btn-getdirections"
                 onClick={() =>
                   window.open(
-                    "https://maps.google.com/?q=47-A,+Ramo+building,+Ahmed+Tayseer+St.,+Golf+land+11341,+Cairo,+Egypt",
+                    "https://maps.app.goo.gl/2wQhQRZPxJ8HFFkCA",
                     "_blank"
                   )
                 }
