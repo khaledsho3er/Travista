@@ -184,15 +184,16 @@ const CityManagement = () => {
                 </TableCell>
                 <TableCell>
                   <Button
+                    variant="outlined"
                     color="primary"
-                    startIcon={<Edit />}
                     onClick={() => handleOpen(city)}
+                    sx={{ mr: 1 }}
                   >
                     Edit
                   </Button>
                   <Button
+                    variant="outlined"
                     color="error"
-                    startIcon={<Delete />}
                     onClick={() => handleDelete(city.cityId)}
                   >
                     Delete

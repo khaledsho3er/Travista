@@ -214,15 +214,16 @@ const HotelManagement = () => {
                 <TableCell>{hotel.categories.join(", ")}</TableCell>
                 <TableCell>
                   <Button
+                    variant="outlined"
                     color="primary"
-                    startIcon={<Edit />}
                     onClick={() => handleOpen(hotel)}
+                    sx={{ mr: 1 }}
                   >
                     Edit
                   </Button>
                   <Button
+                    variant="outlined"
                     color="error"
-                    startIcon={<Delete />}
                     onClick={() => handleDelete(hotel.hotelId)}
                   >
                     Delete

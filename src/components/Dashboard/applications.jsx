@@ -190,7 +190,7 @@ const ApplicationManager = () => {
                   <Tooltip title="View Details">
                     <IconButton
                       onClick={() => setViewApp(app)}
-                      color="primary"
+                      color="#ccc"
                       size="small"
                     >
                       <VisibilityIcon />
@@ -202,7 +202,7 @@ const ApplicationManager = () => {
                         setEditApp(app);
                         setIsEditing(false);
                       }}
-                      color="secondary"
+                      color="#ccc"
                       size="small"
                     >
                       <EditIcon />
@@ -211,7 +211,7 @@ const ApplicationManager = () => {
                   <Tooltip title="Delete">
                     <IconButton
                       onClick={() => deleteApplication(app._id)}
-                      color="error"
+                      color="#ccc"
                       size="small"
                       disabled={loading}
                     >

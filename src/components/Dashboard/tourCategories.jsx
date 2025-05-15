@@ -167,15 +167,16 @@ const TourCategoriesTable = () => {
                   .join(" ")}...`}</TableCell>
                 <TableCell>
                   <Button
+                    variant="outlined"
                     color="primary"
-                    startIcon={<Edit />}
                     onClick={() => handleOpen(category)}
+                    sx={{ mr: 1 }}
                   >
                     Edit
                   </Button>
                   <Button
+                    variant="outlined"
                     color="error"
-                    startIcon={<Delete />}
                     onClick={() => handleDelete(category._id)}
                   >
                     Delete

@@ -52,7 +52,7 @@ function Sidebar({ setActiveSection }) {
       label: "Content Management",
       icon: RiArticleLine,
       items: [
-        { id: "articles", icon: GrArticle, label: "Articles" },
+        // { id: "articles", icon: GrArticle, label: "Articles" },
         { id: "BlogManagement", icon: BsFilePost, label: "Blog Management" },
         { id: "banners", icon: ViewCarouselIcon, label: "Banner Management" },
         { id: "dashboardHero", icon: FaRegImage, label: "Hero Section" },

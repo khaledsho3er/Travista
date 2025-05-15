@@ -157,15 +157,16 @@ const CountryManagement = () => {
                 <TableCell>{country.name}</TableCell>
                 <TableCell>
                   <Button
+                    variant="outlined"
                     color="primary"
-                    startIcon={<Edit />}
                     onClick={() => handleOpen(country)}
+                    sx={{ mr: 1 }}
                   >
                     Edit
                   </Button>
                   <Button
+                    variant="outlined"
                     color="error"
-                    startIcon={<Delete />}
                     onClick={() => handleDelete(country.countryId)}
                   >
                     Delete

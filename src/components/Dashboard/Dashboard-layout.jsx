@@ -75,8 +75,8 @@ function DashboardLayout() {
         return <DashboardHero />;
       case "SocialMedia":
         return <SocialMediaManagement />;
-      case "articles":
-        return <ArticleList />;
+      // case "articles":
+      //   return <ArticleList />;
       case "banners":
         return <BannerDashboard />;
       case "CommentManagement":

@@ -228,15 +228,16 @@ const SocialMediaManagement = () => {
                 <TableCell>{getIcon(social.platform)}</TableCell>
                 <TableCell>
                   <Button
+                    variant="outlined"
                     color="primary"
-                    startIcon={<Edit />}
                     onClick={() => handleOpen(social)}
+                    sx={{ mr: 1 }}
                   >
                     Edit
                   </Button>
                   <Button
+                    variant="outlined"
                     color="error"
-                    startIcon={<Delete />}
                     onClick={() => handleDelete(social.socialId)}
                   >
                     Delete

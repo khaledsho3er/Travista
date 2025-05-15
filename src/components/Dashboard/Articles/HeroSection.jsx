@@ -15,9 +15,11 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  DialogContentText,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import AddIcon from "@mui/icons-material/Add";
 import { toast } from "react-toastify";
 
 function DashboardHero() {
@@ -26,6 +28,7 @@ function DashboardHero() {
   const [heroList, setHeroList] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedHero, setSelectedHero] = useState(null);
+  const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
   const fetchHeroes = async () => {
     try {
@@ -55,6 +58,7 @@ function DashboardHero() {
       setImageFile(null);
       toast.success("Hero created successfully!");
       fetchHeroes();
+      setOpenCreateDialog(false);
     } catch (err) {
       toast.error("Failed to create hero entry");
     }
@@ -93,56 +97,38 @@ function DashboardHero() {
     setSelectedHero(null);
   };
 
+  const handleOpenCreateDialog = () => {
+    setOpenCreateDialog(true);
+  };
+
+  const handleCloseCreateDialog = () => {
+    setOpenCreateDialog(false);
+    setCaption("");
+    setImageFile(null);
+  };
+
   useEffect(() => {
     fetchHeroes();
   }, []);
 
   return (
     <Box sx={{ p: 4 }}>
-      <Typography variant="h4" sx={{ mb: 3 }}>
-        Hero Section Management
-      </Typography>
-      <TextField
-        label="Hero Caption"
-        fullWidth
-        value={caption}
-        onChange={(e) => setCaption(e.target.value)}
-        sx={{ mb: 2 }}
-      />
       <Box
         sx={{
-          mb: 3,
           display: "flex",
-          flexDirection: "row",
-          gap: 1,
-          width: "35%",
-          alignItems: "baseline",
           justifyContent: "space-between",
+          alignItems: "center",
+          mb: 3,
         }}
       >
-        <Button variant="contained" component="label">
-          Upload Hero Image
-          <input
-            type="file"
-            hidden
-            accept="image/*"
-            onChange={(e) => setImageFile(e.target.files[0])}
-          />
-        </Button>
-
-        {imageFile && (
-          <Typography sx={{ mt: 1 }}>
-            Selected Image: {imageFile.name}
-          </Typography>
-        )}
-
+        <Typography variant="h4">Hero Section Management</Typography>
         <Button
           variant="contained"
           color="primary"
-          onClick={handleCreate}
-          sx={{ mt: 2 }}
+          startIcon={<AddIcon />}
+          onClick={handleOpenCreateDialog}
         >
-          Create New Hero
+          Add New Hero
         </Button>
       </Box>
 
@@ -175,7 +161,7 @@ function DashboardHero() {
                   onClick={() => handleDelete(hero._id)}
                   title="Delete Hero"
                 >
-                  <DeleteIcon color="error" />
+                  <DeleteIcon color="#ccc" />
                 </IconButton>
               </>
             }
@@ -222,6 +208,56 @@ function DashboardHero() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Close</Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Dialog for Creating New Hero */}
+      <Dialog
+        open={openCreateDialog}
+        onClose={handleCloseCreateDialog}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle>Create New Hero</DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{ mb: 2 }}>
+            Please provide a caption and upload an image for the new hero
+            section.
+          </DialogContentText>
+          <TextField
+            label="Hero Caption"
+            fullWidth
+            value={caption}
+            onChange={(e) => setCaption(e.target.value)}
+            sx={{ mb: 3 }}
+          />
+          <Box sx={{ mb: 2 }}>
+            <Button variant="contained" component="label">
+              Upload Hero Image
+              <input
+                type="file"
+                hidden
+                accept="image/*"
+                onChange={(e) => setImageFile(e.target.files[0])}
+              />
+            </Button>
+            {imageFile && (
+              <Typography sx={{ mt: 1 }}>
+                Selected Image: {imageFile.name}
+              </Typography>
+            )}
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseCreateDialog}>Cancel</Button>
+          <Button
+            onClick={handleCreate}
+            variant="contained"
+            color="primary"
+            disabled={!caption || !imageFile}
+          >
+            Create
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>

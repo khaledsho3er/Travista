@@ -171,15 +171,16 @@ const SeasonManagement = () => {
                 <TableCell>{season.endDate.split("T")[0]}</TableCell>
                 <TableCell>
                   <Button
-                    color="primary"
-                    startIcon={<Edit />}
+                    variant="outlined"
+                    color="error"
                     onClick={() => handleOpen(season)}
+                    sx={{ mr: 1 }}
                   >
                     Edit
                   </Button>
                   <Button
+                    variant="outlined"
                     color="error"
-                    startIcon={<Delete />}
                     onClick={() => handleDelete(season.seasonId)}
                   >
                     Delete

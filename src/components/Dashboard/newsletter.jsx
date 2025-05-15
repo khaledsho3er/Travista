@@ -157,16 +157,17 @@ const NewsletterManagement = () => {
                 <TableCell>
                   {subscriber.subscribed && (
                     <Button
+                      variant="outlined"
                       color="warning"
-                      startIcon={<Email />}
                       onClick={() => handleUnsubscribe(subscriber.email)}
+                      sx={{ mr: 1 }}
                     >
                       Unsubscribe
                     </Button>
                   )}
                   <Button
+                    variant="outlined"
                     color="error"
-                    startIcon={<Delete />}
                     onClick={() => handleDelete(subscriber.email)}
                   >
                     Delete

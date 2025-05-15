@@ -298,16 +298,17 @@ function Employees() {
                 </TableCell>
                 <TableCell>
                   <Button
+                    variant="outlined"
                     color="primary"
-                    startIcon={<Edit />}
                     onClick={() => handleEditEmployee(emp)}
+                    sx={{ mr: 1 }}
                   >
                     Update
                   </Button>
                   <Button
+                    variant="outlined"
                     onClick={() => handleDeleteEmployee(emp._id)}
                     color="error"
-                    startIcon={<Delete />}
                   >
                     Delete
                   </Button>

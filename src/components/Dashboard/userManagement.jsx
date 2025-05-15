@@ -81,20 +81,22 @@ const UsersTable = () => {
                 <TableCell>{user.role}</TableCell>
                 <TableCell align="right">
                   <Button
+                    variant="outlined"
                     color="primary"
-                    startIcon={<Visibility />}
                     onClick={() => openDialog(user, "view")}
                   >
                     View
                   </Button>
                   <Button
+                    variant="outlined"
                     color="primary"
-                    startIcon={<Edit />}
                     onClick={() => openDialog(user, "edit")}
+                    sx={{ mr: 1 }}
                   >
                     Update
                   </Button>
                   <Button
+                    variant="outlined"
                     onClick={() => deleteUser(user._id)}
                     color="error"
                     startIcon={<Delete />}

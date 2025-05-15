@@ -180,7 +180,7 @@ const BMPApplicationManager = () => {
                   <Tooltip title="View Details">
                     <IconButton
                       onClick={() => setViewApp(app)}
-                      color="primary"
+                      color="#ccc"
                       size="small"
                     >
                       <VisibilityIcon />
@@ -192,7 +192,7 @@ const BMPApplicationManager = () => {
                         setEditApp(app);
                         setIsEditing(false);
                       }}
-                      color="secondary"
+                      color="#ccc"
                       size="small"
                     >
                       <EditIcon />
@@ -201,7 +201,7 @@ const BMPApplicationManager = () => {
                   <Tooltip title="Delete">
                     <IconButton
                       onClick={() => deleteApplication(app._id)}
-                      color="error"
+                      color="#ccc"
                       size="small"
                       disabled={loading}
                     >

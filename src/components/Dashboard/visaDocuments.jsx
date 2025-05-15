@@ -115,15 +115,16 @@ function VisaDocumentsTable() {
               </TableCell>
               <TableCell>
                 <Button
+                  variant="outlined"
                   color="primary"
-                  startIcon={<Edit />}
                   onClick={() => handleOpen(visa)}
+                  sx={{ mr: 1 }}
                 >
                   Edit
                 </Button>
                 <Button
+                  variant="outlined"
                   color="error"
-                  startIcon={<Delete />}
                   onClick={() => handleDelete(visa._id)}
                 >
                   Delete

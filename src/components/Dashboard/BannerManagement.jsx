@@ -160,10 +160,10 @@ const BannerDashboard = () => {
                 )}
               </IconButton>
               <IconButton onClick={() => handleOpen("edit", banner)}>
-                <Edit color="primary" />
+                <Edit color="#ccc" />
               </IconButton>
               <IconButton onClick={() => handleDelete(banner._id)}>
-                <Delete color="error" />
+                <Delete color="#ccc" />
               </IconButton>
             </Box>
           </Stack>
