@@ -13,7 +13,6 @@ import {
   TextField,
   DialogActions,
 } from "@mui/material";
-import { Delete, Edit } from "@mui/icons-material";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

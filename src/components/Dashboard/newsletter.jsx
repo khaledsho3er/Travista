@@ -16,7 +16,7 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
-import { Add, Delete, Email } from "@mui/icons-material";
+import { Add } from "@mui/icons-material";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

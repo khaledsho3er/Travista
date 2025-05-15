@@ -12,7 +12,7 @@ import NewsletterManagement from "./newsletter";
 import FAQManagement from "./faqsManagement";
 import SocialMediaManagement from "./SocialMediaManagement";
 import VisaApplicationsTable from "./VisaLead";
-import ArticleList from "./Articles/ArticleList";
+// import ArticleList from "./Articles/ArticleList";
 // import BlogEditor from "./blogEditor";
 import CountryManagement from "./countries";
 import DashboardHero from "./Articles/HeroSection";

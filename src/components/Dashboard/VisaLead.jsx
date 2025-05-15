@@ -18,7 +18,6 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { Edit, Delete } from "@mui/icons-material";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

@@ -17,7 +17,7 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
-import { Edit, Delete, Visibility } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 
 const UsersTable = () => {
   const [users, setUsers] = useState([]);

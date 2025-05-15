@@ -195,12 +195,12 @@ const CreateTourForm = ({
       });
 
       // Set day number for new days
-      if (tourData.dailyPrograms && tourData.dailyPrograms.length > 0) {
-        setDay({
-          ...day,
-          dayNumber: tourData.dailyPrograms.length + 1,
-        });
-      }
+      setDay((prevDay) => ({
+        ...prevDay,
+        dayNumber: tourData.dailyPrograms && tourData.dailyPrograms.length > 0
+          ? tourData.dailyPrograms.length + 1
+          : 1,
+      }));
     }
   }, [tourData, isEditing]);
 
@@ -774,9 +774,21 @@ const CreateTourForm = ({
             )}
           </PriceSection>
 
-          <Button type="button" onClick={addDailyProgram}>
-            + Add Day Program
-          </Button>
+          {/* Update buttons based on whether we're editing or adding */}
+          {editingDayIndex !== null ? (
+            <Box sx={{ display: 'flex', gap: '10px', mt: 2 }}>
+              <Button type="button" onClick={updateDailyProgram}>
+                Update Day Program
+              </Button>
+              <Button type="button" className="secondary" onClick={cancelEditingDay}>
+                Cancel
+              </Button>
+            </Box>
+          ) : (
+            <Button type="button" onClick={addDailyProgram}>
+              + Add Day Program
+            </Button>
+          )}
         </DayProgram>
 
         {tour.dailyPrograms.length > 0 && (

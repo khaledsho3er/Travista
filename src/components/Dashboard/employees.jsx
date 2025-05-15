@@ -26,7 +26,6 @@ import { useEmployee } from "../../utils/empContext"; // Import your EmpContext
 import { MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Delete, Edit } from "@mui/icons-material";
 
 function Employees() {
   const { employee } = useEmployee(); // Get the logged-in employee from the context

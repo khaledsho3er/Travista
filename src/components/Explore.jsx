@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import SinglePackage from "../components/singlePackage"; // Import your SinglePackage component4
+import React, { useState, useEffect } from "react";
+import SinglePackage from "../components/singlePackage";
+import axios from "axios";
 import {
   Card,
   CardContent,
@@ -7,39 +8,105 @@ import {
   CardActions,
   Button,
   Box,
+  CircularProgress,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+// import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+// import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useNavigate } from "react-router-dom";
 
 const Explore = () => {
   const Navigate = useNavigate();
-  const [selectedPackage, setSelectedPackage] = useState(null); // State to track selected package
+  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [packages, setPackages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch packages from API
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("https://158.220.96.121/api/packages");
+
+        // Get the last two packages from the response
+        const specificPackages = response.data.slice(2, 4);
+        setPackages(specificPackages);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching packages:", err);
+        setError("Failed to load packages. Please try again later.");
+        setLoading(false);
+      }
+    };
+
+    fetchPackages();
+  }, []);
 
   const handlePackageClick = (pkg) => {
-    setSelectedPackage(pkg); // Set the clicked package
+    setSelectedPackage(pkg);
   };
-  const handlePackagesClick = (pkg) => {
-    Navigate("/packages"); // Set the clicked package
+
+  const handlePackagesClick = () => {
+    Navigate("/packages");
   };
-  const travelPackages = [
-    {
-      image: "/assets/explore.png",
-      date: "19th Sep",
-      destinations: "Amsterdam, Barcelona, Rome, Budapest, Vienna",
-      duration: "14 Days, 13 Nights",
-      price: "€2,990",
-    },
-    {
-      image: "/assets/explore.png",
-      date: "03rd Oct",
-      destinations: "Rome, Florence, Venice, Zurich, Paris",
-      duration: "13 Days, 12 Nights",
-      price: "€2,190",
-    },
-  ];
+
+  // Format date to display in a readable format
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  };
+
+  // Format currency with symbol
+  const formatPrice = (price) => {
+    const { amount, currency } = price;
+
+    const currencySymbols = {
+      USD: "$",
+      EUR: "€",
+      GBP: "£",
+      // Add more currencies as needed
+    };
+
+    const symbol = currencySymbols[currency] || currency;
+    return `${symbol}${amount.toLocaleString()}`;
+  };
+
+  if (loading) {
+    return (
+      <Box
+        className="explore-section container-padding"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "400px",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box
+        className="explore-section container-padding"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "400px",
+        }}
+      >
+        <Typography color="error">{error}</Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box className="explore-section container-padding">
@@ -55,7 +122,7 @@ const Explore = () => {
           Explore our packages
         </Typography>
 
-        <Box display="flex" gap="20px">
+        {/* <Box display="flex" gap="20px">
           <IconButton sx={{ background: "#ECEEE9" }}>
             <ArrowBackIcon />
           </IconButton>
@@ -63,7 +130,7 @@ const Explore = () => {
           <IconButton sx={{ background: "#ECEEE9" }}>
             <ArrowForwardIcon />
           </IconButton>
-        </Box>
+        </Box> */}
       </Box>
       <Box
         sx={{
@@ -71,86 +138,99 @@ const Explore = () => {
           justifyContent: "space-between",
           flexWrap: "nowrap",
           gap: "4%",
-          flexDirection: { xs: "column", sm: "row" }, // Mobile: column, larger screens: row
-          alignItems: { xs: "center", sm: "flex-start" }, // Centered on mobile
+          flexDirection: { xs: "column", sm: "row" },
+          alignItems: { xs: "center", sm: "flex-start" },
         }}
       >
-        {travelPackages.map((pkg, index) => (
-          <Card
-            className="explore-more-card"
-            key={index}
-            sx={{
-              backgroundImage: `url(${pkg.image})`,
-              backgroundSize: "cover",
-              width: { xs: "100%", sm: "65%" }, // Full width on mobile, 65% on larger screens
-              height: "750px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-end",
-              marginBottom: { xs: "20px", sm: "0" }, // Add margin between cards on mobile
-            }}
-          >
-            <IconButton
-              aria-label="add to favorites"
-              sx={{ position: "absolute", top: "15px", right: "15px" }}
-            >
-              <FavoriteBorderIcon
-                sx={{
-                  color: "white",
-                  fontSize: "2rem",
-                }}
-              />
-            </IconButton>
-
-            <CardContent
+        {packages.length > 0 ? (
+          packages.map((pkg, index) => (
+            <Card
+              className="explore-more-card"
+              key={pkg._id}
               sx={{
+                backgroundImage: `url(https://158.220.96.121/${pkg.packagePicture})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                width: { xs: "100%", sm: "65%" },
+                height: "750px",
                 display: "flex",
                 flexDirection: "column",
-                gap: "10px",
                 justifyContent: "flex-end",
+                marginBottom: { xs: "20px", sm: "0" },
+                position: "relative",
               }}
             >
-              <Typography
-                variant="body2"
+              <IconButton
+                aria-label="add to favorites"
+                sx={{ position: "absolute", top: "15px", right: "15px" }}
+              >
+                <FavoriteBorderIcon
+                  sx={{
+                    color: "white",
+                    fontSize: "2rem",
+                  }}
+                />
+              </IconButton>
+
+              <CardContent
                 sx={{
-                  color: "#750046",
-                  background: "white",
-                  padding: "5px",
-                  width: "fit-content",
-                  borderRadius: "5px",
-                  fontWeight: "700",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                  justifyContent: "flex-end",
+                  background: "rgba(0,0,0,0.5)",
+                  color: "white",
                 }}
               >
-                {pkg.date}
-              </Typography>
-              <Typography variant="h4" fontWeight="900">
-                {pkg.destinations}
-              </Typography>
-              <Typography
-                className="package-date"
-                variant="body1"
-                color="#A5A5A5"
-                fontSize="2rem"
-              >
-                {pkg.duration}
-              </Typography>
-              <Typography variant="h6" color="#FED7D2">
-                from {pkg.price}
-              </Typography>
-            </CardContent>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "#750046",
+                    background: "white",
+                    padding: "5px",
+                    width: "fit-content",
+                    borderRadius: "5px",
+                    fontWeight: "700",
+                  }}
+                >
+                  {formatDate(pkg.departureDate)}
+                </Typography>
+                <Typography variant="h4" fontWeight="900">
+                  {pkg.destinations.join(", ")}
+                </Typography>
+                <Typography
+                  className="package-date"
+                  variant="body1"
+                  color="#A5A5A5"
+                  fontSize="2rem"
+                >
+                  {pkg.totalDays} Days, {pkg.totalNights} Nights
+                </Typography>
+                <Typography variant="h6" color="#FED7D2">
+                  from {formatPrice(pkg.packagePrice)}
+                </Typography>
+              </CardContent>
 
-            <CardActions disableSpacing>
-              <Button
-                className="btn btn-secondary"
-                variant="contained"
-                sx={{ padding: "15px 80px !important" }}
-                onClick={() => handlePackageClick(pkg)}
-              >
-                Explore Trip
-              </Button>
-            </CardActions>
-          </Card>
-        ))}
+              <CardActions disableSpacing>
+                <Button
+                  className="btn btn-secondary"
+                  variant="contained"
+                  sx={{ padding: "15px 80px !important" }}
+                  onClick={() => handlePackageClick(pkg)}
+                >
+                  Explore Trip
+                </Button>
+              </CardActions>
+            </Card>
+          ))
+        ) : (
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "center", width: "100%", py: 4 }}
+          >
+            No packages available at the moment.
+          </Typography>
+        )}
       </Box>
       <Box textAlign="center" mt={4}>
         <Button
@@ -164,8 +244,8 @@ const Explore = () => {
       {selectedPackage && (
         <Box className="slide-up-modal show">
           <SinglePackage
-            tour={selectedPackage} // Pass selected package as props
-            onClose={() => setSelectedPackage(null)} // Clear selected package on close
+            tour={selectedPackage}
+            onClose={() => setSelectedPackage(null)}
           />
         </Box>
       )}

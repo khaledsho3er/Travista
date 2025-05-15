@@ -16,7 +16,7 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
-import { Add, Edit, Delete } from "@mui/icons-material";
+import { Add } from "@mui/icons-material";
 import axios from "axios";
 import Select from "react-select";
 import { toast, ToastContainer } from "react-toastify";
