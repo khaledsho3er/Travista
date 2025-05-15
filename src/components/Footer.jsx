@@ -47,10 +47,10 @@ function Footer() {
       defaultUrl: "https://instagram.com",
     },
     {
-      id: "twitter",
-      name: "Twitter",
+      id: "X",
+      name: "X",
       icon: XIcon,
-      defaultUrl: "https://twitter.com",
+      defaultUrl: "https://x.com",
     },
     {
       id: "linkedin",
