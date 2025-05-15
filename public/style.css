@@ -976,10 +976,11 @@ textarea.form-input {
 }
 
 .ApplyForVisa-header img {
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
   object-fit: cover;
   margin-right: 64px;
+  border-radius: 20px;
 }
 
 .ApplyForVisa-header h1 {

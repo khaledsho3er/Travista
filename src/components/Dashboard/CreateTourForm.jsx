@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -197,9 +197,10 @@ const CreateTourForm = ({
       // Set day number for new days
       setDay((prevDay) => ({
         ...prevDay,
-        dayNumber: tourData.dailyPrograms && tourData.dailyPrograms.length > 0
-          ? tourData.dailyPrograms.length + 1
-          : 1,
+        dayNumber:
+          tourData.dailyPrograms && tourData.dailyPrograms.length > 0
+            ? tourData.dailyPrograms.length + 1
+            : 1,
       }));
     }
   }, [tourData, isEditing]);
@@ -776,11 +777,15 @@ const CreateTourForm = ({
 
           {/* Update buttons based on whether we're editing or adding */}
           {editingDayIndex !== null ? (
-            <Box sx={{ display: 'flex', gap: '10px', mt: 2 }}>
+            <Box sx={{ display: "flex", gap: "10px", mt: 2 }}>
               <Button type="button" onClick={updateDailyProgram}>
                 Update Day Program
               </Button>
-              <Button type="button" className="secondary" onClick={cancelEditingDay}>
+              <Button
+                type="button"
+                className="secondary"
+                onClick={cancelEditingDay}
+              >
                 Cancel
               </Button>
             </Box>
