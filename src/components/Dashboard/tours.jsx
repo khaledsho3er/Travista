@@ -76,7 +76,7 @@ const ToursDashboard = () => {
   const handleMenuClose = (event) => {
     if (event) event.stopPropagation();
     setAnchorEl(null);
-    setMenuTour(null);
+    // Don't clear menuTour here to keep it available for delete/edit operations
   };
 
   const handleView = (event) => {
@@ -94,10 +94,16 @@ const ToursDashboard = () => {
   const handleDeleteClick = (event) => {
     event.stopPropagation();
     setShowDeleteConfirm(true);
-    handleMenuClose();
+    // Keep menuTour set for the delete confirmation
   };
 
   const handleDeleteConfirm = async () => {
+    if (!menuTour || !menuTour._id) {
+      toast.error("Error: Tour information is missing");
+      setShowDeleteConfirm(false);
+      return;
+    }
+
     try {
       await axios.delete(`https://158.220.96.121/api/tours/${menuTour._id}`);
       toast.success("Tour deleted successfully!");
@@ -107,13 +113,13 @@ const ToursDashboard = () => {
       console.error("Error deleting tour:", error);
     } finally {
       setShowDeleteConfirm(false);
-      setMenuTour(null);
+      setMenuTour(null); // Only clear menuTour after delete operation completes
     }
   };
 
   const handleDeleteCancel = () => {
     setShowDeleteConfirm(false);
-    setMenuTour(null);
+    // Don't clear menuTour here, only when closing the menu or completing an action
   };
 
   return (
@@ -196,14 +202,23 @@ const ToursDashboard = () => {
 
       {/* Delete Confirmation Dialog */}
       <Dialog
-        open={showDeleteConfirm}
+        open={showDeleteConfirm && menuTour !== null}
         onClose={handleDeleteCancel}
         PaperProps={{ sx: { borderRadius: "12px", padding: "8px" } }}
       >
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
-          Are you sure you want to delete the tour "{menuTour?.name}"? This
-          action cannot be undone.
+          {menuTour ? (
+            <p>
+              Are you sure you want to delete the tour "{menuTour.name}"? This
+              action cannot be undone.
+            </p>
+          ) : (
+            <p>
+              Are you sure you want to delete this tour? This action cannot be
+              undone.
+            </p>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteCancel} color="primary">

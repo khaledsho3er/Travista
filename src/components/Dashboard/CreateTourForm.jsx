@@ -151,6 +151,7 @@ const CreateTourForm = ({
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [editingDayIndex, setEditingDayIndex] = useState(null);
 
   const [tour, setTour] = useState({
     name: "",
@@ -333,6 +334,86 @@ const CreateTourForm = ({
     setDay((prev) => ({ ...prev, description: newDesc }));
   };
 
+  // New functions for editing existing days
+  const startEditingDay = (index) => {
+    setEditingDayIndex(index);
+    setDay(tour.dailyPrograms[index]);
+  };
+
+  const updateDailyProgram = () => {
+    if (!validateDayProgram(day)) return;
+
+    const updatedPrograms = [...tour.dailyPrograms];
+    updatedPrograms[editingDayIndex] = day;
+
+    setTour((prev) => ({
+      ...prev,
+      dailyPrograms: updatedPrograms,
+    }));
+
+    // Reset day form and editing state
+    setDay({
+      dayNumber: tour.dailyPrograms.length + 1,
+      title: "",
+      date: "",
+      city: "",
+      country: "",
+      description: [""],
+      price: {
+        included: true,
+        excluded: { adult: "", child: "" },
+      },
+    });
+    setEditingDayIndex(null);
+  };
+
+  const cancelEditingDay = () => {
+    setEditingDayIndex(null);
+    setDay({
+      dayNumber: tour.dailyPrograms.length + 1,
+      title: "",
+      date: "",
+      city: "",
+      country: "",
+      description: [""],
+      price: {
+        included: true,
+        excluded: { adult: "", child: "" },
+      },
+    });
+  };
+
+  const removeDay = (index) => {
+    if (window.confirm("Are you sure you want to remove this day?")) {
+      const updatedPrograms = [...tour.dailyPrograms];
+      updatedPrograms.splice(index, 1);
+
+      // Update day numbers for all subsequent days
+      for (let i = index; i < updatedPrograms.length; i++) {
+        updatedPrograms[i].dayNumber = i + 1;
+      }
+
+      setTour((prev) => ({
+        ...prev,
+        dailyPrograms: updatedPrograms,
+      }));
+
+      // If we were editing this day, cancel editing
+      if (editingDayIndex === index) {
+        cancelEditingDay();
+      } else if (editingDayIndex > index) {
+        // Adjust editing index if we removed a day before the one being edited
+        setEditingDayIndex(editingDayIndex - 1);
+      }
+
+      // Update the day number for new days
+      setDay((prev) => ({
+        ...prev,
+        dayNumber: updatedPrograms.length + 1,
+      }));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -400,9 +481,14 @@ const CreateTourForm = ({
     }
   };
 
+  // Format date for display
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split("T")[0];
+  };
+
   return (
     <>
-      {" "}
       <form onSubmit={handleSubmit}>
         <Typography variant="h5" mb={2}>
           {isEditing ? "Edit Tour" : "Add New Tour"}
@@ -497,8 +583,78 @@ const CreateTourForm = ({
           </FormGroup>
         </TwoColumnGrid>
 
+        {/* Display existing days with edit/delete options */}
+        {tour.dailyPrograms.length > 0 && (
+          <div style={{ marginBottom: "2rem" }}>
+            <Typography variant="h6" mb={2}>
+              Daily Programs
+            </Typography>
+            {tour.dailyPrograms.map((program, index) => (
+              <DayProgram key={index} style={{ position: "relative" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <DayTitle>
+                    Day {program.dayNumber}: {program.title}
+                  </DayTitle>
+                  <div>
+                    <Button
+                      type="button"
+                      onClick={() => startEditingDay(index)}
+                      disabled={editingDayIndex !== null}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      type="button"
+                      className="secondary"
+                      onClick={() => removeDay(index)}
+                      disabled={editingDayIndex !== null}
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                </div>
+                <p>Date: {formatDate(program.date)}</p>
+                <p>
+                  Location: {program.city}, {program.country}
+                </p>
+                <div>
+                  <h4 style={{ fontWeight: "bold", marginTop: "10px" }}>
+                    Description:
+                  </h4>
+                  <ul style={{ paddingLeft: "20px" }}>
+                    {program.description.map((desc, i) => (
+                      <li key={i}>{desc}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div style={{ marginTop: "10px" }}>
+                  <h4 style={{ fontWeight: "bold" }}>Price:</h4>
+                  {program.price.included ? (
+                    <p>Included in package</p>
+                  ) : (
+                    <div>
+                      <p>Adult: ${program.price.excluded.adult || "N/A"}</p>
+                      <p>Child: ${program.price.excluded.child || "N/A"}</p>
+                    </div>
+                  )}
+                </div>
+              </DayProgram>
+            ))}
+          </div>
+        )}
+
         <DayProgram>
-          <DayTitle>Add Daily Program (Day {day.dayNumber})</DayTitle>
+          <DayTitle>
+            {editingDayIndex !== null
+              ? `Edit Day ${day.dayNumber}`
+              : `Add Daily Program (Day ${day.dayNumber})`}
+          </DayTitle>
 
           <TwoColumnGrid>
             <FormGroup>
@@ -516,7 +672,11 @@ const CreateTourForm = ({
               <Input
                 type="date"
                 name="date"
-                value={day.date}
+                value={
+                  typeof day.date === "string" && day.date.includes("T")
+                    ? day.date.split("T")[0]
+                    : day.date
+                }
                 onChange={handleDayChange}
               />
             </FormGroup>
@@ -596,7 +756,7 @@ const CreateTourForm = ({
                     name="adult"
                     type="number"
                     placeholder="Enter adult price"
-                    value={day.price.excluded.adult}
+                    value={day.price.excluded.adult || ""}
                     onChange={handleDayChange}
                   />
                 </FormGroup>
@@ -606,7 +766,7 @@ const CreateTourForm = ({
                     name="child"
                     type="number"
                     placeholder="Enter child price"
-                    value={day.price.excluded.child}
+                    value={day.price.excluded.child || ""}
                     onChange={handleDayChange}
                   />
                 </FormGroup>

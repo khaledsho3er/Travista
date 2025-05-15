@@ -62,7 +62,6 @@ const TravistaSignUp = () => {
 
       if (!response.ok) throw new Error(data.message || "Signup failed");
 
-      alert("Signup successful!");
       navigate("/login");
     } catch (error) {
       console.error("Signup error:", error);
