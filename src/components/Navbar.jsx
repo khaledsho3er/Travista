@@ -31,49 +31,41 @@ const backgroundMap = {
   "/buildmypackagesteps": "light",
   "/blog": "light",
   "/applyforvisa": "light",
+  "/*": "light",
 };
 function Navbar() {
   const location = useLocation();
-  const { userSession } = useUser();
-  const [isLightBackground, setIsLightBackground] = useState(true);
-
-  const [scrolling, setScrolling] = useState(false); // Scroll state
   const navigate = useNavigate();
+  const { userSession } = useUser();
+
+  const [isLightBackground, setIsLightBackground] = useState(true);
+  const [scrolling, setScrolling] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleApplyForVisa = () => {
-    navigate("/applyforvisa"); // Navigate to Explore Packages page
+    navigate("/applyforvisa");
   };
   const handleBuildPackageClick = () => {
-    navigate("/buildmypackage"); // Navigate to Build My Package page
+    navigate("/buildmypackage");
   };
   const handleAboutUs = () => {
-    navigate("/About"); // Navigate to Explore Packages page
+    navigate("/About");
   };
   const handleCareers = () => {
-    navigate("/careers"); // Navigate to Explore Packages page
+    navigate("/careers");
   };
   const handleSignIn = () => {
-    navigate("/login"); // Navigate to Explore Packages page
+    navigate("/login");
   };
   const handleMyAccount = () => {
-    navigate("/account"); // Navigate to Explore Packages page
+    navigate("/account");
   };
-  const [isOpen, setIsOpen] = useState(false);
 
   // Update navbar state based on route
   useEffect(() => {
-    const currentPath = location.pathname;
-    const backgroundType = backgroundMap[currentPath] || "dark"; // Default to dark if undefined
+    const backgroundType = backgroundMap[location.pathname] || "dark";
     setIsLightBackground(backgroundType === "light");
   }, [location]);
-  const toggleDrawer = (open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-    setIsOpen(open);
-  };
 
   // Add scroll event listener to detect scrolling
   useEffect(() => {
@@ -89,6 +81,18 @@ function Navbar() {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setIsOpen(open);
+  };
+  const navColor = scrolling ? "white" : isLightBackground ? "black" : "white";
+  const handleNavigate = (path) => navigate(path);
 
   const sideList = () => (
     <Box
@@ -346,11 +350,7 @@ function Navbar() {
                   className="navbar-hide"
                   color="inherit"
                   sx={{
-                    color: scrolling
-                      ? "white"
-                      : isLightBackground
-                      ? "black"
-                      : "white", // Changes to white on scroll
+                    color: navColor,
                     transition: "color 0.3s ease-in-out",
                   }}
                 >
@@ -368,16 +368,8 @@ function Navbar() {
                     fontSize: "0.5rem",
                     border: "1px solid",
                     borderRadius: "20px",
-                    color: scrolling
-                      ? "white"
-                      : isLightBackground
-                      ? "black"
-                      : "white",
-                    borderColor: scrolling
-                      ? "white"
-                      : isLightBackground
-                      ? "black"
-                      : "white", // Border color change
+                    color: navColor,
+                    borderColor: navColor,
                     transition:
                       "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
                   }}
@@ -386,14 +378,7 @@ function Navbar() {
                     sx={{
                       marginRight: "5px",
                       fontSize: "1.2rem",
-                      color: scrolling
-                        ? "white"
-                        : isLightBackground
-                        ? "black"
-                        : "white", // Icon color change
-                      borderColor: scrolling
-                        ? "1px solid white"
-                        : "1px solid white",
+                      color: navColor,
                       transition: "color 0.3s ease-in-out",
                     }}
                   />
@@ -411,16 +396,8 @@ function Navbar() {
                     fontSize: "0.5rem",
                     border: "1px solid",
                     borderRadius: "20px",
-                    color: scrolling
-                      ? "white"
-                      : isLightBackground
-                      ? "black"
-                      : "white",
-                    borderColor: scrolling
-                      ? "white"
-                      : isLightBackground
-                      ? "black"
-                      : "white", // Border color change
+                    color: navColor,
+                    borderColor: navColor,
                     transition:
                       "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
                   }}
@@ -429,14 +406,8 @@ function Navbar() {
                     sx={{
                       marginRight: "5px",
                       fontSize: "1.2rem",
-                      color: scrolling
-                        ? "white"
-                        : isLightBackground
-                        ? "black"
-                        : "white", // Icon color change
-                      borderColor: scrolling
-                        ? "1px solid white"
-                        : "1px solid white",
+                      color: navColor,
+                      borderColor: navColor,
                       transition: "color 0.3s ease-in-out",
                     }}
                   />
@@ -452,11 +423,7 @@ function Navbar() {
               >
                 <MenuIcon
                   sx={{
-                    color: scrolling
-                      ? "white"
-                      : isLightBackground
-                      ? "black"
-                      : "white", // Menu icon changes dynamically
+                    color: navColor,
                     fontSize: "2rem",
                     transition: "color 0.3s ease-in-out",
                   }}
