@@ -172,7 +172,7 @@ function Sidebar({ setActiveSection }) {
               </button>
 
               {isExpanded && (
-                <div className="ml-3 pl-3 border-l border-gray-200">
+                <div className="ml-3 pl-3 border-l border-gray-200 mt-1 mb-2 bg-gray-50 rounded-lg py-2 px-1">
                   {category.items.map((item) => {
                     const Icon = item.icon;
                     const isActive = activeSection === item.id;
@@ -184,7 +184,7 @@ function Sidebar({ setActiveSection }) {
                         className={`flex items-center w-full text-left gap-3 p-2 rounded-lg mb-1 transition-colors ${
                           isActive
                             ? "bg-blue-50 text-blue-600"
-                            : "text-gray-600 hover:bg-gray-50"
+                            : "text-gray-600 hover:bg-gray-100"
                         }`}
                       >
                         <Icon className="h-4 w-4" />

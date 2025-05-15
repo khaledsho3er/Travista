@@ -140,7 +140,13 @@ const TwoColumnGrid = styled.div`
   }
 `;
 
-const CreateTourForm = ({ onClose }) => {
+const CreateTourForm = ({
+  onClose,
+  onCreated,
+  onUpdated,
+  tourData,
+  isEditing = false,
+}) => {
   const [categories, setCategories] = useState([]);
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
@@ -171,6 +177,31 @@ const CreateTourForm = ({ onClose }) => {
       },
     },
   });
+
+  // Initialize form with tour data if editing
+  useEffect(() => {
+    if (isEditing && tourData) {
+      // Format dates to YYYY-MM-DD for input fields
+      const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toISOString().split("T")[0];
+      };
+
+      setTour({
+        ...tourData,
+        startDate: formatDate(tourData.startDate),
+        endDate: formatDate(tourData.endDate),
+      });
+
+      // Set day number for new days
+      if (tourData.dailyPrograms && tourData.dailyPrograms.length > 0) {
+        setDay({
+          ...day,
+          dayNumber: tourData.dailyPrograms.length + 1,
+        });
+      }
+    }
+  }, [tourData, isEditing]);
 
   // Fetch categories, countries, cities
   useEffect(() => {
@@ -310,39 +341,60 @@ const CreateTourForm = ({ onClose }) => {
     setIsSubmitting(true);
 
     try {
-      await axios.post("https://158.220.96.121/api/tours", tour);
-      toast.success("Tour created successfully!");
+      if (isEditing) {
+        // Update existing tour
+        await axios.put(
+          `https://158.220.96.121/api/tours/${tourData._id}`,
+          tour
+        );
+        toast.success("Tour updated successfully!");
 
-      // Reset form
-      setTour({
-        name: "",
-        country: "",
-        city: "",
-        startDate: "",
-        endDate: "",
-        category: "",
-        dailyPrograms: [],
-      });
-      setDay({
-        dayNumber: 1,
-        title: "",
-        date: "",
-        city: "",
-        country: "",
-        description: [""],
-        price: {
-          included: true,
-          excluded: { adult: "", child: "" },
-        },
-      });
+        if (onUpdated) {
+          onUpdated();
+        }
+      } else {
+        // Create new tour
+        await axios.post("https://158.220.96.121/api/tours", tour);
+        toast.success("Tour created successfully!");
+
+        // Reset form
+        setTour({
+          name: "",
+          country: "",
+          city: "",
+          startDate: "",
+          endDate: "",
+          category: "",
+          dailyPrograms: [],
+        });
+        setDay({
+          dayNumber: 1,
+          title: "",
+          date: "",
+          city: "",
+          country: "",
+          description: [""],
+          price: {
+            included: true,
+            excluded: { adult: "", child: "" },
+          },
+        });
+
+        if (onCreated) {
+          onCreated();
+        }
+      }
 
       // Close form after 2 seconds if onClose prop is provided
       if (onClose) {
         setTimeout(() => onClose(), 2000);
       }
     } catch (error) {
-      console.error("Error creating tour:", error);
-      toast.error(error.response?.data?.message || "Failed to create tour");
+      console.error("Error saving tour:", error);
+      toast.error(
+        error.response?.data?.message ||
+          `Failed to ${isEditing ? "update" : "create"} tour`
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -353,7 +405,7 @@ const CreateTourForm = ({ onClose }) => {
       {" "}
       <form onSubmit={handleSubmit}>
         <Typography variant="h5" mb={2}>
-          Add New Tour
+          {isEditing ? "Edit Tour" : "Add New Tour"}
         </Typography>
         <TwoColumnGrid>
           <FormGroup>
@@ -582,7 +634,13 @@ const CreateTourForm = ({ onClose }) => {
 
         <div style={{ marginTop: "2rem", textAlign: "center" }}>
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Creating..." : "Create Tour"}
+            {isSubmitting
+              ? isEditing
+                ? "Updating..."
+                : "Creating..."
+              : isEditing
+              ? "Update Tour"
+              : "Create Tour"}
           </Button>
         </div>
       </form>
