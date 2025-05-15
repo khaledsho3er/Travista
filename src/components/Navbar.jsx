@@ -92,7 +92,6 @@ function Navbar() {
     setIsOpen(open);
   };
   const navColor = scrolling ? "white" : isLightBackground ? "black" : "white";
-  const handleNavigate = (path) => navigate(path);
 
   const sideList = () => (
     <Box
