@@ -30,7 +30,7 @@ const backgroundMap = {
   "/packages": "dark",
   "/buildmypackagesteps": "light",
   "/blog": "light",
-  "/applyforvisa": "light",
+  "/applyforvisa": "dark",
   "/*": "light",
 };
 function Navbar() {

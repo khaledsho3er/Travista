@@ -40,7 +40,7 @@ function ApplyForVisa() {
             Apply Now
           </button>
         </Box>
-        <img src="assets/ApplyForVisaHero.png" alt="ApplyForVisa" />
+        <img src="assets/visaapply.jpg" alt="ApplyForVisa" />
       </header>
       <section className="ApplyForVisa-content">
         <Box className="ApplyForVisa-faqs-section">
