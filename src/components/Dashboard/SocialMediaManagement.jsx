@@ -28,8 +28,10 @@ import {
   FaTwitter,
   FaLinkedin,
   FaYoutube,
+  FaTiktok,
   FaGlobe,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const SocialMediaManagement = () => {
   const [socials, setSocials] = useState([]);
@@ -75,8 +77,10 @@ const SocialMediaManagement = () => {
     if (url.includes("facebook.com")) return "Facebook";
     if (url.includes("instagram.com")) return "Instagram";
     if (url.includes("twitter.com")) return "Twitter";
+    if (url.includes("x.com")) return "X";
     if (url.includes("linkedin.com")) return "LinkedIn";
     if (url.includes("youtube.com")) return "YouTube";
+    if (url.includes("tiktok.com")) return "Tiktok";
     return "Website"; // Default if unknown
   };
 
@@ -93,9 +97,23 @@ const SocialMediaManagement = () => {
         return <FaLinkedin size={24} color="#0A66C2" />;
       case "YouTube":
         return <FaYoutube size={24} color="#FF0000" />;
+      case "Tiktok":
+        return <FaTiktok size={24} color="#000000" />;
+      case "X":
+        return <FaXTwitter size={24} color="#000000" />;
       default:
         return <FaGlobe size={24} color="#555" />;
     }
+  };
+
+  // Add a function to check if platform already exists
+  const platformExists = (url) => {
+    const platform = getPlatformFromUrl(url);
+    return socials.some(
+      (social) =>
+        social.platform.toLowerCase() === platform.toLowerCase() &&
+        (!selectedSocial || social.socialId !== selectedSocial.socialId)
+    );
   };
 
   // Save (Add or Update) social media link
@@ -106,6 +124,14 @@ const SocialMediaManagement = () => {
     }
 
     const platform = getPlatformFromUrl(socialData.url);
+
+    // Check if platform already exists (for new entries only)
+    if (!selectedSocial && platformExists(socialData.url)) {
+      toast.error(
+        `A link for ${platform} already exists. Please edit the existing one instead.`
+      );
+      return;
+    }
 
     try {
       if (selectedSocial) {
@@ -124,7 +150,11 @@ const SocialMediaManagement = () => {
       fetchSocials();
       handleClose();
     } catch (error) {
-      toast.error("Error saving social media link");
+      if (error.response && error.response.status === 409) {
+        toast.error(`This platform already exists in the database.`);
+      } else {
+        toast.error("Error saving social media link");
+      }
     }
   };
 

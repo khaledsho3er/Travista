@@ -129,11 +129,13 @@ function Sidebar({ setActiveSection }) {
   };
 
   const toggleCategory = (categoryId) => {
-    setExpandedCategories((prev) =>
-      prev.includes(categoryId)
-        ? prev.filter((id) => id !== categoryId)
-        : [...prev, categoryId]
-    );
+    if (expandedCategories.includes(categoryId)) {
+      // If clicking on an already open category, close it
+      setExpandedCategories((prev) => prev.filter((id) => id !== categoryId));
+    } else {
+      // If opening a new category, close all others and open only this one
+      setExpandedCategories([categoryId]);
+    }
   };
 
   const handleLogout = () => {

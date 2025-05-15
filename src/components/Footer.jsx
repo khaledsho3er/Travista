@@ -20,7 +20,8 @@ import XIcon from "@mui/icons-material/X";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import CloseIcon from "@mui/icons-material/Close";
-import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
+import { FaTiktok, FaGlobe } from "react-icons/fa";
+
 import axios from "axios";
 
 function Footer() {
@@ -62,6 +63,13 @@ function Footer() {
       name: "YouTube",
       icon: YouTubeIcon,
       defaultUrl: "https://youtube.com",
+    },
+    {
+      id: "tiktok",
+      name: "Tiktok",
+      icon: FaTiktok,
+      defaultUrl: "https://tiktok.com",
+      color: "#000000",
     },
   ];
 
@@ -137,12 +145,28 @@ function Footer() {
     );
     return defaultPlatform ? defaultPlatform.defaultUrl : "#";
   };
+  // Get the correct icon for a platform
+  const getIcon = (platform) => {
+    const platformObj = allPlatforms.find(
+      (p) =>
+        p.name.toLowerCase() === platform.toLowerCase() ||
+        p.id === platform.toLowerCase()
+    );
 
+    if (platformObj) {
+      const Icon = platformObj.icon;
+      return <Icon size={24} color={platformObj.color} />;
+    }
+
+    // Default icon for unknown platforms
+    return <FaGlobe size={24} color="#555" />;
+  };
   // Render all social media icons
   const renderSocialIcons = () => {
-    return allPlatforms.map((platform) => {
-      const Icon = platform.icon;
+    // First, render all predefined platforms
+    const renderedPlatforms = allPlatforms.map((platform) => {
       const url = getSocialUrl(platform.name);
+      const Icon = platform.icon;
 
       return (
         <a
@@ -171,12 +195,53 @@ function Footer() {
             e.currentTarget.style.transform = "translateY(0)";
           }}
         >
-          <Icon />
+          <Icon size={24} color={platform.color} />
         </a>
       );
     });
-  };
 
+    // Then, add any additional platforms from the database that aren't in our predefined list
+    const predefinedPlatformNames = allPlatforms.map((p) =>
+      p.name.toLowerCase()
+    );
+
+    const additionalPlatforms = socialLinks
+      .filter(
+        (link) => !predefinedPlatformNames.includes(link.platform.toLowerCase())
+      )
+      .map((link) => (
+        <a
+          key={link._id}
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            textDecoration: "none",
+            color: "inherit",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "40px",
+            height: "40px",
+            borderRadius: "50%",
+            backgroundColor: "rgba(0,0,0,0.05)",
+            transition: "all 0.3s ease",
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.1)";
+            e.currentTarget.style.transform = "translateY(-3px)";
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.05)";
+            e.currentTarget.style.transform = "translateY(0)";
+          }}
+        >
+          {getIcon(link.platform)}
+        </a>
+      ));
+
+    return [...renderedPlatforms, ...additionalPlatforms];
+  };
   return (
     <Box className="footer">
       <Box className="footer-title">
@@ -198,7 +263,21 @@ function Footer() {
         <Button
           className="btn btn-primary btn-black"
           onClick={handleSubscribe}
-          disabled={subscribing || !email}
+          disabled={subscribing}
+          sx={{
+            color: "white",
+            backgroundColor: "#000",
+            "&:hover": {
+              backgroundColor: "var(--maroon)",
+            },
+            "&:disabled": {
+              color: "rgba(255, 255, 255, 0.5)",
+              backgroundColor: "#555",
+            },
+            padding: "10px 20px",
+            borderRadius: "4px",
+            minWidth: "120px",
+          }}
         >
           {subscribing ? "Subscribing..." : "Subscribe"}
         </Button>
@@ -347,7 +426,11 @@ function Footer() {
                 marginBottom: "16px",
               }}
             >
-              <MarkEmailReadIcon sx={{ fontSize: "40px", color: "green" }} />
+              <img
+                src="/assets/mail.gif"
+                alt="Email Sent"
+                style={{ width: "100%", height: "100%" }}
+              />{" "}
             </Box>
             <Typography variant="body1" sx={{ marginBottom: "8px" }}>
               Thank you for subscribing to our newsletter!
