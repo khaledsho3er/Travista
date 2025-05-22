@@ -29,7 +29,7 @@ const backgroundMap = {
   "/signup": "light",
   "/packages": "dark",
   "/buildmypackagesteps": "light",
-  "/blog": "light",
+  "/Blogs": "light",
   "/applyforvisa": "dark",
   "/*": "light",
 };
@@ -170,7 +170,7 @@ function Navbar() {
             }}
             onClick={handleCareers}
           >
-            <Link className="nav-link" to="offices">
+            <Link className="nav-link" to="contactus">
               Our Offices <ArrowOutwardIcon fontSize="2rem" />
             </Link>
           </Button>

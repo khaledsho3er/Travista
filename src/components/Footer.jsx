@@ -333,7 +333,7 @@ function Footer() {
           <Link to="/contactus">Help Center</Link>
         </ListItem>
         <ListItem>
-          <Link to="/contactus">FAQs</Link>
+          <Link to="/faqs">FAQs</Link>
         </ListItem>
         <ListItem>
           <Link to="/policies">Privacy Policy</Link>

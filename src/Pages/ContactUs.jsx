@@ -79,6 +79,9 @@ const SubmitButton = styled(Button)(({ theme }) => ({
     boxShadow: "0 6px 16px rgba(117, 0, 70, 0.3)",
     transform: "translateY(-2px)",
   },
+  "& .MuiButton-label": {
+    color: "white",
+  },
 }));
 
 function ContactUs() {

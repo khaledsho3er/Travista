@@ -702,6 +702,9 @@
     border-radius: 8px;
     overflow: hidden;
   }
+  .careers-header .overlay-photo {
+    top: 39%;
+  }
 }
 /*Build my package*/
 /* Responsive Styles */
@@ -712,9 +715,10 @@
     padding-top: 122px;
   }
   .build-my-package-header {
-    flex-direction: column;
+    flex-direction: row;
     align-items: left;
     padding: 2rem;
+    margin-left: 0;
   }
 
   .build-my-package-header img {
@@ -755,6 +759,8 @@
 
   .Build-my-package-steps-container {
     gap: 100px;
+    flex-direction: row;
+    padding: 2rem;
   }
   .contact-us-header-titles {
     padding: 3rem 1rem;
@@ -827,7 +833,14 @@
     margin-bottom: 1.5rem;
   }
 }
-
+@media (max-width: 2560px) {
+  .build-my-package-header .overlay-photo {
+    left: 2141px;
+  }
+  .careers-header .overlay-photo {
+    top: 20.5%;
+  }
+}
 @media (max-width: 480px) {
   .build-my-package-hero {
     padding-left: 70px;
