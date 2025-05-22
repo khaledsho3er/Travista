@@ -215,12 +215,7 @@ function Navbar() {
             marginBottom: "25px",
           }}
         >
-          <Typography
-            variant="h6"
-            margin="25px 0"
-            color={"#777777"}
-            gutterBottom
-          >
+          <Typography variant="h6" margin="25px 0" color={"white"} gutterBottom>
             Latest blog
           </Typography>
 

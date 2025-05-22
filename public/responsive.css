@@ -569,7 +569,7 @@
   .build-my-package-header {
     padding-top: 28px;
     text-align: left;
-    margin-left: -100px;
+    margin-left: 0px;
   }
 
   .build-my-package-header img {
@@ -839,6 +839,9 @@
   }
   .careers-header .overlay-photo {
     top: 20.5%;
+  }
+  .BMP-steps-hero-content-container {
+    gap: 290px;
   }
 }
 @media (max-width: 480px) {
