@@ -8,15 +8,20 @@ import {
   Paper,
   Grid,
   CssBaseline,
+  IconButton,
 } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../utils/userContext";
+
 const TravistaSignIn = () => {
   const navigate = useNavigate();
-  const { userSession, setUserSession } = useUser(); // Get userSession setter from context
+  const { userSession, setUserSession } = useUser();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,7 +40,7 @@ const TravistaSignIn = () => {
       });
 
       const data = await response.json();
-      console.log("Full API Response:", data); // 🔍 Log everything
+      console.log("Full API Response:", data);
 
       if (!response.ok) throw new Error(data.message || "Login failed");
 
@@ -54,12 +59,15 @@ const TravistaSignIn = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <>
       <Navbar />
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
-        {/* Image Section */}
         <Grid
           item
           xs={12}
@@ -74,7 +82,6 @@ const TravistaSignIn = () => {
           }}
         ></Grid>
 
-        {/* Form Section */}
         <Grid
           item
           xs={12}
@@ -104,7 +111,6 @@ const TravistaSignIn = () => {
               Manage your booked trips, tours, and profile information.
             </Typography>
 
-            {/* Login Form */}
             <Box
               component="form"
               onSubmit={handleSubmit}
@@ -136,13 +142,23 @@ const TravistaSignIn = () => {
                 sx={{ width: { xs: "90%", sm: "50%", borderRadius: "50px" } }}
                 name="password"
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={formData.password}
                 onChange={handleChange}
                 autoComplete="current-password"
+                InputProps={{
+                  endAdornment: (
+                    <IconButton onClick={togglePasswordVisibility}>
+                      {showPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  ),
+                }}
               />
 
-              {/* Show error message */}
               {error && <Typography color="error">{error}</Typography>}
 
               <Button

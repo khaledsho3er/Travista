@@ -66,7 +66,7 @@ function CareersPage() {
         </Typography>
         <Box className="careers-core-values-grid">
           <Box className="careers-core-value">
-            <img src="assets/careers/keyicon.png" alt="Continually Improve" />
+            <img src="assets/keyicon.png" alt="Continually Improve" />
             <div>
               <h3>Take ownership.</h3>
               <p>
@@ -76,7 +76,7 @@ function CareersPage() {
             </div>
           </Box>
           <Box className="careers-core-value">
-            <img src="assets/careers/planticon.png" alt="Continually Improve" />
+            <img src="assets/planticon.png" alt="Continually Improve" />
             <div>
               <h3>Continually improve.</h3>
               <p>

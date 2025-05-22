@@ -330,10 +330,10 @@ function Footer() {
           </Typography>
         </ListItem>
         <ListItem>
-          <Link to="/help">Help Center</Link>
+          <Link to="/contactus">Help Center</Link>
         </ListItem>
         <ListItem>
-          <Link to="/faqs">FAQs</Link>
+          <Link to="/contactus">FAQs</Link>
         </ListItem>
         <ListItem>
           <Link to="/policies">Privacy Policy</Link>

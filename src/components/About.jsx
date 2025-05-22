@@ -41,7 +41,11 @@ function About() {
         className="about-cards"
       >
         <Card sx={{ background: "none", border: "none", boxShadow: "none" }}>
-          <img src="/assets/icon-1.png" alt="figure-1" />
+          <img
+            src="/assets/icon-1.png"
+            alt="figure-1"
+            style={{ display: "inline" }}
+          />
           <Typography variant="h4" fontWeight="800">
             Curated experiences
           </Typography>
@@ -57,7 +61,11 @@ function About() {
         </Card>
 
         <Card sx={{ background: "none", border: "none", boxShadow: "none" }}>
-          <img src="/assets/icon-2.png" alt="figure-1" />
+          <img
+            src="/assets/icon-2.png"
+            alt="figure-1"
+            style={{ display: "inline" }}
+          />
           <Typography variant="h4" fontWeight="800">
             Trips all year long
           </Typography>
@@ -73,7 +81,11 @@ function About() {
         </Card>
 
         <Card sx={{ background: "none", border: "none", boxShadow: "none" }}>
-          <img src="/assets/icon-3.png" alt="figure-1" />
+          <img
+            src="/assets/icon-3.png"
+            alt="figure-1"
+            style={{ display: "inline" }}
+          />
           <Typography variant="h4" fontWeight="800">
             Travel on budget
           </Typography>

@@ -60,7 +60,9 @@ function Navbar() {
   const handleMyAccount = () => {
     navigate("/account");
   };
-
+  const navigateToBlogs = () => {
+    navigate("/Blogs");
+  };
   // Update navbar state based on route
   useEffect(() => {
     const backgroundType = backgroundMap[location.pathname] || "dark";
@@ -224,6 +226,7 @@ function Navbar() {
 
           <Box>
             <Button
+              onClick={navigateToBlogs}
               sx={{
                 color: "black",
                 background: "white",
@@ -231,6 +234,11 @@ function Navbar() {
                 p: "10px 20px",
                 fontWeight: 600,
                 fontSize: "0.7rem",
+                "&:hover": {
+                  backgroundColor: "#f0f0f0",
+                  transform: "scale(1.05)",
+                  transition: "all 0.3s ease-in-out",
+                },
               }}
             >
               Discover Blog +

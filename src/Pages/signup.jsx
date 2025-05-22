@@ -27,7 +27,10 @@ const TravistaSignUp = () => {
     confirmPassword: "",
   });
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    confirmPassword: false,
+  });
   const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -52,8 +55,8 @@ const TravistaSignUp = () => {
           lastName: formData.lastName,
           email: formData.email,
           password: formData.password,
-          phoneNumber: formData.phoneNumber, // Fix the field name
-          birthDate: formData.birthDate || null, // Optional
+          phoneNumber: formData.phoneNumber,
+          birthDate: formData.birthDate || null,
         }),
       });
 
@@ -69,30 +72,32 @@ const TravistaSignUp = () => {
     }
   };
 
-  const handleClickShowPassword = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
+  const handleClickShowPassword = (field) => {
+    setShowPassword((prevState) => ({
+      ...prevState,
+      [field]: !prevState[field],
+    }));
   };
+
   return (
     <>
-      <Navbar />{" "}
+      <Navbar />
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
-        {/* Image Section */}
         <Grid
           item
           xs={12}
           sm={4}
           md={5}
           sx={{
-            backgroundImage: "url(/assets/Image.png)", // Correct URL for public assets
+            backgroundImage: "url(/assets/Image.png)",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            height: { xs: "30vh", sm: "100vh" }, // Reduce height on mobile
+            height: { xs: "30vh", sm: "100vh" },
           }}
         ></Grid>
 
-        {/* Form Section */}
         <Grid
           item
           xs={12}
@@ -102,7 +107,7 @@ const TravistaSignUp = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            textAlign: { xs: "center", sm: "left" }, // Center align for mobile
+            textAlign: { xs: "center", sm: "left" },
             padding: { xs: 2, sm: 4 },
           }}
         >
@@ -115,7 +120,6 @@ const TravistaSignUp = () => {
               padding: 4,
             }}
           >
-            {/* Title */}
             <Typography
               variant="h4"
               fontWeight="bold"
@@ -125,7 +129,6 @@ const TravistaSignUp = () => {
               Create Account
             </Typography>
 
-            {/* Subtitle */}
             <Typography
               variant="body2"
               color="textSecondary"
@@ -136,7 +139,6 @@ const TravistaSignUp = () => {
               information.
             </Typography>
 
-            {/* Form */}
             <Box component="form" noValidate onSubmit={handleSubmit}>
               <Box
                 sx={{
@@ -149,6 +151,7 @@ const TravistaSignUp = () => {
                 <TextField
                   size="small"
                   margin="normal"
+                  label="First Name"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
@@ -156,6 +159,7 @@ const TravistaSignUp = () => {
                 <TextField
                   size="small"
                   margin="normal"
+                  label="Last Name"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
@@ -196,14 +200,16 @@ const TravistaSignUp = () => {
                 sx={{ width: "100%", mb: 2 }}
                 label="Password"
                 name="password"
-                type="password"
+                type={showPassword.password ? "text" : "password"}
                 value={formData.password}
                 onChange={handleChange}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton onClick={handleClickShowPassword}>
-                        {showPassword ? (
+                      <IconButton
+                        onClick={() => handleClickShowPassword("password")}
+                      >
+                        {showPassword.password ? (
                           <VisibilityIcon />
                         ) : (
                           <VisibilityOffIcon />
@@ -220,13 +226,23 @@ const TravistaSignUp = () => {
                 sx={{ width: "100%", mb: 2 }}
                 label="Confirm password"
                 name="confirmPassword"
-                type="password"
+                type={showPassword.confirmPassword ? "text" : "password"}
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <VisibilityIcon />
+                      <IconButton
+                        onClick={() =>
+                          handleClickShowPassword("confirmPassword")
+                        }
+                      >
+                        {showPassword.confirmPassword ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </IconButton>
                     </InputAdornment>
                   ),
                 }}
