@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Slider, Typography } from "@mui/material";
+import currencyCodes from "currency-codes";
 
 function StepTwo({
   departureCountry,
@@ -17,6 +18,40 @@ function StepTwo({
   nights,
   setNights,
 }) {
+  const [currency, setCurrency] = useState("EUR"); // moved here
+  const [currencySymbol, setCurrencySymbol] = useState("€");
+  const [currencyList, setCurrencyList] = useState([]);
+  const currencySymbols = {
+    USD: "$",
+    EUR: "€",
+    GBP: "£",
+    EGP: "£",
+    JPY: "¥",
+    INR: "₹",
+    AUD: "A$",
+    CAD: "C$",
+    CNY: "¥",
+    AED: "د.إ",
+    // Add more as needed
+  };
+  useEffect(() => {
+    // Get unique currency codes
+    const uniqueCurrencies = currencyCodes.data
+      .filter(
+        (c, index, self) => self.findIndex((x) => x.code === c.code) === index
+      )
+      .map((c) => ({
+        code: c.code,
+        name: c.currency,
+      }));
+
+    setCurrencyList(uniqueCurrencies);
+  }, []);
+
+  useEffect(() => {
+    setCurrencySymbol(currencySymbols[currency] || currency);
+  }, [currency]);
+
   const handleBudgetChange = (event, newValue) => {
     setBudget(newValue);
   };
@@ -75,7 +110,20 @@ function StepTwo({
           </div>
         </Box>
       </Box>
-
+      <Box className="step-two-container-input-group" sx={{ mt: 2 }}>
+        <label>Select Currency</label>
+        <select
+          className="step-two-container-dropdown"
+          value={currency}
+          onChange={(e) => setCurrency(e.target.value)}
+        >
+          {currencyList.map((c) => (
+            <option key={c.code} value={c.code}>
+              {c.name} ({c.code})
+            </option>
+          ))}
+        </select>
+      </Box>
       <Box className="budget-slider-container">
         {/* Label */}
         <Box className="budget-slider-label">
@@ -84,7 +132,8 @@ function StepTwo({
           </Typography>
 
           <Typography variant="subtitle2" className="budget-slider-current">
-            €{budget}/ Person
+            {currencySymbol}
+            {budget}/ Person
           </Typography>
         </Box>
 
@@ -100,7 +149,7 @@ function StepTwo({
             valueLabelDisplay="off" // Disable default value label
             componentsProps={{
               thumb: {
-                "data-value": `€${budget}`, // Pass budget value dynamically
+                "data-value": `${currencySymbol}${budget}`, // Pass budget value dynamically
               },
             }}
             sx={{
