@@ -71,7 +71,7 @@ const SubmitButton = styled(Button)(({ theme }) => ({
   textTransform: "none",
   fontSize: "1rem",
   backgroundColor: "#750046",
-  color: "white",
+  color: "white !important",
   transition: "all 0.3s ease",
   boxShadow: "0 4px 12px rgba(117, 0, 70, 0.2)",
   "&:hover": {
@@ -80,7 +80,10 @@ const SubmitButton = styled(Button)(({ theme }) => ({
     transform: "translateY(-2px)",
   },
   "& .MuiButton-label": {
-    color: "white",
+    color: "white !important",
+  },
+  "&:disabled": {
+    color: "white !important",
   },
 }));
 

@@ -125,8 +125,9 @@ function PackagesTours() {
                           top: "10px",
                           right: "10px",
                           color: "white",
+                          zIndex: 1000,
                           "&:hover": {
-                            color: "red",
+                            color: "var(--maroon)",
                           },
                         }}
                       >

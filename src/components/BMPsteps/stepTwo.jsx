@@ -21,7 +21,6 @@ function StepTwo({
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [currency, setCurrency] = useState("EUR"); // moved here
   const [currencySymbol, setCurrencySymbol] = useState("€");
   const [currencyList, setCurrencyList] = useState([]);
@@ -50,7 +49,6 @@ function StepTwo({
         setLoading(false);
       } catch (error) {
         console.error("Error fetching countries:", error);
-        setError("Failed to load countries");
         setLoading(false);
       }
     };
@@ -65,12 +63,12 @@ function StepTwo({
         setLoading(true);
         // Find the country ID from the selected country name
         const selectedCountryObj = countries.find(
-          (c) => c.name === departureCountry
+          (c) => c._id === departureCountry
         );
 
         if (selectedCountryObj) {
           const response = await axios.get(
-            `https://158.220.96.121/api/cities/country/${selectedCountryObj.countryId}`
+            `https://158.220.96.121/api/cities/country/${selectedCountryObj._id}`
           );
           setCities(response.data);
         }
