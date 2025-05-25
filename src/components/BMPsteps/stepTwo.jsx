@@ -55,15 +55,16 @@ function StepTwo({
 
     fetchCountries();
   }, []);
+  // Fetch cities when country changes
   useEffect(() => {
     const fetchCities = async () => {
       if (!departureCountry) return;
 
       try {
         setLoading(true);
-        // Find the country ID from the selected country name
+        // Find the country object from the selected country name
         const selectedCountryObj = countries.find(
-          (c) => c._id === departureCountry
+          (c) => c.name === departureCountry
         );
 
         if (selectedCountryObj) {
