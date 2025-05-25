@@ -35,7 +35,7 @@ const SuccessDialog = ({
     if (open) {
       setAnimationComplete(false);
     }
-  }, [open]);
+  }, [open, animationComplete]);
 
   // Define default messages based on form type
   const getDefaultContent = () => {

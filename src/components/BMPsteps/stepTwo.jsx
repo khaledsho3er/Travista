@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Slider, Typography } from "@mui/material";
 import currencyCodes from "currency-codes";
-
+import axios from "axios";
 function StepTwo({
   departureCountry,
   setDepartureCountry,
@@ -18,6 +18,10 @@ function StepTwo({
   nights,
   setNights,
 }) {
+  const [countries, setCountries] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [currency, setCurrency] = useState("EUR"); // moved here
   const [currencySymbol, setCurrencySymbol] = useState("€");
   const [currencyList, setCurrencyList] = useState([]);
@@ -34,6 +38,51 @@ function StepTwo({
     AED: "د.إ",
     // Add more as needed
   };
+  // Fetch countries from API
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          "https://158.220.96.121/api/countries"
+        );
+        setCountries(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching countries:", error);
+        setError("Failed to load countries");
+        setLoading(false);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+  useEffect(() => {
+    const fetchCities = async () => {
+      if (!departureCountry) return;
+
+      try {
+        setLoading(true);
+        // Find the country ID from the selected country name
+        const selectedCountryObj = countries.find(
+          (c) => c.name === departureCountry
+        );
+
+        if (selectedCountryObj) {
+          const response = await axios.get(
+            `https://158.220.96.121/api/cities/country/${selectedCountryObj.countryId}`
+          );
+          setCities(response.data);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchCities();
+  }, [departureCountry, countries]);
   useEffect(() => {
     // Get unique currency codes
     const uniqueCurrencies = currencyCodes.data
@@ -67,24 +116,27 @@ function StepTwo({
           className="step-two-container-dropdown"
           value={departureCountry}
           onChange={(e) => setDepartureCountry(e.target.value)}
+          disabled={loading}
         >
           <option value="">Departure country</option>
-          <option value="Egypt">Egypt</option>
-          <option value="USA">USA</option>
-          <option value="UK">UK</option>
-          {/* Add more countries as needed */}
+          {countries.map((country) => (
+            <option key={country.countryId} value={country.name}>
+              {country.name}
+            </option>
+          ))}
         </select>
         <select
           className="step-two-container-dropdown"
           value={departureCity}
           onChange={(e) => setDepartureCity(e.target.value)}
+          disabled={loading}
         >
           <option value="">Departure city</option>
-          <option value="Cairo">Cairo</option>
-          <option value="Alexandria">Alexandria</option>
-          <option value="New York">New York</option>
-          <option value="London">London</option>
-          {/* Add more cities as needed */}
+          {cities.map((city) => (
+            <option key={city.cityId} value={city.name}>
+              {city.name}
+            </option>
+          ))}
         </select>
       </Box>
 
@@ -111,7 +163,6 @@ function StepTwo({
         </Box>
       </Box>
       <Box className="step-two-container-input-group" sx={{ mt: 2 }}>
-        <label>Select Currency</label>
         <select
           className="step-two-container-dropdown"
           value={currency}
@@ -132,7 +183,7 @@ function StepTwo({
           </Typography>
 
           <Typography variant="subtitle2" className="budget-slider-current">
-            {currencySymbol}
+            <strong>{currencySymbol}</strong>
             {budget}/ Person
           </Typography>
         </Box>
@@ -149,7 +200,10 @@ function StepTwo({
             valueLabelDisplay="off" // Disable default value label
             componentsProps={{
               thumb: {
-                "data-value": `${currencySymbol}${budget}`, // Pass budget value dynamically
+                "data-value":
+                  currencySymbol.length > 3
+                    ? `${budget}`
+                    : `${currencySymbol}${budget}`, // Pass budget value dynamically
               },
             }}
             sx={{

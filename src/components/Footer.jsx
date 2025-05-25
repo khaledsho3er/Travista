@@ -104,10 +104,9 @@ function Footer() {
 
     try {
       // Call the newsletter subscription API
-      const response = await axios.post(
-        "https://158.220.96.121/api/newsletter/subscribe",
-        { email }
-      );
+      await axios.post("https://158.220.96.121/api/newsletter/subscribe", {
+        email,
+      });
 
       // Show success dialog
       setOpenDialog(true);

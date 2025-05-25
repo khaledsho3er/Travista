@@ -833,14 +833,16 @@
   }
 }
 @media (max-width: 2560px) {
-  .build-my-package-header .overlay-photo {
-    left: 2141px;
-  }
   .careers-header .overlay-photo {
     top: 20.5%;
   }
   .BMP-steps-hero-content-container {
     gap: 290px;
+  }
+}
+@media (min-width: 2560px) {
+  .build-my-package-header .overlay-photo {
+    left: 2141px;
   }
 }
 @media (max-width: 480px) {

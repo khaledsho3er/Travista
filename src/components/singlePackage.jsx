@@ -1121,12 +1121,18 @@ function SinglePackage({ tour, onClose }) {
               },
             }}
           />
-          <Box sx={{ display: "flex", gap: 4 }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: isSmallScreen ? "column" : "row",
+              gap: isSmallScreen ? "15px" : "32px",
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "left",
+                alignItems: isSmallScreen ? "center" : "left",
                 color: "#777777",
                 fontSize: "20px",
               }}
@@ -1187,7 +1193,7 @@ function SinglePackage({ tour, onClose }) {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "left",
+                alignItems: isSmallScreen ? "center" : "left",
                 color: "#777777",
                 fontSize: "20px",
               }}
@@ -1285,9 +1291,10 @@ function SinglePackage({ tour, onClose }) {
             sx={{
               type: "submit",
               backgroundColor: "#142328",
-              width: isSmallScreen ? "100%" : "30%",
+              width: isSmallScreen ? "140px" : "30%",
+              height: isSmallScreen ? "50px" : "auto",
               padding: "12px",
-              borderRadius: "25px",
+              borderRadius: isSmallScreen ? "8px" : "25px",
               fontWeight: "bold",
               textTransform: "none",
               color: "#ffffff",

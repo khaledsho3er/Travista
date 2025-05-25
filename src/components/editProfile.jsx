@@ -3,12 +3,11 @@ import { Box, TextField, Typography, Button } from "@mui/material";
 import axios from "axios";
 import { useUser } from "../utils/userContext"; // Import User Context
 import { useNavigate } from "react-router-dom";
-import TravistaLoading from "./loading"; // Import your loading screen
 
 const EditProfile = () => {
   const { userSession, setUserSession, logout } = useUser(); // Get user session & logout function
   const [isEditing, setIsEditing] = useState(false);
-  const [isLoggingOut, setIsLoggingOut] = useState(false); // Loading state for logout
+  const [setIsLoggingOut] = useState(false); // Loading state for logout
   const [editedData, setEditedData] = useState({
     firstName: userSession?.firstName || "",
     lastName: userSession?.lastName || "",
@@ -70,114 +69,110 @@ const EditProfile = () => {
 
   return (
     <>
-      {isLoggingOut ? (
-        <TravistaLoading /> // Show your custom loading page while logging out
-      ) : (
-        <Box sx={{ maxWidth: "500px", margin: "auto", mt: 3 }}>
-          <Typography variant="h5" sx={{ fontWeight: "bold", mb: 2 }}>
-            Edit Profile
+      <Box sx={{ maxWidth: "500px", margin: "auto", mt: 3 }}>
+        <Typography variant="h5" sx={{ fontWeight: "bold", mb: 2 }}>
+          Edit Profile
+        </Typography>
+        {message && (
+          <Typography color={message.includes("failed") ? "error" : "green"}>
+            {message}
           </Typography>
-          {message && (
-            <Typography color={message.includes("failed") ? "error" : "green"}>
-              {message}
-            </Typography>
-          )}
+        )}
 
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            {isEditing ? (
-              <>
-                <TextField
-                  label="First Name"
-                  name="firstName"
-                  value={editedData.firstName}
-                  onChange={handleChange}
-                  fullWidth
-                />
-                <TextField
-                  label="Last Name"
-                  name="lastName"
-                  value={editedData.lastName}
-                  onChange={handleChange}
-                  fullWidth
-                />
-                <TextField
-                  label="Email"
-                  name="email"
-                  value={editedData.email}
-                  onChange={handleChange}
-                  fullWidth
-                />
-                <TextField
-                  label="Phone Number"
-                  name="phoneNumber"
-                  value={editedData.phoneNumber}
-                  onChange={handleChange}
-                  fullWidth
-                />
-                <TextField
-                  label="Birth Date"
-                  name="birthDate"
-                  type="date"
-                  value={editedData.birthDate}
-                  onChange={handleChange}
-                  InputLabelProps={{ shrink: true }}
-                  fullWidth
-                />
-                <Button
-                  variant="contained"
-                  onClick={handleSave}
-                  disabled={loading}
-                  sx={{ mt: 2, background: "#142328" }}
-                >
-                  {loading ? "Saving..." : "Save"}
-                </Button>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleLogout}
-                  sx={{ mt: 2 }}
-                >
-                  Logout
-                </Button>
-              </>
-            ) : (
-              <>
-                <Typography>
-                  <strong>First Name:</strong> {userSession.firstName}
-                </Typography>
-                <Typography>
-                  <strong>Last Name:</strong> {userSession.lastName}
-                </Typography>
-                <Typography>
-                  <strong>Email:</strong> {userSession.email}
-                </Typography>
-                <Typography>
-                  <strong>Phone Number:</strong> {userSession.phoneNumber}
-                </Typography>
-                <Typography>
-                  <strong>Birth Date:</strong>{" "}
-                  {userSession.birthDate || "Not Specified"}
-                </Typography>
-                <Button
-                  variant="contained"
-                  onClick={handleEditToggle}
-                  sx={{ mt: 2, background: "#142328" }}
-                >
-                  Edit Profile
-                </Button>
-              </>
-            )}
-          </Box>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={handleLogout}
-            sx={{ mt: 2 }}
-          >
-            Logout
-          </Button>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          {isEditing ? (
+            <>
+              <TextField
+                label="First Name"
+                name="firstName"
+                value={editedData.firstName}
+                onChange={handleChange}
+                fullWidth
+              />
+              <TextField
+                label="Last Name"
+                name="lastName"
+                value={editedData.lastName}
+                onChange={handleChange}
+                fullWidth
+              />
+              <TextField
+                label="Email"
+                name="email"
+                value={editedData.email}
+                onChange={handleChange}
+                fullWidth
+              />
+              <TextField
+                label="Phone Number"
+                name="phoneNumber"
+                value={editedData.phoneNumber}
+                onChange={handleChange}
+                fullWidth
+              />
+              <TextField
+                label="Birth Date"
+                name="birthDate"
+                type="date"
+                value={editedData.birthDate}
+                onChange={handleChange}
+                InputLabelProps={{ shrink: true }}
+                fullWidth
+              />
+              <Button
+                variant="contained"
+                onClick={handleSave}
+                disabled={loading}
+                sx={{ mt: 2, background: "#142328" }}
+              >
+                {loading ? "Saving..." : "Save"}
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={handleLogout}
+                sx={{ mt: 2 }}
+              >
+                Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Typography>
+                <strong>First Name:</strong> {userSession.firstName}
+              </Typography>
+              <Typography>
+                <strong>Last Name:</strong> {userSession.lastName}
+              </Typography>
+              <Typography>
+                <strong>Email:</strong> {userSession.email}
+              </Typography>
+              <Typography>
+                <strong>Phone Number:</strong> {userSession.phoneNumber}
+              </Typography>
+              <Typography>
+                <strong>Birth Date:</strong>{" "}
+                {userSession.birthDate || "Not Specified"}
+              </Typography>
+              <Button
+                variant="contained"
+                onClick={handleEditToggle}
+                sx={{ mt: 2, background: "#142328" }}
+              >
+                Edit Profile
+              </Button>
+            </>
+          )}
         </Box>
-      )}
+        <Button
+          variant="contained"
+          color="error"
+          onClick={handleLogout}
+          sx={{ mt: 2 }}
+        >
+          Logout
+        </Button>
+      </Box>
     </>
   );
 };
