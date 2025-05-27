@@ -591,7 +591,7 @@ const ApplyForVisaForm = () => {
         </button>
       </form>
 
-      {showDialog && visaDocuments.length > 0 && (
+      {showDialog && (
         <VisaDocumentDialog
           documentUrl={visaDocuments}
           onClose={() => setShowDialog(false)}

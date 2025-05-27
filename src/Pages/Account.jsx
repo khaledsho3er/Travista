@@ -20,9 +20,12 @@ const AccountPage = () => {
 
       try {
         const response = await axios.get(
-          `https://158.220.96.121/api/favorites/check/${userSession._id}`
+          `https://158.220.96.121/api/favorites/my`,
+          {
+            params: { userId: userSession._id },
+          }
         );
-        setFavorites(response.data); // Make sure response is an array of favorites
+        setFavorites(response.data); // Make sure your backend returns populated itemDetails
       } catch (error) {
         console.error("Failed to fetch favorites:", error);
       }
@@ -30,6 +33,7 @@ const AccountPage = () => {
 
     fetchFavorites();
   }, [userSession]);
+
   const savedPackages = favorites.filter((item) => item.itemType === "package");
   const savedArticles = favorites.filter((item) => item.itemType === "blog");
 

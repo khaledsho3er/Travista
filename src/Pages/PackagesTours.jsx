@@ -11,6 +11,8 @@ function PackagesTours() {
   const [selectedFilter, setSelectedFilter] = useState(""); // Manage selected filter state
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [packages, setPackages] = useState([]); // State to store fetched packages
+  const [favoritedPackages, setFavoritedPackages] = useState([]);
+
   const { userSession } = useUser(); // Get the logged-in user's session
 
   // Fetch packages when component mounts
@@ -28,6 +30,27 @@ function PackagesTours() {
 
     fetchPackages();
   }, []); // Empty dependency array to fetch only once when the component mounts
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      if (!userSession?._id) return;
+
+      try {
+        const response = await axios.get(
+          `https://158.220.96.121/api/favorites/my`,
+          { params: { userId: userSession._id } }
+        );
+        const favoriteIds = response.data
+          .filter((f) => f.itemType === "package")
+          .map((f) => f.itemId);
+        setFavoritedPackages(favoriteIds);
+      } catch (error) {
+        console.error("Error fetching favorites:", error);
+      }
+    };
+
+    fetchFavorites();
+  }, [userSession]);
+
   const handleFavorite = async (packageId) => {
     if (!userSession?._id) {
       alert("You must be logged in to favorite a package.");
@@ -35,15 +58,26 @@ function PackagesTours() {
     }
 
     try {
-      await axios.post("https://158.220.96.121/api/favorites/", {
-        userId: userSession._id,
-        itemType: "package",
-        itemId: packageId,
-      });
-      console.log("Favorited successfully");
-      // Optionally show feedback, update UI, or toggle icon state
+      const isFavorited = favoritedPackages.includes(packageId);
+
+      if (isFavorited) {
+        await axios.delete("https://158.220.96.121/api/favorites/remove", {
+          data: {
+            userId: userSession._id,
+            itemId: packageId,
+          },
+        });
+        setFavoritedPackages((prev) => prev.filter((id) => id !== packageId));
+      } else {
+        await axios.post("https://158.220.96.121/api/favorites/", {
+          userId: userSession._id,
+          itemType: "package",
+          itemId: packageId,
+        });
+        setFavoritedPackages((prev) => [...prev, packageId]);
+      }
     } catch (error) {
-      console.error("Error favoriting package:", error);
+      console.error("Error toggling favorite:", error);
     }
   };
 
@@ -140,14 +174,16 @@ function PackagesTours() {
                       </Typography>
                       <IconButton
                         onClick={(e) => {
-                          e.stopPropagation(); // Prevents opening package modal
+                          e.stopPropagation();
                           handleFavorite(packageDetails._id);
                         }}
                         sx={{
                           position: "absolute",
                           top: "10px",
                           right: "10px",
-                          color: "white",
+                          color: favoritedPackages.includes(packageDetails._id)
+                            ? "var(--maroon)"
+                            : "white",
                           zIndex: 1000,
                           "&:hover": {
                             color: "var(--maroon)",
@@ -156,6 +192,7 @@ function PackagesTours() {
                       >
                         <FavoriteIcon />
                       </IconButton>
+
                       <Box
                         sx={{
                           position: "absolute",
