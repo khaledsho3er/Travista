@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PackageCards from "../components/Cards";
@@ -6,26 +6,32 @@ import EditProfile from "../components/editProfile";
 import { Typography } from "@mui/material";
 import { Box, Grid, Button } from "@mui/material";
 import { useUser } from "../utils/userContext";
+import axios from "axios";
 
 const AccountPage = () => {
   const [activeTab, setActiveTab] = useState("saved");
+  const [favorites, setFavorites] = useState([]);
+  const [activeSavedTab, setActiveSavedTab] = useState("package"); // 'package' or 'blog'
+
   const { userSession, setUserSession } = useUser();
-  const tours = [
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "March 2024",
-      name: "Disney Land Paris",
-      duration: "A magical dream tour",
-      price: "€125",
-    },
-    {
-      image: "/assets/packages-page/tours/1.png",
-      date: "April 2024",
-      name: "Andorra Skiing Trip",
-      duration: "Breathtaking slopes and stunning vistas",
-      price: "€110",
-    },
-  ];
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      if (!userSession?._id) return;
+
+      try {
+        const response = await axios.get(
+          `https://158.220.96.121/api/favorites/check/${userSession._id}`
+        );
+        setFavorites(response.data); // Make sure response is an array of favorites
+      } catch (error) {
+        console.error("Failed to fetch favorites:", error);
+      }
+    };
+
+    fetchFavorites();
+  }, [userSession]);
+  const savedPackages = favorites.filter((item) => item.itemType === "package");
+  const savedArticles = favorites.filter((item) => item.itemType === "blog");
 
   const renderContent = () => {
     switch (activeTab) {
@@ -42,28 +48,61 @@ const AccountPage = () => {
               sx={{ display: "flex", gap: "10px", padding: "20px 10px 20px" }}
             >
               <Button
+                onClick={() => setActiveSavedTab("package")}
                 className="btn btn-inverse btn-secondary"
-                sx={{ fontSize: "10px ", color: "black !important" }}
+                sx={{
+                  fontSize: "10px",
+                  color:
+                    activeSavedTab === "package"
+                      ? "white !important"
+                      : "black !important",
+                  backgroundColor:
+                    activeSavedTab === "package" ? "var(--maroon)" : "inherit",
+                  "&:hover": {
+                    color: "white !important",
+                  },
+                }}
               >
                 Packages
               </Button>
-              <Button
+              {/* <Button
                 className="btn btn-inverse btn-secondary"
                 sx={{ fontSize: "10px", color: "black !important" }}
               >
                 Tours
-              </Button>
+              </Button> */}
               <Button
+                onClick={() => setActiveSavedTab("blog")}
                 className="btn btn-inverse btn-secondary"
-                sx={{ fontSize: "10px", color: "black !important" }}
+                sx={{
+                  fontSize: "10px",
+                  color:
+                    activeSavedTab === "blog"
+                      ? "white !important"
+                      : "black !important",
+                  backgroundColor:
+                    activeSavedTab === "blog" ? "var(--maroon)" : "inherit",
+                  "&:hover": {
+                    color: "white !important",
+                  },
+                }}
               >
                 Articles
               </Button>
             </Box>
             <Grid container spacing={1}>
-              {tours.map((tour, index) => (
-                <Grid item xs={12} sm={6} md={3.1} gap={2} key={index}>
-                  <PackageCards tour={tour} />
+              {(activeSavedTab === "package"
+                ? savedPackages
+                : savedArticles
+              ).map((item, index) => (
+                <Grid item xs={12} sm={6} md={3.1} key={index}>
+                  {activeSavedTab === "package" ? (
+                    <PackageCards tour={item.itemDetails} /> // itemDetails should contain package info
+                  ) : (
+                    <Typography variant="body1">
+                      {item.itemDetails?.title}
+                    </Typography>
+                  )}
                 </Grid>
               ))}
             </Grid>

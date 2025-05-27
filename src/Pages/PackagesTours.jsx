@@ -6,11 +6,12 @@ import { Box, Typography, Card, CardContent, Grid } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Filter from "../components/filter";
 import axios from "axios"; // Make sure to install axios using npm or yarn
-
+import { useUser } from "../utils/userContext"; // Adjust path if needed
 function PackagesTours() {
   const [selectedFilter, setSelectedFilter] = useState(""); // Manage selected filter state
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [packages, setPackages] = useState([]); // State to store fetched packages
+  const { userSession } = useUser(); // Get the logged-in user's session
 
   // Fetch packages when component mounts
   useEffect(() => {
@@ -27,6 +28,24 @@ function PackagesTours() {
 
     fetchPackages();
   }, []); // Empty dependency array to fetch only once when the component mounts
+  const handleFavorite = async (packageId) => {
+    if (!userSession?._id) {
+      alert("You must be logged in to favorite a package.");
+      return;
+    }
+
+    try {
+      await axios.post("https://158.220.96.121/api/favorites/", {
+        userId: userSession._id,
+        itemType: "package",
+        itemId: packageId,
+      });
+      console.log("Favorited successfully");
+      // Optionally show feedback, update UI, or toggle icon state
+    } catch (error) {
+      console.error("Error favoriting package:", error);
+    }
+  };
 
   const handlePackageClick = (packageDetails) =>
     setSelectedPackage(packageDetails);
@@ -120,6 +139,10 @@ function PackagesTours() {
                         })}
                       </Typography>
                       <IconButton
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevents opening package modal
+                          handleFavorite(packageDetails._id);
+                        }}
                         sx={{
                           position: "absolute",
                           top: "10px",
