@@ -76,7 +76,7 @@ const ApplyForVisaForm = () => {
     const fetchCountries = async () => {
       try {
         const res = await axios.get(
-          "https://158.220.96.121/api/visa-countries"
+          "https://158.220.96.121/api/visa-documents"
         );
         setCountryOptions(res.data);
       } catch (error) {
