@@ -184,7 +184,7 @@ const VisaApplicationsTable = () => {
                 <strong>Job Status:</strong> {selectedApplication?.jobStatus}
               </Typography>
               <Typography>
-                <strong>Visa Renewal:</strong>{" "}
+                <strong>First Time to apply:</strong>{" "}
                 {selectedApplication?.visaRenewal}
               </Typography>
 

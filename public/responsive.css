@@ -842,9 +842,10 @@
 }
 @media (min-width: 2560px) {
   .build-my-package-header .overlay-photo {
-    left: 2141px;
+    left: 83%;
   }
 }
+
 @media (max-width: 480px) {
   .build-my-package-hero {
     padding-left: 70px;

@@ -1298,7 +1298,7 @@ textarea.form-input {
 .build-my-package-header .overlay-photo {
   position: absolute;
   top: -22px; /* Positioning above the main image */
-  left: 1073px; /* Adjust horizontal position */
+  left: 80%; /* Adjust horizontal position */
   width: 80px; /* Size of the smaller photo */
   height: 117px;
   z-index: 10; /* Ensures it appears above the main image */

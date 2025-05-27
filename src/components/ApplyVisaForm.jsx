@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import countries from "world-countries";
 import axios from "axios";
 import VisaDocumentDialog from "./visaDialog";
 import SuccessDialog from "./SuccessDialog";
 
 const ApplyForVisaForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
+  const [countryOptions, setCountryOptions] = useState([]);
   const [showSchengenQuestion, setShowSchengenQuestion] = useState(false);
-  const [visaTypes, setVisaTypes] = useState([]);
   const [selectedVisaType, setSelectedVisaType] = useState("");
   const [visaDocuments, setVisaDocuments] = useState([]);
   const [showDialog, setShowDialog] = useState(false);
@@ -32,6 +31,7 @@ const ApplyForVisaForm = () => {
     passportNumber: "",
     agreedToTerms: false,
     bankStatement: "",
+    additionalFiles: [],
   });
 
   const schengenCountries = [
@@ -69,26 +69,38 @@ const ApplyForVisaForm = () => {
     "Study",
     "Family Visit",
     "Work Visa",
-    "Transit",
   ];
 
   useEffect(() => {
-    const fetchVisaTypes = async () => {
+    const fetchCountries = async () => {
       try {
         const res = await axios.get(
-          "https://158.220.96.121/api/visa-documents"
+          "https://158.220.96.121/api/visa-countries"
         );
-        setVisaTypes(res.data);
+        setCountryOptions(res.data);
       } catch (error) {
-        console.error("Failed to load visa types", error);
+        console.error("Failed to load countries", error);
       }
     };
 
-    fetchVisaTypes();
+    fetchCountries();
   }, []);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "purpose") {
+      const invitationValue = value === "Tourism" ? "No" : "";
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+        invitation: invitationValue,
+      }));
+    } else if (name === "visaTypes") {
+      setSelectedVisaType(value);
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleCountryChange = (e) => {
@@ -105,6 +117,20 @@ const ApplyForVisaForm = () => {
     }
   };
 
+  const getInvitationLabel = () => {
+    switch (formData.purpose) {
+      case "Study":
+        return "Do you have a university letter?";
+      case "Work Visa":
+        return "Do you have a work contract?";
+      case "Business":
+      case "Family Visit":
+        return "Do you have an invitation?";
+      default:
+        return "";
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selectedVisaType) {
@@ -116,26 +142,19 @@ const ApplyForVisaForm = () => {
     setError(null);
 
     try {
-      // Submit the form data
       await axios.post("https://158.220.96.121/api/visa-leads", {
         ...formData,
         visaType: selectedVisaType,
       });
 
-      // Fetch the documents for the selected visa type
       const docRes = await axios.get(
-        `https://158.220.96.121/api/visa-documents/${selectedVisaType}`
+        `https://158.220.96.121/api/visa-documents/country/${selectedCountry}`
       );
-      // Filter only PDF documents and get the fileUrl
       setVisaDocuments(docRes.data);
 
-      // Show the dialog with PDF documents
       setShowDialog(true);
-
-      // Show success dialog after document dialog is closed
       setShowSuccessDialog(true);
 
-      // Reset form
       setFormData({
         firstName: "",
         lastName: "",
@@ -153,7 +172,10 @@ const ApplyForVisaForm = () => {
         passportNumber: "",
         agreedToTerms: false,
         bankStatement: "",
+        additionalFiles: [],
       });
+      setSelectedCountry("");
+      setSelectedVisaType("");
     } catch (error) {
       console.error("Error submitting application:", error);
       setError(error.response?.data?.message || "Failed to submit application");
@@ -211,9 +233,9 @@ const ApplyForVisaForm = () => {
           required
         >
           <option value="">Select Country</option>
-          {countries.map((country) => (
-            <option key={country.cca2} value={country.name.common}>
-              {country.name.common}
+          {countryOptions.map((country) => (
+            <option key={country._id} value={country.name}>
+              {country.name}
             </option>
           ))}
         </select>
@@ -222,6 +244,7 @@ const ApplyForVisaForm = () => {
           className="form-input"
           name="purpose"
           required
+          value={formData.purpose}
           onChange={handleChange}
         >
           <option value="">Purpose of Travel</option>
@@ -232,16 +255,19 @@ const ApplyForVisaForm = () => {
           ))}
         </select>
 
-        <select
-          className="form-input"
-          name="invitation"
-          required
-          onChange={handleChange}
-        >
-          <option value="">Do you have an Invitation?</option>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
+        {formData.purpose !== "Tourism" && (
+          <select
+            className="form-input"
+            name="invitation"
+            required
+            value={formData.invitation}
+            onChange={handleChange}
+          >
+            <option value="">{getInvitationLabel()}</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        )}
 
         {showSchengenQuestion && (
           <select
@@ -262,15 +288,25 @@ const ApplyForVisaForm = () => {
           className="form-input"
           required
           onChange={handleChange}
+          value={formData.travelDate}
         />
-        <input
-          type="text"
-          name="jobStatus"
-          placeholder="Job Status"
+
+        <select
           className="form-input"
+          name="jobStatus"
           required
           onChange={handleChange}
-        />
+          value={formData.jobStatus}
+        >
+          <option value="">Select Job Status</option>
+          <option value="Employee">Employee</option>
+          <option value="Company Owner">Company Owner</option>
+          <option value="Retired">Retired</option>
+          <option value="Student">Student</option>
+          <option value="Freelance">Freelance</option>
+          <option value="Unemployed">Unemployed</option>
+        </select>
+
         <select
           className="form-input"
           name="visaRenewal"
@@ -278,7 +314,7 @@ const ApplyForVisaForm = () => {
           value={formData.visaRenewal}
           onChange={handleChange}
         >
-          <option value="">Do you need visa renewal?</option>
+          <option value="">Is this your first time applying?</option>
           <option value="Yes">Yes</option>
           <option value="No">No</option>
         </select>
@@ -294,21 +330,39 @@ const ApplyForVisaForm = () => {
           <option value="No">No</option>
         </select>
 
-        {/* ✅ Visa Type Selector */}
         <select
           className="form-input"
+          name="visaTypes"
           required
           value={selectedVisaType}
-          onChange={(e) => setSelectedVisaType(e.target.value)}
+          onChange={handleChange}
         >
           <option value="">Select Visa Type</option>
-          {visaTypes.map((type) => (
-            <option key={type._id} value={type._id}>
-              {type.name}
-            </option>
-          ))}
+          <option value="Normal Visa">Normal Visa</option>
+          <option value="E-Visa">E-Visa</option>
         </select>
-
+        <label className="file-label">
+          Additional Files
+          <input
+            type="file"
+            name="additionalFiles"
+            onChange={handleAdditionalFilesChange}
+            multiple
+            hidden
+          />
+          <Button variant="contained" component="span" className="file-input">
+            Upload
+          </Button>
+          {formData.additionalFiles.length > 0 ? (
+            <div className="file-list">
+              {formData.additionalFiles.map((file) => (
+                <p key={file.name}>{file.name}</p>
+              ))}
+            </div>
+          ) : (
+            <p>No files selected</p>
+          )}
+        </label>
         <label className="terms-label">
           <input
             type="checkbox"
@@ -326,7 +380,6 @@ const ApplyForVisaForm = () => {
         </button>
       </form>
 
-      {/* ✅ Visa Document Dialog */}
       {showDialog && (
         <VisaDocumentDialog
           documentUrl={visaDocuments}
@@ -334,7 +387,6 @@ const ApplyForVisaForm = () => {
         />
       )}
 
-      {/* Success Dialog */}
       <SuccessDialog
         open={showSuccessDialog}
         onClose={handleCloseSuccessDialog}
