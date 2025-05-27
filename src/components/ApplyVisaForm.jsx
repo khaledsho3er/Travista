@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import VisaDocumentDialog from "./visaDialog";
 import SuccessDialog from "./SuccessDialog";
+import { Button } from "@mui/material";
 
 const ApplyForVisaForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -130,7 +131,13 @@ const ApplyForVisaForm = () => {
         return "";
     }
   };
-
+  const handleAdditionalFilesChange = (event) => {
+    const newFiles = Array.from(event.target.files);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      additionalFiles: [...prevFormData.additionalFiles, ...newFiles],
+    }));
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selectedVisaType) {

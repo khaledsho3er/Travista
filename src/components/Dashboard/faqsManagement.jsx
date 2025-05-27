@@ -16,7 +16,6 @@ import {
   Typography,
   Paper,
   Switch,
-  FormControlLabel,
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import axios from "axios";
