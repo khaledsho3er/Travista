@@ -132,12 +132,30 @@ const ApplyForVisaForm = () => {
     }
   };
   const handleAdditionalFilesChange = (event) => {
-    const newFiles = Array.from(event.target.files);
+    const files = Array.from(event.target.files);
+
+    // Limit to 10 files total
+    if (formData.additionalFiles.length + files.length > 10) {
+      alert("You can upload a maximum of 10 files");
+      return;
+    }
+
     setFormData((prevFormData) => ({
       ...prevFormData,
-      additionalFiles: [...prevFormData.additionalFiles, ...newFiles],
+      additionalFiles: [...prevFormData.additionalFiles, ...files],
     }));
   };
+
+  // Add a function to remove a file
+  const handleRemoveFile = (index) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      additionalFiles: prevFormData.additionalFiles.filter(
+        (_, i) => i !== index
+      ),
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selectedVisaType) {
@@ -149,19 +167,47 @@ const ApplyForVisaForm = () => {
     setError(null);
 
     try {
-      await axios.post("https://158.220.96.121/api/visa-leads", {
-        ...formData,
-        visaType: selectedVisaType,
+      // Create FormData object for file uploads
+      const formDataToSend = new FormData();
+
+      // Add all form fields to FormData
+      Object.keys(formData).forEach((key) => {
+        if (key !== "additionalFiles" && key !== "agreedToTerms") {
+          formDataToSend.append(key, formData[key]);
+        }
       });
 
+      // Add visaType separately
+      formDataToSend.append("visaType", selectedVisaType);
+      formDataToSend.append("agreedToTerms", formData.agreedToTerms.toString());
+
+      // Add each file to FormData
+      formData.additionalFiles.forEach((file, index) => {
+        formDataToSend.append(`additionalFiles`, file);
+      });
+
+      // Submit the form data with files
+      await axios.post(
+        "https://158.220.96.121/api/visa-leads",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // Fetch the documents for the selected visa type
       const docRes = await axios.get(
-        `https://158.220.96.121/api/visa-documents/country/${selectedCountry}`
+        `https://158.220.96.121/api/visa-documents/${selectedCountry}`
       );
       setVisaDocuments(docRes.data);
 
+      // Show the dialog with PDF documents
       setShowDialog(true);
       setShowSuccessDialog(true);
 
+      // Reset form
       setFormData({
         firstName: "",
         lastName: "",
@@ -362,14 +408,25 @@ const ApplyForVisaForm = () => {
           </Button>
           {formData.additionalFiles.length > 0 ? (
             <div className="file-list">
-              {formData.additionalFiles.map((file) => (
-                <p key={file.name}>{file.name}</p>
+              {formData.additionalFiles.map((file, index) => (
+                <p key={index}>
+                  {file.name}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveFile(index)}
+                    className="remove-file-btn"
+                  >
+                    ×
+                  </button>
+                </p>
               ))}
             </div>
           ) : (
             <p>No files selected</p>
           )}
+          <small>Maximum 10 files allowed</small>
         </label>
+
         <label className="terms-label">
           <input
             type="checkbox"
