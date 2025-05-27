@@ -169,7 +169,7 @@ const ApplyForVisaForm = () => {
         }
       });
 
-      formDataToSend.append("visaType", selectedVisaType);
+      // Append agreedToTerms as string
       formDataToSend.append("agreedToTerms", formData.agreedToTerms.toString());
 
       formData.additionalFiles.forEach((file) => {
