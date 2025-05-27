@@ -187,7 +187,9 @@ const VisaApplicationsTable = () => {
                 <strong>First Time to apply:</strong>{" "}
                 {selectedApplication?.visaRenewal}
               </Typography>
-
+              <Typography>
+                <strong>Visa Type:</strong> {selectedApplication?.visaType}
+              </Typography>
               <Typography>
                 <strong>Travel Date:</strong>{" "}
                 {new Date(selectedApplication?.travelDate).toLocaleDateString()}
@@ -201,20 +203,97 @@ const VisaApplicationsTable = () => {
             {/* Right Column - Status & Email Note */}
             <Box sx={{ flex: 1 }}>
               <Typography sx={{ mb: 2 }}>
-                <strong>Bank Statement:</strong>{" "}
-                <a
-                  href={selectedApplication?.bankStatement}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: "blue",
-                    textDecoration: "underline",
-                    fontSize: "14px",
+                <strong>Bank Statement:</strong>
+                {selectedApplication?.bankStatement}
+              </Typography>
+              <Typography sx={{ mb: 1 }}>
+                <strong>Additional Files:</strong>
+              </Typography>
+              {selectedApplication?.additionalFiles &&
+              selectedApplication.additionalFiles.length > 0 ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 1,
+                    maxHeight: "200px",
+                    overflowY: "auto",
+                    p: 1,
+                    border: "1px solid #eee",
+                    borderRadius: 1,
+                    bgcolor: "#f9f9f9",
                   }}
                 >
-                  {selectedApplication?.bankStatement}
-                </a>
-              </Typography>
+                  {selectedApplication.additionalFiles.map((file, i) => (
+                    <Box
+                      key={i}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        p: 1,
+                        borderRadius: 1,
+                        bgcolor: "white",
+                        "&:hover": {
+                          bgcolor: "#f0f0f0",
+                        },
+                      }}
+                    >
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          maxWidth: "70%",
+                        }}
+                      >
+                        {file.split("/").pop()}
+                      </Typography>
+                      <a
+                        href={`https://158.220.96.121/uploads/${file}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          textDecoration: "none",
+                          color: "#1976d2",
+                          fontWeight: 500,
+                          fontSize: "14px",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "4px",
+                        }}
+                      >
+                        View File
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                      </a>
+                    </Box>
+                  ))}
+                </Box>
+              ) : (
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ ml: 1 }}
+                >
+                  No additional files uploaded
+                </Typography>
+              )}
+
               <TextField
                 label="Email Note"
                 multiline

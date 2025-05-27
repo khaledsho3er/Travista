@@ -199,9 +199,12 @@ const ApplyForVisaForm = () => {
         const matchedDoc = docRes.data.find(
           (doc) => doc.name.toLowerCase() === selectedCountry.toLowerCase()
         );
+        console.log("Matched Document:", matchedDoc);
+        console.log("Selected Country:", selectedCountry);
 
         if (matchedDoc?.fileUrl) {
           setVisaDocuments(matchedDoc.fileUrl);
+          console.log("Visa Documents:", docRes.data);
           setShowDialog(true);
         } else {
           console.warn(`No matching document found for ${selectedCountry}`);
