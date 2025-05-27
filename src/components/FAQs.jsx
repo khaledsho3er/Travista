@@ -85,7 +85,7 @@ const FAQsComponent = ({
     }
 
     console.log("DisplayedFAQs after limit applied:", displayedFaqs);
-  }, [faqs, limit]);
+  }, [faqs, limit, displayedFaqs]);
 
   // Update the dropdown in the parent component
   useEffect(() => {

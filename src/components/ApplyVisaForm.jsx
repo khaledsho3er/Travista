@@ -26,7 +26,7 @@ const ApplyForVisaForm = () => {
     travelDate: "",
     jobStatus: "",
     visaRenewal: "",
-    visaTypes: "",
+    visaType: "",
     previousVisaNumber: "",
     previousVisaExpiry: "",
     passportNumber: "",
@@ -96,7 +96,7 @@ const ApplyForVisaForm = () => {
         [name]: value,
         invitation: invitationValue,
       }));
-    } else if (name === "visaTypes") {
+    } else if (name === "visaType") {
       setSelectedVisaType(value);
       setFormData((prev) => ({ ...prev, [name]: value }));
     } else {
@@ -131,33 +131,28 @@ const ApplyForVisaForm = () => {
         return "";
     }
   };
-  const handleAdditionalFilesChange = (event) => {
-    const files = Array.from(event.target.files);
-
-    // Limit to 10 files total
+  const handleAdditionalFilesChange = (e) => {
+    const files = Array.from(e.target.files);
     if (formData.additionalFiles.length + files.length > 10) {
       alert("You can upload a maximum of 10 files");
       return;
     }
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      additionalFiles: [...prevFormData.additionalFiles, ...files],
+    setFormData((prev) => ({
+      ...prev,
+      additionalFiles: [...prev.additionalFiles, ...files],
     }));
   };
 
-  // Add a function to remove a file
   const handleRemoveFile = (index) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      additionalFiles: prevFormData.additionalFiles.filter(
-        (_, i) => i !== index
-      ),
+    setFormData((prev) => ({
+      ...prev,
+      additionalFiles: prev.additionalFiles.filter((_, i) => i !== index),
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!selectedVisaType) {
       alert("Please select a visa type.");
       return;
@@ -167,44 +162,50 @@ const ApplyForVisaForm = () => {
     setError(null);
 
     try {
-      // Create FormData object for file uploads
       const formDataToSend = new FormData();
-
-      // Add all form fields to FormData
       Object.keys(formData).forEach((key) => {
         if (key !== "additionalFiles" && key !== "agreedToTerms") {
           formDataToSend.append(key, formData[key]);
         }
       });
 
-      // Add visaType separately
       formDataToSend.append("visaType", selectedVisaType);
       formDataToSend.append("agreedToTerms", formData.agreedToTerms.toString());
 
-      // Add each file to FormData
-      formData.additionalFiles.forEach((file, index) => {
-        formDataToSend.append(`additionalFiles`, file);
+      formData.additionalFiles.forEach((file) => {
+        formDataToSend.append("additionalFiles", file);
       });
 
-      // Submit the form data with files
+      // Submit visa lead
       await axios.post(
         "https://158.220.96.121/api/visa-leads",
         formDataToSend,
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          headers: { "Content-Type": "multipart/form-data" },
         }
       );
 
-      // Fetch the documents for the selected visa type
-      const docRes = await axios.get(
-        `https://158.220.96.121/api/visa-documents/${selectedCountry}`
-      );
-      setVisaDocuments(docRes.data);
+      try {
+        // Try fetching visa document
+        const docRes = await axios.get(
+          `https://158.220.96.121/api/visa-documents/${selectedCountry}`
+        );
 
-      // Show the dialog with PDF documents
-      setShowDialog(true);
+        const matchedDoc = docRes.data.find(
+          (doc) => doc.name.toLowerCase() === selectedCountry.toLowerCase()
+        );
+
+        if (matchedDoc?.fileUrl) {
+          setVisaDocuments(matchedDoc.fileUrl);
+          setShowDialog(true);
+        } else {
+          console.warn(`No matching document found for ${selectedCountry}`);
+        }
+      } catch (docErr) {
+        console.error("Document fetch error:", docErr);
+        // Don’t block submission just because document fetch fails
+      }
+
       setShowSuccessDialog(true);
 
       // Reset form
@@ -219,7 +220,7 @@ const ApplyForVisaForm = () => {
         travelDate: "",
         jobStatus: "",
         visaRenewal: "",
-        visaTypes: "",
+        visaType: "",
         previousVisaNumber: "",
         previousVisaExpiry: "",
         passportNumber: "",
@@ -229,9 +230,31 @@ const ApplyForVisaForm = () => {
       });
       setSelectedCountry("");
       setSelectedVisaType("");
-    } catch (error) {
-      console.error("Error submitting application:", error);
-      setError(error.response?.data?.message || "Failed to submit application");
+    } catch (err) {
+      console.error("Submission error:", err);
+
+      if (err.response) {
+        const { status, data } = err.response;
+
+        // Backend provided validation error
+        if (status === 400 && data.errors) {
+          const detailedErrors = Object.entries(data.errors)
+            .map(([field, msg]) => `${field}: ${msg}`)
+            .join("\n");
+          setError(`Validation error:\n${detailedErrors}`);
+        } else {
+          setError(
+            data.message ||
+              "Failed to submit application. Please verify your inputs."
+          );
+        }
+      } else if (err.request) {
+        setError(
+          "No response from server. Please check your internet connection."
+        );
+      } else {
+        setError("Unexpected error: " + err.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -285,7 +308,7 @@ const ApplyForVisaForm = () => {
           onChange={handleCountryChange}
           required
         >
-          <option value="">Select Country</option>
+          <option value="">Select Your Destination</option>
           {countryOptions.map((country) => (
             <option key={country._id} value={country.name}>
               {country.name}
@@ -384,11 +407,11 @@ const ApplyForVisaForm = () => {
         </select>
 
         <select
-          className="form-input"
-          name="visaTypes"
-          required
+          name="visaType"
           value={selectedVisaType}
+          required
           onChange={handleChange}
+          className="form-input"
         >
           <option value="">Select Visa Type</option>
           <option value="Normal Visa">Normal Visa</option>
@@ -398,32 +421,28 @@ const ApplyForVisaForm = () => {
           Additional Files
           <input
             type="file"
-            name="additionalFiles"
-            onChange={handleAdditionalFilesChange}
             multiple
             hidden
+            name="additionalFiles"
+            onChange={handleAdditionalFilesChange}
           />
-          <Button variant="contained" component="span" className="file-input">
+          <Button variant="contained" component="span">
             Upload
           </Button>
-          {formData.additionalFiles.length > 0 ? (
-            <div className="file-list">
-              {formData.additionalFiles.map((file, index) => (
-                <p key={index}>
+          <div className="file-list">
+            {formData.additionalFiles.length > 0 ? (
+              formData.additionalFiles.map((file, i) => (
+                <p key={i}>
                   {file.name}
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveFile(index)}
-                    className="remove-file-btn"
-                  >
+                  <button type="button" onClick={() => handleRemoveFile(i)}>
                     ×
                   </button>
                 </p>
-              ))}
-            </div>
-          ) : (
-            <p>No files selected</p>
-          )}
+              ))
+            ) : (
+              <p>No files selected</p>
+            )}
+          </div>
           <small>Maximum 10 files allowed</small>
         </label>
 
@@ -444,7 +463,7 @@ const ApplyForVisaForm = () => {
         </button>
       </form>
 
-      {showDialog && (
+      {showDialog && visaDocuments.length > 0 && (
         <VisaDocumentDialog
           documentUrl={visaDocuments}
           onClose={() => setShowDialog(false)}
