@@ -3,6 +3,7 @@ import axios from "axios";
 import VisaDocumentDialog from "./visaDialog";
 import SuccessDialog from "./SuccessDialog";
 import { Button } from "@mui/material";
+import { Description, Image, Close } from "@mui/icons-material";
 
 const ApplyForVisaForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -421,34 +422,160 @@ const ApplyForVisaForm = () => {
           <option value="Normal Visa">Normal Visa</option>
           <option value="E-Visa">E-Visa</option>
         </select>
-        <label className="file-label">
-          Additional Files
+        {/* Styled File Upload Area */}
+        <div
+          style={{
+            border: "2px dashed #ccc",
+            borderRadius: "8px",
+            padding: "20px",
+            marginBottom: "20px",
+            cursor: "pointer",
+            backgroundColor: "#f9f9f9",
+            transition: "all 0.3s ease",
+          }}
+          onClick={() =>
+            document.getElementById("additionalFilesInput").click()
+          }
+        >
+          <div style={{ textAlign: "center", marginBottom: "15px" }}>
+            <h4 style={{ margin: "0 0 10px 0", color: "#555" }}>
+              Additional Files
+            </h4>
+            <p style={{ margin: "0", color: "#888", fontSize: "14px" }}>
+              Click to browse or drop files here
+            </p>
+            <small
+              style={{ display: "block", marginTop: "5px", color: "#999" }}
+            >
+              Maximum 10 files allowed
+            </small>
+          </div>
+
           <input
+            id="additionalFilesInput"
             type="file"
             multiple
             hidden
             name="additionalFiles"
             onChange={handleAdditionalFilesChange}
           />
-          <Button variant="contained" component="span">
-            Upload
-          </Button>
-          <div className="file-list">
-            {formData.additionalFiles.length > 0 ? (
-              formData.additionalFiles.map((file, i) => (
-                <p key={i}>
-                  {file.name}
-                  <button type="button" onClick={() => handleRemoveFile(i)}>
-                    ×
-                  </button>
-                </p>
-              ))
-            ) : (
-              <p>No files selected</p>
-            )}
+
+          <div style={{ textAlign: "center", marginBottom: "15px" }}>
+            <Button
+              variant="contained"
+              component="span"
+              style={{
+                backgroundColor: "#4a90e2",
+                color: "white",
+                padding: "8px 16px",
+              }}
+            >
+              Upload Files
+            </Button>
           </div>
-          <small>Maximum 10 files allowed</small>
-        </label>
+
+          {formData.additionalFiles.length > 0 && (
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "10px",
+                marginTop: "15px",
+              }}
+            >
+              {formData.additionalFiles.map((file, index) => {
+                // Determine file type for icon
+                const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(file.name);
+                const isPdf = /\.pdf$/i.test(file.name);
+
+                return (
+                  <div
+                    key={index}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      width: "100px",
+                      position: "relative",
+                      backgroundColor: "#fff",
+                      padding: "10px",
+                      borderRadius: "5px",
+                      boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+                    }}
+                  >
+                    {/* File icon based on type */}
+                    <div style={{ fontSize: "32px", marginBottom: "5px" }}>
+                      {isImage ? (
+                        <Image style={{ color: "#4caf50", fontSize: "32px" }} />
+                      ) : isPdf ? (
+                        <Description
+                          style={{ color: "#f44336", fontSize: "32px" }}
+                        />
+                      ) : (
+                        <Description
+                          style={{ color: "#9e9e9e", fontSize: "32px" }}
+                        />
+                      )}
+                    </div>
+
+                    {/* File name with ellipsis */}
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        textAlign: "center",
+                        width: "100%",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {file.name}
+                    </div>
+
+                    {/* Remove button */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemoveFile(index);
+                      }}
+                      style={{
+                        position: "absolute",
+                        top: "-8px",
+                        right: "-8px",
+                        width: "22px",
+                        height: "22px",
+                        borderRadius: "50%",
+                        backgroundColor: "#ff5252",
+                        color: "white",
+                        border: "none",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "0",
+                      }}
+                    >
+                      <Close style={{ fontSize: "14px" }} />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {formData.additionalFiles.length === 0 && (
+            <div
+              style={{
+                textAlign: "center",
+                color: "#aaa",
+                padding: "20px 0",
+              }}
+            >
+              No files selected
+            </div>
+          )}
+        </div>
 
         <label className="terms-label">
           <input
