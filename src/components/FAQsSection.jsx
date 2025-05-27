@@ -24,7 +24,7 @@ function FAQ() {
           Contact Us
         </Button>
       </Box>
-      <FAQsComponent limit={6} />
+      <FAQsComponent limit={6} selectedSubject="All topics" />
     </Box>
   );
 }

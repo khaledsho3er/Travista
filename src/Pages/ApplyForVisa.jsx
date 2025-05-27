@@ -61,7 +61,8 @@ function ApplyForVisa() {
             </Button>
           </Box>
 
-          <FAQsComponent limit={6} />
+          {/* Add FAQsComponent with explicit props */}
+          <FAQsComponent limit={6} selectedSubject="All topics" />
         </Box>
       </section>
       <section className="ApplyForVisa-Form-content">

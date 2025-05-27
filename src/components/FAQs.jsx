@@ -12,7 +12,11 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const FAQsComponent = ({ selectedSubject, setSelectedSubject, limit }) => {
+const FAQsComponent = ({
+  selectedSubject = "All topics",
+  setSelectedSubject,
+  limit,
+}) => {
   const navigate = useNavigate();
   const [openQuestion, setOpenQuestion] = useState(null);
   const [faqs, setFaqs] = useState([]);
@@ -22,15 +26,20 @@ const FAQsComponent = ({ selectedSubject, setSelectedSubject, limit }) => {
   const [error, setError] = useState(null);
   const [displayedFaqs, setDisplayedFaqs] = useState([]);
 
+  console.log("FAQsComponent rendered with limit:", limit);
+  console.log("selectedSubject:", selectedSubject);
+
   // Fetch all visible FAQs
   useEffect(() => {
     const fetchVisibleFAQs = async () => {
       try {
         setLoading(true);
+        console.log("Fetching FAQs...");
         const response = await axios.get(
           "https://158.220.96.121/api/faqs/visible"
         );
         const faqsData = response.data;
+        console.log("Fetched FAQs:", faqsData);
         setAllFaqs(faqsData);
 
         // Extract unique subjects for the filter dropdown
@@ -50,6 +59,9 @@ const FAQsComponent = ({ selectedSubject, setSelectedSubject, limit }) => {
 
   // Filter FAQs when selectedSubject changes
   useEffect(() => {
+    console.log("Filtering FAQs for subject:", selectedSubject);
+    console.log("All FAQs:", allFaqs);
+
     if (selectedSubject === "All topics") {
       setFaqs(allFaqs);
     } else {
@@ -60,18 +72,27 @@ const FAQsComponent = ({ selectedSubject, setSelectedSubject, limit }) => {
 
   // Apply limit to displayed FAQs
   useEffect(() => {
+    console.log("Applying limit:", limit);
+    console.log("FAQs before limit:", faqs);
+
     if (limit && faqs.length > limit) {
-      setDisplayedFaqs(faqs.slice(0, limit));
+      const limitedFaqs = faqs.slice(0, limit);
+      console.log("Limited FAQs:", limitedFaqs);
+      setDisplayedFaqs(limitedFaqs);
     } else {
+      console.log("Using all FAQs (no limit applied)");
       setDisplayedFaqs(faqs);
     }
+
+    console.log("DisplayedFAQs after limit applied:", displayedFaqs);
   }, [faqs, limit]);
 
   // Update the dropdown in the parent component
   useEffect(() => {
     // Find the select element in the parent component
     const selectElement = document.querySelector(".FAQs-filter");
-    if (selectElement && subjects.length > 0) {
+    if (selectElement && subjects.length > 0 && setSelectedSubject) {
+      console.log("Updating select element with subjects:", subjects);
       // Clear existing options except the first one (All topics)
       while (selectElement.options.length > 1) {
         selectElement.remove(1);
@@ -85,7 +106,7 @@ const FAQsComponent = ({ selectedSubject, setSelectedSubject, limit }) => {
         selectElement.appendChild(option);
       });
     }
-  }, [subjects]);
+  }, [subjects, setSelectedSubject]);
 
   const handleToggle = (index) => {
     setOpenQuestion(openQuestion === index ? null : index);
@@ -99,6 +120,7 @@ const FAQsComponent = ({ selectedSubject, setSelectedSubject, limit }) => {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
         <CircularProgress />
+        <Typography ml={2}>Loading FAQs...</Typography>
       </Box>
     );
   }
