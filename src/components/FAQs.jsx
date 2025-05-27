@@ -1,53 +1,78 @@
-import React, { useState } from "react";
-import { Box, Typography, List, ListItem } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Typography,
+  List,
+  ListItem,
+  CircularProgress,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import axios from "axios";
 
 const FAQsComponent = () => {
   const [openQuestion, setOpenQuestion] = useState(null);
+  const [faqs, setFaqs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchVisibleFAQs = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          "https://158.220.96.121/api/faqs/visible"
+        );
+        setFaqs(response.data);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching visible FAQs:", err);
+        setError("Failed to load FAQs. Please try again later.");
+        setLoading(false);
+      }
+    };
+
+    fetchVisibleFAQs();
+  }, []);
 
   const handleToggle = (index) => {
     setOpenQuestion(openQuestion === index ? null : index);
   };
 
-  const faqs = [
-    {
-      question: "Are there any extra fees for custom packages?",
-      answer:
-        "Yes, custom packages may have additional fees depending on the specific services included.",
-    },
-    {
-      question: "Can I build a package for my high school senior trip?",
-      answer:
-        "Absolutely! We offer tailored packages for high school senior trips.",
-    },
-    {
-      question: "Will I get a travel guide with my package?",
-      answer:
-        "Yes, a travel guide is included with most packages to enhance your experience.",
-    },
-    {
-      question: "Can I cancel my package?",
-      answer:
-        "You can cancel your package. Please refer to our cancellation policy for details.",
-    },
-    {
-      question: "What is the fee of postponing my package?",
-      answer:
-        "The postponing fee depends on the package and timing of the request. Contact us for specific details.",
-    },
-  ];
+  if (loading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ p: 2, textAlign: "center" }}>
+        <Typography color="error">{error}</Typography>
+      </Box>
+    );
+  }
+
+  if (faqs.length === 0) {
+    return (
+      <Box sx={{ p: 2, textAlign: "center" }}>
+        <Typography>No FAQs available at the moment.</Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box className="faq-list">
       <List>
         {faqs.map((faq, index) => (
-          <Box key={index}>
+          <Box key={faq.faqId || index}>
             <ListItem
               onClick={() => handleToggle(index)}
               style={{ cursor: "pointer" }}
             >
-              <Typography variant="h5">
+              <Typography variant="h5" style={{ fontSize: "1rem !important" }}>
                 <strong>{faq.question}</strong>
               </Typography>
               {openQuestion === index ? <RemoveIcon /> : <AddIcon />}
@@ -55,7 +80,12 @@ const FAQsComponent = () => {
             <div
               className={`FAQs-answer ${openQuestion === index ? "open" : ""}`}
             >
-              <Typography variant="body1">{faq.answer}</Typography>
+              <Typography
+                variant="body1"
+                style={{ fontSize: "0.9rem !important" }}
+              >
+                {faq.answer}
+              </Typography>
             </div>
             <hr />
           </Box>

@@ -81,7 +81,8 @@ function CareersPage() {
               <h3>Continually improve.</h3>
               <p>
                 We find ways to improve each and every day, no matter how small
-                the improvement.
+                the improvement. We strive to apply this mindset to all aspects
+                of our work.
               </p>
             </div>
           </Box>

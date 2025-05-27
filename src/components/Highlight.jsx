@@ -39,7 +39,7 @@ function Highlight() {
         background: `url('https://158.220.96.121${activeBanner.image}')`,
         backgroundColor: "rgba(0, 0, 0, 0.5)", // Fallback color in case image fails to load
         backgroundBlendMode: "darken",
-        height: "90vh",
+        height: window.innerHeight > 655 ? "90vh" : "95vh",
         backgroundSize: "cover", // Ensures the background image covers the container
         backgroundPosition: "center", // Centers the background image
         backgroundRepeat: "no-repeat",

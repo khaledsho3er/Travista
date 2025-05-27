@@ -997,6 +997,10 @@
   .form-row-phone select {
     background-color: white;
   }
+  .faq-list li {
+    margin-bottom: 15px;
+    gap: 1rem;
+  }
 }
 /* Laptop Views (Keep Images) BMP steps*/
 @media screen and (min-width: 1025px) and (max-width: 1400px) {

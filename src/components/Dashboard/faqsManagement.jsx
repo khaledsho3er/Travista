@@ -15,6 +15,8 @@ import {
   TextField,
   Typography,
   Paper,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import axios from "axios";
@@ -104,6 +106,35 @@ const FAQManagement = () => {
     }
   };
 
+  // Toggle FAQ visibility
+  const handleToggleVisibility = async (faqId, currentVisibility) => {
+    try {
+      // Optimistically update UI
+      setFaqs(
+        faqs.map((faq) =>
+          faq.faqId === faqId ? { ...faq, isVisible: !currentVisibility } : faq
+        )
+      );
+
+      // Call API to toggle visibility
+      await axios.patch(
+        `https://158.220.96.121/api/faqs/${faqId}/toggle-visibility`
+      );
+
+      toast.success("FAQ visibility updated!");
+      // Refresh data to ensure UI is in sync with server
+      fetchFAQs();
+    } catch (error) {
+      // Revert optimistic update on error
+      setFaqs(
+        faqs.map((faq) =>
+          faq.faqId === faqId ? { ...faq, isVisible: currentVisibility } : faq
+        )
+      );
+      toast.error("Error updating FAQ visibility");
+    }
+  };
+
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h4" sx={{ mb: 3 }}>
@@ -138,6 +169,9 @@ const FAQManagement = () => {
                 <strong>Subject</strong>
               </TableCell>
               <TableCell>
+                <strong>Visible</strong>
+              </TableCell>
+              <TableCell>
                 <strong>Actions</strong>
               </TableCell>
             </TableRow>
@@ -149,6 +183,15 @@ const FAQManagement = () => {
                 <TableCell>{faq.question}</TableCell>
                 <TableCell>{faq.answer}</TableCell>
                 <TableCell>{faq.subject}</TableCell>
+                <TableCell>
+                  <Switch
+                    checked={faq.isVisible}
+                    onChange={() =>
+                      handleToggleVisibility(faq.faqId, faq.isVisible)
+                    }
+                    color="primary"
+                  />
+                </TableCell>
                 <TableCell>
                   <Button
                     variant="outlined"
