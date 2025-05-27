@@ -5,17 +5,24 @@ import {
   List,
   ListItem,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const FAQsComponent = () => {
+const FAQsComponent = ({ selectedSubject, setSelectedSubject, limit }) => {
+  const navigate = useNavigate();
   const [openQuestion, setOpenQuestion] = useState(null);
   const [faqs, setFaqs] = useState([]);
+  const [allFaqs, setAllFaqs] = useState([]);
+  const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [displayedFaqs, setDisplayedFaqs] = useState([]);
 
+  // Fetch all visible FAQs
   useEffect(() => {
     const fetchVisibleFAQs = async () => {
       try {
@@ -23,7 +30,13 @@ const FAQsComponent = () => {
         const response = await axios.get(
           "https://158.220.96.121/api/faqs/visible"
         );
-        setFaqs(response.data);
+        const faqsData = response.data;
+        setAllFaqs(faqsData);
+
+        // Extract unique subjects for the filter dropdown
+        const uniqueSubjects = [...new Set(faqsData.map((faq) => faq.subject))];
+        setSubjects(uniqueSubjects);
+
         setLoading(false);
       } catch (err) {
         console.error("Error fetching visible FAQs:", err);
@@ -35,8 +48,51 @@ const FAQsComponent = () => {
     fetchVisibleFAQs();
   }, []);
 
+  // Filter FAQs when selectedSubject changes
+  useEffect(() => {
+    if (selectedSubject === "All topics") {
+      setFaqs(allFaqs);
+    } else {
+      const filtered = allFaqs.filter((faq) => faq.subject === selectedSubject);
+      setFaqs(filtered);
+    }
+  }, [selectedSubject, allFaqs]);
+
+  // Apply limit to displayed FAQs
+  useEffect(() => {
+    if (limit && faqs.length > limit) {
+      setDisplayedFaqs(faqs.slice(0, limit));
+    } else {
+      setDisplayedFaqs(faqs);
+    }
+  }, [faqs, limit]);
+
+  // Update the dropdown in the parent component
+  useEffect(() => {
+    // Find the select element in the parent component
+    const selectElement = document.querySelector(".FAQs-filter");
+    if (selectElement && subjects.length > 0) {
+      // Clear existing options except the first one (All topics)
+      while (selectElement.options.length > 1) {
+        selectElement.remove(1);
+      }
+
+      // Add new options based on unique subjects
+      subjects.forEach((subject) => {
+        const option = document.createElement("option");
+        option.value = subject;
+        option.textContent = subject;
+        selectElement.appendChild(option);
+      });
+    }
+  }, [subjects]);
+
   const handleToggle = (index) => {
     setOpenQuestion(openQuestion === index ? null : index);
+  };
+
+  const handleViewAllFAQs = () => {
+    navigate("/faqs");
   };
 
   if (loading) {
@@ -55,10 +111,14 @@ const FAQsComponent = () => {
     );
   }
 
-  if (faqs.length === 0) {
+  if (displayedFaqs.length === 0) {
     return (
       <Box sx={{ p: 2, textAlign: "center" }}>
-        <Typography>No FAQs available at the moment.</Typography>
+        <Typography>
+          {selectedSubject === "All topics"
+            ? "No FAQs available at the moment."
+            : `No FAQs available for ${selectedSubject}.`}
+        </Typography>
       </Box>
     );
   }
@@ -66,7 +126,7 @@ const FAQsComponent = () => {
   return (
     <Box className="faq-list">
       <List>
-        {faqs.map((faq, index) => (
+        {displayedFaqs.map((faq, index) => (
           <Box key={faq.faqId || index}>
             <ListItem
               onClick={() => handleToggle(index)}
@@ -91,6 +151,28 @@ const FAQsComponent = () => {
           </Box>
         ))}
       </List>
+
+      {/* Show "View All FAQs" button if there are more FAQs than the limit */}
+      {limit && faqs.length > limit && (
+        <Box sx={{ textAlign: "center", mt: 2 }}>
+          <Button
+            variant="outlined"
+            onClick={handleViewAllFAQs}
+            sx={{
+              borderRadius: "20px",
+              padding: "8px 24px",
+              borderColor: "#27063b",
+              color: "#27063b",
+              "&:hover": {
+                borderColor: "#27063b",
+                backgroundColor: "rgba(39, 6, 59, 0.04)",
+              },
+            }}
+          >
+            View All FAQs
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 };

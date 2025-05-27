@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -7,12 +7,18 @@ import FAQsComponent from "../components/FAQs";
 import { useNavigate } from "react-router-dom";
 function FAQsPage() {
   const navigate = useNavigate();
+  const [selectedSubject, setSelectedSubject] = useState("All topics");
 
   const handleContact = () => {
     navigate("/contactus");
   };
+
+  const handleSubjectChange = (e) => {
+    setSelectedSubject(e.target.value);
+  };
+
   return (
-    <Box classname="FAQs-page">
+    <Box className="FAQs-page">
       <Navbar />
       <header className="FAQs-hero">
         <h1>
@@ -27,14 +33,26 @@ function FAQsPage() {
         </button>
       </header>
       <section className="FAQs-filter-section">
-        <select className="FAQs-filter">
-          <option>All topics</option>
-          <option>All topics</option>
+        <select
+          className="FAQs-filter"
+          value={selectedSubject}
+          onChange={handleSubjectChange}
+        >
+          <option value="All topics">All topics</option>
+          {/* The options will be dynamically populated by FAQsComponent */}
         </select>
       </section>
       <section className="FAQs-content">
-        <FAQsComponent />
-        <FAQsComponent />
+        <FAQsComponent
+          limit={null}
+          selectedSubject={selectedSubject}
+          setSelectedSubject={setSelectedSubject}
+        />
+        <FAQsComponent
+          limit={null}
+          selectedSubject={selectedSubject}
+          setSelectedSubject={setSelectedSubject}
+        />
       </section>
       <section className="FAQs-content">
         <div className="FAQs-form">

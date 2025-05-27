@@ -61,7 +61,7 @@ function ApplyForVisa() {
             </Button>
           </Box>
 
-          <FAQsComponent />
+          <FAQsComponent limit={6} />
         </Box>
       </section>
       <section className="ApplyForVisa-Form-content">
