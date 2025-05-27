@@ -195,15 +195,9 @@ const ApplyForVisaForm = () => {
         const docRes = await axios.get(
           `https://158.220.96.121/api/visa-documents/${selectedCountry}`
         );
-
-        const matchedDoc = docRes.data.find(
-          (doc) => doc.name.toLowerCase() === selectedCountry.toLowerCase()
-        );
-        console.log("Matched Document:", matchedDoc);
-        console.log("Selected Country:", selectedCountry);
-
-        if (matchedDoc?.fileUrl) {
-          setVisaDocuments(matchedDoc.fileUrl);
+        console.log("Document response:", docRes);
+        if (docRes.data) {
+          setVisaDocuments(docRes.data);
           console.log("Visa Documents:", docRes.data);
           setShowDialog(true);
         } else {

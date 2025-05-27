@@ -295,7 +295,7 @@
   .ApplyForVisa-faqs-section {
     flex-direction: column;
     gap: 1.5rem;
-    padding: 2%;
+    padding: 2rem;
     text-align: left; /* Align content to the left */
   }
 
@@ -325,7 +325,11 @@
     margin-bottom: 0.5rem;
     width: 100%;
   }
-
+  .ApplyForVisa-form-content {
+    padding: 1rem;
+    margin: 0;
+    margin-top: 0;
+  }
   .ApplyForVisa-form p {
     font-size: 1rem; /* Adjust description font size */
     text-align: left; /* Align description to the left */
@@ -344,9 +348,7 @@
     max-width: 1000px; /* Restrict maximum size */
     margin: 0 auto;
     padding: 1rem;
-    background-color: #f8f8f8; /* Light background for better focus */
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
   }
 
   /* Inputs and Select */
@@ -993,7 +995,7 @@
   }
   .form-row {
     flex-direction: column;
-    gap: 0px;
+    gap: 15px;
   }
   .form-row-phone select {
     background-color: white;
@@ -1001,6 +1003,9 @@
   .faq-list li {
     margin-bottom: 15px;
     gap: 1rem;
+  }
+  .FAQs-content {
+    margin: 0;
   }
 }
 /* Laptop Views (Keep Images) BMP steps*/
