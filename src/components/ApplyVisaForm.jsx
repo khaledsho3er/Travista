@@ -312,7 +312,7 @@ const ApplyForVisaForm = () => {
         >
           <option value="">Select Your Destination</option>
           {countryOptions.map((country) => (
-            <option key={country._id} value={country.name}>
+            <option key={country._id} value={country._id}>
               {country.name}
             </option>
           ))}
