@@ -111,7 +111,7 @@ const ApplyForVisaForm = () => {
 
     if (schengenCountries.includes(country)) {
       setShowSchengenQuestion(false);
-      setFormData((prev) => ({ ...prev, schengenBefore: "N/A" }));
+      setFormData((prev) => ({ ...prev, schengenBefore: "No" })); // <-- change here
     } else {
       setShowSchengenQuestion(true);
       setFormData((prev) => ({ ...prev, schengenBefore: "" }));
@@ -175,6 +175,10 @@ const ApplyForVisaForm = () => {
       formData.additionalFiles.forEach((file) => {
         formDataToSend.append("additionalFiles", file);
       });
+      console.log("Form Data to submit:");
+      for (let pair of formDataToSend.entries()) {
+        console.log(`${pair[0]}:`, pair[1]);
+      }
 
       // Submit visa lead
       await axios.post(
