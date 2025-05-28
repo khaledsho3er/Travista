@@ -206,7 +206,7 @@ function Navbar() {
     useEffect(() => {
       const fetchBlogs = async () => {
         try {
-          const response = await fetch("https://158.220.96.121/api/blogs/");
+          const response = await fetch("https://158.220.96.121/api/blog/");
           const data = await response.json();
           const sortedBlogs = data?.blogs
             ?.sort(
