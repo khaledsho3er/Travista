@@ -22,6 +22,7 @@ const BlogManager = () => {
     embeddedImages: [],
     tagInput: "",
     seoInput: "",
+    metaDescription: "",
   });
 
   const fetchBlogs = async () => {
@@ -98,6 +99,18 @@ const BlogManager = () => {
     } else {
       await axios.post("https://158.220.96.121/api/blog", formData);
     }
+
+    const isSeoFriendly =
+      form.title.length > 10 &&
+      form.subTitle.length > 30 &&
+      form.seoKeywords.length >= 3 &&
+      form.slug.length > 5;
+
+    alert(
+      isSeoFriendly
+        ? "Your blog is SEO-friendly and ready to be discovered!"
+        : "Your blog is missing some SEO elements. Improve title, subtitle, keywords, and slug."
+    );
     fetchBlogs();
     setForm({
       title: "",
@@ -272,7 +285,45 @@ const BlogManager = () => {
                   </span>
                 ))}
               </div>
+              <label>Meta Description (max 160 characters)</label>
+              <textarea
+                name="metaDescription"
+                value={form.metaDescription}
+                onChange={handleChange}
+                maxLength={160}
+                className="w-full p-2 border rounded h-20"
+                placeholder="Write a concise description for SEO purposes."
+              ></textarea>
+              {/* SEO Tips */}
+              <div className="bg-yellow-50 border border-yellow-200 p-4 rounded my-4">
+                <h4 className="font-semibold text-yellow-800 mb-2">SEO Tips</h4>
+                <ul className="list-disc pl-5 text-sm text-yellow-700 space-y-1">
+                  <li>Use a descriptive, keyword-rich title.</li>
+                  <li>
+                    Write a short and compelling sub-title (acts as meta
+                    description).
+                  </li>
+                  <li>Add 3–8 relevant SEO keywords.</li>
+                  <li>Use a clean, readable slug (e.g., my-travel-guide).</li>
+                  <li>Upload a relevant featured image.</li>
+                </ul>
+              </div>
 
+              {/* Google Search Result Preview */}
+              <div className="bg-gray-100 p-4 rounded border">
+                <p className="text-green-700 text-sm">
+                  https:/travista.vercel.app/Blogs/{form.slug || "your-slug"}
+                </p>
+                <p className="text-blue-800 font-semibold">
+                  {form.title || "Your Blog Title Here"}
+                </p>
+                <p className="text-gray-700 text-sm">
+                  {(form.subTitle.length > 150
+                    ? form.subTitle.slice(0, 150) + "..."
+                    : form.subTitle) ||
+                    "This is a short preview of your blog's content or subtitle..."}
+                </p>
+              </div>
               <label>Category</label>
               <select
                 name="category"

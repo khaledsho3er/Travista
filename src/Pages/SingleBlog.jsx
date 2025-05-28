@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Box, Typography } from "@mui/material";
+import { Helmet } from "react-helmet";
 
 function SingleBlog() {
   const { id } = useParams();
@@ -49,6 +50,26 @@ function SingleBlog() {
 
   return (
     <Box>
+      <Helmet>
+        <title>{blog.title} | Travista Egypt</title>
+        <meta name="description" content={blog.subTitle} />
+        <meta name="keywords" content={blog.seoKeywords?.join(", ")} />
+        <meta property="og:title" content={blog.title} />
+        <meta property="og:description" content={blog.subTitle} />
+        <meta
+          property="og:image"
+          content={`https://158.220.96.121/uploads/${blog.featuredImage}`}
+        />
+        <meta property="og:type" content="article" />
+        <meta
+          property="og:url"
+          content={`https://travista.vercel.app/Blogs/${id}`}
+        />
+        <link
+          rel="canonical"
+          href={`https://travista.vercel.app/Blogs/${id}`}
+        />
+      </Helmet>
       <Navbar />
       <Box className="Single-Blog-header">
         <header className="Single-Blog-header-container">
@@ -83,6 +104,7 @@ function SingleBlog() {
           alt="Blog Hero"
         />
       </Box>
+
       <Box className="Single-Blog-Content">
         <h3>{blog.contentTitle}</h3>
         {/* Render the blog content (handle HTML or plain text) */}

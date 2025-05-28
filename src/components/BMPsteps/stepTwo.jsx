@@ -2,6 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Box, Slider, Typography } from "@mui/material";
 import currencyCodes from "currency-codes";
 import axios from "axios";
+
+const currencySymbols = {
+  USD: "$",
+  EUR: "€",
+  GBP: "£",
+  EGP: "£",
+  JPY: "¥",
+  INR: "₹",
+  AUD: "A$",
+  CAD: "C$",
+  CNY: "¥",
+  AED: "د.إ",
+  // Add more as needed
+};
 function StepTwo({
   departureCountry,
   setDepartureCountry,
@@ -24,19 +38,7 @@ function StepTwo({
   const [currency, setCurrency] = useState("EUR"); // moved here
   const [currencySymbol, setCurrencySymbol] = useState("€");
   const [currencyList, setCurrencyList] = useState([]);
-  const currencySymbols = {
-    USD: "$",
-    EUR: "€",
-    GBP: "£",
-    EGP: "£",
-    JPY: "¥",
-    INR: "₹",
-    AUD: "A$",
-    CAD: "C$",
-    CNY: "¥",
-    AED: "د.إ",
-    // Add more as needed
-  };
+
   // Fetch countries from API
   useEffect(() => {
     const fetchCountries = async () => {
