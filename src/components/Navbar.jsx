@@ -202,6 +202,27 @@ function Navbar() {
   );
 
   function BlogSection() {
+    const [blogs, setBlogs] = useState([]);
+    useEffect(() => {
+      const fetchBlogs = async () => {
+        try {
+          const response = await fetch("https://158.220.96.121/api/blogs/");
+          const data = await response.json();
+          const sortedBlogs = data?.blogs
+            ?.sort(
+              (a, b) =>
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime()
+            )
+            .slice(0, 2);
+          setBlogs(sortedBlogs || []);
+        } catch (error) {
+          console.error("Error fetching blogs:", error);
+        }
+      };
+
+      fetchBlogs();
+    }, []);
     return (
       <Box
         className="blog-section"
@@ -243,71 +264,48 @@ function Navbar() {
         </Box>
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
-            {/* The card for the blog post can be a separate component */}
-            <Box
-              sx={{
-                borderRadius: 1,
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-              }}
-            >
-              <Box sx={{ borderRadius: "8px" }}>
-                <img
-                  src="assets/blog-image.png"
-                  alt="Blog"
-                  style={{ width: "100%", borderRadius: "8px" }}
-                />
+          {blogs.map((blog) => (
+            <Grid item xs={12} md={6} key={blog._id}>
+              <Box
+                onClick={navigateToBlogs}
+                sx={{
+                  borderRadius: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "20px",
+                  "&:hover": {
+                    backgroundColor: "#ffffff12",
+                    transition: "background-color 0.3s ease-in-out",
+                  },
+                }}
+              >
+                <Box
+                  sx={{
+                    borderRadius: "8px",
+                    minWidth: "120px",
+                    maxWidth: "150px",
+                  }}
+                >
+                  <img
+                    src={`https://158.220.96.121/uploads/${blog.featuredImage}`}
+                    alt={blog.title}
+                    style={{ width: "100%", borderRadius: "8px" }}
+                  />
+                </Box>
+                <Box>
+                  <Typography variant="caption" display="block" gutterBottom>
+                    5 Min read • {new Date(blog.createdAt).toLocaleDateString()}
+                  </Typography>
+                  <Typography variant="h6" gutterBottom fontWeight={800}>
+                    {blog.title}
+                  </Typography>
+                  <Typography variant="body2" color="#777777">
+                    {blog?.content?.slice(0, 100)}...
+                  </Typography>
+                </Box>
               </Box>
-              <Box>
-                <Typography variant="caption" display="block" gutterBottom>
-                  5 Min read • Mar 11, 2023
-                </Typography>
-                <Typography variant="h6" gutterBottom fontWeight={800}>
-                  The ultimate travel guide for your trip to Paris
-                </Typography>
-                <Typography variant="body2" color="#777777">
-                  Unveiling the City of Love, Croissants, and Adventure! Whether
-                  you're a first-time visitor or a seasoned Parisian
-                  aficionado...
-                </Typography>
-              </Box>
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            {/* The card for the blog post can be a separate component */}
-            <Box
-              sx={{
-                borderRadius: 1,
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-              }}
-            >
-              <Box sx={{ borderRadius: "8px" }}>
-                <img
-                  src="assets/blog-image.png"
-                  alt="Blog"
-                  style={{ width: "100%", borderRadius: "8px" }}
-                />
-              </Box>
-              <Box>
-                <Typography variant="caption" display="block" gutterBottom>
-                  5 Min read • Mar 11, 2023
-                </Typography>
-                <Typography variant="h6" gutterBottom fontWeight={800}>
-                  The ultimate travel guide for your trip to Paris
-                </Typography>
-                <Typography variant="body2" color="#777777">
-                  Unveiling the City of Love, Croissants, and Adventure! Whether
-                  you're a first-time visitor or a seasoned Parisian
-                  aficionado...
-                </Typography>
-              </Box>
-            </Box>
-          </Grid>
+            </Grid>
+          ))}
         </Grid>
       </Box>
     );
