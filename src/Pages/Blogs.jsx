@@ -10,6 +10,7 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 function BlogsPage() {
   const [blogData, setBlogData] = useState([]);
   const [displayCount, setDisplayCount] = useState(9);
@@ -41,6 +42,31 @@ function BlogsPage() {
 
   return (
     <Box>
+      <Helmet>
+        <title>Travel Blogs & Stories | Travista Egypt</title>
+        <meta
+          name="description"
+          content="Explore inspiring travel stories, guides, and tips from Travista. Stay updated with the latest travel trends and experiences from around the world."
+        />
+        <meta
+          name="keywords"
+          content="Travista blog, travel stories, travel guides, Egypt travel, travel inspiration, vacation tips, travel articles"
+        />
+        <meta
+          property="og:title"
+          content="Travel Blogs & Stories | Travista Egypt"
+        />
+        <meta
+          property="og:description"
+          content="Discover insightful travel content and personal experiences from explorers like you. From Egypt to the world, find your next travel idea here."
+        />
+        <meta
+          property="og:image"
+          content="https://travistaegypt.com/assets/Blog/blogheaderpic.png"
+        />
+        <meta property="og:url" content="https://travistaegypt.com/blogs" />
+        <link rel="canonical" href="https://travistaegypt.com/blogs" />
+      </Helmet>
       <Box>
         <Navbar />
       </Box>

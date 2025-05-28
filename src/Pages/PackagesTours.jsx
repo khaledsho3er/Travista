@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar";
 import Filter from "../components/filter";
 import axios from "axios"; // Make sure to install axios using npm or yarn
 import { useUser } from "../utils/userContext"; // Adjust path if needed
+import { Helmet } from "react-helmet"; // Import Helmet for SEO management
 function PackagesTours() {
   const [selectedFilter, setSelectedFilter] = useState(""); // Manage selected filter state
   const [selectedPackage, setSelectedPackage] = useState(null);
@@ -99,8 +100,33 @@ function PackagesTours() {
 
   return (
     <Box className="packages-page">
+      import {Helmet} from "react-helmet";
+      <Helmet>
+        <title>Top Tour Packages from Egypt | Travista</title>
+        <meta
+          name="description"
+          content="Discover top-rated travel packages from Egypt to global destinations. Book senior trips, guided tours, and more with Travista."
+        />
+        <meta
+          name="keywords"
+          content="Egypt tour packages, travel deals, senior trips, Travista tours"
+        />
+        <meta
+          property="og:title"
+          content="Top Tour Packages from Egypt | Travista"
+        />
+        <meta
+          property="og:description"
+          content="Book unforgettable tours from Egypt to top global destinations with Travista."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://travista.vercel.app/packages"
+        />
+        <link rel="canonical" href="https://travista.vercel.app/packages" />
+      </Helmet>
       <Navbar />
-
       <Box className="hero">
         <Box
           sx={{
@@ -123,7 +149,6 @@ function PackagesTours() {
           </Typography>
         </Box>
       </Box>
-
       <div className="packages-tours-body">
         <Box className="packages-tours">
           <Box sx={{ display: "flex", gap: "10px", padding: "20px 0" }}>
@@ -250,7 +275,6 @@ function PackagesTours() {
           )}
         </Box>
       </div>
-
       {selectedPackage && (
         <Box
           className={`slide-up-modal ${selectedPackage ? "show" : ""}`}

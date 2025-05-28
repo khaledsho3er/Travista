@@ -1,3 +1,10 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /login/
+Disallow: /user-settings/
+Disallow: /api/
+Disallow: /private/
+Allow: /
+
+Sitemap: https://travistaegypt.com/sitemap.xml

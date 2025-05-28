@@ -12,6 +12,7 @@ import TravistaLoading from "../components/loading";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
+import { Helmet } from "react-helmet";
 
 // Animation wrapper component
 const AnimatedSection = ({ children, delay = 0 }) => {
@@ -60,33 +61,67 @@ function Home() {
 
   return (
     <div>
+      <Helmet>
+        <title>Travista Egypt | Travel the World with Ease</title>
+        <meta
+          name="description"
+          content="Travista is your go-to travel agency for global adventures, hotel bookings, senior trips, and more. Discover the world with us."
+        />
+        <meta
+          name="keywords"
+          content="Travista Egypt, travel agency, hotel booking, senior trips, tour packages"
+        />
+        <meta
+          property="og:title"
+          content="Travista Egypt | Global Travel Experts"
+        />
+        <meta
+          property="og:description"
+          content="Book your next adventure with Travista."
+        />
+        <meta property="og:url" content="https://travista.vercel.app/" />
+        <link rel="canonical" href="https://travista.vercel.app/" />
+        <script type="application/ld+json">
+          {`
+      {
+        "@context": "https://schema.org",
+        "@type": "TravelAgency",
+        "name": "Travista Egypt",
+        "url": "https://travista.vercel.app",
+        "logo": "https://travista.vercel.app/logo.png",
+        "description": "Travista is a global travel agency offering hotel bookings, tours, and senior travel packages.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "EG"
+        },
+        "sameAs": [
+          "https://www.facebook.com/travistaegypt",
+          "https://www.instagram.com/travistaegypt"
+        ]
+      }
+    `}
+        </script>
+      </Helmet>
       <Navbar />
       <Hero preloadedData={heroData} />
-
       <AnimatedSection>
         <Explore />
       </AnimatedSection>
-
       <AnimatedSection delay={0.1}>
         <Highlight />
       </AnimatedSection>
-
       <AnimatedSection delay={0.2}>
         <About />
       </AnimatedSection>
-
       <AnimatedSection delay={0.1}>
         <PackageCard />
       </AnimatedSection>
-
       <AnimatedSection delay={0.2}>
         <Comments />
       </AnimatedSection>
-
       <AnimatedSection delay={0.1}>
         <FAQ />
       </AnimatedSection>
-
       <Footer />
     </div>
   );

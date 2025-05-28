@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography, Button, MenuItem, Select } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import { Helmet } from "react-helmet";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
 
@@ -38,6 +38,31 @@ function CareersPage() {
 
   return (
     <Box className="careers-page">
+      <Helmet>
+        <title>
+          Careers at Travista Egypt | Help Shape the Future of Travel
+        </title>
+        <meta
+          name="description"
+          content="Join Travista's passionate team and help people travel the world. Explore open roles in marketing, product, finance, and more."
+        />
+        <meta
+          name="keywords"
+          content="Travista careers, travel jobs Egypt, travel agency hiring, jobs in tourism, work at Travista"
+        />
+        <meta
+          property="og:title"
+          content="Careers at Travista Egypt | Future of Travel Starts Here"
+        />
+        <meta
+          property="og:description"
+          content="Discover job opportunities and join a growing team of travel lovers at Travista Egypt."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://travista.vercel.app/careers" />
+        <link rel="canonical" href="https://travista.vercel.app/careers" />
+      </Helmet>
+
       <Navbar />
       <header className="careers-header">
         <Box className="careers-hero">

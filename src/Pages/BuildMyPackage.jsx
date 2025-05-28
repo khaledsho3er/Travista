@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import FAQ from "../components/FAQsSection";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet"; // Import Helmet
 
 function BuildMyPackage() {
   const navigate = useNavigate();
@@ -13,6 +14,34 @@ function BuildMyPackage() {
   };
   return (
     <Box className="build-my-package-page">
+      <Helmet>
+        <title>Build Your Travel Package | Travista Egypt</title>
+        <meta
+          name="description"
+          content="Customize your dream trip with Travista’s Build My Package tool. Tailor every detail—from flights to destinations—for your next great adventure."
+        />
+        <meta
+          name="keywords"
+          content="Travista, build my package, custom travel package, travel planner, Egypt tours, senior trip, travel customization"
+        />
+        <meta
+          property="og:title"
+          content="Build My Travel Package | Travista Egypt"
+        />
+        <meta
+          property="og:description"
+          content="Design your perfect getaway with Travista. Customize your travel package based on your goals and preferences."
+        />
+        <meta
+          property="og:image"
+          content="https://travistaegypt.com/assets/buildMyPackage/buildmypackage.png"
+        />
+        <meta
+          property="og:url"
+          content="https://travistaegypt.com/buildmypackage"
+        />
+        <link rel="canonical" href="https://travistaegypt.com/buildmypackage" />
+      </Helmet>
       <Navbar />
       <header className="build-my-package-header">
         <Box className="build-my-package-hero">

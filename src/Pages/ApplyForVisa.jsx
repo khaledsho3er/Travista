@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import ApplyForVisaForm from "../components/ApplyVisaForm";
 import FAQsComponent from "../components/FAQs";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 function ApplyForVisa() {
   const navigate = useNavigate();
@@ -13,6 +14,31 @@ function ApplyForVisa() {
   };
   return (
     <Box classname="ApplyForVisa-page">
+      <Helmet>
+        <title>Apply for Travel Visa | Travista Egypt</title>
+        <meta
+          name="description"
+          content="Apply for your travel visa easily with Travista. Begin your journey today with our hassle-free visa application process tailored to your needs."
+        />
+        <meta
+          name="keywords"
+          content="Travista, visa application, travel visa, Egypt travel, travel agency, apply visa online"
+        />
+        <meta
+          property="og:title"
+          content="Apply for Travel Visa | Travista Egypt"
+        />
+        <meta
+          property="og:description"
+          content="Start your travel journey with a smooth visa application experience at Travista. Explore the world with ease."
+        />
+        <meta
+          property="og:image"
+          content="https://travistaegypt.com/assets/visaapply.jpg"
+        />
+        <meta property="og:url" content="https://travistaegypt.com/applyvisa" />
+        <link rel="canonical" href="https://travistaegypt.com/applyvisa" />
+      </Helmet>
       <Navbar />
       <header className="ApplyForVisa-header">
         <Box className="ApplyForVisa-hero">

@@ -30,6 +30,7 @@ const backgroundMap = {
   "/packages": "dark",
   "/buildmypackagesteps": "light",
   "/Blogs": "light",
+  "/singleblog": "light",
   "/applyforvisa": "dark",
   "/*": "light",
 };
