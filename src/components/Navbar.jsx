@@ -70,7 +70,6 @@ function Navbar() {
     setIsLightBackground(backgroundType === "light");
   }, [location]);
 
-  // Add scroll event listener to detect scrolling
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
