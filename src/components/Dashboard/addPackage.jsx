@@ -425,8 +425,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               <MenuItem value="winter">Winter</MenuItem>
               <MenuItem value="honeymoon">Honeymoon</MenuItem>
               <MenuItem value="shopping">Shopping</MenuItem>
-              <MenuItem value="hajj">Hajj</MenuItem>
-              <MenuItem value="umrah">Umrah</MenuItem>
+              <MenuItem value="hajj&umrah">Hajj&Umrah</MenuItem>
             </Select>
           </FormControl>
           <TextField

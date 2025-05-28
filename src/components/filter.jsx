@@ -25,8 +25,7 @@ const Filter = ({ onFilterChange, selectedFilter }) => {
     { label: "WINTER", value: "winter", icon: <WinterIcon /> },
     { label: "HONEYMOON", value: "honeymoon", icon: <LoyaltyIcon /> },
     { label: "SHOPPING", value: "shopping", icon: <ShoppingBasketIcon /> },
-    { label: "HAJJ", value: "hajj", icon: <MosqueIcon /> },
-    { label: "UMRAH", value: "umrah", icon: <MosqueIcon /> },
+    { label: "HAJJ&UMRAH", value: "hajj&umrah", icon: <MosqueIcon /> },
   ];
 
   const handleFilterClick = (filterValue) => {
