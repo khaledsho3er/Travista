@@ -100,7 +100,6 @@ function PackagesTours() {
 
   return (
     <Box className="packages-page">
-      import {Helmet} from "react-helmet";
       <Helmet>
         <title>Top Tour Packages from Egypt | Travista</title>
         <meta
