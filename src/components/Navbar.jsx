@@ -202,26 +202,23 @@ function Navbar() {
 
   function BlogSection() {
     const [blogs, setBlogs] = useState([]);
-    useEffect(() => {
-      const fetchBlogs = async () => {
-        try {
-          const response = await fetch("https://158.220.96.121/api/blog/");
-          const data = await response.json();
-          const sortedBlogs = data?.blogs
-            ?.sort(
-              (a, b) =>
-                new Date(b.createdAt).getTime() -
-                new Date(a.createdAt).getTime()
-            )
-            .slice(0, 2);
-          setBlogs(sortedBlogs || []);
-        } catch (error) {
-          console.error("Error fetching blogs:", error);
-        }
-      };
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch("https://158.220.96.121/api/blog/");
+        const data = await response.json();
+        const sortedBlogs = data?.blogs
+          ?.filter((blog) => blog.status === "published") // Filter only published
+          ?.sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          )
+          .slice(0, 2);
+        setBlogs(sortedBlogs || []);
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      }
+    };
 
-      fetchBlogs();
-    }, []);
     return (
       <Box
         className="blog-section"
