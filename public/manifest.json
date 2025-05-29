@@ -21,9 +21,6 @@
   ],
   "start_url": "/",
   "scope": "/",
-  "orientation": "any",
-  "dir": "ltr",
-  "lang": "en",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
