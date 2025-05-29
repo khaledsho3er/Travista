@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Home from "./Pages/Home";
 import PackagesTours from "./Pages/PackagesTours";
 import TravistaLoading from "./components/loading";
@@ -130,7 +135,8 @@ function App() {
             <Route path="edit/:id" element={<ArticleForm />} />
             <Route path=":id" element={<ArticleDetails />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/404" />} />
+          <Route path="/404" element={<NotFound />} />
         </Routes>
       </UserProvider>
     </Router>
