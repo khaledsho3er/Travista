@@ -1,5 +1,5 @@
 {
-  "short_name": "Travista",
+  "short_name": "Travista Egypt",
   "name": "Travista Egypt | Travista Travel Agency",
   "description": "Travista Egypt is a leading travel agency offering comprehensive travel services including flight bookings, hotel reservations, and customized travel packages.",
   "icons": [
@@ -19,8 +19,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/",
-  "scope": "/",
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
