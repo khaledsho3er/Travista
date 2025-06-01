@@ -55,6 +55,8 @@
   .hero-section .hero-btns button {
     width: 100%;
     margin: 20px 0;
+  }
+  .hero-btns {
     gap: 10px;
   }
 
@@ -911,7 +913,9 @@
   .Build-my-package-step p {
     font-size: 12px;
   }
-
+  .hero-btns {
+    gap: 10px;
+  }
   /* Hide overlay image on mobile and iPad */
   .overlay-photo {
     display: none;
