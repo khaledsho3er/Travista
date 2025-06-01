@@ -62,9 +62,9 @@ function Navbar() {
   const handleMyAccount = () => {
     navigate("/account");
   };
-  const navigateToBlogs = () => {
-    navigate("/Blogs");
-  };
+  // const navigateToBlogs = () => {
+  //   navigate("/Blogs");
+  // };
   // Update navbar state based on route
   useEffect(() => {
     const backgroundType = backgroundMap[location.pathname] || "dark";
@@ -205,29 +205,42 @@ function Navbar() {
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // Example placeholder for navigateToBlogs
+    const navigateToBlogs = () => {
+      navigate("/Blogs");
+      console.log("Navigate to blogs page");
+    };
+
     const fetchBlogs = async () => {
       try {
-        setLoading(true); // Start loading
+        setLoading(true);
         const response = await fetch("https://158.220.96.121/api/blog/");
         const data = await response.json();
-        const sortedBlogs = data?.blogs
-          ?.filter((blog) => blog.status === "published")
+        console.log("Raw data from API:", data);
+
+        // Filter and sort assuming data is an array of blogs directly
+        const sortedBlogs = data
+          ?.filter((blog) => blog.status?.toLowerCase() === "published")
           ?.sort(
             (a, b) =>
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           )
           .slice(0, 2);
+
+        console.log("Filtered and sorted blogs:", sortedBlogs);
+
         setBlogs(sortedBlogs || []);
       } catch (error) {
         console.error("Error fetching blogs:", error);
       } finally {
-        setLoading(false); // Stop loading
+        setLoading(false);
       }
     };
 
     useEffect(() => {
       fetchBlogs();
     }, []);
+
     return (
       <Box
         className="blog-section"
@@ -299,6 +312,7 @@ function Navbar() {
                       display: "flex",
                       alignItems: "center",
                       gap: "20px",
+                      cursor: "pointer",
                       "&:hover": {
                         backgroundColor: "#ffffff12",
                         transition: "background-color 0.3s ease-in-out",
