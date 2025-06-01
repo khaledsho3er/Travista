@@ -367,7 +367,7 @@ function Footer() {
           style={{ textDecoration: "none" }}
         >
           <Typography color="#777777">
-            © Powered By Young Productions.
+            © Powered By Young Software House.
           </Typography>
         </Link>
       </Box>

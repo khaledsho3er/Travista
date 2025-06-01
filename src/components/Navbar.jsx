@@ -460,6 +460,10 @@ function Navbar() {
                       color: navColor,
                       borderColor: navColor,
                       transition: "color 0.3s ease-in-out",
+                      "&:hover": {
+                        transform: "scale(1.05)",
+                        transition: "all 0.3s ease-in-out",
+                      },
                     }}
                   />
                   Sign In
