@@ -55,7 +55,7 @@ function Hero({ preloadedData = null }) {
             color: "white",
             fontWeight: "700",
             textAlign: "center",
-            fontSize: "5rem",
+            fontSize: { xs: "2.5rem", md: "5rem" },
           }}
         >
           {heroData.caption}

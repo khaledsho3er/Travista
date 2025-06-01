@@ -55,7 +55,18 @@ function Comments() {
       className="comments-section"
       sx={{ position: "flex", padding: "2px 0px 150px " }}
     >
-      <Typography variant="h4" color={"white"} fontWeight={800} p={15}>
+      <Typography
+        variant="h4"
+        color={"white"}
+        fontWeight={800}
+        p={15}
+        sx={{
+          margin: {
+            xs: "-59px",
+            md: 0,
+          },
+        }}
+      >
         Don’t just take our word for it.
       </Typography>
 

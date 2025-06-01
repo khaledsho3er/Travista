@@ -55,6 +55,7 @@
   .hero-section .hero-btns button {
     width: 100%;
     margin: 20px 0;
+    gap: 10px;
   }
 
   .explore-section {
