@@ -62,9 +62,9 @@ function Navbar() {
   const handleMyAccount = () => {
     navigate("/account");
   };
-  // const navigateToBlogs = () => {
-  //   navigate("/Blogs");
-  // };
+  const navigateToBlogs = () => {
+    navigate("/Blogs");
+  };
   // Update navbar state based on route
   useEffect(() => {
     const backgroundType = backgroundMap[location.pathname] || "dark";
@@ -206,9 +206,8 @@ function Navbar() {
     const [loading, setLoading] = useState(true);
 
     // Example placeholder for navigateToBlogs
-    const navigateToBlogs = () => {
-      navigate("/Blogs");
-      console.log("Navigate to blogs page");
+    const navigateToBlogsById = (id) => {
+      navigate(`/singleblog/${id}`);
     };
 
     const fetchBlogs = async () => {
@@ -306,7 +305,7 @@ function Navbar() {
             : blogs.map((blog) => (
                 <Grid item xs={12} md={6} key={blog._id}>
                   <Box
-                    onClick={navigateToBlogs}
+                    onClick={() => navigateToBlogsById(blog._id)}
                     sx={{
                       borderRadius: 1,
                       display: "flex",
@@ -489,7 +488,7 @@ function Navbar() {
         <div
           style={{
             width: "auto",
-            height: "90vh",
+            height: "120vh",
             background: "#142328",
             padding: "0 4%",
           }}
