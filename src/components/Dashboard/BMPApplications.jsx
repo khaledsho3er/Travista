@@ -81,7 +81,6 @@ const BMPApplicationManager = () => {
 
   const handleCancelEdit = () => {
     setIsEditing(false);
-    // Reset to original data
     const originalApp = applications.find((app) => app._id === editApp._id);
     setEditApp(originalApp);
   };
@@ -92,6 +91,20 @@ const BMPApplicationManager = () => {
       month: "short",
       day: "numeric",
     });
+  };
+
+  const formatCurrencySymbol = (currency) => {
+    switch (currency) {
+      case "USD":
+        return "$";
+      case "EUR":
+        return "€";
+      case "EGP":
+        return "£";
+      // Add more cases as needed
+      default:
+        return currency;
+    }
   };
 
   const modalStyle = {
@@ -108,18 +121,6 @@ const BMPApplicationManager = () => {
     boxShadow: 24,
     p: 4,
   };
-
-  // Extract country code and phone number from phoneNumber
-  // const extractPhoneDetails = (phoneNumber) => {
-  //   if (!phoneNumber) return { countryCode: "", phone: "" };
-
-  //   // Assuming format is like +201020189024
-  //   const match = phoneNumber.match(/^(\+\d+)(\d+)$/);
-  //   if (match) {
-  //     return { countryCode: match[1], phone: match[2] };
-  //   }
-  //   return { countryCode: "", phone: phoneNumber };
-  // };
 
   return (
     <div>
@@ -173,7 +174,10 @@ const BMPApplicationManager = () => {
                 <TableCell>{app.type}</TableCell>
                 <TableCell>{`${app.departureCity}, ${app.departureCountry}`}</TableCell>
                 <TableCell>{formatDate(app.travelDate)}</TableCell>
-                <TableCell>${app.budgetPerPerson}</TableCell>
+                <TableCell>
+                  {formatCurrencySymbol(app.currency)}
+                  {app.budgetPerPerson}
+                </TableCell>
                 <TableCell>{app.numberOfNights}</TableCell>
                 <TableCell>{formatDate(app.createdAt)}</TableCell>
                 <TableCell align="center">
@@ -215,7 +219,6 @@ const BMPApplicationManager = () => {
         </Table>
       </TableContainer>
 
-      {/* View Modal */}
       <Modal open={!!viewApp} onClose={() => setViewApp(null)}>
         <Box sx={modalStyle}>
           <div
@@ -301,7 +304,8 @@ const BMPApplicationManager = () => {
                     {viewApp.numberOfTravellers}
                   </Typography>
                   <Typography>
-                    <strong>Budget per Person:</strong> $
+                    <strong>Budget per Person:</strong>{" "}
+                    {formatCurrencySymbol(viewApp.currency)}
                     {viewApp.budgetPerPerson}
                   </Typography>
                 </Box>
@@ -311,7 +315,6 @@ const BMPApplicationManager = () => {
         </Box>
       </Modal>
 
-      {/* Edit Modal */}
       <Modal
         open={!!editApp}
         onClose={() => {
@@ -632,7 +635,8 @@ const BMPApplicationManager = () => {
                       {editApp.numberOfTravellers}
                     </Typography>
                     <Typography variant="body1" sx={{ mb: 1 }}>
-                      <strong>Budget per Person:</strong> $
+                      <strong>Budget per Person:</strong>{" "}
+                      {formatCurrencySymbol(editApp.currency)}
                       {editApp.budgetPerPerson}
                     </Typography>
                   </>
