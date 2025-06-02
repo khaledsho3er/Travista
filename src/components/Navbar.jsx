@@ -53,42 +53,32 @@ function Navbar() {
     try {
       setLoading(true);
       setErrorMsg("");
-
-      // Use HTTP if HTTPS is causing issues due to invalid SSL
       const response = await fetch("https://158.220.96.121/api/blog/", {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`HTTP error ${response.status}`);
 
       const data = await response.json();
-      console.log("Fetched Blog Data:", data);
+      console.log("Raw API response:", data);
 
-      const sortedBlogs = data?.blogs
-        ?.filter((blog) => blog.status === "published")
-        ?.sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        )
-        .slice(0, 2);
-
-      setBlogs(sortedBlogs || []);
+      // Try this first:
+      if (Array.isArray(data)) {
+        setBlogs(data);
+      } else if (Array.isArray(data.blogs)) {
+        setBlogs(data.blogs);
+      } else {
+        setBlogs([]);
+        console.warn("Unexpected data structure from API");
+      }
     } catch (error) {
-      console.error("Error fetching blogs:", error);
-      setErrorMsg("Failed to load blog posts. Please try again later.");
+      setErrorMsg("Failed to load blogs.");
+      console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
   const handleApplyForVisa = () => {
     navigate("/applyforvisa");
   };
