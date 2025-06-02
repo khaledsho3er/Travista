@@ -46,39 +46,41 @@ function Navbar() {
   const [loading, setLoading] = useState(true);
 
   const [errorMsg, setErrorMsg] = useState("");
+  useEffect(() => {
+    const backgroundType = backgroundMap[location.pathname] || "dark";
+    setIsLightBackground(backgroundType === "light");
+  }, [location]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  useEffect(() => {
+    fetch("https://158.220.96.121/api/blog/")
+      .then((res) => res.json())
+      .then((data) => {
+        setBlogs(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }, []);
   const navigateToBlogs = () => {
     navigate("/Blogs");
   };
-  const fetchBlogs = async () => {
-    try {
-      setLoading(true);
-      setErrorMsg("");
-      const response = await fetch("https://158.220.96.121/api/blog/", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!response.ok) throw new Error(`HTTP error ${response.status}`);
 
-      const data = await response.json();
-      console.log("Raw API response:", data);
-
-      // Try this first:
-      if (Array.isArray(data)) {
-        setBlogs(data);
-      } else if (Array.isArray(data.blogs)) {
-        setBlogs(data.blogs);
-      } else {
-        setBlogs([]);
-        console.warn("Unexpected data structure from API");
-      }
-    } catch (error) {
-      setErrorMsg("Failed to load blogs.");
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  if (loading) return <p>Loading...</p>;
+  if (blogs.length === 0) return <p>No blogs available.</p>;
   const handleApplyForVisa = () => {
     navigate("/applyforvisa");
   };
@@ -101,24 +103,6 @@ function Navbar() {
   //   navigate("/Blogs");
   // };
   // Update navbar state based on route
-  useEffect(() => {
-    const backgroundType = backgroundMap[location.pathname] || "dark";
-    setIsLightBackground(backgroundType === "light");
-  }, [location]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolling(true);
-      } else {
-        setScrolling(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -536,7 +520,6 @@ function Navbar() {
               </Typography>
             )}
             <Grid container spacing={2}>
-              {blogs.length === 0 && <p>No blogs available.</p>}
               {blogs.map((blog) => (
                 <Grid item xs={12} md={6} key={blog._id}>
                   <Box
