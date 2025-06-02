@@ -546,6 +546,7 @@ function Navbar() {
               </Typography>
             )}
             <Grid container spacing={2}>
+              {blogs.length === 0 && <p>No blogs available.</p>}
               {blogs.map((blog) => (
                 <Grid item xs={12} md={6} key={blog._id}>
                   <Box
