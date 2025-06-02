@@ -23,6 +23,7 @@ function BuildMyPackageSteps() {
   const [departureCity, setDepartureCity] = useState("");
   const [travellers, setTravellers] = useState(1);
   const [budget, setBudget] = useState(2390);
+  const [currency, setCurrency] = useState("EUR");
   const [travelDate, setTravelDate] = useState("");
   const [flexibility, setFlexibility] = useState(2);
   const [nights, setNights] = useState(1);
@@ -85,6 +86,7 @@ function BuildMyPackageSteps() {
         lastName,
         email,
         phoneNumber: `${countryCode}${phoneNumber}`,
+        currency, // 👈 Add this line
       };
 
       // Submit the form data to the API
@@ -168,6 +170,8 @@ function BuildMyPackageSteps() {
             setTravellers={setTravellers}
             budget={budget}
             setBudget={setBudget}
+            currency={currency}
+            setCurrency={setCurrency}
             travelDate={travelDate}
             setTravelDate={setTravelDate}
             flexibility={flexibility}

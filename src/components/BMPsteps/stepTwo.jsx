@@ -25,6 +25,8 @@ function StepTwo({
   setTravellers,
   budget,
   setBudget,
+  currency,
+  setCurrency,
   travelDate,
   setTravelDate,
   flexibility,
@@ -35,7 +37,6 @@ function StepTwo({
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currency, setCurrency] = useState("EUR"); // moved here
   const [currencySymbol, setCurrencySymbol] = useState("€");
   const [currencyList, setCurrencyList] = useState([]);
 
