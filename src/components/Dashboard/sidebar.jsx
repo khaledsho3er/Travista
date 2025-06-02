@@ -38,6 +38,7 @@ function Sidebar({ setActiveSection }) {
       items: [
         { id: "dashboard", icon: Home, label: "Dashboard" },
         { id: "packages", icon: Package, label: "Packages" },
+        { id: "odooPackages", icon: Package, label: "Odoo Packages" },
         { id: "applications", icon: Users, label: "Applications" },
         {
           id: "BMPApplications",
