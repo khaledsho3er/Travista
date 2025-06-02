@@ -95,7 +95,22 @@ function Navbar() {
     setIsOpen(open);
   };
   const navColor = scrolling ? "white" : isLightBackground ? "black" : "white";
-
+  // ✅ AnimatedText Component
+  const AnimatedText = ({ text }) => {
+    return (
+      <span className="animated-text">
+        {text.split("").map((char, i) => (
+          <span
+            key={i}
+            className="animated-letter"
+            style={{ transitionDelay: `${i * 40}ms` }}
+          >
+            {char}
+          </span>
+        ))}
+      </span>
+    );
+  };
   const sideList = () => (
     <Box
       sx={{
@@ -118,7 +133,8 @@ function Navbar() {
             }}
           >
             <Link className="nav-link" to="/packages">
-              Packages & Tours <ArrowOutwardIcon fontSize="2rem" />
+              <AnimatedText text="Packages & Tours" />
+              <ArrowOutwardIcon fontSize="2rem" />
             </Link>
           </Button>
           <Button
@@ -131,7 +147,8 @@ function Navbar() {
             onClick={handleApplyForVisa}
           >
             <Link className="nav-link" to="/apply">
-              Apply for Visa <ArrowOutwardIcon fontSize="2rem" />
+              <AnimatedText text="Apply for Visa" />
+              <ArrowOutwardIcon fontSize="2rem" />
             </Link>
           </Button>
           <Button
@@ -144,7 +161,8 @@ function Navbar() {
             onClick={handleBuildPackageClick}
           >
             <Link className="nav-link" to="build-package">
-              Build my Package <ArrowOutwardIcon fontSize="2rem" />
+              <AnimatedText text="Build my Package" />
+              <ArrowOutwardIcon fontSize="2rem" />
             </Link>
           </Button>
         </Grid>
@@ -159,7 +177,8 @@ function Navbar() {
             onClick={handleAboutUs}
           >
             <Link className="nav-link" to="about">
-              Our Story <ArrowOutwardIcon fontSize="2rem" />
+              <AnimatedText text="Our Story" />
+              <ArrowOutwardIcon fontSize="2rem" />
             </Link>
           </Button>
           <Button
@@ -172,7 +191,8 @@ function Navbar() {
             onClick={handleCareers}
           >
             <Link className="nav-link" to="contactus">
-              Our Offices <ArrowOutwardIcon fontSize="2rem" />
+              <AnimatedText text="Our Offices" />
+              <ArrowOutwardIcon fontSize="2rem" />
             </Link>
           </Button>
           <Button
@@ -185,7 +205,8 @@ function Navbar() {
             onClick={handleCareers}
           >
             <Link className="nav-link" to="careers">
-              Careers <ArrowOutwardIcon fontSize="2rem" />
+              <AnimatedText text="Careers" />
+              <ArrowOutwardIcon fontSize="2rem" />
             </Link>
           </Button>
         </Grid>
