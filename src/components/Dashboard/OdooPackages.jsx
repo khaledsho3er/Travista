@@ -24,7 +24,7 @@ const OdooPackages = () => {
   useEffect(() => {
     const fetchOdooPackages = async () => {
       try {
-        const response = await axios.get(
+        const response = await axios.post(
           "http://82.129.226.164:80/api/list_crm_pacakge"
         );
         setPackages(response.data);
