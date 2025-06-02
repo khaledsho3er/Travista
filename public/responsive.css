@@ -842,7 +842,7 @@
     top: 20.5%;
   }
   .BMP-steps-hero-content-container {
-    gap: 290px;
+    gap: 330px;
   }
 }
 @media (min-width: 2560px) {
@@ -1018,7 +1018,7 @@
   .BMP-steps-hero-content-container {
     flex-direction: row;
     justify-content: space-around;
-    gap: 6.4rem;
+    /* gap: 6.4rem; */
   }
 
   .BMP-steps-hero-image-left,

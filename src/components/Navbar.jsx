@@ -8,7 +8,6 @@ import {
   Box,
   Grid,
   Typography,
-  Skeleton,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../utils/userContext";
@@ -547,91 +546,62 @@ function Navbar() {
               </Typography>
             )}
             <Grid container spacing={2}>
-              {loading
-                ? Array.from({ length: 2 }).map((_, index) => (
-                    <Grid item xs={12} md={6} key={index}>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "20px",
+              {blogs.map((blog) => (
+                <Grid item xs={12} md={6} key={blog._id}>
+                  <Box
+                    onClick={navigateToBlogs}
+                    sx={{
+                      borderRadius: 1,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "20px",
+                      "&:hover": {
+                        backgroundColor: "#ffffff12",
+                        transition: "background-color 0.3s ease-in-out",
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        borderRadius: "8px",
+                        minWidth: "120px",
+                        maxWidth: "150px",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <img
+                        src={`https://158.220.96.121/uploads/${blog.featuredImage}`}
+                        alt={blog.title}
+                        style={{
+                          width: "100%",
+                          borderRadius: "8px",
+                          filter: loading ? "blur(8px)" : "none",
+                          transition: "filter 0.3s ease",
                         }}
+                      />
+                    </Box>
+                    <Box>
+                      <Typography
+                        variant="caption"
+                        display="block"
+                        gutterBottom
                       >
-                        <Skeleton
-                          variant="rectangular"
-                          width={150}
-                          height={100}
-                          animation="wave"
-                          sx={{ borderRadius: "8px", flexShrink: 0 }}
-                        />
-                        <Box sx={{ flex: 1 }}>
-                          <Skeleton width="60%" height={24} />
-                          <Skeleton width="80%" height={20} />
-                          <Skeleton width="90%" height={20} />
-                        </Box>
-                      </Box>
-                    </Grid>
-                  ))
-                : blogs.map((blog) => (
-                    <Grid item xs={12} md={6} key={blog._id}>
-                      <Box
-                        onClick={navigateToBlogs}
-                        sx={{
-                          borderRadius: 1,
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "20px",
-                          "&:hover": {
-                            backgroundColor: "#ffffff12",
-                            transition: "background-color 0.3s ease-in-out",
-                          },
-                        }}
-                      >
-                        <Box
-                          sx={{
-                            borderRadius: "8px",
-                            minWidth: "120px",
-                            maxWidth: "150px",
-                            overflow: "hidden",
-                          }}
-                        >
-                          <img
-                            src={`https://158.220.96.121/uploads/${blog.featuredImage}`}
-                            alt={blog.title}
-                            style={{
-                              width: "100%",
-                              borderRadius: "8px",
-                              filter: loading ? "blur(8px)" : "none",
-                              transition: "filter 0.3s ease",
-                            }}
-                          />
-                        </Box>
-                        <Box>
-                          <Typography
-                            variant="caption"
-                            display="block"
-                            gutterBottom
-                          >
-                            5 Min read •{" "}
-                            {new Date(blog.createdAt).toLocaleDateString()}
-                          </Typography>
-                          <Typography
-                            variant="h6"
-                            gutterBottom
-                            fontWeight={800}
-                          >
-                            {blog.title}
-                          </Typography>
-                          <Typography variant="body2" color="#777777">
-                            {blog.subTitle ||
-                              blog.content?.slice(0, 100) ||
-                              "No preview available"}
-                            ...
-                          </Typography>
-                        </Box>
-                      </Box>
-                    </Grid>
-                  ))}
+                        5 Min read •{" "}
+                        {new Date(blog.createdAt).toLocaleDateString()}
+                      </Typography>
+                      <Typography variant="h6" gutterBottom fontWeight={800}>
+                        {blog.title}
+                      </Typography>
+                      <Typography variant="body2" color="#777777">
+                        {blog.subTitle ||
+                          blog.content?.slice(0, 100) ||
+                          "No preview available"}
+                        ...
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+              ))}
             </Grid>
           </Box>
         </div>
