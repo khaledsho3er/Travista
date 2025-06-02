@@ -62,9 +62,9 @@ function Navbar() {
   const handleMyAccount = () => {
     navigate("/account");
   };
-  const navigateToBlogs = () => {
-    navigate("/Blogs");
-  };
+  // const navigateToBlogs = () => {
+  //   navigate("/Blogs");
+  // };
   // Update navbar state based on route
   useEffect(() => {
     const backgroundType = backgroundMap[location.pathname] || "dark";
@@ -205,11 +205,30 @@ function Navbar() {
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const [errorMsg, setErrorMsg] = useState("");
+    const navigateToBlogs = () => {
+      navigate("/Blogs");
+    };
     const fetchBlogs = async () => {
       try {
-        setLoading(true); // Start loading
-        const response = await fetch("https://158.220.96.121/api/blog/");
+        setLoading(true);
+        setErrorMsg("");
+
+        // Use HTTP if HTTPS is causing issues due to invalid SSL
+        const response = await fetch("https://158.220.96.121/api/blog/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log("Fetched Blog Data:", data);
+
         const sortedBlogs = data?.blogs
           ?.filter((blog) => blog.status === "published")
           ?.sort(
@@ -217,17 +236,20 @@ function Navbar() {
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           )
           .slice(0, 2);
+
         setBlogs(sortedBlogs || []);
       } catch (error) {
         console.error("Error fetching blogs:", error);
+        setErrorMsg("Failed to load blog posts. Please try again later.");
       } finally {
-        setLoading(false); // Stop loading
+        setLoading(false);
       }
     };
 
     useEffect(() => {
       fetchBlogs();
     }, []);
+
     return (
       <Box
         className="blog-section"
@@ -267,7 +289,11 @@ function Navbar() {
             </Button>
           </Box>
         </Box>
-
+        {errorMsg && (
+          <Typography color="red" marginBottom={2}>
+            {errorMsg}
+          </Typography>
+        )}
         <Grid container spacing={2}>
           {loading
             ? Array.from({ length: 2 }).map((_, index) => (
