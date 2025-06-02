@@ -128,38 +128,16 @@ a.nav-link {
   color: white;
   text-decoration: none;
   font-size: 2.6rem;
-  transition: color 0.3s ease;
-  padding-bottom: 2px;
-}
-.nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  width: 0%;
-  background-color: #004381;
-  transition: width 0.5s ease;
+  display: inline-block; /* Ensure the link behaves like a block for animation */
+  transition: transform 0.3s ease; /* Smooth transition for the transform property */
 }
 
-.nav-link:hover::after {
-  width: 80%;
-}
-.animated-text {
-  display: inline-block;
-  overflow: hidden;
+a.nav-link:hover {
+  transform: translateY(-10px); /* Move the text up */
 }
 
-.animated-letter {
-  display: inline-block;
-  transform: translateY(0);
-  transition: transform 0.3s ease, color 0.3s ease;
-  color: white;
-}
-
-.animated-text:hover .animated-letter {
-  transform: translateY(-4px);
-  color: #caa56b;
+a.nav-link:active {
+  transform: translateY(0); /* Reset position when clicked */
 }
 
 .navbar {

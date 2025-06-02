@@ -95,22 +95,7 @@ function Navbar() {
     setIsOpen(open);
   };
   const navColor = scrolling ? "white" : isLightBackground ? "black" : "white";
-  // ✅ AnimatedText Component
-  const AnimatedText = ({ text }) => {
-    return (
-      <span className="animated-text">
-        {text.split("").map((char, i) => (
-          <span
-            key={i}
-            className="animated-letter"
-            style={{ transitionDelay: `${i * 40}ms` }}
-          >
-            {char}
-          </span>
-        ))}
-      </span>
-    );
-  };
+
   const sideList = () => (
     <Box
       sx={{
@@ -133,8 +118,7 @@ function Navbar() {
             }}
           >
             <Link className="nav-link" to="/packages">
-              <AnimatedText text="Packages & Tours" />
-              <ArrowOutwardIcon fontSize="2rem" />
+              Packages & Tours <ArrowOutwardIcon fontSize="2rem" />
             </Link>
           </Button>
           <Button
@@ -147,8 +131,7 @@ function Navbar() {
             onClick={handleApplyForVisa}
           >
             <Link className="nav-link" to="/apply">
-              <AnimatedText text="Apply for Visa" />
-              <ArrowOutwardIcon fontSize="2rem" />
+              Apply for Visa <ArrowOutwardIcon fontSize="2rem" />
             </Link>
           </Button>
           <Button
@@ -161,8 +144,7 @@ function Navbar() {
             onClick={handleBuildPackageClick}
           >
             <Link className="nav-link" to="build-package">
-              <AnimatedText text="Build my Package" />
-              <ArrowOutwardIcon fontSize="2rem" />
+              Build my Package <ArrowOutwardIcon fontSize="2rem" />
             </Link>
           </Button>
         </Grid>
@@ -177,8 +159,7 @@ function Navbar() {
             onClick={handleAboutUs}
           >
             <Link className="nav-link" to="about">
-              <AnimatedText text="Our Story" />
-              <ArrowOutwardIcon fontSize="2rem" />
+              Our Story <ArrowOutwardIcon fontSize="2rem" />
             </Link>
           </Button>
           <Button
@@ -191,8 +172,7 @@ function Navbar() {
             onClick={handleCareers}
           >
             <Link className="nav-link" to="contactus">
-              <AnimatedText text="Our Offices" />
-              <ArrowOutwardIcon fontSize="2rem" />
+              Our Offices <ArrowOutwardIcon fontSize="2rem" />
             </Link>
           </Button>
           <Button
@@ -205,8 +185,7 @@ function Navbar() {
             onClick={handleCareers}
           >
             <Link className="nav-link" to="careers">
-              <AnimatedText text="Careers" />
-              <ArrowOutwardIcon fontSize="2rem" />
+              Careers <ArrowOutwardIcon fontSize="2rem" />
             </Link>
           </Button>
         </Grid>
@@ -226,41 +205,29 @@ function Navbar() {
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // Example placeholder for navigateToBlogs
-    const navigateToBlogsById = (id) => {
-      navigate(`/singleblog/${id}`);
-    };
-
     const fetchBlogs = async () => {
       try {
-        setLoading(true);
+        setLoading(true); // Start loading
         const response = await fetch("https://158.220.96.121/api/blog/");
         const data = await response.json();
-        console.log("Raw data from API:", data);
-
-        // Filter and sort assuming data is an array of blogs directly
-        const sortedBlogs = data
-          ?.filter((blog) => blog.status?.toLowerCase() === "published")
+        const sortedBlogs = data?.blogs
+          ?.filter((blog) => blog.status === "published")
           ?.sort(
             (a, b) =>
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           )
           .slice(0, 2);
-
-        console.log("Filtered and sorted blogs:", sortedBlogs);
-
         setBlogs(sortedBlogs || []);
       } catch (error) {
         console.error("Error fetching blogs:", error);
       } finally {
-        setLoading(false);
+        setLoading(false); // Stop loading
       }
     };
 
     useEffect(() => {
       fetchBlogs();
     }, []);
-
     return (
       <Box
         className="blog-section"
@@ -326,13 +293,12 @@ function Navbar() {
             : blogs.map((blog) => (
                 <Grid item xs={12} md={6} key={blog._id}>
                   <Box
-                    onClick={() => navigateToBlogsById(blog._id)}
+                    onClick={navigateToBlogs}
                     sx={{
                       borderRadius: 1,
                       display: "flex",
                       alignItems: "center",
                       gap: "20px",
-                      cursor: "pointer",
                       "&:hover": {
                         backgroundColor: "#ffffff12",
                         transition: "background-color 0.3s ease-in-out",
@@ -481,10 +447,6 @@ function Navbar() {
                       color: navColor,
                       borderColor: navColor,
                       transition: "color 0.3s ease-in-out",
-                      "&:hover": {
-                        transform: "scale(1.05)",
-                        transition: "all 0.3s ease-in-out",
-                      },
                     }}
                   />
                   Sign In
@@ -513,7 +475,7 @@ function Navbar() {
         <div
           style={{
             width: "auto",
-            height: "120vh",
+            height: "90vh",
             background: "#142328",
             padding: "0 4%",
           }}
