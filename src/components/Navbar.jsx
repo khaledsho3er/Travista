@@ -43,7 +43,53 @@ function Navbar() {
   const [isLightBackground, setIsLightBackground] = useState(true);
   const [scrolling, setScrolling] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  const [errorMsg, setErrorMsg] = useState("");
+  const navigateToBlogs = () => {
+    navigate("/Blogs");
+  };
+  const fetchBlogs = async () => {
+    try {
+      setLoading(true);
+      setErrorMsg("");
+
+      // Use HTTP if HTTPS is causing issues due to invalid SSL
+      const response = await fetch("https://158.220.96.121/api/blog/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Fetched Blog Data:", data);
+
+      const sortedBlogs = data?.blogs
+        ?.filter((blog) => blog.status === "published")
+        ?.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        )
+        .slice(0, 2);
+
+      setBlogs(sortedBlogs || []);
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+      setErrorMsg("Failed to load blog posts. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
   const handleApplyForVisa = () => {
     navigate("/applyforvisa");
   };
@@ -200,180 +246,6 @@ function Navbar() {
       />
     </Box>
   );
-
-  function BlogSection() {
-    const [blogs, setBlogs] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    const [errorMsg, setErrorMsg] = useState("");
-    const navigateToBlogs = () => {
-      navigate("/Blogs");
-    };
-    const fetchBlogs = async () => {
-      try {
-        setLoading(true);
-        setErrorMsg("");
-
-        // Use HTTP if HTTPS is causing issues due to invalid SSL
-        const response = await fetch("https://158.220.96.121/api/blog/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log("Fetched Blog Data:", data);
-
-        const sortedBlogs = data?.blogs
-          ?.filter((blog) => blog.status === "published")
-          ?.sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          )
-          .slice(0, 2);
-
-        setBlogs(sortedBlogs || []);
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-        setErrorMsg("Failed to load blog posts. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    useEffect(() => {
-      fetchBlogs();
-    }, []);
-
-    return (
-      <Box
-        className="blog-section"
-        sx={{ padding: "20px 35px", color: "white" }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            alignItems: "center",
-            marginBottom: "25px",
-          }}
-        >
-          <Typography variant="h6" margin="25px 0" color={"white"} gutterBottom>
-            Latest blog
-          </Typography>
-
-          <Box>
-            <Button
-              onClick={navigateToBlogs}
-              sx={{
-                color: "black",
-                background: "white",
-                borderRadius: "25px",
-                p: "10px 20px",
-                fontWeight: 600,
-                fontSize: "0.7rem",
-                "&:hover": {
-                  backgroundColor: "#f0f0f0",
-                  transform: "scale(1.05)",
-                  transition: "all 0.3s ease-in-out",
-                },
-              }}
-            >
-              Discover Blog +
-            </Button>
-          </Box>
-        </Box>
-        {errorMsg && (
-          <Typography color="red" marginBottom={2}>
-            {errorMsg}
-          </Typography>
-        )}
-        <Grid container spacing={2}>
-          {loading
-            ? Array.from({ length: 2 }).map((_, index) => (
-                <Grid item xs={12} md={6} key={index}>
-                  <Box
-                    sx={{ display: "flex", alignItems: "center", gap: "20px" }}
-                  >
-                    <Skeleton
-                      variant="rectangular"
-                      width={150}
-                      height={100}
-                      animation="wave"
-                      sx={{ borderRadius: "8px", flexShrink: 0 }}
-                    />
-                    <Box sx={{ flex: 1 }}>
-                      <Skeleton width="60%" height={24} />
-                      <Skeleton width="80%" height={20} />
-                      <Skeleton width="90%" height={20} />
-                    </Box>
-                  </Box>
-                </Grid>
-              ))
-            : blogs.map((blog) => (
-                <Grid item xs={12} md={6} key={blog._id}>
-                  <Box
-                    onClick={navigateToBlogs}
-                    sx={{
-                      borderRadius: 1,
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "20px",
-                      "&:hover": {
-                        backgroundColor: "#ffffff12",
-                        transition: "background-color 0.3s ease-in-out",
-                      },
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        borderRadius: "8px",
-                        minWidth: "120px",
-                        maxWidth: "150px",
-                        overflow: "hidden",
-                      }}
-                    >
-                      <img
-                        src={`https://158.220.96.121/uploads/${blog.featuredImage}`}
-                        alt={blog.title}
-                        style={{
-                          width: "100%",
-                          borderRadius: "8px",
-                          filter: loading ? "blur(8px)" : "none",
-                          transition: "filter 0.3s ease",
-                        }}
-                      />
-                    </Box>
-                    <Box>
-                      <Typography
-                        variant="caption"
-                        display="block"
-                        gutterBottom
-                      >
-                        5 Min read •{" "}
-                        {new Date(blog.createdAt).toLocaleDateString()}
-                      </Typography>
-                      <Typography variant="h6" gutterBottom fontWeight={800}>
-                        {blog.title}
-                      </Typography>
-                      <Typography variant="body2" color="#777777">
-                        {blog?.content?.slice(0, 100)}...
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Grid>
-              ))}
-        </Grid>
-      </Box>
-    );
-  }
-
   return (
     <Box sx={{ position: "sticky", top: 0, zIndex: 10 }}>
       {!isOpen && (
@@ -626,7 +498,142 @@ function Navbar() {
 
           {sideList()}
 
-          <BlogSection />
+          <Box
+            className="blog-section"
+            sx={{ padding: "20px 35px", color: "white" }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                alignItems: "center",
+                marginBottom: "25px",
+              }}
+            >
+              <Typography
+                variant="h6"
+                margin="25px 0"
+                color={"white"}
+                gutterBottom
+              >
+                Latest blog
+              </Typography>
+
+              <Box>
+                <Button
+                  onClick={navigateToBlogs}
+                  sx={{
+                    color: "black",
+                    background: "white",
+                    borderRadius: "25px",
+                    p: "10px 20px",
+                    fontWeight: 600,
+                    fontSize: "0.7rem",
+                    "&:hover": {
+                      backgroundColor: "#f0f0f0",
+                      transform: "scale(1.05)",
+                      transition: "all 0.3s ease-in-out",
+                    },
+                  }}
+                >
+                  Discover Blog +
+                </Button>
+              </Box>
+            </Box>
+            {errorMsg && (
+              <Typography color="red" marginBottom={2}>
+                {errorMsg}
+              </Typography>
+            )}
+            <Grid container spacing={2}>
+              {loading
+                ? Array.from({ length: 2 }).map((_, index) => (
+                    <Grid item xs={12} md={6} key={index}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "20px",
+                        }}
+                      >
+                        <Skeleton
+                          variant="rectangular"
+                          width={150}
+                          height={100}
+                          animation="wave"
+                          sx={{ borderRadius: "8px", flexShrink: 0 }}
+                        />
+                        <Box sx={{ flex: 1 }}>
+                          <Skeleton width="60%" height={24} />
+                          <Skeleton width="80%" height={20} />
+                          <Skeleton width="90%" height={20} />
+                        </Box>
+                      </Box>
+                    </Grid>
+                  ))
+                : blogs.map((blog) => (
+                    <Grid item xs={12} md={6} key={blog._id}>
+                      <Box
+                        onClick={navigateToBlogs}
+                        sx={{
+                          borderRadius: 1,
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "20px",
+                          "&:hover": {
+                            backgroundColor: "#ffffff12",
+                            transition: "background-color 0.3s ease-in-out",
+                          },
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            borderRadius: "8px",
+                            minWidth: "120px",
+                            maxWidth: "150px",
+                            overflow: "hidden",
+                          }}
+                        >
+                          <img
+                            src={`https://158.220.96.121/uploads/${blog.featuredImage}`}
+                            alt={blog.title}
+                            style={{
+                              width: "100%",
+                              borderRadius: "8px",
+                              filter: loading ? "blur(8px)" : "none",
+                              transition: "filter 0.3s ease",
+                            }}
+                          />
+                        </Box>
+                        <Box>
+                          <Typography
+                            variant="caption"
+                            display="block"
+                            gutterBottom
+                          >
+                            5 Min read •{" "}
+                            {new Date(blog.createdAt).toLocaleDateString()}
+                          </Typography>
+                          <Typography
+                            variant="h6"
+                            gutterBottom
+                            fontWeight={800}
+                          >
+                            {blog.title}
+                          </Typography>
+                          <Typography variant="body2" color="#777777">
+                            {blog.subTitle ||
+                              blog.content?.slice(0, 100) ||
+                              "No preview available"}
+                            ...
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Grid>
+                  ))}
+            </Grid>
+          </Box>
         </div>
       </Drawer>
     </Box>
