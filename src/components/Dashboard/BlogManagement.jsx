@@ -26,7 +26,7 @@ const BlogManager = () => {
   });
 
   const fetchBlogs = async () => {
-    const { data } = await axios.get("https://158.220.96.121/api/blog");
+    const { data } = await axios.get("https://api.travistasl.com/api/blog");
     setBlogs(data);
   };
 
@@ -93,11 +93,11 @@ const BlogManager = () => {
 
     if (selectedBlog) {
       await axios.put(
-        `https://158.220.96.121/api/blog/${selectedBlog._id}`,
+        `https://api.travistasl.com/api/blog/${selectedBlog._id}`,
         formData
       );
     } else {
-      await axios.post("https://158.220.96.121/api/blog", formData);
+      await axios.post("https://api.travistasl.com/api/blog", formData);
     }
 
     const isSeoFriendly =
@@ -186,7 +186,7 @@ const BlogManager = () => {
           >
             {blog.featuredImage && (
               <img
-                src={`https://158.220.96.121/uploads/${blog.featuredImage}`}
+                src={`https://api.travistasl.com/uploads/${blog.featuredImage}`}
                 alt="Featured"
                 className="h-40 w-full object-cover"
               />

@@ -20,7 +20,7 @@ const AccountPage = () => {
 
       try {
         const response = await axios.get(
-          `https://158.220.96.121/api/favorites/my`,
+          `https://api.travistasl.com/api/favorites/my`,
           {
             params: { userId: userSession._id },
           }

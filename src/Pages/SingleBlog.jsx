@@ -11,7 +11,7 @@ function SingleBlog() {
   const [blog, setBlog] = useState(null);
 
   useEffect(() => {
-    fetch(`https://158.220.96.121/api/blog/${id}`)
+    fetch(`https://api.travistasl.com/api/blog/${id}`)
       .then((res) => res.json())
       .then((data) => setBlog(data))
       .catch((err) => console.error("Error fetching blog:", err));
@@ -32,7 +32,7 @@ function SingleBlog() {
           <>
             <p key={`text-${index}`}>{text}</p>
             <img
-              src={`https://158.220.96.121/uploads/${image}`}
+              src={`https://api.travistasl.com/uploads/${image}`}
               alt="Embedded Content"
               key={`img-${index}`}
               style={{ width: "100%", margin: "20px 0" }}
@@ -58,7 +58,7 @@ function SingleBlog() {
         <meta property="og:description" content={blog.subTitle} />
         <meta
           property="og:image"
-          content={`https://158.220.96.121/uploads/${blog.featuredImage}`}
+          content={`https://api.travistasl.com/uploads/${blog.featuredImage}`}
         />
         <meta property="og:type" content="article" />
         <meta
@@ -100,7 +100,7 @@ function SingleBlog() {
       </Box>
       <Box className="Single-Blog-image-hero">
         <img
-          src={`https://158.220.96.121/uploads/${blog.featuredImage}`}
+          src={`https://api.travistasl.com/uploads/${blog.featuredImage}`}
           alt="Blog Hero"
         />
       </Box>

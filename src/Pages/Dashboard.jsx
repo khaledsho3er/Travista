@@ -63,7 +63,7 @@ function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("https://158.220.96.121/api/dashboard/overview")
+      .get("https://api.travistasl.com/api/dashboard/overview")
       .then((res) => setData(res.data))
       .catch((err) => console.error("Failed to load dashboard data:", err));
   }, []);

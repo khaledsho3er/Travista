@@ -43,7 +43,9 @@ function Home() {
     const fetchHeroData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("https://158.220.96.121/api/hero/active");
+        const res = await axios.get(
+          "https://api.travistasl.com/api/hero/active"
+        );
         setHeroData(res.data);
       } catch (err) {
         console.error("Failed to fetch hero data", err);

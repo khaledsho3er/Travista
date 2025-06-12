@@ -34,7 +34,9 @@ const CountryManagement = () => {
 
   const fetchCountries = async () => {
     try {
-      const response = await axios.get("https://158.220.96.121/api/countries");
+      const response = await axios.get(
+        "https://api.travistasl.com/api/countries"
+      );
       setCountries(response.data);
     } catch (error) {
       console.error("Error fetching countries:", error);
@@ -75,14 +77,14 @@ const CountryManagement = () => {
       if (selectedCountry) {
         // Update country
         response = await axios.put(
-          `https://158.220.96.121/api/countries/${selectedCountry.countryId}`,
+          `https://api.travistasl.com/api/countries/${selectedCountry.countryId}`,
           countryData
         );
         toast.success("Country updated successfully!");
       } else {
         // Add country
         response = await axios.post(
-          "https://158.220.96.121/api/countries",
+          "https://api.travistasl.com/api/countries",
           countryData
         );
         toast.success("Country added successfully!");
@@ -105,7 +107,9 @@ const CountryManagement = () => {
     if (!window.confirm("Are you sure you want to delete this country?"))
       return;
     try {
-      await axios.delete(`https://158.220.96.121/api/countries/${countryId}`);
+      await axios.delete(
+        `https://api.travistasl.com/api/countries/${countryId}`
+      );
       toast.success("Country deleted successfully!");
       fetchCountries();
     } catch (error) {

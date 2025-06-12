@@ -46,7 +46,7 @@ function StepTwo({
       try {
         setLoading(true);
         const response = await axios.get(
-          "https://158.220.96.121/api/countries"
+          "https://api.travistasl.com/api/countries"
         );
         setCountries(response.data);
         setLoading(false);
@@ -72,7 +72,7 @@ function StepTwo({
 
         if (selectedCountryObj) {
           const response = await axios.get(
-            `https://158.220.96.121/api/cities/country/${selectedCountryObj._id}`
+            `https://api.travistasl.com/api/cities/country/${selectedCountryObj._id}`
           );
           setCities(response.data);
         }

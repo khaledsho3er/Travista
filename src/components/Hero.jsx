@@ -12,7 +12,9 @@ function Hero({ preloadedData = null }) {
     if (!preloadedData) {
       const fetchHero = async () => {
         try {
-          const res = await axios.get("https://158.220.96.121/api/hero/active");
+          const res = await axios.get(
+            "https://api.travistasl.com/api/hero/active"
+          );
           setHeroData(res.data);
         } catch (err) {
           console.error("Failed to fetch hero data", err);
@@ -29,7 +31,7 @@ function Hero({ preloadedData = null }) {
     <div
       style={{
         height: "90vh",
-        background: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://158.220.96.121${heroData.imageUrl})`,
+        background: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://api.travistasl.com${heroData.imageUrl})`,
         backgroundPosition: "top",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",

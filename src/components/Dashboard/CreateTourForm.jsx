@@ -210,9 +210,9 @@ const CreateTourForm = ({
     const fetchData = async () => {
       try {
         const [categoriesRes, countriesRes, citiesRes] = await Promise.all([
-          axios.get("https://158.220.96.121/api/tour-categories"),
-          axios.get("https://158.220.96.121/api/countries"),
-          axios.get("https://158.220.96.121/api/cities"),
+          axios.get("https://api.travistasl.com/api/tour-categories"),
+          axios.get("https://api.travistasl.com/api/countries"),
+          axios.get("https://api.travistasl.com/api/cities"),
         ]);
         setCategories(categoriesRes.data);
         setCountries(countriesRes.data);
@@ -426,7 +426,7 @@ const CreateTourForm = ({
       if (isEditing) {
         // Update existing tour
         await axios.put(
-          `https://158.220.96.121/api/tours/${tourData._id}`,
+          `https://api.travistasl.com/api/tours/${tourData._id}`,
           tour
         );
         toast.success("Tour updated successfully!");
@@ -436,7 +436,7 @@ const CreateTourForm = ({
         }
       } else {
         // Create new tour
-        await axios.post("https://158.220.96.121/api/tours", tour);
+        await axios.post("https://api.travistasl.com/api/tours", tour);
         toast.success("Tour created successfully!");
 
         // Reset form

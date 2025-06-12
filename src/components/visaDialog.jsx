@@ -23,7 +23,7 @@ const VisaDocumentDialog = ({ documentUrl, onClose }) => {
             }}
           >
             <a
-              href={`https://158.220.96.121/${documentUrl.fileUrl}`}
+              href={`https://api.travistasl.com/${documentUrl.fileUrl}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"

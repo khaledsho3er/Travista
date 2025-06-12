@@ -36,7 +36,7 @@ const FAQsComponent = ({
         setLoading(true);
         console.log("Fetching FAQs...");
         const response = await axios.get(
-          "https://158.220.96.121/api/faqs/visible"
+          "https://api.travistasl.com/api/faqs/visible"
         );
         const faqsData = response.data;
         console.log("Fetched FAQs:", faqsData);

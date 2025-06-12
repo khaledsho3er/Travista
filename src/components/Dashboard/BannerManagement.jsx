@@ -136,7 +136,7 @@ const BannerDashboard = () => {
           >
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
               <img
-                src={`https://158.220.96.121${banner.image}`}
+                src={`https://api.travistasl.com${banner.image}`}
                 alt="Banner"
                 style={{
                   width: 100,

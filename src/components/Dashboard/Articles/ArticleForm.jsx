@@ -32,7 +32,7 @@ const ArticleForm = () => {
     const fetchArticle = async () => {
       try {
         const response = await axios.get(
-          `https://158.220.96.121/api/articles/${id}`
+          `https://api.travistasl.com/api/articles/${id}`
         );
         setArticleData(response.data);
       } catch (error) {
@@ -61,10 +61,13 @@ const ArticleForm = () => {
 
     try {
       if (id) {
-        await axios.put(`https://158.220.96.121/api/articles/${id}`, formData);
+        await axios.put(
+          `https://api.travistasl.com/api/articles/${id}`,
+          formData
+        );
         toast.success("Article updated successfully!");
       } else {
-        await axios.post("https://158.220.96.121/api/articles", formData);
+        await axios.post("https://api.travistasl.com/api/articles", formData);
         toast.success("Article created successfully!");
       }
       navigate("/articles");

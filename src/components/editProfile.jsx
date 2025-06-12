@@ -34,7 +34,7 @@ const EditProfile = () => {
 
     try {
       const response = await axios.put(
-        `https://158.220.96.121/api/users/${userSession._id}`, // Corrected endpoint
+        `https://api.travistasl.com/api/users/${userSession._id}`, // Corrected endpoint
         editedData,
         {
           headers: {

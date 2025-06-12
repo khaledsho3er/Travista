@@ -44,7 +44,7 @@ const MessageForm = ({ type }) => {
 
     try {
       const response = await fetch(
-        "https://158.220.96.121/api/form-lead/submit",
+        "https://api.travistasl.com/api/form-lead/submit",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

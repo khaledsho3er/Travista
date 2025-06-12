@@ -29,7 +29,7 @@ const Forms = () => {
     const fetchForms = async () => {
       try {
         const response = await fetch(
-          "https://158.220.96.121/api/form-lead/all"
+          "https://api.travistasl.com/api/form-lead/all"
         );
         if (!response.ok) {
           throw new Error("Failed to fetch forms");
@@ -56,9 +56,12 @@ const Forms = () => {
 
   const handleDeleteConfirm = async () => {
     try {
-      await fetch(`https://158.220.96.121/api/form-lead/${selectedForm._id}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://api.travistasl.com/api/form-lead/${selectedForm._id}`,
+        {
+          method: "DELETE",
+        }
+      );
       setForms(forms.filter((form) => form._id !== selectedForm._id));
       setOpenDeleteDialog(false);
       toast.success("Form deleted successfully");

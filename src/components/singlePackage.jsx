@@ -145,7 +145,7 @@ function SinglePackage({ tour, onClose }) {
 
       // Make API call to submit the form
       const response = await fetch(
-        `https://158.220.96.121/api/applications/${tour._id}`,
+        `https://api.travistasl.com/api/applications/${tour._id}`,
         {
           method: "POST",
           headers: {
@@ -1349,7 +1349,7 @@ function SinglePackage({ tour, onClose }) {
               }}
             >
               <img
-                src={`https://158.220.96.121/${tour?.packagePicture}`}
+                src={`https://api.travistasl.com/${tour?.packagePicture}`}
                 alt={tour?.packageName || "Package"}
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />

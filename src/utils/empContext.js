@@ -16,7 +16,7 @@ export const EmpProvider = ({ children }) => {
 
   // 2️⃣ Check actual session on server
   useEffect(() => {
-    fetch("https://158.220.96.121/api/empauth/session", {
+    fetch("https://api.travistasl.com/api/empauth/session", {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -38,7 +38,7 @@ export const EmpProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const res = await fetch("https://158.220.96.121/api/empauth/login", {
+      const res = await fetch("https://api.travistasl.com/api/empauth/login", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -75,7 +75,7 @@ export const EmpProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await fetch("https://158.220.96.121/api/empauth/logout", {
+    await fetch("https://api.travistasl.com/api/empauth/logout", {
       method: "POST",
       credentials: "include",
     });

@@ -38,7 +38,9 @@ const ApplicationManager = () => {
 
   const fetchApplications = async () => {
     try {
-      const res = await axios.get("https://158.220.96.121/api/applications");
+      const res = await axios.get(
+        "https://api.travistasl.com/api/applications"
+      );
       setApplications(res.data.data || []);
     } catch (err) {
       console.error(err);
@@ -49,7 +51,7 @@ const ApplicationManager = () => {
     if (window.confirm("Are you sure you want to delete this application?")) {
       try {
         setLoading(true);
-        await axios.delete(`https://158.220.96.121/api/applications/${id}`);
+        await axios.delete(`https://api.travistasl.com/api/applications/${id}`);
         fetchApplications();
       } catch (err) {
         console.error(err);
@@ -63,7 +65,7 @@ const ApplicationManager = () => {
     try {
       setLoading(true);
       await axios.put(
-        `https://158.220.96.121/api/applications/${editApp._id}`,
+        `https://api.travistasl.com/api/applications/${editApp._id}`,
         editApp
       );
       setEditApp(null);

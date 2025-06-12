@@ -37,7 +37,9 @@ const BMPApplicationManager = () => {
 
   const fetchApplications = async () => {
     try {
-      const res = await axios.get("https://158.220.96.121/api/build-packages");
+      const res = await axios.get(
+        "https://api.travistasl.com/api/build-packages"
+      );
       setApplications(res.data || []);
     } catch (err) {
       console.error(err);
@@ -48,7 +50,9 @@ const BMPApplicationManager = () => {
     if (window.confirm("Are you sure you want to delete this application?")) {
       try {
         setLoading(true);
-        await axios.delete(`https://158.220.96.121/api/build-packages/${id}`);
+        await axios.delete(
+          `https://api.travistasl.com/api/build-packages/${id}`
+        );
         fetchApplications();
       } catch (err) {
         console.error(err);
@@ -62,7 +66,7 @@ const BMPApplicationManager = () => {
     try {
       setLoading(true);
       await axios.put(
-        `https://158.220.96.121/api/build-packages/${editApp._id}`,
+        `https://api.travistasl.com/api/build-packages/${editApp._id}`,
         editApp
       );
       setEditApp(null);

@@ -30,13 +30,13 @@ const UsersTable = () => {
   }, []);
 
   const fetchUsers = async () => {
-    const { data } = await axios.get("https://158.220.96.121/api/users");
+    const { data } = await axios.get("https://api.travistasl.com/api/users");
     setUsers(data);
   };
 
   const deleteUser = async (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
-      await axios.delete(`https://158.220.96.121/api/users/${id}`);
+      await axios.delete(`https://api.travistasl.com/api/users/${id}`);
       fetchUsers();
     }
   };
@@ -49,7 +49,7 @@ const UsersTable = () => {
 
   const handleSave = async () => {
     await axios.put(
-      `https://158.220.96.121/api/users/${dialogUser._id}`,
+      `https://api.travistasl.com/api/users/${dialogUser._id}`,
       dialogUser
     );
     setDialogOpen(false);

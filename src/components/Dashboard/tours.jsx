@@ -35,7 +35,7 @@ const ToursDashboard = () => {
 
   const fetchTours = async () => {
     try {
-      const res = await axios.get("https://158.220.96.121/api/tours");
+      const res = await axios.get("https://api.travistasl.com/api/tours");
       setTours(res.data);
     } catch (error) {
       toast.error("Failed to load tours");
@@ -105,7 +105,9 @@ const ToursDashboard = () => {
     }
 
     try {
-      await axios.delete(`https://158.220.96.121/api/tours/${menuTour._id}`);
+      await axios.delete(
+        `https://api.travistasl.com/api/tours/${menuTour._id}`
+      );
       toast.success("Tour deleted successfully!");
       fetchTours();
     } catch (error) {

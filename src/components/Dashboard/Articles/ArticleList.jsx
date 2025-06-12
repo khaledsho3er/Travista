@@ -23,7 +23,7 @@ const ArticleList = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        "https://158.220.96.121/api/articles/articles"
+        "https://api.travistasl.com/api/articles/articles"
       );
       setArticles(response.data);
     } catch (error) {
@@ -57,7 +57,7 @@ const ArticleList = () => {
                 <CardMedia
                   component="img"
                   height="180"
-                  image={`https://158.220.96.121${article.featuredImage}`} // Display uploaded image
+                  image={`https://api.travistasl.com${article.featuredImage}`} // Display uploaded image
                   alt="Featured Image"
                 />
               )}

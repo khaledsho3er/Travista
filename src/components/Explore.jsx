@@ -28,7 +28,9 @@ const Explore = () => {
     const fetchPackages = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://158.220.96.121/api/packages");
+        const response = await axios.get(
+          "https://api.travistasl.com/api/packages"
+        );
 
         // Get the last two packages from the response
         const specificPackages = response.data.slice(2, 4);
@@ -148,7 +150,7 @@ const Explore = () => {
               className="explore-more-card"
               key={pkg._id}
               sx={{
-                backgroundImage: `url(https://158.220.96.121/${pkg.packagePicture})`,
+                backgroundImage: `url(https://api.travistasl.com/${pkg.packagePicture})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 width: { xs: "100%", sm: "65%" },

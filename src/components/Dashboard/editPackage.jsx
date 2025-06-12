@@ -132,7 +132,9 @@ const EditPackage = ({
   useEffect(() => {
     const fetchTours = async () => {
       try {
-        const response = await axios.get("https://158.220.96.121/api/tours");
+        const response = await axios.get(
+          "https://api.travistasl.com/api/tours"
+        );
         setAvailableTours(response.data);
       } catch (error) {
         console.error("Error fetching tours:", error);
@@ -267,7 +269,7 @@ const EditPackage = ({
       }
 
       const response = await axios.put(
-        `https://158.220.96.121/api/packages/${packageData._id}`,
+        `https://api.travistasl.com/api/packages/${packageData._id}`,
         updatedPackageData
       );
 
@@ -398,7 +400,7 @@ const EditPackage = ({
             packageData?.packagePicture && (
               <Box
                 component="img"
-                src={`https://158.220.96.121/${packageData.packagePicture}`}
+                src={`https://api.travistasl.com/${packageData.packagePicture}`}
                 sx={{ height: 150, width: "auto", borderRadius: 2, mb: 2 }}
               />
             )

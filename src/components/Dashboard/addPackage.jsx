@@ -106,7 +106,9 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   useEffect(() => {
     const fetchTours = async () => {
       try {
-        const response = await axios.get("https://158.220.96.121/api/tours");
+        const response = await axios.get(
+          "https://api.travistasl.com/api/tours"
+        );
         setAvailableTours(response.data);
       } catch (error) {
         console.error("Error fetching tours:", error);

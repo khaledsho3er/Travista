@@ -77,7 +77,7 @@ const ApplyForVisaForm = () => {
     const fetchCountries = async () => {
       try {
         const res = await axios.get(
-          "https://158.220.96.121/api/visa-documents"
+          "https://api.travistasl.com/api/visa-documents"
         );
         setCountryOptions(res.data);
       } catch (error) {
@@ -183,7 +183,7 @@ const ApplyForVisaForm = () => {
 
       // Submit visa lead
       await axios.post(
-        "https://158.220.96.121/api/visa-leads",
+        "https://api.travistasl.com/api/visa-leads",
         formDataToSend,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -193,7 +193,7 @@ const ApplyForVisaForm = () => {
       try {
         // Try fetching visa document
         const docRes = await axios.get(
-          `https://158.220.96.121/api/visa-documents/${selectedCountry}`
+          `https://api.travistasl.com/api/visa-documents/${selectedCountry}`
         );
         console.log("Document response:", docRes);
         if (docRes.data) {

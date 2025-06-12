@@ -58,7 +58,7 @@ function Employees() {
       return;
     }
 
-    fetch("https://158.220.96.121/api/employees", {
+    fetch("https://api.travistasl.com/api/employees", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -86,14 +86,17 @@ function Employees() {
 
   const handleAddEmployee = async () => {
     try {
-      const res = await fetch("https://158.220.96.121/api/empauth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // Send the session cookie with the request
-        body: JSON.stringify(newEmployee),
-      });
+      const res = await fetch(
+        "https://api.travistasl.com/api/empauth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // Send the session cookie with the request
+          body: JSON.stringify(newEmployee),
+        }
+      );
 
       if (!res.ok) {
         throw new Error("Failed to add employee");
@@ -140,7 +143,7 @@ function Employees() {
   const handleUpdateEmployee = async () => {
     try {
       const res = await fetch(
-        `https://158.220.96.121/api/employees/${newEmployee._id}`,
+        `https://api.travistasl.com/api/employees/${newEmployee._id}`,
         {
           method: "PUT",
           headers: {
@@ -171,10 +174,13 @@ function Employees() {
 
   const handleDeleteEmployee = async (_id) => {
     try {
-      const res = await fetch(`https://158.220.96.121/api/employees/${_id}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      const res = await fetch(
+        `https://api.travistasl.com/api/employees/${_id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
 
       if (!res.ok) {
         throw new Error("Failed to delete employee");
@@ -198,7 +204,7 @@ function Employees() {
       );
 
       const res = await fetch(
-        `https://158.220.96.121/api/employees/${id}/toggle-status`,
+        `https://api.travistasl.com/api/employees/${id}/toggle-status`,
         {
           method: "PATCH",
           headers: {

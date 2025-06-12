@@ -32,7 +32,7 @@ function DashboardHero() {
 
   const fetchHeroes = async () => {
     try {
-      const res = await axios.get("https://158.220.96.121/api/hero");
+      const res = await axios.get("https://api.travistasl.com/api/hero");
       setHeroList(res.data);
     } catch (err) {
       toast.error("Failed to fetch hero entries");
@@ -51,7 +51,7 @@ function DashboardHero() {
     formData.append("isActive", false);
 
     try {
-      await axios.post("https://158.220.96.121/api/hero", formData, {
+      await axios.post("https://api.travistasl.com/api/hero", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setCaption("");
@@ -66,7 +66,7 @@ function DashboardHero() {
 
   const handleActivate = async (id) => {
     try {
-      await axios.patch(`https://158.220.96.121/api/hero/activate/${id}`);
+      await axios.patch(`https://api.travistasl.com/api/hero/activate/${id}`);
       toast.success("Hero set as active!");
       fetchHeroes();
     } catch (err) {
@@ -79,7 +79,7 @@ function DashboardHero() {
       return;
 
     try {
-      await axios.delete(`https://158.220.96.121/api/hero/${id}`);
+      await axios.delete(`https://api.travistasl.com/api/hero/${id}`);
       toast.success("Hero deleted successfully!");
       fetchHeroes();
     } catch (err) {
@@ -169,7 +169,7 @@ function DashboardHero() {
           >
             <ListItemAvatar>
               <Avatar
-                src={`https://158.220.96.121${hero.imageUrl}`}
+                src={`https://api.travistasl.com${hero.imageUrl}`}
                 variant="square"
                 sx={{ width: 70, height: 50, mr: 2 }}
               />
@@ -189,7 +189,7 @@ function DashboardHero() {
           {selectedHero && (
             <Box
               sx={{
-                background: `url(https://158.220.96.121${selectedHero.imageUrl})`,
+                background: `url(https://api.travistasl.com${selectedHero.imageUrl})`,
                 backgroundPosition: "center",
                 backgroundSize: "cover",
                 height: "300px",

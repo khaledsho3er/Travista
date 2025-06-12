@@ -74,7 +74,7 @@ const BlogEditor = () => {
     }
 
     try {
-      await axios.post("https://158.220.96.121/api/blogs", blogData, {
+      await axios.post("https://api.travistasl.com/api/blogs", blogData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       toast.success("Blog saved successfully!");

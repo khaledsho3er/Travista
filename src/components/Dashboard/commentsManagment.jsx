@@ -38,7 +38,7 @@ function CommentManagement() {
   const fetchComments = async () => {
     try {
       const response = await axios.get(
-        "https://158.220.96.121/api/comments/admin"
+        "https://api.travistasl.com/api/comments/admin"
       );
       setComments(response.data);
     } catch (error) {
@@ -77,11 +77,14 @@ function CommentManagement() {
     try {
       if (currentComment._id) {
         await axios.put(
-          `https://158.220.96.121/api/comments/${currentComment._id}`,
+          `https://api.travistasl.com/api/comments/${currentComment._id}`,
           currentComment
         );
       } else {
-        await axios.post("https://158.220.96.121/api/comments", currentComment);
+        await axios.post(
+          "https://api.travistasl.com/api/comments",
+          currentComment
+        );
         console.log("Comment added successfully!");
       }
       fetchComments();
@@ -93,7 +96,7 @@ function CommentManagement() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://158.220.96.121/api/comments/${id}`);
+      await axios.delete(`https://api.travistasl.com/api/comments/${id}`);
       fetchComments();
     } catch (error) {
       console.error("Error deleting comment:", error);
@@ -103,7 +106,7 @@ function CommentManagement() {
   const toggleVisibility = async (id) => {
     try {
       await axios.patch(
-        `https://158.220.96.121/api/comments/${id}/toggle-visibility`
+        `https://api.travistasl.com/api/comments/${id}/toggle-visibility`
       );
       fetchComments();
     } catch (error) {

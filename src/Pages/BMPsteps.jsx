@@ -91,7 +91,7 @@ function BuildMyPackageSteps() {
 
       // Submit the form data to the API
       const response = await axios.post(
-        "https://158.220.96.121/api/build-packages",
+        "https://api.travistasl.com/api/build-packages",
         formData
       );
 

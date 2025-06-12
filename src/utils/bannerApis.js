@@ -1,7 +1,7 @@
 // /api/bannerApi.js
 import axios from "axios";
 
-const API = axios.create({ baseURL: "https://158.220.96.121/api/banners" });
+const API = axios.create({ baseURL: "https://api.travistasl.com/api/banners" });
 
 export const getBanners = () => API.get("/");
 export const getBannerById = (id) => API.get(`/${id}`);

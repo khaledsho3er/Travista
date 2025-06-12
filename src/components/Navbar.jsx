@@ -65,7 +65,7 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   useEffect(() => {
-    fetch("https://158.220.96.121/api/blog/")
+    fetch("https://api.travistasl.com/api/blog/")
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);
@@ -544,7 +544,7 @@ function Navbar() {
                       }}
                     >
                       <img
-                        src={`https://158.220.96.121/uploads/${blog.featuredImage}`}
+                        src={`https://api.travistasl.com/uploads/${blog.featuredImage}`}
                         alt={blog.title}
                         style={{
                           width: "100%",

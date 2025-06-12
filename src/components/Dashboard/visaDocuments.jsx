@@ -24,7 +24,9 @@ function VisaDocumentsTable() {
   const [form, setForm] = useState({ name: "", type: "", file: null });
 
   const fetchVisas = async () => {
-    const res = await axios.get("https://158.220.96.121/api/visa-documents");
+    const res = await axios.get(
+      "https://api.travistasl.com/api/visa-documents"
+    );
     setVisas(res.data);
   };
 
@@ -60,12 +62,15 @@ function VisaDocumentsTable() {
     try {
       if (editVisa) {
         await axios.put(
-          `https://158.220.96.121/api/visa-documents/${editVisa._id}`,
+          `https://api.travistasl.com/api/visa-documents/${editVisa._id}`,
           formData
         );
         toast.success("Visa document updated successfully");
       } else {
-        await axios.post("https://158.220.96.121/api/visa-documents", formData);
+        await axios.post(
+          "https://api.travistasl.com/api/visa-documents",
+          formData
+        );
         toast.success("Visa document added successfully");
       }
       fetchVisas();
@@ -77,7 +82,7 @@ function VisaDocumentsTable() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://158.220.96.121/api/visa-documents/${id}`);
+      await axios.delete(`https://api.travistasl.com/api/visa-documents/${id}`);
       toast.success("Visa document deleted successfully");
       fetchVisas();
     } catch (err) {

@@ -32,12 +32,15 @@ const TravistaSignIn = () => {
     setError("");
 
     try {
-      const response = await fetch("https://158.220.96.121/api/auth/signin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://api.travistasl.com/api/auth/signin",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await response.json();
       console.log("Full API Response:", data);

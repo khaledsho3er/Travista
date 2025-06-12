@@ -78,7 +78,7 @@ function Footer() {
       try {
         setLoading(true);
         const response = await axios.get(
-          "https://158.220.96.121/api/social-media"
+          "https://api.travistasl.com/api/social-media"
         );
         setSocialLinks(response.data);
       } catch (error) {
@@ -104,7 +104,7 @@ function Footer() {
 
     try {
       // Call the newsletter subscription API
-      await axios.post("https://158.220.96.121/api/newsletter/subscribe", {
+      await axios.post("https://api.travistasl.com/api/newsletter/subscribe", {
         email,
       });
 

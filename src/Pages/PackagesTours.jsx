@@ -21,7 +21,7 @@ function PackagesTours() {
     const fetchPackages = async () => {
       try {
         const response = await axios.get(
-          "https://158.220.96.121/api/packages/"
+          "https://api.travistasl.com/api/packages/"
         );
         setPackages(response.data); // Assuming response.data is the array of packages
       } catch (error) {
@@ -37,7 +37,7 @@ function PackagesTours() {
 
       try {
         const response = await axios.get(
-          `https://158.220.96.121/api/favorites/my`,
+          `https://api.travistasl.com/api/favorites/my`,
           { params: { userId: userSession._id } }
         );
         const favoriteIds = response.data
@@ -62,7 +62,7 @@ function PackagesTours() {
       const isFavorited = favoritedPackages.includes(packageId);
 
       if (isFavorited) {
-        await axios.delete("https://158.220.96.121/api/favorites/remove", {
+        await axios.delete("https://api.travistasl.com/api/favorites/remove", {
           data: {
             userId: userSession._id,
             itemId: packageId,
@@ -70,7 +70,7 @@ function PackagesTours() {
         });
         setFavoritedPackages((prev) => prev.filter((id) => id !== packageId));
       } else {
-        await axios.post("https://158.220.96.121/api/favorites/", {
+        await axios.post("https://api.travistasl.com/api/favorites/", {
           userId: userSession._id,
           itemType: "package",
           itemId: packageId,
@@ -167,7 +167,7 @@ function PackagesTours() {
                     <CardContent
                       sx={{
                         height: "350px",
-                        backgroundImage: `url(https://158.220.96.121/${packageDetails.packagePicture})`,
+                        backgroundImage: `url(https://api.travistasl.com/${packageDetails.packagePicture})`,
                         color: "white",
                         position: "relative",
                         borderRadius: "12px",

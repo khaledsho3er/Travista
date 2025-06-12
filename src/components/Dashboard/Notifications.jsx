@@ -34,7 +34,7 @@ const NotificationsTable = () => {
   const fetchNotifications = async () => {
     try {
       const response = await axios.get(
-        "https://158.220.96.121/api/notifications"
+        "https://api.travistasl.com/api/notifications"
       );
       setNotifications(response.data);
     } catch (error) {
@@ -46,9 +46,12 @@ const NotificationsTable = () => {
   const markAsRead = async (id) => {
     try {
       setLoading(true);
-      await axios.patch(`https://158.220.96.121/api/notifications/${id}/read`, {
-        id,
-      });
+      await axios.patch(
+        `https://api.travistasl.com/api/notifications/${id}/read`,
+        {
+          id,
+        }
+      );
       toast.success("Notification marked as read");
       fetchNotifications();
     } catch (error) {

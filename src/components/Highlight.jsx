@@ -12,7 +12,7 @@ function Highlight() {
     const fetchActiveBanner = async () => {
       try {
         const response = await axios.get(
-          "https://158.220.96.121/api/banners/active"
+          "https://api.travistasl.com/api/banners/active"
         );
         setActiveBanner(response.data); // Update state with the active banner data
       } catch (error) {
@@ -36,7 +36,7 @@ function Highlight() {
   return (
     <Box
       sx={{
-        background: `url('https://158.220.96.121${activeBanner.image}')`,
+        background: `url('https://api.travistasl.com${activeBanner.image}')`,
         backgroundColor: "rgba(0, 0, 0, 0.5)", // Fallback color in case image fails to load
         backgroundBlendMode: "darken",
         height: window.innerHeight > 655 ? "90vh" : "95vh",
