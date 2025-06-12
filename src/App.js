@@ -1,143 +1,175 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense, lazy } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
-import Home from "./Pages/Home";
-import PackagesTours from "./Pages/PackagesTours";
 import TravistaLoading from "./components/loading";
-import TravistaSignIn from "./Pages/login";
-import TravistaSignUp from "./Pages/signup";
-import AccountPage from "./Pages/Account";
-import FAQsPage from "./Pages/FAQs";
-import ApplyForVisa from "./Pages/ApplyForVisa";
-import SingleBLog from "./Pages/SingleBlog";
-import BuildMyPackage from "./Pages/BuildMyPackage";
-import AboutPage from "./Pages/About";
-import ContactUs from "./Pages/ContactUs";
-import BuildMyPackageSteps from "./Pages/BMPsteps";
-import CareersPage from "./Pages/Careers";
-import BlogsPage from "./Pages/Blogs";
 import ScrollToTop from "./context/scrollToTop";
 import { UserProvider } from "./utils/userContext";
 import { initScrollbarVisibility } from "./utils/scrollbarVisibility";
-// Dashboard & Employee
-import DashboardLayout from "./components/Dashboard/Dashboard-layout";
-import AdminDashboard from "./Pages/adminDashboard";
-import DashboardPackages from "./components/Dashboard/package";
-import CityManagement from "./components/Dashboard/cities";
-import SeasonManagement from "./components/Dashboard/seasons";
-import HotelManagement from "./components/Dashboard/hotels";
-import NewsletterManagement from "./components/Dashboard/newsletter";
-import FAQManagement from "./components/Dashboard/faqsManagement";
-import SocialMediaManagement from "./components/Dashboard/SocialMediaManagement";
-import VisaApplicationsTable from "./components/Dashboard/VisaLead";
-import ArticleForm from "./components/Dashboard/Articles/ArticleForm";
-import ArticleDetails from "./components/Dashboard/Articles/ArticleDetails";
-import ArticleList from "./components/Dashboard/Articles/ArticleList";
-import CountryManagement from "./components/Dashboard/countries";
-import NotFound from "./Pages/NotFound";
-
-// Employee auth
-import EmpLoginForm from "./components/Dashboard/loginFormEmp";
-import EmpRegistrationForm from "./components/Dashboard/registerFormEmp";
 import { EmpProvider } from "./utils/empContext";
 import RequireEmployeeAuth from "./utils/RequireEmployeeAuth";
-import BlogManager from "./components/Dashboard/BlogManagement";
-import BannerDashboard from "./components/Dashboard/BannerManagement";
-import CommentManagement from "./components/Dashboard/commentsManagment";
-import TourCategoriesTable from "./components/Dashboard/tourCategories";
-import ToursDashboard from "./components/Dashboard/tours";
-import UsersTable from "./components/Dashboard/userManagement";
-import ApplicationManager from "./components/Dashboard/applications";
-import VisaDocumentsTable from "./components/Dashboard/visaDocuments";
+
+// Lazy load all pages
+const Home = lazy(() => import("./Pages/Home"));
+const PackagesTours = lazy(() => import("./Pages/PackagesTours"));
+const TravistaSignIn = lazy(() => import("./Pages/login"));
+const TravistaSignUp = lazy(() => import("./Pages/signup"));
+const AccountPage = lazy(() => import("./Pages/Account"));
+const FAQsPage = lazy(() => import("./Pages/FAQs"));
+const ApplyForVisa = lazy(() => import("./Pages/ApplyForVisa"));
+const SingleBLog = lazy(() => import("./Pages/SingleBlog"));
+const BuildMyPackage = lazy(() => import("./Pages/BuildMyPackage"));
+const AboutPage = lazy(() => import("./Pages/About"));
+const ContactUs = lazy(() => import("./Pages/ContactUs"));
+const BuildMyPackageSteps = lazy(() => import("./Pages/BMPsteps"));
+const CareersPage = lazy(() => import("./Pages/Careers"));
+const BlogsPage = lazy(() => import("./Pages/Blogs"));
+const NotFound = lazy(() => import("./Pages/NotFound"));
+
+// Dashboard & Employee Pages
+const DashboardLayout = lazy(() =>
+  import("./components/Dashboard/Dashboard-layout")
+);
+const AdminDashboard = lazy(() => import("./Pages/adminDashboard"));
+const DashboardPackages = lazy(() => import("./components/Dashboard/package"));
+const CityManagement = lazy(() => import("./components/Dashboard/cities"));
+const SeasonManagement = lazy(() => import("./components/Dashboard/seasons"));
+const HotelManagement = lazy(() => import("./components/Dashboard/hotels"));
+const NewsletterManagement = lazy(() =>
+  import("./components/Dashboard/newsletter")
+);
+const FAQManagement = lazy(() =>
+  import("./components/Dashboard/faqsManagement")
+);
+const SocialMediaManagement = lazy(() =>
+  import("./components/Dashboard/SocialMediaManagement")
+);
+const VisaApplicationsTable = lazy(() =>
+  import("./components/Dashboard/VisaLead")
+);
+const ArticleForm = lazy(() =>
+  import("./components/Dashboard/Articles/ArticleForm")
+);
+const ArticleDetails = lazy(() =>
+  import("./components/Dashboard/Articles/ArticleDetails")
+);
+const ArticleList = lazy(() =>
+  import("./components/Dashboard/Articles/ArticleList")
+);
+const CountryManagement = lazy(() =>
+  import("./components/Dashboard/countries")
+);
+const BlogManager = lazy(() => import("./components/Dashboard/BlogManagement"));
+const BannerDashboard = lazy(() =>
+  import("./components/Dashboard/BannerManagement")
+);
+const CommentManagement = lazy(() =>
+  import("./components/Dashboard/commentsManagment")
+);
+const TourCategoriesTable = lazy(() =>
+  import("./components/Dashboard/tourCategories")
+);
+const ToursDashboard = lazy(() => import("./components/Dashboard/tours"));
+const UsersTable = lazy(() => import("./components/Dashboard/userManagement"));
+const ApplicationManager = lazy(() =>
+  import("./components/Dashboard/applications")
+);
+const VisaDocumentsTable = lazy(() =>
+  import("./components/Dashboard/visaDocuments")
+);
+
+// Employee Auth
+const EmpLoginForm = lazy(() => import("./components/Dashboard/loginFormEmp"));
+const EmpRegistrationForm = lazy(() =>
+  import("./components/Dashboard/registerFormEmp")
+);
 
 function App() {
   useEffect(() => {
-    // Initialize scrollbar visibility enhancement
     initScrollbarVisibility();
   }, []);
+
   return (
     <Router>
       <ScrollToTop />
       <UserProvider>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<TravistaSignIn />} />
-          <Route path="/signup" element={<TravistaSignUp />} />
-          <Route path="/packages" element={<PackagesTours />} />
-          <Route path="/careers" element={<CareersPage />} />
-          <Route path="/loading" element={<TravistaLoading />} />
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/faqs" element={<FAQsPage />} />
-          <Route path="/applyforvisa" element={<ApplyForVisa />} />
-          <Route path="/singleblog/:id" element={<SingleBLog />} />
-          <Route path="/buildmypackage" element={<BuildMyPackage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contactus" element={<ContactUs />} />
-          <Route
-            path="/buildmypackagesteps"
-            element={<BuildMyPackageSteps />}
-          />
-          <Route path="/blogs" element={<BlogsPage />} />
-          {/* Employee Auth Routes */}
-          <Route
-            path="/employee/login"
-            element={
-              <EmpProvider>
-                <EmpLoginForm />
-              </EmpProvider>
-            }
-          />{" "}
-          <Route
-            path="/employee/register"
-            element={
-              <EmpProvider>
-                <EmpRegistrationForm />
-              </EmpProvider>
-            }
-          />
-          {/* Employee Dashboard (Protected) */}
-          <Route
-            path="/admin/*"
-            element={
-              <EmpProvider>
-                <RequireEmployeeAuth>
-                  <DashboardLayout />
-                </RequireEmployeeAuth>
-              </EmpProvider>
-            }
-          >
-            <Route index element={<AdminDashboard />} />
-            <Route path="packages" element={<DashboardPackages />} />
-            <Route path="countries" element={<CountryManagement />} />
-            <Route path="BlogManagement" element={<BlogManager />} />
-            <Route path="cities" element={<CityManagement />} />
-            <Route path="seasons" element={<SeasonManagement />} />
-            <Route path="hotels" element={<HotelManagement />} />
-            <Route path="tour-categories" element={<TourCategoriesTable />} />
-            <Route path="tours" element={<ToursDashboard />} />
-            <Route path="newsletter" element={<NewsletterManagement />} />
-            <Route path="applications" element={<ApplicationManager />} />
-            <Route path="faqsmanagement" element={<FAQManagement />} />
-            <Route path="DashboardHero" element={<TravistaLoading />} />
-            <Route path="visaDocuments" element={<VisaDocumentsTable />} />
-            <Route path="socialmedia" element={<SocialMediaManagement />} />
-            <Route path="userManagement" element={<UsersTable />} />
-            <Route path="visalead" element={<VisaApplicationsTable />} />
-            <Route path="banners" element={<BannerDashboard />} />
-            <Route path="CommentManagement" element={<CommentManagement />} />
-            <Route path="articles" element={<ArticleList />} />
-            <Route path="new" element={<ArticleForm />} />
-            <Route path="edit/:id" element={<ArticleForm />} />
-            <Route path=":id" element={<ArticleDetails />} />
-          </Route>
-          <Route path="*" element={<Navigate to="/404" />} />
-          <Route path="/404" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<TravistaLoading />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<TravistaSignIn />} />
+            <Route path="/signup" element={<TravistaSignUp />} />
+            <Route path="/packages" element={<PackagesTours />} />
+            <Route path="/careers" element={<CareersPage />} />
+            <Route path="/loading" element={<TravistaLoading />} />
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="/faqs" element={<FAQsPage />} />
+            <Route path="/applyforvisa" element={<ApplyForVisa />} />
+            <Route path="/singleblog/:id" element={<SingleBLog />} />
+            <Route path="/buildmypackage" element={<BuildMyPackage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contactus" element={<ContactUs />} />
+            <Route
+              path="/buildmypackagesteps"
+              element={<BuildMyPackageSteps />}
+            />
+            <Route path="/blogs" element={<BlogsPage />} />
+            <Route
+              path="/employee/login"
+              element={
+                <EmpProvider>
+                  <EmpLoginForm />
+                </EmpProvider>
+              }
+            />
+            <Route
+              path="/employee/register"
+              element={
+                <EmpProvider>
+                  <EmpRegistrationForm />
+                </EmpProvider>
+              }
+            />
+            <Route
+              path="/admin/*"
+              element={
+                <EmpProvider>
+                  <RequireEmployeeAuth>
+                    <DashboardLayout />
+                  </RequireEmployeeAuth>
+                </EmpProvider>
+              }
+            >
+              <Route index element={<AdminDashboard />} />
+              <Route path="packages" element={<DashboardPackages />} />
+              <Route path="countries" element={<CountryManagement />} />
+              <Route path="BlogManagement" element={<BlogManager />} />
+              <Route path="cities" element={<CityManagement />} />
+              <Route path="seasons" element={<SeasonManagement />} />
+              <Route path="hotels" element={<HotelManagement />} />
+              <Route path="tour-categories" element={<TourCategoriesTable />} />
+              <Route path="tours" element={<ToursDashboard />} />
+              <Route path="newsletter" element={<NewsletterManagement />} />
+              <Route path="applications" element={<ApplicationManager />} />
+              <Route path="faqsmanagement" element={<FAQManagement />} />
+              <Route path="DashboardHero" element={<TravistaLoading />} />
+              <Route path="visaDocuments" element={<VisaDocumentsTable />} />
+              <Route path="socialmedia" element={<SocialMediaManagement />} />
+              <Route path="userManagement" element={<UsersTable />} />
+              <Route path="visalead" element={<VisaApplicationsTable />} />
+              <Route path="banners" element={<BannerDashboard />} />
+              <Route path="CommentManagement" element={<CommentManagement />} />
+              <Route path="articles" element={<ArticleList />} />
+              <Route path="new" element={<ArticleForm />} />
+              <Route path="edit/:id" element={<ArticleForm />} />
+              <Route path=":id" element={<ArticleDetails />} />
+            </Route>
+            <Route path="*" element={<Navigate to="/404" />} />
+            <Route path="/404" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </UserProvider>
     </Router>
   );
