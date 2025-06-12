@@ -1,0 +1,26 @@
+name: Auto Deploy Frontend to Server
+
+on:
+  push:
+    branches:
+      - main  # or 'main' if that's your branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Deploy to Server
+        env:
+          SSHPASS: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          sshpass -e ssh -o StrictHostKeyChecking=no root@158.220.96.121 << 'EOF'
+            source ~/.bashrc
+            cd /var/www/Travista
+            git pull
+            npm install
+            npm run build
+          EOF
