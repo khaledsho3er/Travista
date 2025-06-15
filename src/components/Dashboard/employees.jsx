@@ -58,7 +58,7 @@ function Employees() {
       .then((res) => res.json())
       .then(setEmployees)
       .catch(console.error);
-  }, [employee]);
+  }, [employee, token]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -121,7 +121,7 @@ function Employees() {
 
   const handleEditEmployee = (employee) => {
     setSelectedEmployee(employee);
-    setNewEmployee(employee);
+    setNewEmployee(...employee);
     setEditOpen(true);
   };
 
@@ -144,8 +144,8 @@ function Employees() {
       }
 
       const updatedEmployee = await res.json();
-      setEmployees(
-        employees.map((emp) =>
+      setEmployees((prev) =>
+        prev.map((emp) =>
           emp._id === updatedEmployee._id ? updatedEmployee : emp
         )
       );
