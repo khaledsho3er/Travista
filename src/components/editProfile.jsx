@@ -7,7 +7,13 @@ import { useNavigate } from "react-router-dom";
 const EditProfile = () => {
   const { userSession, setUserSession, logout } = useUser();
   const [isEditing, setIsEditing] = useState(false);
-  const [editedData, setEditedData] = useState(null);
+  const [editedData, setEditedData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    birthDate: "",
+  });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -24,15 +30,16 @@ const EditProfile = () => {
             },
           }
         );
+
         setEditedData({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          phoneNumber: data.phoneNumber,
+          firstName: data.firstName || "",
+          lastName: data.lastName || "",
+          email: data.email || "",
+          phoneNumber: data.phoneNumber || "",
           birthDate: data.birthDate?.split("T")[0] || "",
         });
 
-        // optional: sync userSession with latest
+        // Optionally sync session
         setUserSession({ ...userSession, ...data });
       } catch (error) {
         setMessage("Failed to load profile.");
@@ -86,13 +93,14 @@ const EditProfile = () => {
     setLoading(false);
   };
 
-  const handleLogout = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate logout delay
+  const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
-  if (!editedData) return <Typography>Loading profile...</Typography>;
+  if (!userSession?.token) {
+    return <Typography>Please log in to view your profile.</Typography>;
+  }
 
   return (
     <Box sx={{ maxWidth: "500px", margin: "auto", mt: 3 }}>
@@ -182,6 +190,7 @@ const EditProfile = () => {
             </Button>
           </>
         )}
+
         <Button
           variant="contained"
           color="error"

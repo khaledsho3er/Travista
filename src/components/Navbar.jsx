@@ -79,7 +79,6 @@ function Navbar() {
     navigate("/Blogs");
   };
 
-  if (blogs.length === 0) return <p>No blogs available.</p>;
   const handleApplyForVisa = () => {
     navigate("/applyforvisa");
   };
