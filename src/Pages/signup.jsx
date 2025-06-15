@@ -47,21 +47,18 @@ const TravistaSignUp = () => {
     }
 
     try {
-      const response = await fetch(
-        "https://api.travistasl.com/api/auth/signup",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
-            password: formData.password,
-            phoneNumber: formData.phoneNumber,
-            birthDate: formData.birthDate || null,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:5000/api/users/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          phoneNumber: formData.phoneNumber,
+          birthDate: formData.birthDate || null,
+        }),
+      });
 
       const data = await response.json();
       console.log("API Response:", data);
