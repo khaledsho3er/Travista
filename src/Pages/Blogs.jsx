@@ -6,14 +6,12 @@ import {
   Select,
   MenuItem,
   useMediaQuery,
-  IconButton,
 } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useUser } from "../utils/userContext"; // ✅ Add this
-import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function BlogsPage() {
   const [blogData, setBlogData] = useState([]);
@@ -240,31 +238,6 @@ function BlogsPage() {
                 overflow: "hidden",
               }}
             >
-              <IconButton
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleFavorite(blog._id);
-                }}
-                sx={{
-                  position: "absolute",
-                  top: "10px",
-                  right: "0px",
-                  color: favoritedBlogs.includes(blog._id)
-                    ? "var(--maroon)"
-                    : "white",
-                  backgroundColor: "rgba(0,0,0,0.4)",
-                  borderRadius: "50%",
-                  zIndex: 2,
-                  padding: "6px",
-                  "&:hover": {
-                    color: "var(--maroon)",
-                    backgroundColor: "rgba(0,0,0,0.6)",
-                  },
-                }}
-              >
-                <FavoriteIcon fontSize="small" />
-              </IconButton>
-
               <Link
                 to={`/singleblog/${blog._id}`}
                 style={{ textDecoration: "none" }}
