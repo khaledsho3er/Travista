@@ -47,7 +47,8 @@ function PackagesTours() {
 
         const favoriteIds = response.data
           .filter((f) => f.itemType === "package")
-          .map((f) => f.itemId);
+          .map((f) => f.item._id); // ✅ instead of f.itemId
+
         setFavoritedPackages(favoriteIds);
       } catch (error) {
         console.error("Error fetching favorites:", error);
