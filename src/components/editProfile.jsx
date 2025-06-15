@@ -39,8 +39,7 @@ const EditProfile = () => {
           birthDate: data.birthDate?.split("T")[0] || "",
         });
 
-        // Optionally sync session
-        setUserSession({ ...userSession, ...data });
+        // ❌ Do not call setUserSession here — it causes re-renders and resets inputs
       } catch (error) {
         setMessage("Failed to load profile.");
       }
@@ -49,7 +48,7 @@ const EditProfile = () => {
     if (userSession?.token) {
       fetchProfile();
     }
-  }, [userSession, setUserSession]);
+  }, [userSession?.token]); // ✅ depend only on token
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
