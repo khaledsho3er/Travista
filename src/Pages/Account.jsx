@@ -134,7 +134,7 @@ const AccountPage = () => {
             information here.
           </p>
           <div className="account-tabs">
-            <button
+            {/* <button
               onClick={() => setActiveTab("bookings")}
               className={activeTab === "bookings" ? "active" : ""}
             >
@@ -145,12 +145,12 @@ const AccountPage = () => {
               className={activeTab === "customPackages" ? "active" : ""}
             >
               Custom Packages
-            </button>
+            </button> */}
             <button
               onClick={() => setActiveTab("saved")}
               className={activeTab === "saved" ? "active" : ""}
             >
-              Saved
+              Favorites
             </button>
             <button
               onClick={() => setActiveTab("editProfile")}
