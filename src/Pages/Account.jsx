@@ -7,6 +7,7 @@ import { Typography } from "@mui/material";
 import { Box, Grid, Button } from "@mui/material";
 import { useUser } from "../utils/userContext";
 import axios from "axios";
+import SavedItemCard from "../components/SavedItemCard";
 
 const AccountPage = () => {
   const [activeTab, setActiveTab] = useState("saved");
@@ -91,21 +92,26 @@ const AccountPage = () => {
                 Articles
               </Button>
             </Box>
-            <Grid container spacing={1}>
-              {(activeSavedTab === "package"
-                ? savedPackages
-                : savedArticles
-              ).map((item, index) => (
-                <Grid item xs={12} sm={6} md={3.1} key={index}>
-                  {activeSavedTab === "package" ? (
-                    <PackageCards tour={item.itemDetails} /> // itemDetails should contain package info
-                  ) : (
-                    <Typography variant="body1">
-                      {item.itemDetails?.title}
-                    </Typography>
-                  )}
-                </Grid>
-              ))}
+            <Grid container spacing={2}>
+              {(activeSavedTab === "package" ? savedPackages : savedArticles)
+                .length === 0 ? (
+                <Typography
+                  variant="body2"
+                  sx={{ marginLeft: 2, marginTop: 2 }}
+                >
+                  You have no saved{" "}
+                  {activeSavedTab === "package" ? "packages" : "articles"}.
+                </Typography>
+              ) : (
+                (activeSavedTab === "package"
+                  ? savedPackages
+                  : savedArticles
+                ).map((item, index) => (
+                  <Grid item xs={12} sm={6} md={3} key={index}>
+                    <SavedItemCard item={item.item} type={item.itemType} />
+                  </Grid>
+                ))
+              )}
             </Grid>
           </Box>
         );
