@@ -110,7 +110,7 @@ const EditProfile = () => {
   }
 
   return (
-    <Box sx={{ maxWidth: 600, mx: "auto", mt: 5, px: 2 }}>
+    <Box sx={{ maxWidth: 600, mx: "auto", mt: 5, px: 2, width: "100%" }}>
       <Paper elevation={3} sx={{ p: 4, borderRadius: 3, bgcolor: "#ffffff" }}>
         <Typography variant="h4" gutterBottom sx={{ color: "#004381" }}>
           Edit Profile
