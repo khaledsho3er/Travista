@@ -38,8 +38,13 @@ function PackagesTours() {
       try {
         const response = await axios.get(
           `https://api.travistasl.com/api/favorites/my`,
-          { params: { userId: userSession._id } }
+          {
+            headers: {
+              Authorization: `Bearer ${userSession.token}`,
+            },
+          }
         );
+
         const favoriteIds = response.data
           .filter((f) => f.itemType === "package")
           .map((f) => f.itemId);
@@ -53,7 +58,7 @@ function PackagesTours() {
   }, [userSession]);
 
   const handleFavorite = async (packageId) => {
-    if (!userSession?._id) {
+    if (!userSession?.token) {
       alert("You must be logged in to favorite a package.");
       return;
     }
@@ -64,17 +69,27 @@ function PackagesTours() {
       if (isFavorited) {
         await axios.delete("https://api.travistasl.com/api/favorites/remove", {
           data: {
-            userId: userSession._id,
             itemId: packageId,
+            itemType: "package",
+          },
+          headers: {
+            Authorization: `Bearer ${userSession.token}`,
           },
         });
         setFavoritedPackages((prev) => prev.filter((id) => id !== packageId));
       } else {
-        await axios.post("https://api.travistasl.com/api/favorites/", {
-          userId: userSession._id,
-          itemType: "package",
-          itemId: packageId,
-        });
+        await axios.post(
+          "https://api.travistasl.com/api/favorites/",
+          {
+            itemId: packageId,
+            itemType: "package",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${userSession.token}`,
+            },
+          }
+        );
         setFavoritedPackages((prev) => [...prev, packageId]);
       }
     } catch (error) {

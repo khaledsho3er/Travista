@@ -22,9 +22,12 @@ const AccountPage = () => {
         const response = await axios.get(
           `https://api.travistasl.com/api/favorites/my`,
           {
-            params: { userId: userSession._id },
+            headers: {
+              Authorization: `Bearer ${userSession.token}`,
+            },
           }
         );
+
         setFavorites(response.data); // Make sure your backend returns populated itemDetails
       } catch (error) {
         console.error("Failed to fetch favorites:", error);
