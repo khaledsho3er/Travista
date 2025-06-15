@@ -7,7 +7,7 @@ export const EmpProvider = ({ children }) => {
   const [employee, setEmployee] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load from localStorage
+  // Load employee and token from localStorage
   useEffect(() => {
     const savedEmployee = localStorage.getItem("employee");
     const savedToken = localStorage.getItem("employee-token");
@@ -16,7 +16,28 @@ export const EmpProvider = ({ children }) => {
     }
   }, []);
 
-  // Save to localStorage on change
+  // Check token and validate session
+  useEffect(() => {
+    const token = localStorage.getItem("employee-token");
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
+    fetch("https://api.travistasl.com/api/empauth/session", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.employee) setEmployee(data.employee);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  // Sync employee state to localStorage
   useEffect(() => {
     if (employee) {
       localStorage.setItem("employee", JSON.stringify(employee));
