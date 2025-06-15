@@ -17,6 +17,7 @@ import {
   Paper,
   Select,
   MenuItem,
+  Pagination,
 } from "@mui/material";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
@@ -29,7 +30,8 @@ const VisaApplicationsTable = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [emailNote, setEmailNote] = useState("");
   const [status, setStatus] = useState("");
-
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 12;
   useEffect(() => {
     fetchApplications();
   }, []);
@@ -89,7 +91,14 @@ const VisaApplicationsTable = () => {
       toast.error("Error deleting application");
     }
   };
+  const paginatedData = applications.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
 
+  const handleChangePage = (event, value) => {
+    setPage(value);
+  };
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h4" sx={{ mb: 3 }}>
@@ -121,7 +130,7 @@ const VisaApplicationsTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {applications.map((app) => (
+            {paginatedData.map((app) => (
               <TableRow key={app._id}>
                 <TableCell>
                   {app.firstName} {app.lastName}
@@ -152,7 +161,14 @@ const VisaApplicationsTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-
+      <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
+        <Pagination
+          count={Math.ceil(applications.length / itemsPerPage)}
+          page={page}
+          onChange={handleChangePage}
+          color="primary"
+        />
+      </Box>
       {/* Edit Dialog */}
       <Dialog
         open={openEdit}

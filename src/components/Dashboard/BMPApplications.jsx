@@ -16,6 +16,7 @@ import {
   Paper,
   Tooltip,
   Divider,
+  Pagination,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
@@ -30,6 +31,8 @@ const BMPApplicationManager = () => {
   const [editApp, setEditApp] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 12;
 
   useEffect(() => {
     fetchApplications();
@@ -93,7 +96,14 @@ const BMPApplicationManager = () => {
     const originalApp = applications.find((app) => app._id === editApp._id);
     setEditApp(originalApp);
   };
+  const paginatedData = applications.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
 
+  const handleChangePage = (event, value) => {
+    setPage(value);
+  };
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
@@ -177,7 +187,7 @@ const BMPApplicationManager = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {applications.map((app) => (
+            {paginatedData.map((app) => (
               <TableRow key={app._id} hover>
                 <TableCell>{`${app.firstName} ${app.lastName}`}</TableCell>
                 <TableCell>{app.type}</TableCell>
@@ -227,6 +237,14 @@ const BMPApplicationManager = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
+        <Pagination
+          count={Math.ceil(applications.length / itemsPerPage)}
+          page={page}
+          onChange={handleChangePage}
+          color="primary"
+        />
+      </Box>
 
       <Modal open={!!viewApp} onClose={() => setViewApp(null)}>
         <Box sx={modalStyle}>

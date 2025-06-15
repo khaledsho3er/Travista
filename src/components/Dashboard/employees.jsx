@@ -42,7 +42,7 @@ function Employees() {
     role: "",
     active: true, // Default to active
   });
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [setSelectedEmployee] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(true); // Check if the employee is authorized
   const token = localStorage.getItem("employee-token");

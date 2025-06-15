@@ -45,7 +45,7 @@ function Navbar() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg] = useState("");
   useEffect(() => {
     const backgroundType = backgroundMap[location.pathname] || "dark";
     setIsLightBackground(backgroundType === "light");
