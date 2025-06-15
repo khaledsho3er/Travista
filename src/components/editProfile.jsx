@@ -38,8 +38,6 @@ const EditProfile = () => {
           phoneNumber: data.phoneNumber || "",
           birthDate: data.birthDate?.split("T")[0] || "",
         });
-
-        // ❌ Do not call setUserSession here — it causes re-renders and resets inputs
       } catch (error) {
         setMessage("Failed to load profile.");
       }

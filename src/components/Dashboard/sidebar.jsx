@@ -16,7 +16,7 @@ import { ImNewspaper } from "react-icons/im";
 import { BsQuestionOctagon, BsFilePost } from "react-icons/bs";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FaWpforms } from "react-icons/fa6";
-// import { GrArticle } from "react-icons/gr";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
 import { FaRegImage } from "react-icons/fa";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import AddCommentIcon from "@mui/icons-material/AddComment";
@@ -39,6 +39,7 @@ function Sidebar({ setActiveSection }) {
         { id: "dashboard", icon: Home, label: "Dashboard" },
         { id: "packages", icon: Package, label: "Packages" },
         { id: "applications", icon: Users, label: "Applications" },
+        { id: "OdooPackages", icon: AnalyticsIcon, label: "Odoo Packages" },
         {
           id: "BMPApplications",
           icon: CiSquareQuestion,
