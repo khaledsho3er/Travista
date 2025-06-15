@@ -16,8 +16,8 @@ function SavedItemCard({ item, type = "package" }) {
   const isPackage = type === "package";
 
   const image = isPackage
-    ? item.packagePicture
-    : item.featuredImage
+    ? `https://api.travistasl.com/uploads/${item.packagePicture}`
+    : `https://api.travistasl.com/uploads/${item.featuredImage}`
     ? `https://api.travistasl.com/uploads/${item.featuredImage}`
     : "/fallback.jpg";
 
