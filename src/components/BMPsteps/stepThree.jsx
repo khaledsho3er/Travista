@@ -21,16 +21,8 @@ function StepThree({
       setLastName(userSession.lastName || "");
       setEmail(userSession.email || "");
       setPhoneNumber(userSession.phoneNumber?.replace(/^\+?\d{1,3}/, "") || "");
-      setCountryCode(userSession.phoneNumber?.slice(0, 3) || "+20");
     }
-  }, [
-    userSession,
-    setFirstName,
-    setLastName,
-    setEmail,
-    setPhoneNumber,
-    setCountryCode,
-  ]);
+  }, [userSession, setFirstName, setLastName, setEmail, setPhoneNumber]);
 
   return (
     <Box className="BMI-steps-third-Content">
