@@ -17,7 +17,7 @@ const EmpLoginForm = () => {
     password: "",
   });
 
-  const { login } = useEmployee();
+  const { login, employee } = useEmployee();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -47,7 +47,7 @@ const EmpLoginForm = () => {
       }
     }
   };
-
+  console.log("Employee:", employee);
   return (
     <Box
       sx={{
