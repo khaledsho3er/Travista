@@ -7,9 +7,6 @@ import {
   MenuItem,
   useMediaQuery,
   IconButton,
-  Card,
-  CardContent,
-  CardMedia,
 } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -235,28 +232,14 @@ function BlogsPage() {
 
       <Box className="Blogs-grid">
         {displayedBlogs.map((blog) => (
-          <Card
-            key={blog._id}
-            sx={{
-              width: 320,
-              borderRadius: 3,
-              overflow: "hidden",
-              position: "relative",
-              boxShadow: 3,
-              transition: "transform 0.3s ease",
-              "&:hover": { transform: "translateY(-5px)" },
-            }}
-          >
-            <Box sx={{ position: "relative" }}>
-              <Link to={`/singleblog/${blog._id}`}>
-                <CardMedia
-                  component="img"
-                  height="180"
-                  image={`https://api.travistasl.com/uploads/${blog.featuredImage}`}
-                  alt={blog.title}
-                />
-              </Link>
-
+          <Box key={blog._id} className="Blog-card">
+            <Box
+              className="Blog-card-image-container"
+              sx={{
+                position: "relative", // ✅ key to anchoring icon inside
+                overflow: "hidden",
+              }}
+            >
               <IconButton
                 onClick={(e) => {
                   e.stopPropagation();
@@ -265,7 +248,7 @@ function BlogsPage() {
                 sx={{
                   position: "absolute",
                   top: "10px",
-                  right: "10px",
+                  right: "0px",
                   color: favoritedBlogs.includes(blog._id)
                     ? "var(--maroon)"
                     : "white",
@@ -282,39 +265,27 @@ function BlogsPage() {
                 <FavoriteIcon fontSize="small" />
               </IconButton>
 
-              <Typography
-                variant="caption"
-                sx={{
-                  position: "absolute",
-                  bottom: 10,
-                  left: 10,
-                  background: "white",
-                  padding: "2px 8px",
-                  borderRadius: "12px",
-                  fontSize: "0.7rem",
-                  fontWeight: 600,
-                  textTransform: "capitalize",
-                }}
+              <Link
+                to={`/singleblog/${blog._id}`}
+                style={{ textDecoration: "none" }}
               >
-                {blog.category}
+                <img
+                  src={`https://api.travistasl.com/uploads/${blog.featuredImage}`}
+                  alt={blog.title}
+                  className="Blog-card-image"
+                />
+              </Link>
+              <Typography className="Blog-category">
+                {blog.category.charAt(0).toUpperCase() + blog.category.slice(1)}
               </Typography>
             </Box>
-
-            <CardContent sx={{ padding: 2 }}>
-              <Typography variant="caption" sx={{ color: "#777" }}>
-                {new Date(blog.date).toLocaleDateString()}
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 700, mt: 1, color: "var(--dark-green)" }}
-              >
+            <Box className="Blog-card-content">
+              <Typography className="Blog-date">{blog.date}</Typography>
+              <Typography variant="h4" className="Blog-title">
                 {blog.title}
               </Typography>
-              <Typography variant="body2" sx={{ mt: 1, color: "#444" }}>
-                {blog.subTitle || blog.content?.slice(0, 80) + "..."}
-              </Typography>
-            </CardContent>
-          </Card>
+            </Box>
+          </Box>
         ))}
       </Box>
 
