@@ -40,7 +40,12 @@ const BMPApplicationManager = () => {
       const res = await axios.get(
         "https://api.travistasl.com/api/build-packages"
       );
-      setApplications(res.data || []);
+      // Sort from newest to oldest
+      const sorted = (res.data || []).sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      setApplications(sorted);
     } catch (err) {
       console.error(err);
     }

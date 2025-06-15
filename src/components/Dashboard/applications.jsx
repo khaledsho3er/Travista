@@ -41,7 +41,12 @@ const ApplicationManager = () => {
       const res = await axios.get(
         "https://api.travistasl.com/api/applications"
       );
-      setApplications(res.data.data || []);
+      // Sort by createdAt descending (newest first)
+      const sorted = (res.data.data || []).sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      setApplications(sorted);
     } catch (err) {
       console.error(err);
     }

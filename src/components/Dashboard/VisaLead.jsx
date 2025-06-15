@@ -39,6 +39,12 @@ const VisaApplicationsTable = () => {
       const response = await axios.get(
         "https://api.travistasl.com/api/visa-leads"
       );
+      // Sort by newest to oldest based on createdAt
+      const sorted = response.data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      setApplications(sorted);
       setApplications(response.data);
     } catch (error) {
       toast.error("Error fetching visa applications");
