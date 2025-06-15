@@ -245,7 +245,7 @@ a.nav-link:active {
 }
 
 .explore-more-card {
-  width: 500px;
+  width: 550px;
   max-width: 600px;
   height: 1000px;
   background-size: cover;
@@ -266,7 +266,7 @@ a.nav-link:active {
 }
 
 .explore-more-card:hover {
-  width: 600px;
+  width: 650px;
 }
 
 .build-package-section {

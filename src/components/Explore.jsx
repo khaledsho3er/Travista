@@ -236,7 +236,11 @@ const Explore = () => {
         )}
       </Box>
       <Box textAlign="center" mt={4}>
-        <Button className="btn btn-primary" onClick={handlePackagesClick}>
+        <Button
+          className="btn btn-primary"
+          sx={{ border: "1px solid var(--maroon)" }}
+          onClick={handlePackagesClick}
+        >
           Explore All Packages
         </Button>
       </Box>
