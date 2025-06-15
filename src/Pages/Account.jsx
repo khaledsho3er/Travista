@@ -61,7 +61,7 @@ const AccountPage = () => {
                   fontSize: "10px",
                   color:
                     activeSavedTab === "package"
-                      ? "white !important"
+                      ? "var(--maroon) !important"
                       : "black !important",
                   backgroundColor:
                     activeSavedTab === "package" ? "var(--maroon)" : "inherit",
@@ -79,7 +79,7 @@ const AccountPage = () => {
                   fontSize: "10px",
                   color:
                     activeSavedTab === "blog"
-                      ? "white !important"
+                      ? "var(--maroon) !important"
                       : "black !important",
                   backgroundColor:
                     activeSavedTab === "blog" ? "var(--maroon)" : "inherit",
