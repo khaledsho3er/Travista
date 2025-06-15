@@ -236,7 +236,7 @@ const Explore = () => {
         )}
       </Box>
       <Box textAlign="center" mt={4}>
-        <Button className="btn btn-secondary" onClick={handlePackagesClick}>
+        <Button className="btn btn-primary" onClick={handlePackagesClick}>
           Explore All Packages
         </Button>
       </Box>
