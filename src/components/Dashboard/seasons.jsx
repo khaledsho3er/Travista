@@ -165,8 +165,13 @@ const SeasonManagement = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {seasons.map((season) => (
-              <TableRow key={season.seasonId}>
+            {seasons.map((season, index) => (
+              <TableRow
+                key={season.seasonId}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>{season.seasonId}</TableCell>
                 <TableCell>{season.name}</TableCell>
                 <TableCell>{season.startDate.split("T")[0]}</TableCell>

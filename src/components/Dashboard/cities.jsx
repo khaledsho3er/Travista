@@ -177,8 +177,13 @@ const CityManagement = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {cities.map((city) => (
-              <TableRow key={city.cityId}>
+            {cities.map((city, index) => (
+              <TableRow
+                key={city.cityId}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>{city.cityId}</TableCell>
                 <TableCell>{city.name}</TableCell>
                 <TableCell>

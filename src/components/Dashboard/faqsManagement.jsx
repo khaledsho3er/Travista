@@ -176,8 +176,13 @@ const FAQManagement = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {faqs.map((faq) => (
-              <TableRow key={faq.faqId}>
+            {faqs.map((faq, index) => (
+              <TableRow
+                key={faq.faqId}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>{faq.faqId}</TableCell>
                 <TableCell>{faq.question}</TableCell>
                 <TableCell>{faq.answer}</TableCell>

@@ -140,8 +140,13 @@ const NewsletterManagement = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {subscribers.map((subscriber) => (
-              <TableRow key={subscriber.subscriberId}>
+            {subscribers.map((subscriber, index) => (
+              <TableRow
+                key={subscriber.subscriberId}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>{subscriber.subscriberId}</TableCell>
                 <TableCell>{subscriber.email}</TableCell>
                 <TableCell>

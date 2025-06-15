@@ -93,8 +93,13 @@ const Forms = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {forms.map((form) => (
-              <TableRow key={form._id}>
+            {forms.map((form, index) => (
+              <TableRow
+                key={form._id}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>
                   {form.type === "contactUs" ? "Contact Us" : "FAQs"}
                 </TableCell>

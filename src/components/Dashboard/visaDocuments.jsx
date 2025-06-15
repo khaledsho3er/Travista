@@ -108,8 +108,13 @@ function VisaDocumentsTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {visas.map((visa) => (
-            <TableRow key={visa._id}>
+          {visas.map((visa, index) => (
+            <TableRow
+              key={visa._id}
+              sx={{
+                backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+              }}
+            >
               <TableCell>{visa.name}</TableCell>
               <TableCell>{visa.type}</TableCell>
               <TableCell>

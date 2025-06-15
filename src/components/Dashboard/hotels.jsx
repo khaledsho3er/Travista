@@ -204,8 +204,13 @@ const HotelManagement = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {hotels.map((hotel) => (
-              <TableRow key={hotel.hotelId}>
+            {hotels.map((hotel, index) => (
+              <TableRow
+                key={hotel.hotelId}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>{hotel.hotelId}</TableCell>
                 <TableCell>{hotel.name}</TableCell>
                 <TableCell>{hotel.city}</TableCell>

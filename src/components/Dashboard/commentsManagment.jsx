@@ -141,8 +141,13 @@ function CommentManagement() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {comments.map((comment) => (
-              <TableRow key={comment._id}>
+            {comments.map((comment, index) => (
+              <TableRow
+                key={comment._id}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>
                   {comment.content.length > 50
                     ? `${comment.content.substring(0, 50)}...`
