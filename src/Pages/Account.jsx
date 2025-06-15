@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import PackageCards from "../components/Cards";
 import EditProfile from "../components/editProfile";
 import { Typography } from "@mui/material";
 import { Box, Grid, Button } from "@mui/material";
