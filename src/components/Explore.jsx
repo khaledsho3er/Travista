@@ -153,7 +153,6 @@ const Explore = () => {
                 backgroundImage: `url(https://api.travistasl.com/${pkg.packagePicture})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                width: { xs: "100%", sm: "65%" },
                 height: "750px",
                 display: "flex",
                 flexDirection: "column",
@@ -181,6 +180,8 @@ const Explore = () => {
                   gap: "10px",
                   justifyContent: "flex-end",
                   background: "rgba(0,0,0,0.5)",
+                  backdropFilter: "blur(4px)",
+                  borderRadius: "8px",
                   color: "white",
                 }}
               >
@@ -235,10 +236,7 @@ const Explore = () => {
         )}
       </Box>
       <Box textAlign="center" mt={4}>
-        <Button
-          className="btn btn-secondary btn-inverse"
-          onClick={handlePackagesClick}
-        >
+        <Button className="btn btn-secondary" onClick={handlePackagesClick}>
           Explore All Packages
         </Button>
       </Box>
