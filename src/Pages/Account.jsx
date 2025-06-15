@@ -11,7 +11,7 @@ import axios from "axios";
 const AccountPage = () => {
   const [activeTab, setActiveTab] = useState("saved");
   const [favorites, setFavorites] = useState([]);
-  const [activeSavedTab, setActiveSavedTab] = useState("package"); // 'package' or 'blog'
+  const [activeSavedTab, setActiveSavedTab] = useState("package");
 
   const { userSession, setUserSession } = useUser();
   useEffect(() => {

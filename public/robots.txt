@@ -7,4 +7,4 @@ Disallow: /api/
 Disallow: /private/
 Allow: /
 
-Sitemap: https://travistaegypt.com/sitemap.xml
+Sitemap: https://travistasl.com/sitemap.xml
