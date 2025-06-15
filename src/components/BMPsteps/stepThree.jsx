@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/material";
+import { useUser } from "../../utils/userContext";
 
 function StepThree({
   firstName,
@@ -13,6 +14,24 @@ function StepThree({
   countryCode,
   setCountryCode,
 }) {
+  const { userSession } = useUser();
+  useEffect(() => {
+    if (userSession) {
+      setFirstName(userSession.firstName || "");
+      setLastName(userSession.lastName || "");
+      setEmail(userSession.email || "");
+      setPhoneNumber(userSession.phoneNumber?.replace(/^\+?\d{1,3}/, "") || "");
+      setCountryCode(userSession.phoneNumber?.slice(0, 3) || "+20");
+    }
+  }, [
+    userSession,
+    setFirstName,
+    setLastName,
+    setEmail,
+    setPhoneNumber,
+    setCountryCode,
+  ]);
+
   return (
     <Box className="BMI-steps-third-Content">
       <h5>Step 3 of 3</h5>
