@@ -130,8 +130,13 @@ const VisaApplicationsTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedData.map((app) => (
-              <TableRow key={app._id}>
+            {paginatedData.map((app, index) => (
+              <TableRow
+                key={app._id}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>
                   {app.firstName} {app.lastName}
                 </TableCell>

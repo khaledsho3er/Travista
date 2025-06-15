@@ -187,8 +187,14 @@ const ApplicationManager = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedData.map((app) => (
-              <TableRow key={app._id} hover>
+            {paginatedData.map((app, index) => (
+              <TableRow
+                key={app._id}
+                hover
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>{`${app.firstName} ${app.lastName}`}</TableCell>
                 <TableCell>{app.packageId?.packageName || "N/A"}</TableCell>
                 <TableCell>{app.email}</TableCell>

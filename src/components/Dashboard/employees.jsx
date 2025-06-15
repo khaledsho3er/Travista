@@ -266,8 +266,13 @@ function Employees() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {employees.map((emp) => (
-              <TableRow key={emp._id}>
+            {employees.map((emp, index) => (
+              <TableRow
+                key={emp._id}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>{emp.name}</TableCell>
                 <TableCell>{emp.email}</TableCell>
                 <TableCell>{emp.phone}</TableCell>
