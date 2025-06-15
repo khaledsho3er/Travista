@@ -23,9 +23,12 @@ export const UserProvider = ({ children }) => {
       localStorage.removeItem("travista-token");
     }
   }, [userSession]);
-
+  // ✅ Logout function
+  const logout = () => {
+    setUserSession(null); // this also clears localStorage
+  };
   return (
-    <UserContext.Provider value={{ userSession, setUserSession }}>
+    <UserContext.Provider value={{ userSession, setUserSession, logout }}>
       {children}
     </UserContext.Provider>
   );
