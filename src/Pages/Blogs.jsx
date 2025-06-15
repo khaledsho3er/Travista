@@ -233,7 +233,13 @@ function BlogsPage() {
       <Box className="Blogs-grid">
         {displayedBlogs.map((blog) => (
           <Box key={blog._id} className="Blog-card">
-            <Box className="Blog-card-image-container">
+            <Box
+              className="Blog-card-image-container"
+              sx={{
+                position: "relative", // ✅ key to anchoring icon inside
+                overflow: "hidden",
+              }}
+            >
               <IconButton
                 onClick={(e) => {
                   e.stopPropagation();
@@ -246,13 +252,17 @@ function BlogsPage() {
                   color: favoritedBlogs.includes(blog._id)
                     ? "var(--maroon)"
                     : "white",
-                  background: "rgba(0,0,0,0.4)",
+                  backgroundColor: "rgba(0,0,0,0.4)",
                   borderRadius: "50%",
-                  zIndex: 5,
-                  "&:hover": { color: "var(--maroon)" },
+                  zIndex: 2,
+                  padding: "6px",
+                  "&:hover": {
+                    color: "var(--maroon)",
+                    backgroundColor: "rgba(0,0,0,0.6)",
+                  },
                 }}
               >
-                <FavoriteIcon />
+                <FavoriteIcon fontSize="small" />
               </IconButton>
 
               <Link

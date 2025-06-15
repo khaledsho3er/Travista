@@ -59,10 +59,9 @@ const AccountPage = () => {
                 className="btn btn-inverse btn-secondary"
                 sx={{
                   fontSize: "10px",
-                  color:
-                    activeSavedTab === "package"
-                      ? "white !important"
-                      : "black !important",
+                  color: activeSavedTab
+                    ? "white !important"
+                    : "black !important",
                   backgroundColor:
                     activeSavedTab === "package" ? "var(--maroon)" : "inherit",
                   "&:hover": {
@@ -77,10 +76,9 @@ const AccountPage = () => {
                 className="btn btn-inverse btn-secondary"
                 sx={{
                   fontSize: "10px",
-                  color:
-                    activeSavedTab === "blog"
-                      ? "white !important"
-                      : "black !important",
+                  color: activeSavedTab
+                    ? "white !important"
+                    : "black !important",
                   backgroundColor:
                     activeSavedTab === "blog" ? "var(--maroon)" : "inherit",
                   "&:hover": {
