@@ -72,12 +72,6 @@ const AccountPage = () => {
               >
                 Packages
               </Button>
-              {/* <Button
-                className="btn btn-inverse btn-secondary"
-                sx={{ fontSize: "10px", color: "black !important" }}
-              >
-                Tours
-              </Button> */}
               <Button
                 onClick={() => setActiveSavedTab("blog")}
                 className="btn btn-inverse btn-secondary"
