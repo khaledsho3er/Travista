@@ -49,7 +49,11 @@ const TravistaSignIn = () => {
       // Save token in local storage or context
       setUserSession({
         _id: data._id,
+        firstName: data.firstName,
+        lastName: data.lastName,
         email: data.email,
+        phoneNumber: data.phoneNumber,
+        birthDate: data.birthDate,
         token: data.token,
       });
 
