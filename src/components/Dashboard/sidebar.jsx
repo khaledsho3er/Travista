@@ -16,7 +16,7 @@ import { ImNewspaper } from "react-icons/im";
 import { BsQuestionOctagon, BsFilePost } from "react-icons/bs";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FaWpforms } from "react-icons/fa6";
-// import { GrArticle } from "react-icons/gr";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
 import { FaRegImage } from "react-icons/fa";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import AddCommentIcon from "@mui/icons-material/AddComment";
@@ -39,6 +39,7 @@ function Sidebar({ setActiveSection }) {
         { id: "dashboard", icon: Home, label: "Dashboard" },
         { id: "packages", icon: Package, label: "Packages" },
         { id: "applications", icon: Users, label: "Applications" },
+        { id: "odooPackages", icon: AnalyticsIcon, label: "Odoo Packages" },
         {
           id: "BMPApplications",
           icon: CiSquareQuestion,
@@ -143,7 +144,7 @@ function Sidebar({ setActiveSection }) {
   };
 
   return (
-    <div className="bg-white h-screen overflow-y-auto shadow-lg w-64">
+    <div className="bg-white overflow-y-auto shadow-lg w-64 h-screen=100%">
       <div className="border-b p-4">
         <div className="flex gap-2 items-center">
           <h1 className="text-2xl text-blue-300 font-bold center">

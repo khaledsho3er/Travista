@@ -17,6 +17,7 @@ import {
   Chip,
   Tooltip,
   Divider,
+  Pagination,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
@@ -31,7 +32,8 @@ const ApplicationManager = () => {
   const [editApp, setEditApp] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 12;
   useEffect(() => {
     fetchApplications();
   }, []);
@@ -41,7 +43,12 @@ const ApplicationManager = () => {
       const res = await axios.get(
         "https://api.travistasl.com/api/applications"
       );
-      setApplications(res.data.data || []);
+      // Sort by createdAt descending (newest first)
+      const sorted = (res.data.data || []).sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      setApplications(sorted);
     } catch (err) {
       console.error(err);
     }
@@ -88,7 +95,14 @@ const ApplicationManager = () => {
     const originalApp = applications.find((app) => app._id === editApp._id);
     setEditApp(originalApp);
   };
+  const paginatedData = applications.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
 
+  const handleChangePage = (event, value) => {
+    setPage(value);
+  };
   const getStatusColor = (status) => {
     switch (status) {
       case "pending":
@@ -173,8 +187,14 @@ const ApplicationManager = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {applications.map((app) => (
-              <TableRow key={app._id} hover>
+            {paginatedData.map((app, index) => (
+              <TableRow
+                key={app._id}
+                hover
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>{`${app.firstName} ${app.lastName}`}</TableCell>
                 <TableCell>{app.packageId?.packageName || "N/A"}</TableCell>
                 <TableCell>{app.email}</TableCell>
@@ -226,7 +246,14 @@ const ApplicationManager = () => {
           </TableBody>
         </Table>
       </TableContainer>
-
+      <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
+        <Pagination
+          count={Math.ceil(applications.length / itemsPerPage)}
+          page={page}
+          onChange={handleChangePage}
+          color="primary"
+        />
+      </Box>
       {/* View Modal */}
       <Modal open={!!viewApp} onClose={() => setViewApp(null)}>
         <Box sx={modalStyle}>

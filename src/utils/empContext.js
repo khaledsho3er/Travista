@@ -1,3 +1,4 @@
+// utils/empContext.js
 import { createContext, useContext, useEffect, useState } from "react";
 
 const EmpContext = createContext();
@@ -6,18 +7,27 @@ export const EmpProvider = ({ children }) => {
   const [employee, setEmployee] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 1️⃣ Try loading from localStorage on mount (optional, improves perceived speed)
+  // Load employee and token from localStorage
   useEffect(() => {
     const savedEmployee = localStorage.getItem("employee");
-    if (savedEmployee) {
+    const savedToken = localStorage.getItem("employee-token");
+    if (savedEmployee && savedToken) {
       setEmployee(JSON.parse(savedEmployee));
     }
   }, []);
 
-  // 2️⃣ Check actual session on server
+  // Check token and validate session
   useEffect(() => {
+    const token = localStorage.getItem("employee-token");
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
     fetch("https://api.travistasl.com/api/empauth/session", {
-      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -27,12 +37,13 @@ export const EmpProvider = ({ children }) => {
       .catch(() => setLoading(false));
   }, []);
 
-  // 3️⃣ Sync employee state to localStorage
+  // Sync employee state to localStorage
   useEffect(() => {
     if (employee) {
       localStorage.setItem("employee", JSON.stringify(employee));
     } else {
       localStorage.removeItem("employee");
+      localStorage.removeItem("employee-token");
     }
   }, [employee]);
 
@@ -40,45 +51,32 @@ export const EmpProvider = ({ children }) => {
     try {
       const res = await fetch("https://api.travistasl.com/api/empauth/login", {
         method: "POST",
-        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
       });
 
       const data = await res.json();
-      console.log("Login response:", data);
+      if (!res.ok) throw new Error(data.message || "Login failed");
 
-      if (!res.ok) {
-        throw new Error(data.message || "Login failed");
+      if (data.token) {
+        localStorage.setItem("employee-token", data.token);
       }
 
-      // Check if employee account is active
-      if (data.employee && data.employee.active === false) {
-        throw new Error(
-          "Your account is inactive. Please contact your administrator."
-        );
-      }
-
-      // Store the employee data in state
       if (data.employee) {
         setEmployee(data.employee);
       } else {
-        console.error("No employee data in response:", data);
         throw new Error("Invalid response format");
       }
 
       return data;
-    } catch (error) {
-      console.error("Login error:", error);
-      throw error;
+    } catch (err) {
+      throw err;
     }
   };
 
-  const logout = async () => {
-    await fetch("https://api.travistasl.com/api/empauth/logout", {
-      method: "POST",
-      credentials: "include",
-    });
+  const logout = () => {
+    localStorage.removeItem("employee-token");
+    localStorage.removeItem("employee");
     setEmployee(null);
   };
 

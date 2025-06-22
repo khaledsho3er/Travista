@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import PackageCards from "../components/Cards";
 import EditProfile from "../components/editProfile";
 import { Typography } from "@mui/material";
 import { Box, Grid, Button } from "@mui/material";
 import { useUser } from "../utils/userContext";
 import axios from "axios";
+import SavedItemCard from "../components/SavedItemCard";
 
 const AccountPage = () => {
   const [activeTab, setActiveTab] = useState("saved");
   const [favorites, setFavorites] = useState([]);
-  const [activeSavedTab, setActiveSavedTab] = useState("package"); // 'package' or 'blog'
+  const [activeSavedTab, setActiveSavedTab] = useState("package");
 
   const { userSession, setUserSession } = useUser();
   useEffect(() => {
@@ -22,9 +22,12 @@ const AccountPage = () => {
         const response = await axios.get(
           `https://api.travistasl.com/api/favorites/my`,
           {
-            params: { userId: userSession._id },
+            headers: {
+              Authorization: `Bearer ${userSession.token}`,
+            },
           }
         );
+
         setFavorites(response.data); // Make sure your backend returns populated itemDetails
       } catch (error) {
         console.error("Failed to fetch favorites:", error);
@@ -58,7 +61,7 @@ const AccountPage = () => {
                   fontSize: "10px",
                   color:
                     activeSavedTab === "package"
-                      ? "white !important"
+                      ? "var(--maroon) !important"
                       : "black !important",
                   backgroundColor:
                     activeSavedTab === "package" ? "var(--maroon)" : "inherit",
@@ -69,12 +72,6 @@ const AccountPage = () => {
               >
                 Packages
               </Button>
-              {/* <Button
-                className="btn btn-inverse btn-secondary"
-                sx={{ fontSize: "10px", color: "black !important" }}
-              >
-                Tours
-              </Button> */}
               <Button
                 onClick={() => setActiveSavedTab("blog")}
                 className="btn btn-inverse btn-secondary"
@@ -82,7 +79,7 @@ const AccountPage = () => {
                   fontSize: "10px",
                   color:
                     activeSavedTab === "blog"
-                      ? "white !important"
+                      ? "var(--maroon) !important"
                       : "black !important",
                   backgroundColor:
                     activeSavedTab === "blog" ? "var(--maroon)" : "inherit",
@@ -94,21 +91,26 @@ const AccountPage = () => {
                 Articles
               </Button>
             </Box>
-            <Grid container spacing={1}>
-              {(activeSavedTab === "package"
-                ? savedPackages
-                : savedArticles
-              ).map((item, index) => (
-                <Grid item xs={12} sm={6} md={3.1} key={index}>
-                  {activeSavedTab === "package" ? (
-                    <PackageCards tour={item.itemDetails} /> // itemDetails should contain package info
-                  ) : (
-                    <Typography variant="body1">
-                      {item.itemDetails?.title}
-                    </Typography>
-                  )}
-                </Grid>
-              ))}
+            <Grid container spacing={2}>
+              {(activeSavedTab === "package" ? savedPackages : savedArticles)
+                .length === 0 ? (
+                <Typography
+                  variant="body2"
+                  sx={{ marginLeft: 2, marginTop: 2 }}
+                >
+                  You have no saved{" "}
+                  {activeSavedTab === "package" ? "packages" : "articles"}.
+                </Typography>
+              ) : (
+                (activeSavedTab === "package"
+                  ? savedPackages
+                  : savedArticles
+                ).map((item, index) => (
+                  <Grid item xs={12} sm={6} md={3} key={index}>
+                    <SavedItemCard item={item.item} type={item.itemType} />
+                  </Grid>
+                ))
+              )}
             </Grid>
           </Box>
         );
@@ -134,7 +136,7 @@ const AccountPage = () => {
             information here.
           </p>
           <div className="account-tabs">
-            <button
+            {/* <button
               onClick={() => setActiveTab("bookings")}
               className={activeTab === "bookings" ? "active" : ""}
             >
@@ -145,12 +147,12 @@ const AccountPage = () => {
               className={activeTab === "customPackages" ? "active" : ""}
             >
               Custom Packages
-            </button>
+            </button> */}
             <button
               onClick={() => setActiveTab("saved")}
               className={activeTab === "saved" ? "active" : ""}
             >
-              Saved
+              Favorites
             </button>
             <button
               onClick={() => setActiveTab("editProfile")}

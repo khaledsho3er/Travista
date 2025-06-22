@@ -48,7 +48,7 @@ const TravistaSignUp = () => {
 
     try {
       const response = await fetch(
-        "https://api.travistasl.com/api/auth/signup",
+        "https://api.travistasl.com/api/users/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

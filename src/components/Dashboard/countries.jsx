@@ -154,8 +154,13 @@ const CountryManagement = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {countries.map((country) => (
-              <TableRow key={country.countryId}>
+            {countries.map((country, index) => (
+              <TableRow
+                key={country.countryId}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>{country.countryId}</TableCell>
                 <TableCell>{country.code}</TableCell>
                 <TableCell>{country.name}</TableCell>

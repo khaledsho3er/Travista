@@ -214,8 +214,13 @@ const SocialMediaManagement = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {socials.map((social) => (
-              <TableRow key={social.socialId}>
+            {socials.map((social, index) => (
+              <TableRow
+                key={social.socialId}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>{social.socialId}</TableCell>
                 <TableCell>{social.platform}</TableCell>
                 <TableCell>

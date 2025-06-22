@@ -4,18 +4,40 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Box, Typography } from "@mui/material";
 import { Helmet } from "react-helmet";
-
+import { useUser } from "../utils/userContext";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import IconButton from "@mui/material/IconButton";
 function SingleBlog() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [blog, setBlog] = useState(null);
-
+  const [isFavorited, setIsFavorited] = useState(false);
+  const { userSession } = useUser();
   useEffect(() => {
     fetch(`https://api.travistasl.com/api/blog/${id}`)
       .then((res) => res.json())
-      .then((data) => setBlog(data))
+      .then((data) => {
+        setBlog(data); // ✅ set blog state
+
+        // ✅ Check if this blog is already favorited
+        if (userSession?._id) {
+          fetch("https://api.travistasl.com/api/favorites/my", {
+            headers: {
+              Authorization: `Bearer ${userSession.token}`,
+            },
+          })
+            .then((res) => res.json())
+            .then((favorites) => {
+              const isFav = favorites.some(
+                (fav) => fav.itemType === "blog" && fav.item?._id === data._id
+              );
+              setIsFavorited(isFav);
+            });
+        }
+      })
       .catch((err) => console.error("Error fetching blog:", err));
-  }, [id]);
+  }, [id, userSession]);
 
   const handleBacktoBlogs = () => {
     navigate("/Blogs");
@@ -44,6 +66,38 @@ function SingleBlog() {
       }
     });
     return paragraphs;
+  };
+  const handleFavoriteToggle = async () => {
+    if (!userSession?._id) {
+      alert("Please log in to save this blog.");
+      return;
+    }
+
+    try {
+      if (isFavorited) {
+        await fetch("https://api.travistasl.com/api/favorites/remove", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userSession.token}`,
+          },
+          body: JSON.stringify({ itemId: blog._id, itemType: "blog" }),
+        });
+        setIsFavorited(false);
+      } else {
+        await fetch("https://api.travistasl.com/api/favorites/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userSession.token}`,
+          },
+          body: JSON.stringify({ itemId: blog._id, itemType: "blog" }),
+        });
+        setIsFavorited(true);
+      }
+    } catch (err) {
+      console.error("Failed to toggle favorite:", err);
+    }
   };
 
   if (!blog) return <Typography>Loading...</Typography>;
@@ -95,6 +149,19 @@ function SingleBlog() {
           <Box className="Single-Blog-button-container">
             <button className="Single-Blog-action-button">Save</button>
             <button className="Single-Blog-action-button">Share</button>
+            <IconButton
+              onClick={handleFavoriteToggle}
+              sx={{
+                color: isFavorited ? "var(--maroon)" : "black",
+                border: "1px solid",
+                borderColor: isFavorited ? "var(--maroon)" : "gray",
+                borderRadius: "50%",
+                padding: "6px",
+                transition: "all 0.2s ease-in-out",
+              }}
+            >
+              {isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            </IconButton>
           </Box>
         </header>
       </Box>

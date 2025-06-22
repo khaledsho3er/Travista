@@ -157,8 +157,13 @@ const TourCategoriesTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {categories.map((category) => (
-              <TableRow key={category._id}>
+            {categories.map((category, index) => (
+              <TableRow
+                key={category._id}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>{category.tourCategoryId}</TableCell>
                 <TableCell>{category.name}</TableCell>
                 <TableCell>{`${category.description

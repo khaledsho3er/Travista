@@ -11,12 +11,12 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+
 function BlogsPage() {
   const [blogData, setBlogData] = useState([]);
   const [displayCount, setDisplayCount] = useState(9);
   const [selectedCategory, setSelectedCategory] = useState("All articles");
   const isMobile = useMediaQuery("(max-width: 768px)");
-
   useEffect(() => {
     fetch("https://api.travistasl.com/api/blog")
       .then((response) => response.json())
@@ -165,7 +165,13 @@ function BlogsPage() {
       <Box className="Blogs-grid">
         {displayedBlogs.map((blog) => (
           <Box key={blog._id} className="Blog-card">
-            <Box className="Blog-card-image-container">
+            <Box
+              className="Blog-card-image-container"
+              sx={{
+                position: "relative", // ✅ key to anchoring icon inside
+                overflow: "hidden",
+              }}
+            >
               <Link
                 to={`/singleblog/${blog._id}`}
                 style={{ textDecoration: "none" }}

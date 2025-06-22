@@ -42,38 +42,23 @@ function Employees() {
     role: "",
     active: true, // Default to active
   });
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [setSelectedEmployee] = useState(null); // For selected employee in edit
   const [showPassword, setShowPassword] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(true); // Check if the employee is authorized
+  const token = localStorage.getItem("employee-token");
 
   // Only fetch employee data if the employee is authenticated and an admin
   useEffect(() => {
-    if (!employee) {
-      console.error("Employee not authenticated.");
-      return; // Don't fetch if no employee is logged in
-    }
-
-    if (employee.role !== "admin") {
-      setIsAuthorized(false);
-      return;
-    }
+    if (!employee) return;
+    if (employee.role !== "admin") return setIsAuthorized(false);
 
     fetch("https://api.travistasl.com/api/employees", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include", // Send the session cookie with the request
+      headers: { Authorization: `Bearer ${token}` },
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch employees");
-        }
-        return response.json();
-      })
-      .then((data) => setEmployees(data))
-      .catch((error) => console.error("Error fetching employee data:", error));
-  }, [employee]); // Re-run effect when `employee` changes
+      .then((res) => res.json())
+      .then(setEmployees)
+      .catch(console.error);
+  }, [employee, token]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -92,8 +77,8 @@ function Employees() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          credentials: "include", // Send the session cookie with the request
           body: JSON.stringify(newEmployee),
         }
       );
@@ -135,8 +120,8 @@ function Employees() {
   };
 
   const handleEditEmployee = (employee) => {
-    setSelectedEmployee(employee);
-    setNewEmployee(employee);
+    setSelectedEmployee(employee); // Correct usage now
+    setNewEmployee({ ...employee }); // Fix spread issue
     setEditOpen(true);
   };
 
@@ -148,8 +133,8 @@ function Employees() {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          credentials: "include", // Send the session cookie with the request
           body: JSON.stringify(newEmployee),
         }
       );
@@ -178,7 +163,7 @@ function Employees() {
         `https://api.travistasl.com/api/employees/${_id}`,
         {
           method: "DELETE",
-          credentials: "include",
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
@@ -209,8 +194,8 @@ function Employees() {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          credentials: "include",
           body: JSON.stringify({ active: newActiveState }),
         }
       );
@@ -281,8 +266,13 @@ function Employees() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {employees.map((emp) => (
-              <TableRow key={emp._id}>
+            {employees.map((emp, index) => (
+              <TableRow
+                key={emp._id}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>{emp.name}</TableCell>
                 <TableCell>{emp.email}</TableCell>
                 <TableCell>{emp.phone}</TableCell>

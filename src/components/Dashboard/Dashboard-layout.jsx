@@ -25,6 +25,7 @@ import UsersTable from "./userManagement";
 import ApplicationManager from "./applications";
 import VisaDocumentsTable from "./visaDocuments";
 import BMPApplicationManager from "./BMPApplications";
+import OdooPackages from "./OdooPackages";
 
 function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard"); // Use lowercase
@@ -93,6 +94,8 @@ function DashboardLayout() {
         return <BMPApplicationManager />;
       case "visaDocuments":
         return <VisaDocumentsTable />;
+      case "odooPackages":
+        return <OdooPackages />;
       default:
         return <Dashboard />;
     }

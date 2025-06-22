@@ -11,6 +11,7 @@ import { UserProvider } from "./utils/userContext";
 import { initScrollbarVisibility } from "./utils/scrollbarVisibility";
 import { EmpProvider } from "./utils/empContext";
 import RequireEmployeeAuth from "./utils/RequireEmployeeAuth";
+import PrivateRouteUsers from "./utils/PrivateRouteUsers";
 
 // Lazy load all pages
 const Home = lazy(() => import("./Pages/Home"));
@@ -104,7 +105,14 @@ function App() {
             <Route path="/packages" element={<PackagesTours />} />
             <Route path="/careers" element={<CareersPage />} />
             <Route path="/loading" element={<TravistaLoading />} />
-            <Route path="/account" element={<AccountPage />} />
+            <Route
+              path="/account"
+              element={
+                <PrivateRouteUsers>
+                  <AccountPage />
+                </PrivateRouteUsers>
+              }
+            />
             <Route path="/faqs" element={<FAQsPage />} />
             <Route path="/applyforvisa" element={<ApplyForVisa />} />
             <Route path="/singleblog/:id" element={<SingleBLog />} />

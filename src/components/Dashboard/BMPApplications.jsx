@@ -16,6 +16,7 @@ import {
   Paper,
   Tooltip,
   Divider,
+  Pagination,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
@@ -30,6 +31,8 @@ const BMPApplicationManager = () => {
   const [editApp, setEditApp] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 12;
 
   useEffect(() => {
     fetchApplications();
@@ -40,7 +43,12 @@ const BMPApplicationManager = () => {
       const res = await axios.get(
         "https://api.travistasl.com/api/build-packages"
       );
-      setApplications(res.data || []);
+      // Sort from newest to oldest
+      const sorted = (res.data || []).sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      setApplications(sorted);
     } catch (err) {
       console.error(err);
     }
@@ -88,7 +96,14 @@ const BMPApplicationManager = () => {
     const originalApp = applications.find((app) => app._id === editApp._id);
     setEditApp(originalApp);
   };
+  const paginatedData = applications.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
 
+  const handleChangePage = (event, value) => {
+    setPage(value);
+  };
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
@@ -172,8 +187,14 @@ const BMPApplicationManager = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {applications.map((app) => (
-              <TableRow key={app._id} hover>
+            {paginatedData.map((app, index) => (
+              <TableRow
+                key={app._id}
+                hover
+                sx={{
+                  backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
+                }}
+              >
                 <TableCell>{`${app.firstName} ${app.lastName}`}</TableCell>
                 <TableCell>{app.type}</TableCell>
                 <TableCell>{`${app.departureCity}, ${app.departureCountry}`}</TableCell>
@@ -222,6 +243,14 @@ const BMPApplicationManager = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
+        <Pagination
+          count={Math.ceil(applications.length / itemsPerPage)}
+          page={page}
+          onChange={handleChangePage}
+          color="primary"
+        />
+      </Box>
 
       <Modal open={!!viewApp} onClose={() => setViewApp(null)}>
         <Box sx={modalStyle}>

@@ -45,7 +45,7 @@ function Navbar() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg] = useState("");
   useEffect(() => {
     const backgroundType = backgroundMap[location.pathname] || "dark";
     setIsLightBackground(backgroundType === "light");
@@ -79,8 +79,6 @@ function Navbar() {
     navigate("/Blogs");
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (blogs.length === 0) return <p>No blogs available.</p>;
   const handleApplyForVisa = () => {
     navigate("/applyforvisa");
   };

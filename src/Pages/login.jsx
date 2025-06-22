@@ -33,27 +33,31 @@ const TravistaSignIn = () => {
 
     try {
       const response = await fetch(
-        "https://api.travistasl.com/api/auth/signin",
+        "https://api.travistasl.com/api/users/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          credentials: "include",
           body: JSON.stringify(formData),
         }
       );
 
       const data = await response.json();
-      console.log("Full API Response:", data);
+      console.log("API response:", data);
 
       if (!response.ok) throw new Error(data.message || "Login failed");
 
-      if (!data.user) {
-        console.error("No user object in API response!", data);
-        return;
-      }
+      // Save token in local storage or context
+      setUserSession({
+        _id: data._id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+        birthDate: data.birthDate,
+        token: data.token,
+      });
 
-      setUserSession(data.user);
-      console.log("User session set:", userSession);
+      localStorage.setItem("travista-token", data.token);
 
       navigate("/");
     } catch (error) {
@@ -61,6 +65,7 @@ const TravistaSignIn = () => {
       setError(error.message);
     }
   };
+  console.log("user session:", userSession);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
