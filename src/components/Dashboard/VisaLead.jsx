@@ -181,7 +181,8 @@ const VisaApplicationsTable = () => {
         fullWidth
         maxWidth="md" // Makes the dialog 70% wide
         sx={{
-          "& .MuiDialog-paper": { width: "70%" }, // Adjusts dialog width
+          "& .MuiDialog-paper": { width: "70%" }, // Adjusts dialog width to 70%
+          backdropFilter: "blur(5px)", // Adds blur effect to the background
         }}
       >
         <DialogTitle>Edit Visa Application</DialogTitle>
@@ -360,7 +361,11 @@ const VisaApplicationsTable = () => {
       </Dialog>
 
       {/* Delete Dialog */}
-      <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
+      <Dialog
+        open={openDelete}
+        onClose={() => setOpenDelete(false)}
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
           <Typography>

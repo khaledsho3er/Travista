@@ -419,7 +419,11 @@ function Employees() {
       </Dialog>
 
       {/* Edit Employee Dialog */}
-      <Dialog open={editOpen} onClose={() => setEditOpen(false)}>
+      <Dialog
+        open={editOpen}
+        onClose={() => setEditOpen(false)}
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>Edit Employee</DialogTitle>
         <DialogContent>
           <TextField

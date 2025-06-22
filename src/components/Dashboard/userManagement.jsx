@@ -120,6 +120,7 @@ const UsersTable = () => {
         onClose={() => setDialogOpen(false)}
         maxWidth="sm"
         fullWidth
+        sx={{ backdropFilter: "blur(5px)" }}
       >
         <DialogTitle>
           {mode === "edit" ? "Edit User" : "User Details"}

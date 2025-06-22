@@ -144,7 +144,11 @@ function VisaDocumentsTable() {
         </TableBody>
       </Table>
 
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>{editVisa ? "Edit Visa" : "Add Visa"}</DialogTitle>
         <DialogContent>
           <TextField

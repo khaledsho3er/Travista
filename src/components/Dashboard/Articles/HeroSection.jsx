@@ -183,7 +183,11 @@ function DashboardHero() {
       </List>
 
       {/* Dialog for Hero Section Simulation */}
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>Hero Section Simulation</DialogTitle>
         <DialogContent>
           {selectedHero && (
@@ -217,6 +221,7 @@ function DashboardHero() {
         onClose={handleCloseCreateDialog}
         maxWidth="sm"
         fullWidth
+        sx={{ backdropFilter: "blur(5px)" }}
       >
         <DialogTitle>Create New Hero</DialogTitle>
         <DialogContent>
