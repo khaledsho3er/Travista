@@ -42,7 +42,7 @@ function Employees() {
     role: "",
     active: true, // Default to active
   });
-  const [setSelectedEmployee] = useState(null); // For selected employee in edit
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(true); // Check if the employee is authorized
 
