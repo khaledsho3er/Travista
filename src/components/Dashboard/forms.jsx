@@ -134,7 +134,11 @@ const Forms = () => {
       </TableContainer>
 
       {/* Edit Dialog */}
-      <Dialog open={openEditDialog} onClose={() => setOpenEditDialog(false)}>
+      <Dialog
+        open={openEditDialog}
+        onClose={() => setOpenEditDialog(false)}
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>Edit Form</DialogTitle>
         <DialogContent>
           <TextField

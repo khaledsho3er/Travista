@@ -213,7 +213,12 @@ const CityManagement = () => {
       </TableContainer>
 
       {/* Add/Edit City Dialog */}
-      <Dialog open={open} onClose={handleClose} fullWidth>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>{selectedCity ? "Edit City" : "Add City"}</DialogTitle>
         <DialogContent>
           <TextField

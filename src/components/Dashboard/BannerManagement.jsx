@@ -170,7 +170,13 @@ const BannerDashboard = () => {
         ))}
       </Box>
 
-      <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        maxWidth="sm"
+        fullWidth
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>
           {formType === "create" ? "Add New Banner" : "Edit Banner"}
         </DialogTitle>

@@ -241,7 +241,12 @@ const HotelManagement = () => {
       </TableContainer>
 
       {/* Add/Edit Hotel Dialog */}
-      <Dialog open={open} onClose={handleClose} fullWidth>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>{selectedHotel ? "Edit Hotel" : "Add Hotel"}</DialogTitle>
         <DialogContent sx={{ width: "600px", maxWidth: "100%", mt: 2 }}>
           <TextField

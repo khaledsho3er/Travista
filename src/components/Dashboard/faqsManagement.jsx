@@ -220,7 +220,11 @@ const FAQManagement = () => {
       </TableContainer>
 
       {/* Add/Edit FAQ Dialog */}
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>{selectedFAQ ? "Edit FAQ" : "Add FAQ"}</DialogTitle>
         <DialogContent>
           <TextField

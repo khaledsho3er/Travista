@@ -194,7 +194,12 @@ const TourCategoriesTable = () => {
       </TableContainer>
 
       {/* Add/Edit Category Dialog */}
-      <Dialog open={open} onClose={handleClose} fullWidth>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>
           {selectedCategory ? "Edit Category" : "Add Category"}
         </DialogTitle>

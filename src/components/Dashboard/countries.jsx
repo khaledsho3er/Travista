@@ -188,7 +188,12 @@ const CountryManagement = () => {
       </TableContainer>
 
       {/* Add/Edit Country Dialog */}
-      <Dialog open={open} onClose={handleClose} fullWidth>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>
           {selectedCountry ? "Edit Country" : "Add Country"}
         </DialogTitle>

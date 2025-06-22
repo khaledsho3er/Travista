@@ -185,7 +185,11 @@ const NewsletterManagement = () => {
       </TableContainer>
 
       {/* Add Subscriber Dialog */}
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>Subscribe to Newsletter</DialogTitle>
         <DialogContent>
           <TextField

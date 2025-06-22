@@ -257,7 +257,11 @@ const SocialMediaManagement = () => {
       </TableContainer>
 
       {/* Add/Edit Social Media Dialog */}
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>
           {selectedSocial ? "Edit Social Media" : "Add Social Media"}
         </DialogTitle>

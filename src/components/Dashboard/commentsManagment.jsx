@@ -189,7 +189,11 @@ function CommentManagement() {
         </Table>
       </TableContainer>
 
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>
           {currentComment._id ? "Edit Comment" : "Add New Comment"}
         </DialogTitle>

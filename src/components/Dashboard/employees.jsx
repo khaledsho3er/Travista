@@ -315,7 +315,11 @@ function Employees() {
       </TableContainer>
 
       {/* Add Employee Dialog */}
-      <Dialog open={open} onClose={() => setOpen(false)}>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>Add New Employee</DialogTitle>
         <DialogContent>
           <TextField

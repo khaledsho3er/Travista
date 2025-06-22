@@ -200,7 +200,11 @@ const SeasonManagement = () => {
       </TableContainer>
 
       {/* Add/Edit Season Dialog */}
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        sx={{ backdropFilter: "blur(5px)" }}
+      >
         <DialogTitle>
           {selectedSeason ? "Edit Season" : "Add Season"}
         </DialogTitle>
