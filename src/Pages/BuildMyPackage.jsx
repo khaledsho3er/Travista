@@ -48,12 +48,12 @@ function BuildMyPackage() {
           <Box className="build-my-package-subtitle">
             <span>Build My Package</span>
 
-            <h1>Your passport to tailored adventures</h1>
+            <h1>Unlock your dream getaway</h1>
           </Box>
           <p>
-            Build your package, own your adventure! Take the reins of travel
-            customization and design a personalized escape for you senior trip,
-            business travel, or for the sake of your wanderlust.
+            Craft your own travel story! Customize every detail & own your
+            adventure! Whether it’s a senior trip, business travel, or pure
+            wanderlust, your perfect journey starts here.
           </p>
           <button
             className="build-my-package-hero-btn"

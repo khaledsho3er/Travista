@@ -46,14 +46,14 @@ function ApplyForVisa() {
             <p>Apply for visa</p>
 
             <h1>
-              Unlock Global
-              <br /> Oppurtunities
+              Open the Door to <br /> the World
             </h1>
           </Box>
           <p>
-            Our streamlined process ensures a seamless experience, allowing you
-            to embark on your desired journey with ease. Discover a world of
-            limitless possibilities by applying for your visa today.
+            Our hassle-free visa process makes your travel dreams effortless.
+            Whether you're chasing new horizons or planning your next adventure,
+            we’l get you there . smoothly and stress-free. Apply today and
+            explore without limits.
           </p>
           <button
             className="ApplyForVisa-contact-btn"

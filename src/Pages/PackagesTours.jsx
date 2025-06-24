@@ -155,12 +155,11 @@ function PackagesTours() {
           className="overlay"
         >
           <Typography variant="h2" color="white" fontWeight={800}>
-            Packages & Tours
+            Travel Beyond the Ordinary
           </Typography>
           <Typography variant="body1" color="white">
-            Experience breathtaking destinations and unforgettable adventures
-            with our exclusive travel packages and immersive guided tours
-            worldwide.
+            From stunning landscapes to rich cultures, experience the world like
+            never before with our unforgettable adventures
           </Typography>
         </Box>
       </Box>

@@ -42,13 +42,15 @@ function PackageCard() {
           <Typography variant="body1">Build Your Package</Typography>
 
           <Typography variant="h3" fontSize="3.5rem" fontWeight="600">
-            Unleash your wanderlust and craft your dream trip
+            Start crafting your adventure now, your Dream Trip is just a few
+            clicks away.
           </Typography>
 
           <Typography variant="body1">
-            Plan your dream vacation with our customizable travel package.
-            Choose from a variety of destinations, activities, and
-            accommodations to create an experience that is perfect for you.
+            Fuel your travel dreams and bring your ultimate getaway to life.
+            Whether you crave tropical beaches, cultural gems, or wild
+            adventures , mix and match destinations, experiences, and stays to
+            build your perfect escape. Start Crafting Your Trip
           </Typography>
 
           <CardActions>

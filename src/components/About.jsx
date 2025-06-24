@@ -19,8 +19,9 @@ function About() {
       padding="5rem 10%"
     >
       <Typography variant="h2" fontSize="2rem">
-        With a touch of magic and a dash of adventure, we curate extraordinary
-        experiences that will leave you enchanted and longing for more.
+        With a sprinkle of wonder and a spirit of adventure, we craft
+        unforgettable journeys that leave you inspired, amazed, and craving
+        more.
       </Typography>
 
       <Button
@@ -55,8 +56,9 @@ function About() {
             margin="0 auto"
             marginTop="20px"
           >
-            We curate whimsical journeys, blending hidden gems, local flavors,
-            and offbeat activities for unforgettable travel experiences.
+            Dive into immersive escapes where hidden gems, authentic flavors,
+            and unique activities come together for one-of-a-kind travel
+            stories.
           </Typography>
         </Card>
 
@@ -75,8 +77,8 @@ function About() {
             margin="0 auto"
             marginTop="20px"
           >
-            We weave our travel magic year-round, ensuring every season becomes
-            an opportunity for extraordinary adventures.
+            From summer getaways to winter retreats , we make every season the
+            perfect time to discover somewhere new.
           </Typography>
         </Card>
 
@@ -95,8 +97,9 @@ function About() {
             margin="0 auto"
             marginTop="20px"
           >
-            We craft budget-friendly escapes, ensuring your travel dreams become
-            a reality without breaking the bank.
+            Live your travel dreams without the splurge. We make unforgettable
+            trips affordable — so you never have to choose between budget and
+            adventure.
           </Typography>
         </Card>
       </Box>

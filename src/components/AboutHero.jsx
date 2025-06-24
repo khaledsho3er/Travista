@@ -26,11 +26,11 @@ function AboutHero() {
           <Box className="about-center-content">
             <Typography variant="h4">About us</Typography>
             <Typography variant="h3">
-              We exist to reveal a world of greater travel possibility
+              We’re here to unlock a world full of travel possibilities.
             </Typography>
             <Typography variant="h5">
-              We're a small team of travel aficionados working to help people
-              travel and experience the world.
+              As a passionate team of travel lovers, we’re dedicated to helping
+              you explore, discover, and truly experience the world.
             </Typography>
             <Button>How to began?</Button>
           </Box>
