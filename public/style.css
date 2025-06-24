@@ -1452,6 +1452,7 @@ textarea.form-input {
   text-align: center;
   width: 100%;
   border-radius: 2rem;
+  height: 40rem;
 }
 .contact-us-hero-image img {
   margin: auto;
