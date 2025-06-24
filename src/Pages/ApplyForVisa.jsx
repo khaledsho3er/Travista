@@ -46,7 +46,9 @@ function ApplyForVisa() {
             <p>Apply for visa</p>
 
             <h1>
-              Open the Door to <br /> the World
+              Open the Door
+              <br />
+              to the World
             </h1>
           </Box>
           <p>
