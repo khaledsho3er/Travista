@@ -72,7 +72,11 @@ function BuildMyPackage() {
             </button>
           </a>
         </Box>
-        <img src="assets/build_My_Package.jpg" alt="buildMyPackageHero.png" />
+        <img
+          src="assets/build_My_Package.jpg"
+          alt="buildMyPackageHero.png"
+          style={{ borderRadius: "2rem" }}
+        />
         <img
           class="overlay-photo"
           src="assets/buildMyPackage/upsell-module.png"

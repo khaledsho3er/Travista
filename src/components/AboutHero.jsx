@@ -40,7 +40,7 @@ function AboutHero() {
         <Grid item xs={12} md={4}>
           <Box className="about-right-image">
             <img
-              src="assets/prague.jpg"
+              src="assets/prague2.jpg"
               alt="Pic2"
               className="about-hero-image"
             />

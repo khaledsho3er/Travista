@@ -22,7 +22,7 @@ const backgroundMap = {
   "/": "dark",
   "/About": "dark",
   "/services": "light",
-  "/contact": "dark",
+  "/contactus": "dark",
   "/account": "light",
   "/login": "light",
   "/loading": "light",
@@ -90,6 +90,9 @@ function Navbar() {
   };
   const handleCareers = () => {
     navigate("/careers");
+  };
+  const handleContact = () => {
+    navigate("/contactus");
   };
   const handleSignIn = () => {
     navigate("/login");
@@ -186,7 +189,7 @@ function Navbar() {
               justifyContent: "space-between",
               width: "100%",
             }}
-            onClick={handleCareers}
+            onClick={handleContact}
           >
             <Link className="nav-link" to="contactus">
               Our Offices <ArrowOutwardIcon fontSize="2rem" />
