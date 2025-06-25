@@ -240,7 +240,12 @@ function Navbar() {
             className="toolbar"
             sx={{ display: "flex", justifyContent: "space-between" }}
           >
-            <Box sx={{ maxWidth: "205px", zIndex: 0 }}>
+            <Box
+              sx={{
+                maxWidth: { xs: "100px", sm: "205px" },
+                zIndex: 0,
+              }}
+            >
               <Link to="/" className="nav-link">
                 <img
                   src={
