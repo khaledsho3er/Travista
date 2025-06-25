@@ -508,6 +508,10 @@
   html {
     overflow-x: hidden; /* Prevent horizontal scrolling */
   }
+
+  .ApplyForVisa-Form-content {
+    margin: 0;
+  }
 }
 
 /* Responsive Styles */
