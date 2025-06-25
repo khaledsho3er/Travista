@@ -1455,8 +1455,9 @@ textarea.form-input {
 }
 .contact-us-hero-image img {
   margin: auto;
-  height: 40rem;
+  height: 45rem;
   width: 90%;
+  object-fit: cover;
   border-radius: 2rem;
 }
 .contact-us-trips-container {
