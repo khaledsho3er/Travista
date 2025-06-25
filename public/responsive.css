@@ -268,30 +268,30 @@
 
   /* Header Section */
   .ApplyForVisa-header {
-    flex-direction: column; /* Stack items vertically */
-    gap: 1rem;
-    text-align: left;
-    padding: 1rem;
+    flex-direction: column !important; /* Stack items vertically */
+    gap: 1rem !important;
+    text-align: left !important;
+    padding: 1rem !important;
   }
 
   .ApplyForVisa-header img {
-    width: 250px;
-    height: 250px; /* Adjust image size */
-    padding: 0;
-    margin: 0 auto; /* Center image */
+    width: 250px !important;
+    height: 250px !important; /* Adjust image size */
+    padding: 0 !important;
+    margin: 0 auto !important; /* Center image */
   }
 
   .ApplyForVisa-header h1 {
-    font-size: 2rem; /* Adjust font size */
-    padding-left: 0;
-    text-align: left; /* Center-align text */
-    padding-left: 5px;
+    font-size: 2rem !important; /* Adjust font size */
+    padding-left: 0 !important;
+    text-align: left !important; /* Center-align text */
+    padding-left: 5px !important ;
   }
 
   .ApplyForVisa-header p {
-    margin: 0 auto;
-    text-align: left; /* Center-align paragraph */
-    font-size: 0.9rem; /* Scale down font size */
+    margin: 0 auto !important;
+    text-align: left !important; /* Center-align paragraph */
+    font-size: 0.9rem !important  ; /* Scale down font size */
   }
 
   .ApplyForVisa-contact-btn {
