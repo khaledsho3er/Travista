@@ -70,13 +70,14 @@
   }
 
   .explore-more-card {
-    height: 500px;
-    margin: 20px 0px;
-    justify-content: space-around;
+    width: 100% !important;
+    height: 500px !important;
+    margin: 20px 0 !important;
+    justify-content: space-around !important;
   }
 
   .explore-more-card h4 {
-    font-size: 2rem;
+    font-size: 2rem !important;
   }
 
   .explore-more-card button.btn {
@@ -126,7 +127,10 @@
   }
 
   .faq-section {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 20px;
   }
 
   .packages-page .hero h2 {
@@ -180,6 +184,7 @@
   .Blogs-grid {
     grid-template-columns: 1fr;
     padding-left: 2rem;
+    margin-bottom: 100px;
   }
 
   .people-pic {
@@ -279,12 +284,13 @@
   .ApplyForVisa-header h1 {
     font-size: 2rem; /* Adjust font size */
     padding-left: 0;
-    text-align: center; /* Center-align text */
+    text-align: left; /* Center-align text */
+    padding-left: 5px;
   }
 
   .ApplyForVisa-header p {
     margin: 0 auto;
-    text-align: center; /* Center-align paragraph */
+    text-align: left; /* Center-align paragraph */
     font-size: 0.9rem; /* Scale down font size */
   }
 
@@ -416,9 +422,10 @@
   }
 
   .careers-header img {
-    width: 100%; /* Image takes full width */
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 7rem; /* Add spacing */
+    width: 250px; /* Image takes full width */
+    height: 250px; /* Maintain aspect ratio */
+    margin-right: 0rem; /* Add spacing */
+    margin-top: 0px;
   }
 
   .careers-header h1,
@@ -864,8 +871,11 @@
     flex-direction: column;
   }
   .build-my-package-header img {
-    width: 337px;
-    height: 337px;
+    width: 250px;
+    height: 250px;
+    padding: 0px;
+    margin-left: 100px;
+    margin-top: -35px;
   }
 
   .build-my-package-header .overlay-photo {

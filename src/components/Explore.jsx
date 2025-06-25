@@ -120,7 +120,12 @@ const Explore = () => {
           marginBottom: "2%",
         }}
       >
-        <Typography variant="h4" component="h2" fontWeight="900" gutterBottom>
+        <Typography
+          variant="h4"
+          fontWeight="900"
+          gutterBottom
+          sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" } }}
+        >
           Explore our packages
         </Typography>
 
@@ -137,9 +142,9 @@ const Explore = () => {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
-          flexWrap: "nowrap",
-          gap: "4%",
+          justifyContent: { xs: "center", sm: "space-between" },
+          flexWrap: "wrap",
+          gap: 4,
           flexDirection: { xs: "column", sm: "row" },
           alignItems: { xs: "center", sm: "flex-start" },
         }}
@@ -153,12 +158,19 @@ const Explore = () => {
                 backgroundImage: `url(https://api.travistasl.com/${pkg.packagePicture})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                height: "750px",
+                width: { xs: "100%", sm: "500px", md: "550px" },
+                height: { xs: "500px", sm: "600px", md: "750px" },
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-end",
-                marginBottom: { xs: "20px", sm: "0" },
                 position: "relative",
+                borderRadius: "20px",
+                padding: "30px",
+                marginTop: { xs: 0, sm: index % 2 === 0 ? 0 : "50px" },
+                transition: "all 0.4s",
+                "&:hover": {
+                  width: { sm: "600px", md: "650px" },
+                },
               }}
             >
               <IconButton
@@ -198,17 +210,23 @@ const Explore = () => {
                 >
                   {formatDate(pkg.departureDate)}
                 </Typography>
-                <Typography variant="h4" fontWeight="900">
+                <Typography
+                  variant="h4"
+                  fontWeight="900"
+                  sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
+                >
                   {pkg.destinations.join(", ")}
                 </Typography>
+
                 <Typography
                   className="package-date"
                   variant="body1"
                   color="#A5A5A5"
-                  fontSize="2rem"
+                  sx={{ fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem" } }}
                 >
                   {pkg.totalDays} Days, {pkg.totalNights} Nights
                 </Typography>
+
                 <Typography variant="h6" color="#FED7D2">
                   from {formatPrice(pkg.packagePrice)}
                 </Typography>
@@ -218,7 +236,10 @@ const Explore = () => {
                 <Button
                   className="btn btn-secondary"
                   variant="contained"
-                  sx={{ padding: "15px 80px !important" }}
+                  sx={{
+                    padding: { xs: "15px 60px", sm: "15px 80px" },
+                    width: { xs: "100%", sm: "auto" },
+                  }}
                   onClick={() => handlePackageClick(pkg)}
                 >
                   Explore Trip
