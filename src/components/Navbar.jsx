@@ -249,7 +249,7 @@ function Navbar() {
                       : "/assets/logo-white.png"
                   }
                   alt="Logo"
-                  style={{ height: "60px" }}
+                  style={{ height: { xs: "45px", sm: "60px" } }}
                 />
               </Link>
             </Box>

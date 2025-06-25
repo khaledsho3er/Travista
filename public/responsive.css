@@ -270,7 +270,7 @@
   .ApplyForVisa-header {
     flex-direction: column; /* Stack items vertically */
     gap: 1rem;
-    text-align: center;
+    text-align: left;
     padding: 1rem;
   }
 
