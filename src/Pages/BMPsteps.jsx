@@ -204,12 +204,48 @@ function BuildMyPackageSteps() {
     <Box>
       <Navbar />
       <main className="BMP-steps-main">
-        <section className="BMP-steps-hero">
-          <div className="BMP-steps-hero-content-container">
-            <Box className="BMP-steps-hero-image-left">
-              <img src="assets/zinzibar.jpg" alt="Hero 1" />
+        <section
+          className="BMP-steps-hero"
+          style={{
+            display: "flex",
+            width: "100vw",
+            marginLeft: "calc(-50vw + 50%)",
+            marginRight: "calc(-50vw + 50%)",
+          }}
+        >
+          <div
+            className="BMP-steps-hero-content-container"
+            style={{
+              display: "flex",
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Box
+              className="BMP-steps-hero-image-left"
+              sx={{
+                flex: "0 0 30vw",
+                height: "70vh",
+                overflow: "hidden",
+                borderRadius: 0,
+              }}
+            >
+              <img
+                src="assets/zinzibar.jpg"
+                alt="Hero 1"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                }}
+              />
             </Box>
-            <Box className="BMP-steps-content">
+            <Box
+              className="BMP-steps-content"
+              sx={{ flex: "1 1 40vw", minWidth: 0 }}
+            >
               {renderContent()}
               {error && (
                 <Box
@@ -220,8 +256,25 @@ function BuildMyPackageSteps() {
                 </Box>
               )}
             </Box>
-            <Box className="BMP-steps-hero-image-right">
-              <img src="assets/zinzibar.jpg" alt="Hero 2" />
+            <Box
+              className="BMP-steps-hero-image-right"
+              sx={{
+                flex: "0 0 30vw",
+                height: "70vh",
+                overflow: "hidden",
+                borderRadius: 0,
+              }}
+            >
+              <img
+                src="assets/zinzibar.jpg"
+                alt="Hero 2"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                }}
+              />
             </Box>
           </div>
         </section>
