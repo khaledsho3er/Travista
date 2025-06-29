@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import VisaDocumentDialog from "./visaDialog";
 import SuccessDialog from "./SuccessDialog";
-import { Button } from "@mui/material";
+import { Button, TextField, Autocomplete } from "@mui/material";
 import { Description, Image, Close } from "@mui/icons-material";
 import { Country, State } from "country-state-city";
 
 const ApplyForVisaForm = () => {
-  const [selectedState, setSelectedState] = useState("");
+  const [selectedState, setSelectedState] = useState(null);
   const [allStates, setAllStates] = useState([]);
   const [countryOptions, setCountryOptions] = useState([]);
   const [showSchengenQuestion, setShowSchengenQuestion] = useState(false);
@@ -111,14 +111,14 @@ const ApplyForVisaForm = () => {
     }
   };
 
-  const handleStateChange = (e) => {
-    const stateName = e.target.value;
-    setSelectedState(stateName);
-    setFormData({ ...formData, country: stateName });
+  const handleStateChange = (event, value) => {
+    setSelectedState(value);
+    setFormData({ ...formData, country: value ? value.name : "" });
 
     // Check if the selected state matches any country name from the API
     const matchedCountry = countryOptions.find(
-      (country) => country.name.toLowerCase() === stateName.toLowerCase()
+      (country) =>
+        value && country.name.toLowerCase() === value.name.toLowerCase()
     );
 
     if (matchedCountry) {
@@ -204,14 +204,15 @@ const ApplyForVisaForm = () => {
 
       // Check if the selected state matches any country from the API
       const matchedCountry = countryOptions.find(
-        (country) => country.name.toLowerCase() === selectedState.toLowerCase()
+        (country) =>
+          country.name.toLowerCase() === selectedState.name.toLowerCase()
       );
 
       if (matchedCountry) {
         try {
           // Try fetching visa document
           const docRes = await axios.get(
-            `https://api.travistasl.com/api/visa-documents/${selectedState}`
+            `https://api.travistasl.com/api/visa-documents/${selectedState.name}`
           );
           console.log("Document response:", docRes);
           if (docRes.data) {
@@ -219,7 +220,9 @@ const ApplyForVisaForm = () => {
             console.log("Visa Documents:", docRes.data);
             setShowDialog(true);
           } else {
-            console.warn(`No matching document found for ${selectedState}`);
+            console.warn(
+              `No matching document found for ${selectedState.name}`
+            );
             setShowSuccessDialog(true);
           }
         } catch (docErr) {
@@ -250,7 +253,7 @@ const ApplyForVisaForm = () => {
         bankStatement: "",
         additionalFiles: [],
       });
-      setSelectedState("");
+      setSelectedState(null);
     } catch (err) {
       console.error("Submission error:", err);
 
@@ -322,23 +325,27 @@ const ApplyForVisaForm = () => {
           />
         </div>
 
-        <select
-          className="form-input"
-          name="country"
+        <Autocomplete
+          options={allStates}
+          getOptionLabel={(option) =>
+            option ? `${option.name} (${option.countryName})` : ""
+          }
           value={selectedState}
           onChange={handleStateChange}
-          required
-        >
-          <option value="">Select Your Destination</option>
-          {allStates.map((state, idx) => (
-            <option
-              key={state.name + state.countryName + idx}
-              value={state.name}
-            >
-              {state.name} ({state.countryName})
-            </option>
-          ))}
-        </select>
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Select Your Destination"
+              variant="outlined"
+              required
+              className="form-input"
+            />
+          )}
+          isOptionEqualToValue={(option, value) =>
+            option.name === value.name &&
+            option.countryName === value.countryName
+          }
+        />
 
         <select
           className="form-input"
