@@ -225,8 +225,8 @@ function BuildMyPackageSteps() {
             <Box
               className="BMP-steps-hero-image-left"
               sx={{
-                flex: "0 0 30vw",
-                height: "70vh",
+                flex: "0 0 20vw",
+                height: "40vh",
                 overflow: "hidden",
                 borderRadius: 0,
               }}
@@ -259,8 +259,8 @@ function BuildMyPackageSteps() {
             <Box
               className="BMP-steps-hero-image-right"
               sx={{
-                flex: "0 0 30vw",
-                height: "70vh",
+                flex: "0 0 20vw",
+                height: "40vh",
                 overflow: "hidden",
                 borderRadius: 0,
               }}
