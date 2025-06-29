@@ -352,15 +352,15 @@ function Footer() {
             Support
           </Typography>
         </ListItem>
-        <ListItem>
+        {/* <ListItem>
           <Link to="/contactus">Help Center</Link>
-        </ListItem>
+        </ListItem> */}
         <ListItem>
           <Link to="/faqs">FAQs</Link>
         </ListItem>
         <ListItem>
           <span
-            style={{ cursor: "pointer", color: "#1976d2" }}
+            style={{ cursor: "pointer", color: "#777777" }}
             onClick={() => {
               setPoliciesSection("privacy");
               setPoliciesOpen(true);
@@ -371,7 +371,7 @@ function Footer() {
         </ListItem>
         <ListItem>
           <span
-            style={{ cursor: "pointer", color: "#1976d2" }}
+            style={{ cursor: "pointer", color: "#777777" }}
             onClick={() => {
               setPoliciesSection("terms");
               setPoliciesOpen(true);
@@ -382,7 +382,7 @@ function Footer() {
         </ListItem>
         <ListItem>
           <span
-            style={{ cursor: "pointer", color: "#1976d2" }}
+            style={{ cursor: "pointer", color: "#777777" }}
             onClick={() => {
               setPoliciesSection("cookie");
               setPoliciesOpen(true);

@@ -96,9 +96,7 @@ const PoliciesPopup = ({ open, onClose, defaultSection }) => {
           padding: "16px 24px 0 24px",
         }}
       >
-        <Typography variant="h5" fontWeight="bold">
-          Policies
-        </Typography>
+        <Typography variant="h5" fontWeight="bold"></Typography>
         <IconButton onClick={onClose}>
           <CloseIcon />
         </IconButton>
@@ -108,7 +106,7 @@ const PoliciesPopup = ({ open, onClose, defaultSection }) => {
           <Accordion
             expanded={expanded === "privacy"}
             onChange={handleAccordionChange("privacy")}
-            sx={{ mb: 2 }}
+            sx={{ mb: 2, boxShadow: "none" }}
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography variant="h6" color="#750046">
@@ -122,7 +120,7 @@ const PoliciesPopup = ({ open, onClose, defaultSection }) => {
           <Accordion
             expanded={expanded === "terms"}
             onChange={handleAccordionChange("terms")}
-            sx={{ mb: 2 }}
+            sx={{ mb: 2, boxShadow: "none" }}
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography variant="h6" color="#750046">
@@ -136,6 +134,7 @@ const PoliciesPopup = ({ open, onClose, defaultSection }) => {
           <Accordion
             expanded={expanded === "cookie"}
             onChange={handleAccordionChange("cookie")}
+            sx={{ boxShadow: "none" }}
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography variant="h6" color="#750046">
