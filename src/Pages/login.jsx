@@ -137,7 +137,6 @@ const TravistaSignIn = () => {
               <TextField
                 size="small"
                 margin="normal"
-                required
                 sx={{ width: { xs: "90%", sm: "50%", borderRadius: "50px" } }}
                 id="email"
                 label="Email"
@@ -150,7 +149,6 @@ const TravistaSignIn = () => {
               <TextField
                 size="small"
                 margin="normal"
-                required
                 sx={{ width: { xs: "90%", sm: "50%", borderRadius: "50px" } }}
                 name="password"
                 label="Password"
