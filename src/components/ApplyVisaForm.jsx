@@ -370,7 +370,9 @@ const ApplyForVisaForm = () => {
             value={formData.invitation}
             onChange={handleChange}
           >
-            <option value="">{getInvitationLabel()}</option>
+            <option value="">
+              {getInvitationLabel() || "Select Invitation Status"}
+            </option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
           </select>
