@@ -16,7 +16,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const policyContent = {
   privacy: {
     title: "Privacy Policy",
-    content: `1- Privacy Policy
+    content: `1- Privacy Policy\n
+    At Travista, we value your privacy and are committed to protecting your personal information. This policy explains how we collect, use, and safeguard your data.
+
 --What We Collect:
 - Name, email, phone number, nationality
 - Travel preferences and booking details
@@ -65,7 +67,8 @@ You may request:
 5- Travel & Liability Disclaimer
 - Travista acts as a travel intermediary. We are not liable for delays, changes, or cancellations by third-party providers (airlines, hotels, etc.)
 - Travelers are responsible for ensuring all visa, passport, and vaccination requirements are met.
-- We recommend securing travel insurance before departure`,
+- We recommend securing travel insurance before departure
+-Travista is not liable for personal loss, injury, or accident during the trip.`,
   },
   terms: {
     title: "Terms & Conditions",
