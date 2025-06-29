@@ -205,7 +205,11 @@ function ContactUs() {
               <h3>Dubai, UAE</h3>
               <span>06:06AM</span>
             </Box>
-            <p>18th Street, Deira - Dubai, United Arab Emirates</p>
+            <p>
+              Almoosa 2 Tower, Shaikh Zayed Road, 88878 - Dubai, United Arab
+              Emirates
+            </p>
+
             <Box className="contact-us-trips-btns">
               <button
                 className="contact-us-trips-btn-getdirections"

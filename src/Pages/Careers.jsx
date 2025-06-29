@@ -78,11 +78,11 @@ function CareersPage() {
           <button className="careers-hero-btn">View open postion</button>
         </Box>
         <img src="assets/careers_header.jpg" alt="Careersimg.png" />
-        <img
+        {/* <img
           class="overlay-photo"
           src="assets/heroicon.png"
           alt="OverlayImage"
-        />
+        /> */}
       </header>
       {/* Core Values Section */}
       <Box className="careers-core-values">

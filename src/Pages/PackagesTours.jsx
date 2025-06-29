@@ -117,7 +117,7 @@ function PackagesTours() {
   return (
     <Box className="packages-page">
       <Helmet>
-        <title>Top Tour Packages from Egypt | Travista</title>
+        <title>Top Tour Packages | Travista</title>
         <meta
           name="description"
           content="Discover top-rated travel packages from Egypt to global destinations. Book senior trips, guided tours, and more with Travista."
@@ -154,7 +154,7 @@ function PackagesTours() {
           }}
           className="overlay"
         >
-          <Typography variant="h2" color="white" fontWeight={800}>
+          <Typography variant="h3" color="white" fontWeight={800}>
             Travel Beyond the Ordinary
           </Typography>
           <Typography variant="body1" color="white">

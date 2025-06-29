@@ -291,6 +291,27 @@ function Footer() {
         >
           {loading ? <CircularProgress size={24} /> : renderSocialIcons()}
         </Box>
+        <Typography
+          variant="body1"
+          color="#777777"
+          sx={{
+            mt: 2,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <a
+            href="tel://19294"
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+            }}
+          >
+            <FaGlobe size={20} />
+            <span style={{ marginLeft: 8 }}>19294</span>
+          </a>
+        </Typography>
       </Box>
 
       <List>
