@@ -33,8 +33,12 @@ function AboutPage() {
       <div>
         <AboutHero />
       </div>
-      <Timeline />
-      <Footer />
+      <div>
+        <Timeline />
+      </div>
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 }

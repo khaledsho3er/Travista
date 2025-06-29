@@ -360,7 +360,7 @@ function Footer() {
         </ListItem>
         <ListItem>
           <span
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", fontWeight: "bold" }}
             onClick={() => {
               setPoliciesSection("privacy");
               setPoliciesOpen(true);
@@ -371,7 +371,7 @@ function Footer() {
         </ListItem>
         <ListItem>
           <span
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", fontWeight: "bold" }}
             onClick={() => {
               setPoliciesSection("terms");
               setPoliciesOpen(true);
@@ -382,7 +382,7 @@ function Footer() {
         </ListItem>
         <ListItem>
           <span
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", fontWeight: "bold" }}
             onClick={() => {
               setPoliciesSection("cookie");
               setPoliciesOpen(true);
