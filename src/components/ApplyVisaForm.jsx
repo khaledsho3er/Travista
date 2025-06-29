@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import VisaDocumentDialog from "./visaDialog";
 import SuccessDialog from "./SuccessDialog";
-import { Button, TextField, Autocomplete } from "@mui/material";
+import { Button } from "@mui/material";
 import { Description, Image, Close } from "@mui/icons-material";
-import { Country, State } from "country-state-city";
 
 const ApplyForVisaForm = () => {
-  const [selectedState, setSelectedState] = useState(null);
-  const [allStates, setAllStates] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("");
   const [countryOptions, setCountryOptions] = useState([]);
   const [showSchengenQuestion, setShowSchengenQuestion] = useState(false);
   const [visaDocuments, setVisaDocuments] = useState([]);
@@ -85,15 +83,6 @@ const ApplyForVisaForm = () => {
       }
     };
 
-    // Get all states from all countries
-    const all = Country.getAllCountries().flatMap((country) =>
-      State.getStatesOfCountry(country.isoCode).map((state) => ({
-        ...state,
-        countryName: country.name,
-      }))
-    );
-    setAllStates(all);
-
     fetchCountries();
   }, []);
 
@@ -111,27 +100,16 @@ const ApplyForVisaForm = () => {
     }
   };
 
-  const handleStateChange = (event, value) => {
-    setSelectedState(value);
-    setFormData({ ...formData, country: value ? value.name : "" });
+  const handleCountryChange = (e) => {
+    const country = e.target.value;
+    setSelectedCountry(country);
+    setFormData({ ...formData, country });
 
-    // Check if the selected state matches any country name from the API
-    const matchedCountry = countryOptions.find(
-      (country) =>
-        value && country.name.toLowerCase() === value.name.toLowerCase()
-    );
-
-    if (matchedCountry) {
-      // Use the matched country logic
-      if (schengenCountries.includes(matchedCountry.name)) {
-        setShowSchengenQuestion(false);
-        setFormData((prev) => ({ ...prev, schengenBefore: "No" }));
-      } else {
-        setShowSchengenQuestion(true);
-        setFormData((prev) => ({ ...prev, schengenBefore: "" }));
-      }
-    } else {
+    if (schengenCountries.includes(country)) {
       setShowSchengenQuestion(false);
+      setFormData((prev) => ({ ...prev, schengenBefore: "No" })); // <-- change here
+    } else {
+      setShowSchengenQuestion(true);
       setFormData((prev) => ({ ...prev, schengenBefore: "" }));
     }
   };
@@ -202,37 +180,25 @@ const ApplyForVisaForm = () => {
         }
       );
 
-      // Check if the selected state matches any country from the API
-      const matchedCountry = countryOptions.find(
-        (country) =>
-          country.name.toLowerCase() === selectedState.name.toLowerCase()
-      );
-
-      if (matchedCountry) {
-        try {
-          // Try fetching visa document
-          const docRes = await axios.get(
-            `https://api.travistasl.com/api/visa-documents/${selectedState.name}`
-          );
-          console.log("Document response:", docRes);
-          if (docRes.data) {
-            setVisaDocuments(docRes.data);
-            console.log("Visa Documents:", docRes.data);
-            setShowDialog(true);
-          } else {
-            console.warn(
-              `No matching document found for ${selectedState.name}`
-            );
-            setShowSuccessDialog(true);
-          }
-        } catch (docErr) {
-          console.error("Document fetch error:", docErr);
-          setShowSuccessDialog(true);
+      try {
+        // Try fetching visa document
+        const docRes = await axios.get(
+          `https://api.travistasl.com/api/visa-documents/${selectedCountry}`
+        );
+        console.log("Document response:", docRes);
+        if (docRes.data) {
+          setVisaDocuments(docRes.data);
+          console.log("Visa Documents:", docRes.data);
+          setShowDialog(true);
+        } else {
+          console.warn(`No matching document found for ${selectedCountry}`);
         }
-      } else {
-        // No match: just show success dialog, do not show visaDocumentDialog
-        setShowSuccessDialog(true);
+      } catch (docErr) {
+        console.error("Document fetch error:", docErr);
+        // Don’t block submission just because document fetch fails
       }
+
+      setShowSuccessDialog(true);
 
       // Reset form
       setFormData({
@@ -253,7 +219,7 @@ const ApplyForVisaForm = () => {
         bankStatement: "",
         additionalFiles: [],
       });
-      setSelectedState(null);
+      setSelectedCountry("");
     } catch (err) {
       console.error("Submission error:", err);
 
@@ -325,27 +291,20 @@ const ApplyForVisaForm = () => {
           />
         </div>
 
-        <Autocomplete
-          options={allStates}
-          getOptionLabel={(option) =>
-            option ? `${option.name} (${option.countryName})` : ""
-          }
-          value={selectedState}
-          onChange={handleStateChange}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Select Your Destination"
-              variant="outlined"
-              required
-              className="form-input"
-            />
-          )}
-          isOptionEqualToValue={(option, value) =>
-            option.name === value.name &&
-            option.countryName === value.countryName
-          }
-        />
+        <select
+          className="form-input"
+          name="country"
+          value={selectedCountry}
+          onChange={handleCountryChange}
+          required
+        >
+          <option value="">Select Your Destination</option>
+          {countryOptions.map((country) => (
+            <option key={country._id} value={country._id}>
+              {country.name}
+            </option>
+          ))}
+        </select>
 
         <select
           className="form-input"
