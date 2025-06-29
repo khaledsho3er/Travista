@@ -154,7 +154,12 @@ function PackagesTours() {
           }}
           className="overlay"
         >
-          <Typography variant="h3" color="white" fontWeight={800}>
+          <Typography
+            variant="h3"
+            color="white"
+            fontWeight={800}
+            textAlign="center"
+          >
             Travel Beyond the Ordinary
           </Typography>
           <Typography variant="body1" color="white">
@@ -165,7 +170,7 @@ function PackagesTours() {
       </Box>
       <div className="packages-tours-body">
         <Box className="packages-tours">
-          <Box sx={{ display: "flex", gap: "10px", padding: "20px 0" }}>
+          <Box sx={{ display: "flex", gap: "21px", padding: "20px 0" }}>
             <Filter
               onFilterChange={handleFilterChange}
               selectedFilter={selectedFilter}

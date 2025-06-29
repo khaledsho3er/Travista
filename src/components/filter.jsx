@@ -42,7 +42,7 @@ const Filter = ({ onFilterChange, selectedFilter }) => {
     <Box
       sx={{
         width: "100%",
-        padding: "20px 0",
+        padding: "20px",
       }}
     >
       <Box
