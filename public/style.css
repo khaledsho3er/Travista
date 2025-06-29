@@ -2261,6 +2261,11 @@ textarea.form-input {
   right: 26%;
   height: 9rem;
 }
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
 
 /* careers page */
 .Careers-page {
