@@ -221,7 +221,7 @@ function ContactUs() {
               <button className="contact-us-trips-btn-call">Call Office</button>
             </Box>
           </Box>
-          <Box className="contact-us-trips-step">
+          {/* <Box className="contact-us-trips-step">
             <Box className="contact-us-trips-head">
               <h3>Barcelona, Spain</h3>
               <span>06:06AM</span>
@@ -241,7 +241,7 @@ function ContactUs() {
               </button>
               <button className="contact-us-trips-btn-call">Call Office</button>
             </Box>
-          </Box>
+          </Box> */}
         </Box>
       </Box>
 
