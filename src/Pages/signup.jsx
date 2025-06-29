@@ -16,6 +16,8 @@ import IconButton from "@mui/material/IconButton";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 const TravistaSignUp = () => {
   const [formData, setFormData] = useState({
@@ -31,20 +33,92 @@ const TravistaSignUp = () => {
     password: false,
     confirmPassword: false,
   });
+  const [showPasswordValidation, setShowPasswordValidation] = useState(false);
+  const [checkboxChecked, setCheckboxChecked] = useState(false);
   const navigate = useNavigate();
+
+  // Password validation rules
+  const passwordRules = [
+    {
+      label: "At least 8 characters",
+      test: (pw) => pw.length >= 8,
+    },
+    {
+      label: "At least one uppercase letter",
+      test: (pw) => /[A-Z]/.test(pw),
+    },
+    {
+      label: "At least one lowercase letter",
+      test: (pw) => /[a-z]/.test(pw),
+    },
+    {
+      label: "At least one number",
+      test: (pw) => /[0-9]/.test(pw),
+    },
+    {
+      label: "At least one special symbol",
+      test: (pw) => /[^A-Za-z0-9]/.test(pw),
+    },
+  ];
+
+  const passwordValidation = passwordRules.map((rule) =>
+    rule.test(formData.password)
+  );
+  const allValid = passwordValidation.every(Boolean);
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.name === "email") {
+      setFormData({ ...formData, email: e.target.value.toLowerCase() });
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
+    if (e.target.name === "password") {
+      setShowPasswordValidation(e.target.value.length > 0);
+    }
   };
+
+  const validateForm = () => {
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.email ||
+      !formData.phoneNumber ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      return "All fields are required.";
+    }
+    // Email format
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(formData.email)) {
+      return "Please enter a valid email address.";
+    }
+    // Password rules
+    const passwordValidation = passwordRules.map((rule) =>
+      rule.test(formData.password)
+    );
+    if (!passwordValidation.every(Boolean)) {
+      return "Password does not meet all requirements.";
+    }
+    // Password match
+    if (formData.password !== formData.confirmPassword) {
+      return "Passwords do not match!";
+    }
+    // Checkbox
+    if (!checkboxChecked) {
+      return "You must agree to the Terms of Use and Data Privacy Notice.";
+    }
+    return "";
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    console.log("Form submitted with data:", formData);
-
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match!");
-      console.log("Password mismatch!");
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
       return;
     }
+    console.log("Form submitted with data:", formData);
 
     try {
       const response = await fetch(
@@ -222,6 +296,55 @@ const TravistaSignUp = () => {
                   ),
                 }}
               />
+              {showPasswordValidation && (
+                <Box
+                  sx={{
+                    background: "#fff",
+                    border: "1px solid #ccc",
+                    borderRadius: 2,
+                    boxShadow: 2,
+                    p: 2,
+                    mb: 2,
+                    textAlign: "left",
+                  }}
+                >
+                  <Typography
+                    variant="subtitle2"
+                    sx={{ mb: 1, fontWeight: "bold" }}
+                  >
+                    Password must contain:
+                  </Typography>
+                  {passwordRules.map((rule, idx) =>
+                    passwordValidation[idx] ? (
+                      <Box
+                        key={rule.label}
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          color: "green",
+                          mb: 0.5,
+                        }}
+                      >
+                        <CheckCircleIcon fontSize="small" sx={{ mr: 1 }} />
+                        <span>{rule.label}</span>
+                      </Box>
+                    ) : (
+                      <Box
+                        key={rule.label}
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          color: "red",
+                          mb: 0.5,
+                        }}
+                      >
+                        <CancelIcon fontSize="small" sx={{ mr: 1 }} />
+                        <span>{rule.label}</span>
+                      </Box>
+                    )
+                  )}
+                </Box>
+              )}
               <TextField
                 size="small"
                 margin="normal"
@@ -252,7 +375,13 @@ const TravistaSignUp = () => {
               />
               <FormControlLabel
                 required
-                control={<Checkbox color="primary" />}
+                control={
+                  <Checkbox
+                    color="primary"
+                    checked={checkboxChecked}
+                    onChange={(e) => setCheckboxChecked(e.target.checked)}
+                  />
+                }
                 label={
                   <Typography
                     variant="body2"
@@ -269,6 +398,27 @@ const TravistaSignUp = () => {
                   mb: 2,
                 }}
               />
+              {error && (
+                <Box
+                  sx={{
+                    color: "#ff3333",
+                    background: "rgba(255,0,0,0.08)",
+                    borderRadius: "12px",
+                    padding: "12px 16px",
+                    mt: 1,
+                    mb: 2,
+                    fontWeight: 500,
+                    fontSize: "1rem",
+                    boxShadow: "0 2px 8px 0 rgba(0,0,0,0.04)",
+                    borderLeft: "4px solid #ff3333",
+                    maxWidth: 400,
+                    mx: "auto",
+                    textAlign: "left",
+                  }}
+                >
+                  {error}
+                </Box>
+              )}
               <Button
                 type="submit"
                 fullWidth
@@ -299,11 +449,6 @@ const TravistaSignUp = () => {
           </Box>
         </Grid>
       </Grid>
-      {error && (
-        <Typography color="error" sx={{ mb: 2 }}>
-          {error}
-        </Typography>
-      )}
     </>
   );
 };
