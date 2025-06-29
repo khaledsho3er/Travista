@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Slider, Typography } from "@mui/material";
 import currencyCodes from "currency-codes";
-import { Country, City } from "country-state-city";
+import { Country, State } from "country-state-city";
 
 const currencySymbols = {
   USD: "$",
@@ -35,7 +35,7 @@ function StepTwo({
   setNights,
 }) {
   const [countries, setCountries] = useState([]);
-  const [cities, setCities] = useState([]);
+  const [states, setStates] = useState([]);
   const [currencySymbol, setCurrencySymbol] = useState("€");
   const [currencyList, setCurrencyList] = useState([]);
 
@@ -44,21 +44,21 @@ function StepTwo({
     setCountries(Country.getAllCountries());
   }, []);
 
-  // Set cities when country changes
+  // Set states when country changes
   useEffect(() => {
     if (departureCountry) {
       const selectedCountry = countries.find(
         (c) => c.name === departureCountry
       );
       if (selectedCountry) {
-        setCities(City.getCitiesOfCountry(selectedCountry.isoCode));
+        setStates(State.getStatesOfCountry(selectedCountry.isoCode));
       } else {
-        setCities([]);
+        setStates([]);
       }
     } else {
-      setCities([]);
+      setStates([]);
     }
-    setDepartureCity(""); // Reset city when country changes
+    setDepartureCity(""); // Reset state when country changes
   }, [departureCountry, setDepartureCity, countries]);
 
   useEffect(() => {
@@ -108,10 +108,10 @@ function StepTwo({
           onChange={(e) => setDepartureCity(e.target.value)}
           disabled={!departureCountry}
         >
-          <option value="">Departure city</option>
-          {cities.map((city) => (
-            <option key={city.name + city.stateCode} value={city.name}>
-              {city.name}
+          <option value="">Departure state</option>
+          {states.map((state) => (
+            <option key={state.isoCode} value={state.name}>
+              {state.name}
             </option>
           ))}
         </select>
