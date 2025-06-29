@@ -76,7 +76,40 @@ You may request:
   },
   cookie: {
     title: "Cookie Policy",
-    content: `**How We Use Cookies**\n\nTravista uses cookies to enhance your browsing experience and provide personalized content.\n\n**What Are Cookies?**\nCookies are small text files stored on your device when you visit a website. They help us remember your preferences and understand how you use our site.\n\n**Types of Cookies We Use**\n- Essential cookies: Necessary for website functionality\n- Analytics cookies: Help us understand website usage\n- Marketing cookies: Used to deliver relevant ads\n\n**Managing Cookies**\nYou can control and delete cookies through your browser settings. However, disabling cookies may affect your experience on our site.\n\n**Contact Us**\nIf you have any questions about our Cookie Policy, please contact us at info@travistasl.com.`,
+    content: `At Travista, we use cookies and similar technologies to enhance your browsing experience, analyze website traffic, and personalize content. This Cookie Policy explains what cookies are, how we use them, and your options regarding their use.
+
+What Are Cookies? (title)
+- Cookies are small text files stored on your device when you visit a website. They help websites remember your preferences and activity for a smoother experience.
+
+Types of Cookies We Use (title)
+1. Essential Cookies (sub-title)
+- These are necessary for the website to function properly (e.g., navigation, booking forms, security features).
+2. Performance Cookies (sub-title)
+- These collect information on how visitors use our site (e.g., Google Analytics). All data is anonymized.
+3. Functionality Cookies (sub-title)
+- These remember your preferences (language, region, login info) to personalize your experience.
+4. Marketing & Advertising Cookies (sub-title)
+- These may be set by advertising partners to deliver relevant ads and measure campaign effectiveness (e.g., Facebook Pixel, Google Ads).
+
+Third-Party Cookies (title)
+- We may use cookies from third-party services such as:
+--- Google Analytics
+--- Meta (Facebook/Instagram)
+--- YouTube or embedded media players
+- These services may collect data independently according to their own policies.
+
+How to Control Cookies (title)
+- You can manage or delete cookies through your browser settings. Here's how:
+--- Chrome: Settings > Privacy > Cookies and other site data
+--- Safari: Preferences > Privacy > Manage Website Data
+--- Firefox: Options > Privacy & Security > Cookies and Site Data
+- Disabling cookies may affect site functionality, especially bookings and forms.
+
+Cookie Consent (title)
+- When you visit our site for the first time, a cookie banner will prompt you to accept or customize your preferences. By continuing to use our site, you consent to our cookie use as described.
+
+Changes to This Policy (title)
+- We may update this Cookie Policy from time to time. Changes will be posted on this page with an updated effective date.`,
   },
 };
 
@@ -96,6 +129,14 @@ const PoliciesPopup = ({ open, onClose, defaultSection }) => {
   // Helper to render markdown-like line breaks and bold
   const renderContent = (text) => {
     return text.split("\n").map((line, idx) => {
+      // Triple dash: sub-bullet
+      if (/^---/.test(line)) {
+        return (
+          <li key={idx} style={{ marginLeft: 32, listStyleType: "circle" }}>
+            {line.replace(/^---/, "")}
+          </li>
+        );
+      }
       // Number and dash: section title
       if (/^\d+- /.test(line)) {
         return (
@@ -106,6 +147,32 @@ const PoliciesPopup = ({ open, onClose, defaultSection }) => {
             sx={{ mt: idx === 0 ? 0 : 2 }}
           >
             {line}
+          </Typography>
+        );
+      }
+      // (title) at end: section title
+      if (/\(title\)$/.test(line.trim())) {
+        return (
+          <Typography
+            key={idx}
+            variant="subtitle1"
+            fontWeight="bold"
+            sx={{ mt: idx === 0 ? 0 : 2 }}
+          >
+            {line.replace(/\(title\)$/, "").trim()}
+          </Typography>
+        );
+      }
+      // (sub-title) at end: subtitle
+      if (/\(sub-title\)$/.test(line.trim())) {
+        return (
+          <Typography
+            key={idx}
+            variant="subtitle2"
+            fontWeight="bold"
+            sx={{ mt: 2 }}
+          >
+            {line.replace(/\(sub-title\)$/, "").trim()}
           </Typography>
         );
       }
