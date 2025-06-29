@@ -221,7 +221,7 @@ const TravistaSignUp = () => {
                 sx={{
                   display: "flex",
                   flexDirection: { xs: "column", sm: "row" },
-                  gap: 2,
+                  gap: 1,
                   mb: 2,
                 }}
               >
@@ -232,6 +232,7 @@ const TravistaSignUp = () => {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
+                  sx={{ width: "100%" }}
                 />
                 <TextField
                   size="small"
@@ -240,6 +241,7 @@ const TravistaSignUp = () => {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
+                  sx={{ width: "100%" }}
                 />
               </Box>
 
@@ -299,6 +301,9 @@ const TravistaSignUp = () => {
               {showPasswordValidation && (
                 <Box
                   sx={{
+                    position: { xs: "static", md: "absolute" },
+                    top: { md: "454px" },
+                    right: { md: "820px" },
                     background: "#fff",
                     border: "1px solid #ccc",
                     borderRadius: 2,
