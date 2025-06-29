@@ -11,10 +11,6 @@ const milestones = [
   "Launched our user-friendly online booking platform.",
   "Reached 10,000 happy travelers milestone.",
   "Introduced 24/7 customer support for seamless travel assistance.",
-  "Launched eco-friendly travel initiatives to promote sustainable tourism.",
-  "Recognized as a top travel agency in the region.",
-  "Expanded our team with passionate travel experts.",
-  "Continuing to innovate and inspire journeys for travelers worldwide.",
 ];
 
 function Timeline() {
@@ -26,7 +22,9 @@ function Timeline() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  // Reveal animation trigger
   useEffect(() => {
+    const node = containerRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setVisible(true);
@@ -34,25 +32,43 @@ function Timeline() {
       { threshold: 0.1 }
     );
 
-    if (containerRef.current) observer.observe(containerRef.current);
+    if (node) observer.observe(node);
 
     return () => {
-      if (containerRef.current) observer.unobserve(containerRef.current);
+      if (node) observer.unobserve(node);
     };
   }, []);
 
+  // Measure layout once visible with small delay
   useEffect(() => {
+    if (!visible) return;
+    const timeout = setTimeout(() => {
+      updatePoints();
+    }, 100); // 100ms gives Chrome time to stabilize layout
+
+    return () => clearTimeout(timeout);
+  }, [visible]);
+
+  // Recalculate on window resize
+  useEffect(() => {
+    const handleResize = () => updatePoints();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const updatePoints = () => {
+    if (!containerRef.current) return;
+    const containerRect = containerRef.current.getBoundingClientRect();
     const newPoints = cardRefs.current.map((ref) => {
-      if (!ref || !containerRef.current) return null;
+      if (!ref) return null;
       const cardRect = ref.getBoundingClientRect();
-      const containerRect = containerRef.current.getBoundingClientRect();
       return {
         x: cardRect.left + cardRect.width / 2 - containerRect.left,
         y: cardRect.top + cardRect.height / 2 - containerRect.top,
       };
     });
     setPoints(newPoints.filter(Boolean));
-  }, [visible]);
+  };
 
   const generatePath = () => {
     if (points.length < 2) return "";
@@ -60,20 +76,10 @@ function Timeline() {
     for (let i = 1; i < points.length; i++) {
       const prev = points[i - 1];
       const curr = points[i];
-
       const deltaX = curr.x - prev.x;
-      const deltaY = curr.y - prev.y;
-
-      const controlPoint1 = {
-        x: prev.x + deltaX * 0.3,
-        y: prev.y,
-      };
-      const controlPoint2 = {
-        x: curr.x - deltaX * 0.3,
-        y: curr.y,
-      };
-
-      d += ` C ${controlPoint1.x},${controlPoint1.y} ${controlPoint2.x},${controlPoint2.y} ${curr.x},${curr.y}`;
+      const control1 = { x: prev.x + deltaX * 0.3, y: prev.y };
+      const control2 = { x: curr.x - deltaX * 0.3, y: curr.y };
+      d += ` C ${control1.x},${control1.y} ${control2.x},${control2.y} ${curr.x},${curr.y}`;
     }
     return d;
   };
@@ -85,8 +91,8 @@ function Timeline() {
         position: "relative",
         width: "100%",
         minHeight: `${milestones.length * (isMobile ? 160 : 130)}px`,
-        paddingBottom: "100px",
         paddingTop: "50px",
+        paddingBottom: "150px", // prevents clipping into footer
         backgroundImage: 'url("assets/About/background.png")',
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -119,7 +125,7 @@ function Timeline() {
         />
       </svg>
 
-      {/* Cards */}
+      {/* Milestone Cards */}
       {milestones.map((text, index) => (
         <Box
           key={index}
@@ -144,6 +150,17 @@ function Timeline() {
           <p>{text}</p>
         </Box>
       ))}
+
+      {/* Keyframe animation */}
+      <style>
+        {`
+          @keyframes drawLine {
+            to {
+              stroke-dashoffset: 0;
+            }
+          }
+        `}
+      </style>
     </Box>
   );
 }
