@@ -8,6 +8,7 @@
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
     "axios": "^1.7.9",
+    "country-state-city": "^3.2.1",
     "cra-template": "1.2.0",
     "currency-codes": "^2.2.0",
     "framer-motion": "^12.11.3",

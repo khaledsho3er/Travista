@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Slider, Typography } from "@mui/material";
 import currencyCodes from "currency-codes";
-import axios from "axios";
+import { Country, City } from "country-state-city";
 
 const currencySymbols = {
   USD: "$",
@@ -36,55 +36,31 @@ function StepTwo({
 }) {
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [currencySymbol, setCurrencySymbol] = useState("€");
   const [currencyList, setCurrencyList] = useState([]);
 
-  // Fetch countries from API
+  // Set countries from country-state-city package
   useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          "https://api.travistasl.com/api/countries"
-        );
-        setCountries(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching countries:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchCountries();
+    setCountries(Country.getAllCountries());
   }, []);
-  // Fetch cities when country changes
+
+  // Set cities when country changes
   useEffect(() => {
-    const fetchCities = async () => {
-      if (!departureCountry) return;
-
-      try {
-        setLoading(true);
-        // Find the country object from the selected country name
-        const selectedCountryObj = countries.find(
-          (c) => c.name === departureCountry
-        );
-
-        if (selectedCountryObj) {
-          const response = await axios.get(
-            `https://api.travistasl.com/api/cities/country/${selectedCountryObj._id}`
-          );
-          setCities(response.data);
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching cities:", error);
-        setLoading(false);
+    if (departureCountry) {
+      const selectedCountry = countries.find(
+        (c) => c.name === departureCountry
+      );
+      if (selectedCountry) {
+        setCities(City.getCitiesOfCountry(selectedCountry.isoCode));
+      } else {
+        setCities([]);
       }
-    };
+    } else {
+      setCities([]);
+    }
+    setDepartureCity(""); // Reset city when country changes
+  }, [departureCountry, setDepartureCity, countries]);
 
-    fetchCities();
-  }, [departureCountry, countries]);
   useEffect(() => {
     // Get unique currency codes
     const uniqueCurrencies = currencyCodes.data
@@ -118,11 +94,10 @@ function StepTwo({
           className="step-two-container-dropdown"
           value={departureCountry}
           onChange={(e) => setDepartureCountry(e.target.value)}
-          disabled={loading}
         >
           <option value="">Departure country</option>
           {countries.map((country) => (
-            <option key={country.countryId} value={country.name}>
+            <option key={country.isoCode} value={country.name}>
               {country.name}
             </option>
           ))}
@@ -131,11 +106,11 @@ function StepTwo({
           className="step-two-container-dropdown"
           value={departureCity}
           onChange={(e) => setDepartureCity(e.target.value)}
-          disabled={loading}
+          disabled={!departureCountry}
         >
           <option value="">Departure city</option>
           {cities.map((city) => (
-            <option key={city.cityId} value={city.name}>
+            <option key={city.name + city.stateCode} value={city.name}>
               {city.name}
             </option>
           ))}
