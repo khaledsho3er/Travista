@@ -21,6 +21,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import CloseIcon from "@mui/icons-material/Close";
 import { FaTiktok, FaGlobe } from "react-icons/fa";
+import PoliciesPopup from "./PoliciesPopup";
 
 import axios from "axios";
 
@@ -31,6 +32,8 @@ function Footer() {
   const [subscribing, setSubscribing] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [subscribeError, setSubscribeError] = useState("");
+  const [policiesOpen, setPoliciesOpen] = useState(false);
+  const [policiesSection, setPoliciesSection] = useState("privacy");
 
   // Define all social platforms we want to display
   const allPlatforms = [
@@ -356,13 +359,37 @@ function Footer() {
           <Link to="/faqs">FAQs</Link>
         </ListItem>
         <ListItem>
-          <Link to="/policies">Privacy Policy</Link>
+          <span
+            style={{ cursor: "pointer", color: "#1976d2" }}
+            onClick={() => {
+              setPoliciesSection("privacy");
+              setPoliciesOpen(true);
+            }}
+          >
+            Privacy Policy
+          </span>
         </ListItem>
         <ListItem>
-          <Link to="/terms&conditions">Terms & Conditions</Link>
+          <span
+            style={{ cursor: "pointer", color: "#1976d2" }}
+            onClick={() => {
+              setPoliciesSection("terms");
+              setPoliciesOpen(true);
+            }}
+          >
+            Terms & Conditions
+          </span>
         </ListItem>
         <ListItem>
-          <Link to="/cookiepolicy">Cookie Policy</Link>
+          <span
+            style={{ cursor: "pointer", color: "#1976d2" }}
+            onClick={() => {
+              setPoliciesSection("cookie");
+              setPoliciesOpen(true);
+            }}
+          >
+            Cookie Policy
+          </span>
         </ListItem>
         <ListItem>
           <Link to="/contactus">Contact</Link>
@@ -480,6 +507,12 @@ function Footer() {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <PoliciesPopup
+        open={policiesOpen}
+        onClose={() => setPoliciesOpen(false)}
+        defaultSection={policiesSection}
+      />
     </Box>
   );
 }
