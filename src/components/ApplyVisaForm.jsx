@@ -202,25 +202,34 @@ const ApplyForVisaForm = () => {
         }
       );
 
-      try {
-        // Try fetching visa document
-        const docRes = await axios.get(
-          `https://api.travistasl.com/api/visa-documents/${selectedState}`
-        );
-        console.log("Document response:", docRes);
-        if (docRes.data) {
-          setVisaDocuments(docRes.data);
-          console.log("Visa Documents:", docRes.data);
-          setShowDialog(true);
-        } else {
-          console.warn(`No matching document found for ${selectedState}`);
-        }
-      } catch (docErr) {
-        console.error("Document fetch error:", docErr);
-        // Don't block submission just because document fetch fails
-      }
+      // Check if the selected state matches any country from the API
+      const matchedCountry = countryOptions.find(
+        (country) => country.name.toLowerCase() === selectedState.toLowerCase()
+      );
 
-      setShowSuccessDialog(true);
+      if (matchedCountry) {
+        try {
+          // Try fetching visa document
+          const docRes = await axios.get(
+            `https://api.travistasl.com/api/visa-documents/${selectedState}`
+          );
+          console.log("Document response:", docRes);
+          if (docRes.data) {
+            setVisaDocuments(docRes.data);
+            console.log("Visa Documents:", docRes.data);
+            setShowDialog(true);
+          } else {
+            console.warn(`No matching document found for ${selectedState}`);
+            setShowSuccessDialog(true);
+          }
+        } catch (docErr) {
+          console.error("Document fetch error:", docErr);
+          setShowSuccessDialog(true);
+        }
+      } else {
+        // No match: just show success dialog, do not show visaDocumentDialog
+        setShowSuccessDialog(true);
+      }
 
       // Reset form
       setFormData({
