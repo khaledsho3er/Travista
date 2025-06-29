@@ -16,7 +16,56 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const policyContent = {
   privacy: {
     title: "Privacy Policy",
-    content: `**Your Privacy Matters**\n\nAt Travista, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.\n\n**Information We Collect**\n- Personal identification information (Name, email address, phone number, etc.)\n- Usage data (pages visited, time spent, etc.)\n- Cookies and tracking technologies\n\n**How We Use Your Information**\n- To provide and maintain our services\n- To improve user experience\n- To send periodic emails and updates\n- To comply with legal obligations\n\n**Sharing Your Information**\nWe do not sell, trade, or rent your personal information to third parties. We may share information with trusted partners who assist us in operating our website and conducting our business, as long as those parties agree to keep this information confidential.\n\n**Your Rights**\nYou have the right to access, correct, or delete your personal data. To exercise these rights, please contact us at info@travistasl.com.\n\n**Changes to This Policy**\nWe may update our Privacy Policy from time to time. Any changes will be posted on this page.`,
+    content: `1- Privacy Policy
+--What We Collect:
+- Name, email, phone number, nationality
+- Travel preferences and booking details
+- Passport or visa-related data (if applicable)
+- IP address and browser data for site optimization
+--How We Use Your Data:
+- To process bookings and deliver services
+- To communicate trip details, offers, and updates
+- To comply with legal or regulatory requirements
+- To improve our website and customer experience
+--Data Sharing:
+We may share necessary information with:
+- Partnered airlines, hotels, and visa providers
+- Government authorities (if required for travel purposes)
+- We never sell your data to third parties.
+--Your Rights:
+You may request:
+- Access to your stored data
+- Correction or deletion of your information
+- To unsubscribe from marketing emails anytime
+
+2- Booking & Cancellation Policy
+-- Booking Terms:
+- Bookings are subject to availability and confirmation
+- A deposit or full payment may be required depending on the package
+- Passport validity of at least 6 months is required for international trips
+--Cancellation by TravistaSL:
+- Full refund or alternative package offered in case of cancellation due to force majeure or low group size.
+--Change Requests:
+- Date or destination changes are subject to availability and fees.
+- Visa services are non-refundable once submitted.
+
+3- Payment Policy
+- All payments are to be made in EGP or USD, via bank transfer, credit card, or cash (in-office).
+- A booking is only confirmed once full or required payment is received.
+- Payment details and receipts will be shared electronically.
+- For corporate trips, a signed contract and deposit are required.
+
+4- Refund Policy
+- Refunds are processed based on the Cancellation Policy terms. Refunds take up to 14 business days and are returned via the original payment method.
+- Non-refundable items include:
+- Visa application fees
+- Airline tickets after issuance
+- Hotel bookings marked as non-refundable
+
+5- Travel & Liability Disclaimer
+- Travista acts as a travel intermediary. We are not liable for delays, changes, or cancellations by third-party providers (airlines, hotels, etc.)
+- Travelers are responsible for ensuring all visa, passport, and vaccination requirements are met.
+- We recommend securing travel insurance before departure`,
   },
   terms: {
     title: "Terms & Conditions",
@@ -43,9 +92,42 @@ const PoliciesPopup = ({ open, onClose, defaultSection }) => {
 
   // Helper to render markdown-like line breaks and bold
   const renderContent = (text) => {
-    // Split by double newlines for paragraphs/sections
     return text.split("\n").map((line, idx) => {
-      // Bold numbered section titles
+      // Number and dash: section title
+      if (/^\d+- /.test(line)) {
+        return (
+          <Typography
+            key={idx}
+            variant="subtitle1"
+            fontWeight="bold"
+            sx={{ mt: idx === 0 ? 0 : 2 }}
+          >
+            {line.replace(/^\d+- /, "")}
+          </Typography>
+        );
+      }
+      // Double dash: subtitle
+      if (/^--/.test(line)) {
+        return (
+          <Typography
+            key={idx}
+            variant="subtitle2"
+            fontWeight="bold"
+            sx={{ mt: 2 }}
+          >
+            {line.replace(/^--/, "")}
+          </Typography>
+        );
+      }
+      // Single dash: bullet point
+      if (/^- /.test(line)) {
+        return (
+          <li key={idx} style={{ marginLeft: 16 }}>
+            {line.replace(/^- /, "")}
+          </li>
+        );
+      }
+      // Bold numbered section titles (for terms)
       const boldTitleMatch = line.match(/^\d+\. \*\*(.+)\*\*$/);
       if (boldTitleMatch) {
         return (
@@ -72,7 +154,7 @@ const PoliciesPopup = ({ open, onClose, defaultSection }) => {
           </Typography>
         );
       }
-      // Bullet points
+      // Bullet points for terms
       if (line.trim().startsWith("- ")) {
         return (
           <li key={idx} style={{ marginLeft: 16 }}>
