@@ -102,7 +102,7 @@ const PoliciesPopup = ({ open, onClose, defaultSection }) => {
             fontWeight="bold"
             sx={{ mt: idx === 0 ? 0 : 2 }}
           >
-            {line.replace(/^\d+- /, "")}
+            {line}
           </Typography>
         );
       }
