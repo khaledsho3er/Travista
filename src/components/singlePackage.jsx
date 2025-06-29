@@ -328,7 +328,7 @@ function SinglePackage({ tour, onClose }) {
                 key={index}
                 onClick={() => setSelectedHotel(hotel.name)}
                 sx={{
-                  width: isSmallScreen ? "125%" : "100%",
+                  width: isSmallScreen ? "125%" : "125%",
                   p: 2,
                   border: `2px solid ${
                     selectedHotel === hotel.name ? "#750046" : "#ddd"
@@ -561,7 +561,7 @@ function SinglePackage({ tour, onClose }) {
                 key={index}
                 onClick={() => setSelectedFlight(index)}
                 sx={{
-                  width: isSmallScreen ? "125%" : "100%",
+                  width: isSmallScreen ? "125%" : "125%",
                   p: 2,
                   border: `2px solid ${
                     selectedFlight === index ? "#750046" : "#ddd"
