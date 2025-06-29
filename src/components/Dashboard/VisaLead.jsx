@@ -217,9 +217,9 @@ const VisaApplicationsTable = () => {
                 <strong>First Time to apply:</strong>{" "}
                 {selectedApplication?.visaRenewal}
               </Typography>
-              <Typography>
+              {/* <Typography>
                 <strong>Visa Type:</strong> {selectedApplication?.visaType}
-              </Typography>
+              </Typography> */}
               <Typography>
                 <strong>Travel Date:</strong>{" "}
                 {new Date(selectedApplication?.travelDate).toLocaleDateString()}

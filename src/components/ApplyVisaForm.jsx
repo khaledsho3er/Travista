@@ -9,7 +9,6 @@ const ApplyForVisaForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [countryOptions, setCountryOptions] = useState([]);
   const [showSchengenQuestion, setShowSchengenQuestion] = useState(false);
-  const [selectedVisaType, setSelectedVisaType] = useState("");
   const [visaDocuments, setVisaDocuments] = useState([]);
   const [showDialog, setShowDialog] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
@@ -27,7 +26,6 @@ const ApplyForVisaForm = () => {
     travelDate: "",
     jobStatus: "",
     visaRenewal: "",
-    visaType: "",
     previousVisaNumber: "",
     previousVisaExpiry: "",
     passportNumber: "",
@@ -97,9 +95,6 @@ const ApplyForVisaForm = () => {
         [name]: value,
         invitation: invitationValue,
       }));
-    } else if (name === "visaType") {
-      setSelectedVisaType(value);
-      setFormData((prev) => ({ ...prev, [name]: value }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -153,11 +148,6 @@ const ApplyForVisaForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!selectedVisaType) {
-      alert("Please select a visa type.");
-      return;
-    }
 
     setLoading(true);
     setError(null);
@@ -222,7 +212,6 @@ const ApplyForVisaForm = () => {
         travelDate: "",
         jobStatus: "",
         visaRenewal: "",
-        visaType: "",
         previousVisaNumber: "",
         previousVisaExpiry: "",
         passportNumber: "",
@@ -231,7 +220,6 @@ const ApplyForVisaForm = () => {
         additionalFiles: [],
       });
       setSelectedCountry("");
-      setSelectedVisaType("");
     } catch (err) {
       console.error("Submission error:", err);
 
@@ -408,7 +396,7 @@ const ApplyForVisaForm = () => {
           <option value="No">No</option>
         </select>
 
-        <select
+        {/* <select
           name="visaType"
           value={selectedVisaType}
           required
@@ -418,7 +406,7 @@ const ApplyForVisaForm = () => {
           <option value="">Select Visa Type</option>
           <option value="Normal Visa">Normal Visa</option>
           <option value="E-Visa">E-Visa</option>
-        </select>
+        </select> */}
         {/* Styled File Upload Area */}
         <div
           style={{
