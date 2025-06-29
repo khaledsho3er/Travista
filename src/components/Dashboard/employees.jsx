@@ -424,7 +424,9 @@ function Employees() {
         onClose={() => setEditOpen(false)}
         sx={{ backdropFilter: "blur(5px)" }}
       >
-        <DialogTitle>Edit Employee</DialogTitle>
+        <DialogTitle>
+          Edit Employee {selectedEmployee ? `: ${selectedEmployee.name}` : ""}
+        </DialogTitle>
         <DialogContent>
           <TextField
             margin="dense"
