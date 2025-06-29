@@ -170,7 +170,7 @@ function PackagesTours() {
       </Box>
       <div className="packages-tours-body">
         <Box className="packages-tours">
-          <Box sx={{ display: "flex", gap: "21px", padding: "20px 0" }}>
+          <Box sx={{ display: "flex", padding: "20px 0" }}>
             <Filter
               onFilterChange={handleFilterChange}
               selectedFilter={selectedFilter}
