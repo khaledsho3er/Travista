@@ -84,7 +84,7 @@ function Timeline() {
       sx={{
         position: "relative",
         width: "100%",
-        minHeight: "1200px", // Can adjust based on content
+        minHeight: `${milestones.length * (isMobile ? 160 : 130)}px`,
         paddingBottom: "100px",
         paddingTop: "50px",
         backgroundImage: 'url("assets/About/background.png")',
@@ -140,7 +140,7 @@ function Timeline() {
             transition: "opacity 1s ease",
           }}
         >
-          <h3>Milestone {index + 1}</h3>
+          <h3 style={{ fontWeight: "bold" }}>Milestone {index + 1}</h3>
           <p>{text}</p>
         </Box>
       ))}
