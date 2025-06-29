@@ -4,9 +4,11 @@ import VisaDocumentDialog from "./visaDialog";
 import SuccessDialog from "./SuccessDialog";
 import { Button } from "@mui/material";
 import { Description, Image, Close } from "@mui/icons-material";
+import { Country, State } from "country-state-city";
 
 const ApplyForVisaForm = () => {
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  const [allStates, setAllStates] = useState([]);
   const [countryOptions, setCountryOptions] = useState([]);
   const [showSchengenQuestion, setShowSchengenQuestion] = useState(false);
   const [visaDocuments, setVisaDocuments] = useState([]);
@@ -83,6 +85,15 @@ const ApplyForVisaForm = () => {
       }
     };
 
+    // Get all states from all countries
+    const all = Country.getAllCountries().flatMap((country) =>
+      State.getStatesOfCountry(country.isoCode).map((state) => ({
+        ...state,
+        countryName: country.name,
+      }))
+    );
+    setAllStates(all);
+
     fetchCountries();
   }, []);
 
@@ -100,16 +111,27 @@ const ApplyForVisaForm = () => {
     }
   };
 
-  const handleCountryChange = (e) => {
-    const country = e.target.value;
-    setSelectedCountry(country);
-    setFormData({ ...formData, country });
+  const handleStateChange = (e) => {
+    const stateName = e.target.value;
+    setSelectedState(stateName);
+    setFormData({ ...formData, country: stateName });
 
-    if (schengenCountries.includes(country)) {
-      setShowSchengenQuestion(false);
-      setFormData((prev) => ({ ...prev, schengenBefore: "No" })); // <-- change here
+    // Check if the selected state matches any country name from the API
+    const matchedCountry = countryOptions.find(
+      (country) => country.name.toLowerCase() === stateName.toLowerCase()
+    );
+
+    if (matchedCountry) {
+      // Use the matched country logic
+      if (schengenCountries.includes(matchedCountry.name)) {
+        setShowSchengenQuestion(false);
+        setFormData((prev) => ({ ...prev, schengenBefore: "No" }));
+      } else {
+        setShowSchengenQuestion(true);
+        setFormData((prev) => ({ ...prev, schengenBefore: "" }));
+      }
     } else {
-      setShowSchengenQuestion(true);
+      setShowSchengenQuestion(false);
       setFormData((prev) => ({ ...prev, schengenBefore: "" }));
     }
   };
@@ -183,7 +205,7 @@ const ApplyForVisaForm = () => {
       try {
         // Try fetching visa document
         const docRes = await axios.get(
-          `https://api.travistasl.com/api/visa-documents/${selectedCountry}`
+          `https://api.travistasl.com/api/visa-documents/${selectedState}`
         );
         console.log("Document response:", docRes);
         if (docRes.data) {
@@ -191,11 +213,11 @@ const ApplyForVisaForm = () => {
           console.log("Visa Documents:", docRes.data);
           setShowDialog(true);
         } else {
-          console.warn(`No matching document found for ${selectedCountry}`);
+          console.warn(`No matching document found for ${selectedState}`);
         }
       } catch (docErr) {
         console.error("Document fetch error:", docErr);
-        // Don’t block submission just because document fetch fails
+        // Don't block submission just because document fetch fails
       }
 
       setShowSuccessDialog(true);
@@ -219,7 +241,7 @@ const ApplyForVisaForm = () => {
         bankStatement: "",
         additionalFiles: [],
       });
-      setSelectedCountry("");
+      setSelectedState("");
     } catch (err) {
       console.error("Submission error:", err);
 
@@ -294,14 +316,17 @@ const ApplyForVisaForm = () => {
         <select
           className="form-input"
           name="country"
-          value={selectedCountry}
-          onChange={handleCountryChange}
+          value={selectedState}
+          onChange={handleStateChange}
           required
         >
           <option value="">Select Your Destination</option>
-          {countryOptions.map((country) => (
-            <option key={country._id} value={country._id}>
-              {country.name}
+          {allStates.map((state, idx) => (
+            <option
+              key={state.name + state.countryName + idx}
+              value={state.name}
+            >
+              {state.name} ({state.countryName})
             </option>
           ))}
         </select>
