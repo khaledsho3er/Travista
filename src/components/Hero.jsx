@@ -63,6 +63,7 @@ function Hero({ preloadedData = null }) {
           {heroData.caption.split(".").map((segment, index) => (
             <span key={index}>
               {segment.trim()}
+              {index < heroData.caption.split(".").length - 1 ? "." : ""}
               <br />
             </span>
           ))}
