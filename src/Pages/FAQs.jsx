@@ -86,7 +86,10 @@ function FAQsPage() {
             <p>
               We'd love to hear from you. If you'd prefer to email us instead,
               reach <br /> out to{" "}
-              <a href="mailto:hello@travista.com">hello@travista.com</a>.
+              <a href="mailto:reservation@travistaegypt.com">
+                reservation@travistaegypt.com
+              </a>
+              .
             </p>
           </Box>
           <Box className="FAQs-form-section">

@@ -146,7 +146,13 @@ const FAQsComponent = ({
   }
 
   return (
-    <Box className="faq-list" sx={{ width: { xs: "100%", md: "50%" } }}>
+    <Box
+      className="faq-list"
+      sx={{
+        width: { xs: "90%", md: "50%" },
+        margin: { xs: "0 auto", md: "0" },
+      }}
+    >
       <List>
         {displayedFaqs.map((faq, index) => (
           <Box key={faq.faqId || index}>

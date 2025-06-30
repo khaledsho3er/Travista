@@ -179,10 +179,17 @@ function ContactUs() {
         <Box className="contact-us-trips-container">
           <Box className="contact-us-trips-step">
             <Box className="contact-us-trips-head">
-              <h3>Cairo, Egypt</h3> <span>06:06AM</span>
+              <h3>Cairo, Egypt</h3>{" "}
+              <span>
+                {new Date().toLocaleTimeString("en-US", {
+                  timeZone: "Africa/Cairo",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
             </Box>
             <p>
-              47 - A, Ramo building, Ahmed Tayseer St., Golf land 11341, Cairo,
+              47 - A, Ramo Towers, Ahmed Tayseer St., Golf land 11341, Cairo,
               Egypt
             </p>
             <Box className="contact-us-trips-btns">
@@ -190,24 +197,67 @@ function ContactUs() {
                 className="contact-us-trips-btn-getdirections"
                 onClick={() =>
                   window.open(
-                    "https://maps.app.goo.gl/2wQhQRZPxJ8HFFkCA",
+                    "https://maps.app.goo.gl/9H4RvmSV1jx2uxZQA?g_st=com.google.maps.preview.copy",
                     "_blank"
                   )
                 }
               >
                 Get Direction
               </button>
-              <button className="contact-us-trips-btn-call">Call Office</button>
+              <button
+                className="contact-us-trips-btn-call"
+                onClick={() => window.open("tel:19294")}
+              >
+                Call Office
+              </button>
+            </Box>
+          </Box>
+          <Box className="contact-us-trips-step">
+            <Box className="contact-us-trips-head">
+              <h3>NewCairo, Egypt</h3>
+              <span>
+                {new Date().toLocaleTimeString("en-US", {
+                  timeZone: "Africa/Cairo",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
+            </Box>
+            <p>EDNC Sodic South 90TH, New Cairo, Egypt</p>
+            <Box className="contact-us-trips-btns">
+              <button
+                className="contact-us-trips-btn-getdirections"
+                onClick={() =>
+                  window.open(
+                    "https://maps.app.goo.gl/qZ5ajygNYtaY9W4W7",
+                    "_blank"
+                  )
+                }
+              >
+                Get Direction
+              </button>
+              <button
+                className="contact-us-trips-btn-call"
+                onClick={() => window.open("tel:19294")}
+              >
+                Call Office
+              </button>
             </Box>
           </Box>
           <Box className="contact-us-trips-step">
             <Box className="contact-us-trips-head">
               <h3>Dubai, UAE</h3>
-              <span>06:06AM</span>
+              <span>
+                {new Date().toLocaleTimeString("en-US", {
+                  timeZone: "Asia/Dubai",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
             </Box>
             <p>
-              Almoosa 2 Tower, Shaikh Zayed Road, 88878 - Dubai, United Arab
-              Emirates
+              Suite 3004, Almoosa 2 Tower, Shaikh Zayed Road, Dubai - United
+              Arab Emirates
             </p>
 
             <Box className="contact-us-trips-btns">
@@ -222,30 +272,14 @@ function ContactUs() {
               >
                 Get Direction
               </button>
-              <button className="contact-us-trips-btn-call">Call Office</button>
+              <button
+                className="contact-us-trips-btn-call"
+                onClick={() => window.open("tel:0545496889")}
+              >
+                Call Office
+              </button>
             </Box>
           </Box>
-          {/* <Box className="contact-us-trips-step">
-            <Box className="contact-us-trips-head">
-              <h3>Barcelona, Spain</h3>
-              <span>06:06AM</span>
-            </Box>
-            <p>C/ Paris, 45-47, 08029 - Barcelona, Spain</p>
-            <Box className="contact-us-trips-btns">
-              <button
-                className="contact-us-trips-btn-getdirections"
-                onClick={() =>
-                  window.open(
-                    "https://maps.google.com/?q=C/+Paris,+45-47,+08029+-+Barcelona,+Spain",
-                    "_blank"
-                  )
-                }
-              >
-                Get Direction
-              </button>
-              <button className="contact-us-trips-btn-call">Call Office</button>
-            </Box>
-          </Box> */}
         </Box>
       </Box>
 
@@ -259,7 +293,10 @@ function ContactUs() {
             <p>
               We'd love to hear from you. If you'd prefer to email us instead,
               reach <br /> out to{" "}
-              <a href="mailto:hello@travista.com">hello@travista.com</a>.
+              <a href="mailto:reservation@travistaegypt.com">
+                reservation@travistaegypt.com
+              </a>
+              .
             </p>
           </Box>
           <Box className="FAQs-form-section">
