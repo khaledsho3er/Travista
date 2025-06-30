@@ -223,7 +223,10 @@ function ContactUs() {
                 })}
               </span>
             </Box>
-            <p>EDNC Sodic South 90TH, New Cairo, Egypt</p>
+            <p>
+              EDNC Sodic South 90TH Street after AUC building 6, New Cairo,
+              Egypt
+            </p>
             <Box className="contact-us-trips-btns">
               <button
                 className="contact-us-trips-btn-getdirections"

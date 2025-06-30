@@ -60,7 +60,12 @@ function Hero({ preloadedData = null }) {
             fontSize: { xs: "2.5rem", md: "5rem" },
           }}
         >
-          {heroData.caption}
+          {heroData.caption.split(/(?<=[.؟!])\s+/).map((sentence, index) => (
+            <span key={index}>
+              {sentence}
+              <br />
+            </span>
+          ))}
         </Typography>
 
         <Box className="hero-btns">
