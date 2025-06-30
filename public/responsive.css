@@ -999,7 +999,14 @@
     gap: 15px; /* Space between inputs */
     margin-bottom: 20px;
   }
-
+  .step-two-container-travel-option {
+    flex-direction: column;
+    width: 102%;
+    margin: auto;
+  }
+  .step-two-container-travel-date-left {
+    width: 89%;
+  }
   .step-two-container-dropdown {
     width: 100%; /* Ensures dropdown fits the container */
     padding: 10px;
