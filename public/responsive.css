@@ -864,7 +864,7 @@
 
 @media (max-width: 480px) {
   .build-my-package-hero {
-    padding-left: 70px;
+    padding-left: 42px;
     flex: 1;
     padding-bottom: 75px;
   }

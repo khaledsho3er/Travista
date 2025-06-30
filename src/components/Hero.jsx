@@ -60,9 +60,9 @@ function Hero({ preloadedData = null }) {
             fontSize: { xs: "2.5rem", md: "5rem" },
           }}
         >
-          {heroData.caption.split(/(?<=[.؟!])\s+/).map((sentence, index) => (
+          {heroData.caption.split(".").map((segment, index) => (
             <span key={index}>
-              {sentence}
+              {segment.trim()}
               <br />
             </span>
           ))}
