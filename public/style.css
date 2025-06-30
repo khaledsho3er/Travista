@@ -1311,7 +1311,7 @@ textarea.form-input {
   left: 80%; /* Adjust horizontal position */
   width: 80px; /* Size of the smaller photo */
   height: 117px;
-  z-index: 10; /* Ensures it appears above the main image */
+  z-index: 1; /* Ensures it appears above the main image */
 }
 .build-my-package-header h1 {
   font-size: 3rem;
