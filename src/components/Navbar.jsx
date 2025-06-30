@@ -18,22 +18,22 @@ import { useLocation } from "react-router-dom";
 
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 // Define the background type for each route
-const backgroundMap = {
-  "/": "dark",
-  "/About": "dark",
-  "/services": "light",
-  "/contactus": "dark",
-  "/account": "light",
-  "/login": "dark",
-  "/loading": "light",
-  "/signup": "dark",
-  "/packages": "dark",
-  "/buildmypackagesteps": "light",
-  "/Blogs": "light",
-  "/singleblog": "light",
-  "/applyforvisa": "dark",
-  "/404": "light",
-};
+// const backgroundMap = {
+//   "/": "dark",
+//   "/About": "dark",
+//   "/services": "light",
+//   "/contactus": "dark",
+//   "/account": "light",
+//   "/login": "dark",
+//   "/loading": "light",
+//   "/signup": "dark",
+//   "/packages": "dark",
+//   "/buildmypackagesteps": "light",
+//   "/Blogs": "light",
+//   "/singleblog": "light",
+//   "/applyforvisa": "dark",
+//   "/404": "light",
+// };
 function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -47,7 +47,30 @@ function Navbar() {
 
   const [errorMsg] = useState("");
   useEffect(() => {
-    const backgroundType = backgroundMap[location.pathname] || "dark";
+    const path = location.pathname;
+
+    const dynamicBackgroundMap = [
+      { pattern: /^\/$/, type: "dark" },
+      { pattern: /^\/about$/i, type: "dark" },
+      { pattern: /^\/services$/i, type: "light" },
+      { pattern: /^\/contactus$/i, type: "dark" },
+      { pattern: /^\/account$/i, type: "light" },
+      { pattern: /^\/login$/i, type: "dark" },
+      { pattern: /^\/loading$/i, type: "light" },
+      { pattern: /^\/signup$/i, type: "dark" },
+      { pattern: /^\/packages$/i, type: "dark" },
+      { pattern: /^\/buildmypackagesteps$/i, type: "light" },
+      { pattern: /^\/blogs$/i, type: "light" },
+      { pattern: /^\/singleblog\/[\w\d]+$/i, type: "light" },
+      { pattern: /^\/applyforvisa$/i, type: "dark" },
+      { pattern: /^\/404$/, type: "light" },
+    ];
+
+    const matched = dynamicBackgroundMap.find((entry) =>
+      entry.pattern.test(path)
+    );
+
+    const backgroundType = matched?.type || "dark";
     setIsLightBackground(backgroundType === "light");
   }, [location]);
 
