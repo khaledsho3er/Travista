@@ -160,7 +160,10 @@ const FAQsComponent = ({
               onClick={() => handleToggle(index)}
               style={{ cursor: "pointer" }}
             >
-              <Typography variant="h5" sx={{ fontSize: { xs: "1rem" } }}>
+              <Typography
+                variant="h5"
+                sx={{ fontSize: { xs: "1rem", md: "1.5rem" } }}
+              >
                 <strong>{faq.question}</strong>
               </Typography>
               {openQuestion === index ? <RemoveIcon /> : <AddIcon />}
