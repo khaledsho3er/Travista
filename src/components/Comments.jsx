@@ -95,8 +95,8 @@ function Comments() {
           },
         }}
       >
-        See why travelers love the journey with us Real stories. <br />
-        Real adventures. Real memories
+        See why travelers love the journey with us <br /> Real stories. Real
+        adventures. Real memories
       </Typography>
 
       <Box

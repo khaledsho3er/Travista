@@ -5,35 +5,36 @@ import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
+import { RiErrorWarningLine } from "react-icons/ri";
 
 import CareersFAQSection from "../components/careersFAQsection";
 
 function CareersPage() {
   const roles = [
-    {
-      title: "Marketing Associate",
-      department: "Marketing",
-      location: "Barcelona",
-      type: "Full-time",
-    },
-    {
-      title: "Sales Director",
-      department: "Sales",
-      location: "Barcelona",
-      type: "Full-time",
-    },
-    {
-      title: "Product Manager",
-      department: "Product",
-      location: "Barcelona",
-      type: "Full-time",
-    },
-    {
-      title: "Accountant",
-      department: "Finance",
-      location: "Barcelona",
-      type: "Full-time",
-    },
+    // {
+    //   title: "Marketing Associate",
+    //   department: "Marketing",
+    //   location: "Barcelona",
+    //   type: "Full-time",
+    // },
+    // {
+    //   title: "Sales Director",
+    //   department: "Sales",
+    //   location: "Barcelona",
+    //   type: "Full-time",
+    // },
+    // {
+    //   title: "Product Manager",
+    //   department: "Product",
+    //   location: "Barcelona",
+    //   type: "Full-time",
+    // },
+    // {
+    //   title: "Accountant",
+    //   department: "Finance",
+    //   location: "Barcelona",
+    //   type: "Full-time",
+    // },
   ];
 
   return (
@@ -181,6 +182,18 @@ function CareersPage() {
 
           {/* Right Section */}
           <Box className="careers-open-roles-right">
+            {!roles.length && (
+              <Box className="no-jobs-available">
+                <Typography variant="h6" className="no-jobs-title">
+                  No available jobs
+                </Typography>
+                <Typography variant="h4" className="no-jobs-info">
+                  <RiErrorWarningLine />
+                  &nbsp;No available jobs for now, but we are working on adding
+                  more roles soon.
+                </Typography>
+              </Box>
+            )}
             {roles.map((role, index) => (
               <Box key={index} className="careers-role-card">
                 <Typography variant="h6" className="role-title">
