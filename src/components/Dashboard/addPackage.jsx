@@ -22,7 +22,6 @@ import {
 import { Add, Delete } from "@mui/icons-material";
 import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
 import currencyCodes from "currency-codes";
-import { createPackage } from "../../services/packageService";
 import { getAllCities } from "../../services/cityService";
 import { getAllHotels } from "../../services/hotelServices";
 import { getAllCountries } from "../../services/countryService";
@@ -263,8 +262,29 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
       // Debug log to check the data being sent
       console.log("Package Data:", packageData);
 
-      // Send to backend
-      const response = await createPackage(formData);
+      const API_URL = "https://api.travistasl.com/api/packages";
+      let response;
+      try {
+        response = await axios.post(API_URL, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } catch (error) {
+        console.error(
+          "Error in createPackage:",
+          error.response?.data || error.message
+        );
+        if (error.response) {
+          throw new Error(
+            error.response.data.message || "Failed to create package"
+          );
+        } else if (error.request) {
+          throw new Error("No response from server. Please try again.");
+        } else {
+          throw new Error(error.message || "Failed to create package");
+        }
+      }
 
       setSuccess(true);
       onPackageCreated?.(response.data);
