@@ -351,7 +351,6 @@ function Navbar() {
                     sx={{
                       marginRight: "5px",
                       fontSize: "1.2rem",
-                      color: IconNavColor,
                       borderColor: navColor,
                       transition: "color 0.3s ease-in-out",
                     }}
