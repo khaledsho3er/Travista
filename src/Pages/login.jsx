@@ -233,12 +233,19 @@ const TravistaSignIn = () => {
                 <a
                   href="tel://19294"
                   style={{
+                    display: "inline-flex", // Use flex to align items
+                    alignItems: "center", // Vertically center icon and text
                     textDecoration: "none",
-                    color: "inherit",
+                    color: "#222", // Make it a bit darker for visibility
+                    fontWeight: "bold", // Make the number stand out
+                    padding: "6px 14px", // Some padding for click area
+                    borderRadius: "8px", // Rounded corners
+                    gap: "8px", // Space between icon and number
+                    fontSize: "1.1rem",
                   }}
                 >
                   <FaGlobe size={23} />
-                  <span style={{ marginLeft: 8, fontSize: "1rem" }}>19294</span>
+                  <span>19294</span>
                 </a>
               </Typography>
             </Box>

@@ -297,21 +297,21 @@ function Footer() {
         <Typography
           variant="body1"
           color="#777777"
-          sx={{
-            mt: 2,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          sx={{ mt: 1, textAlign: "center", fontSize: "1rem" }}
         >
           <a
             href="tel://19294"
             style={{
+              display: "inline-flex", // Use flex to align items
+              alignItems: "center", // Vertically center icon and text
               textDecoration: "none",
-              color: "inherit",
+              color: "#222", // Make it a bit darker for visibility
+              fontWeight: "bold", // Make the number stand out
+              padding: "6px 14px", // Some padding for click area
+              borderRadius: "8px", // Rounded corners
             }}
           >
-            <FaGlobe size={230} />
+            <FaGlobe size={23} />
             <span style={{ marginLeft: 8, fontSize: "1rem" }}>19294</span>
           </a>
         </Typography>

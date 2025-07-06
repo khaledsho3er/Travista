@@ -145,11 +145,12 @@ function StepTwo({
           value={currency}
           onChange={(e) => setCurrency(e.target.value)}
         >
-          {currencyList.map((c) => (
-            <option key={c.code} value={c.code}>
-              {c.name} ({c.code})
-            </option>
-          ))}
+          <option value="EGP">Egyptian Pound (EGP)</option>
+          <option value="USD">US Dollar (USD)</option>
+          <option value="GBP">British Pound (GBP)</option>
+          <option value="AED">UAE Dirham (AED)</option>
+          <option value="SAR">Saudi Riyal (SAR)</option>
+          <option value="EUR">Euro (EUR)</option>
         </select>
       </Box>
       <Box className="budget-slider-container">
@@ -170,7 +171,7 @@ function StepTwo({
           <Slider
             value={budget}
             min={500}
-            max={5000}
+            max={currency === "EGP" ? 500000 : 100000}
             step={100}
             onChange={handleBudgetChange}
             className="budget-slider"
