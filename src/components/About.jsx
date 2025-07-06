@@ -26,7 +26,7 @@ function About() {
 
       <Button
         className="btn btn-primary"
-        sx={{ padding: "10px 80px !important" }}
+        sx={{ padding: "10px 80px !important", fontweight: "bold" }}
         onClick={handleAboutUs}
       >
         Our Story
