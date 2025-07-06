@@ -15,6 +15,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../utils/userContext";
+import { FaGlobe } from "react-icons/fa";
 
 const TravistaSignIn = () => {
   const navigate = useNavigate();
@@ -227,6 +228,18 @@ const TravistaSignIn = () => {
                 sx={{ mt: 2, textAlign: "center", fontSize: "0.75rem" }}
               >
                 By signing in, I agree to the Travista Terms and Privacy Policy.
+              </Typography>
+              <Typography sx={{ mt: 1, textAlign: "center", fontSize: "1rem" }}>
+                <a
+                  href="tel://19294"
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                  }}
+                >
+                  <FaGlobe size={23} />
+                  <span style={{ marginLeft: 8, fontSize: "1rem" }}>19294</span>
+                </a>
               </Typography>
             </Box>
           </Box>

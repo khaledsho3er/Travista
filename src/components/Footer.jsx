@@ -311,8 +311,8 @@ function Footer() {
               color: "inherit",
             }}
           >
-            <FaGlobe size={20} />
-            <span style={{ marginLeft: 8 }}>19294</span>
+            <FaGlobe size={230} />
+            <span style={{ marginLeft: 8, fontSize: "1rem" }}>19294</span>
           </a>
         </Typography>
       </Box>
