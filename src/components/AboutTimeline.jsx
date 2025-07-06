@@ -145,7 +145,7 @@ function Timeline() {
             transition: "opacity 1s ease",
           }}
         >
-          <h3 style={{ fontWeight: "bold" }}>Milestone {index + 1}</h3>
+          <h3 style={{ fontWeight: "bold" }}>{text.match(/\d{4}/)?.[0]}</h3>
           <p>{text}</p>
         </Box>
       ))}
