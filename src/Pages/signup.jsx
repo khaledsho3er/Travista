@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
+import PoliciesPopup from "../components/PoliciesPopup";
 
 const TravistaSignUp = () => {
   const [formData, setFormData] = useState({
@@ -35,6 +36,8 @@ const TravistaSignUp = () => {
   });
   const [showPasswordValidation, setShowPasswordValidation] = useState(false);
   const [checkboxChecked, setCheckboxChecked] = useState(false);
+  const [policiesOpen, setPoliciesOpen] = useState(false);
+
   const navigate = useNavigate();
 
   // Password validation rules
@@ -394,7 +397,18 @@ const TravistaSignUp = () => {
                     sx={{ fontSize: "0.875rem" }}
                   >
                     By creating an account, I have read, and I understand and
-                    agree to, the Travista Terms of Use and Data Privacy Notice.
+                    agree to, the
+                    <span
+                      style={{
+                        color: "#750046",
+                        textDecoration: "underline",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setPoliciesOpen(true)}
+                    >
+                      Travista Terms of Use and Data Privacy Notice
+                    </span>
+                    .
                   </Typography>
                 }
                 sx={{
@@ -454,6 +468,10 @@ const TravistaSignUp = () => {
           </Box>
         </Grid>
       </Grid>
+      <PoliciesPopup
+        open={policiesOpen}
+        onClose={() => setPoliciesOpen(false)}
+      />
     </>
   );
 };

@@ -16,6 +16,7 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../utils/userContext";
 import { FaGlobe } from "react-icons/fa";
+import PoliciesPopup from "../components/PoliciesPopup";
 
 const TravistaSignIn = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const TravistaSignIn = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const [policiesOpen, setPoliciesOpen] = useState(false);
   const handleChange = (e) => {
     if (e.target.name === "email") {
       setFormData({ ...formData, email: e.target.value.toLowerCase() });
@@ -227,7 +228,18 @@ const TravistaSignIn = () => {
               <Typography
                 sx={{ mt: 2, textAlign: "center", fontSize: "0.75rem" }}
               >
-                By signing in, I agree to the Travista Terms and Privacy Policy.
+                By signing in, I agree to the{" "}
+                <span
+                  style={{
+                    color: "#750046",
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setPoliciesOpen(true)}
+                >
+                  Travista Terms and Privacy Policy
+                </span>
+                .
               </Typography>
               <Typography sx={{ mt: 1, textAlign: "center", fontSize: "1rem" }}>
                 <a
@@ -252,6 +264,10 @@ const TravistaSignIn = () => {
           </Box>
         </Grid>
       </Grid>
+      <PoliciesPopup
+        open={policiesOpen}
+        onClose={() => setPoliciesOpen(false)}
+      />
     </>
   );
 };
