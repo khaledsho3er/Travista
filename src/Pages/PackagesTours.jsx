@@ -235,7 +235,7 @@ function PackagesTours() {
                           variant="subtitle1"
                           fontWeight={700}
                           sx={{
-                            color: "#ffe082",
+                            color: "#f1bfdd",
                             textShadow: "0 2px 8px rgba(0,0,0,0.7)",
                             mb: 1,
                           }}
@@ -274,7 +274,7 @@ function PackagesTours() {
                           variant="h6"
                           fontWeight={900}
                           sx={{
-                            color: "#ffb300",
+                            color: "#a5beec",
                             textShadow: "0 2px 8px rgba(0,0,0,0.7)",
                             mt: 1,
                           }}
