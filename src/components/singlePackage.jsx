@@ -673,138 +673,151 @@ function SinglePackage({ tour, onClose }) {
     );
   };
   const ComponentOne = () => (
-    <Box sx={{ width: "100%", padding: "32px", position: "relative" }}>
-      <IconButton
-        sx={{ position: "absolute", top: 16, right: 16 }}
-        aria-label="close"
-        onClick={onClose}
-      >
-        <CloseIcon />
-      </IconButton>
+    <Box
+      sx={{
+        width: "100%",
+        padding: "32px",
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      <div>
+        <IconButton
+          sx={{ position: "absolute", top: 16, right: 16 }}
+          aria-label="close"
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </IconButton>
 
-      <Box display="flex" alignItems="center" gap="8px">
-        <div
-          style={{
-            backgroundColor: "#ffffff",
-            color: "#00695c",
-            fontSize: "0.8rem",
-            borderRadius: "9px",
-            padding: "4px 12px",
-            border: "2px solid #00695c",
+        <Box display="flex" alignItems="center" gap="8px">
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              color: "#00695c",
+              fontSize: "0.8rem",
+              borderRadius: "9px",
+              padding: "4px 12px",
+              border: "2px solid #00695c",
+            }}
+          >
+            {packageDetails.type}
+          </div>
+        </Box>
+
+        <Typography variant="h4" fontWeight="bold" mt={2}>
+          {packageDetails.title}
+        </Typography>
+        <Typography variant="subtitle1" color="textSecondary" mt={1}>
+          {packageDetails.duration}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          mt={1}
+          mb={2}
+          onClick={() => setShowProgramPopup(true)}
+          sx={{
+            cursor: "pointer",
+            textDecoration: "underline",
+            "&:hover": {
+              color: "#750046",
+            },
           }}
         >
-          {packageDetails.type}
-        </div>
-      </Box>
+          {" "}
+          Read more +
+        </Typography>
 
-      <Typography variant="h4" fontWeight="bold" mt={2}>
-        {packageDetails.title}
-      </Typography>
-      <Typography variant="subtitle1" color="textSecondary" mt={1}>
-        {packageDetails.duration}
-      </Typography>
-      <Typography
-        variant="body2"
-        color="textSecondary"
-        mt={1}
-        mb={2}
-        onClick={() => setShowProgramPopup(true)}
-        sx={{
-          cursor: "pointer",
-          textDecoration: "underline",
-          "&:hover": {
-            color: "#750046",
-          },
-        }}
-      >
-        {" "}
-        Read more +
-      </Typography>
+        <Grid container spacing={2} mt={2} mb={4}>
+          <Grid item xs={6}>
+            <Typography variant="body2" color="textSecondary">
+              Flights
+            </Typography>
+            <Typography variant="body2" fontWeight="bold">
+              {packageDetails.flight}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="body2" color="textSecondary">
+              Accommodation
+            </Typography>
+            <Typography variant="body2" fontWeight="bold">
+              {packageDetails.Accommodation}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="body2" color="textSecondary">
+              Transportation
+            </Typography>
+            <Typography variant="body2" fontWeight="bold">
+              {packageDetails.Transportation}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="body2" color="textSecondary">
+              Program
+            </Typography>
+            <Typography variant="body2" fontWeight="bold">
+              {packageDetails.Program}
+            </Typography>
+          </Grid>
+        </Grid>
 
-      <Grid container spacing={2} mt={2} mb={4}>
-        <Grid item xs={6}>
-          <Typography variant="body2" color="textSecondary">
-            Flights
-          </Typography>
-          <Typography variant="body2" fontWeight="bold">
-            {packageDetails.flight}
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="body2" color="textSecondary">
-            Accommodation
-          </Typography>
-          <Typography variant="body2" fontWeight="bold">
-            {packageDetails.Accommodation}
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="body2" color="textSecondary">
-            Transportation
-          </Typography>
-          <Typography variant="body2" fontWeight="bold">
-            {packageDetails.Transportation}
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="body2" color="textSecondary">
-            Program
-          </Typography>
-          <Typography variant="body2" fontWeight="bold">
-            {packageDetails.Program}
-          </Typography>
-        </Grid>
-      </Grid>
+        <Tabs
+          value={activeTab}
+          onChange={handleTabChange}
+          textColor="primary"
+          indicatorColor="primary"
+          sx={{
+            mt: 3,
+            mb: 2,
+            "& .MuiTabs-indicator": {
+              backgroundColor: "#750046",
+            },
+            "& .MuiTab-root": {
+              color: "#757575",
+            },
+            "& .MuiTab-root.Mui-selected": {
+              color: "#750046",
+              fontWeight: "bold",
+            },
+          }}
+        >
+          <Tab label="Inclusion" />
+          <Tab label="Exclusion" />
+          <Tab label="General Notes" />
+        </Tabs>
 
-      <Tabs
-        value={activeTab}
-        onChange={handleTabChange}
-        textColor="primary"
-        indicatorColor="primary"
-        sx={{
-          mt: 3,
-          mb: 2,
-          "& .MuiTabs-indicator": {
-            backgroundColor: "#750046",
-          },
-          "& .MuiTab-root": {
-            color: "#757575",
-          },
-          "& .MuiTab-root.Mui-selected": {
-            color: "#750046",
+        {renderTabContent()}
+      </div>
+      <div>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{
+            width: "100%",
+            padding: "12px",
+            borderRadius: "25px",
             fontWeight: "bold",
-          },
-        }}
-      >
-        <Tab label="Inclusion" />
-        <Tab label="Exclusion" />
-        <Tab label="General Notes" />
-      </Tabs>
-
-      {renderTabContent()}
-
-      <Button
-        variant="contained"
-        color="primary"
-        sx={{
-          width: "100%",
-          padding: "12px",
-          borderRadius: "25px",
-          fontWeight: "bold",
-          textTransform: "none",
-          marginBottom: "15px",
-          marginTop: "1px",
-          backgroundColor: "#0f1c24",
-          "&:hover": {
-            backgroundColor: "#fff",
-            border: "2px solid #0f1c24",
-            color: "#0f1c24",
-          },
-        }}
-        onClick={handleNext}
-      >
-        Book Now
-      </Button>
+            textTransform: "none",
+            marginBottom: "15px",
+            marginTop: "1px",
+            backgroundColor: "#0f1c24",
+            "&:hover": {
+              backgroundColor: "#fff",
+              border: "2px solid #0f1c24",
+              color: "#0f1c24",
+            },
+          }}
+          onClick={handleNext}
+        >
+          Book Now
+        </Button>
+      </div>
     </Box>
   );
 
