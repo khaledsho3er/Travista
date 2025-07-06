@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import PoliciesPopup from "../components/PoliciesPopup";
+import { FaGlobe } from "react-icons/fa";
 
 const TravistaSignUp = () => {
   const [formData, setFormData] = useState({
