@@ -145,8 +145,19 @@ function Timeline() {
             transition: "opacity 1s ease",
           }}
         >
-          <h3 style={{ fontWeight: "bold" }}>{text.match(/\d{4}/)?.[0]}</h3>
-          <p>{text}</p>
+          <h3 style={{ fontWeight: "bold" }}>
+            {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
+          </h3>
+          <p
+            style={{
+              fontFamily: "Futura",
+              fontSize: "14px",
+              letterSpacing: "0.5px",
+              textAlign: "center",
+            }}
+          >
+            {text}
+          </p>
         </Box>
       ))}
 
