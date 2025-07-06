@@ -156,7 +156,7 @@ function Timeline() {
               textAlign: "center",
             }}
           >
-            text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, ""){" "}
+            {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
           </p>
         </Box>
       ))}
