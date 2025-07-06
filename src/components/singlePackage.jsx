@@ -1062,7 +1062,16 @@ function SinglePackage({ tour, onClose }) {
           <Typography variant="subtitle2" mt={1} color="#777777">
             Tell us more about you
           </Typography>
-          <Box component="form" onSubmit={handleSubmitForm} noValidate>
+          <Box
+            component="form"
+            onSubmit={handleSubmitForm}
+            noValidate
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "12px",
+            }}
+          >
             {error && (
               <Typography color="error" sx={{ mt: 2 }}>
                 {error}
