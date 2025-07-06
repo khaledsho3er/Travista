@@ -338,7 +338,7 @@ function Navbar() {
                   sx={{
                     marginTop: "10px",
                     height: "40px",
-                    fontSize: "0.5rem",
+                    fontSize: "0.65rem",
                     // border: "1px solid",
                     // borderRadius: "20px",
                     // color: navColor,

@@ -15,6 +15,14 @@ import IconButton from "@mui/material/IconButton";
 // import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 // import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useNavigate } from "react-router-dom";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+// Swiper imports
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination } from "swiper/modules";
 
 const Explore = () => {
   const Navigate = useNavigate();
@@ -22,6 +30,8 @@ const Explore = () => {
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const theme = useTheme();
+  const isSwiper = useMediaQuery("(max-width:1440px)");
 
   // Fetch packages from API
   useEffect(() => {
@@ -139,123 +149,242 @@ const Explore = () => {
           </IconButton>
         </Box> */}
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: { xs: "center", sm: "space-between" },
-          flexWrap: "wrap",
-          gap: 4,
-          flexDirection: { xs: "column", sm: "row" },
-          alignItems: { xs: "center", sm: "flex-start" },
-        }}
-      >
-        {packages.length > 0 ? (
-          packages.map((pkg, index) => (
-            <Card
-              className="explore-more-card"
-              key={pkg._id}
-              sx={{
-                backgroundImage: `url(https://api.travistasl.com/${pkg.packagePicture})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                width: { xs: "100%", sm: "500px", md: "550px" },
-                height: { xs: "500px", sm: "600px", md: "750px" },
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-end",
-                position: "relative",
-                borderRadius: "20px",
-                padding: "30px",
-                marginTop: { xs: 0, sm: index % 2 === 0 ? 0 : "50px" },
-                transition: "all 0.4s",
-                "&:hover": {
-                  width: { sm: "600px", md: "650px" },
-                },
-              }}
-            >
-              <IconButton
-                aria-label="add to favorites"
-                sx={{ position: "absolute", top: "15px", right: "15px" }}
-              >
-                <FavoriteBorderIcon
+      {isSwiper ? (
+        <Swiper
+          spaceBetween={30}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+          style={{ width: "100%", paddingBottom: "40px" }}
+        >
+          {packages.length > 0 ? (
+            packages.map((pkg, index) => (
+              <SwiperSlide key={pkg._id}>
+                <Card
+                  className="explore-more-card"
                   sx={{
-                    color: "white",
-                    fontSize: "2rem",
+                    backgroundImage: `url(https://api.travistasl.com/${pkg.packagePicture})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    width: { xs: "100%", sm: "500px", md: "550px" },
+                    height: { xs: "500px", sm: "600px", md: "750px" },
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-end",
+                    position: "relative",
+                    borderRadius: "20px",
+                    padding: "30px",
+                    margin: "0 auto",
+                    transition: "all 0.4s",
                   }}
-                />
-              </IconButton>
+                >
+                  <IconButton
+                    aria-label="add to favorites"
+                    sx={{ position: "absolute", top: "15px", right: "15px" }}
+                  >
+                    <FavoriteBorderIcon
+                      sx={{
+                        color: "white",
+                        fontSize: "2rem",
+                      }}
+                    />
+                  </IconButton>
 
-              <CardContent
+                  <CardContent
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "10px",
+                      justifyContent: "flex-end",
+                      background: "rgba(0,0,0,0.5)",
+                      backdropFilter: "blur(4px)",
+                      borderRadius: "8px",
+                      color: "white",
+                    }}
+                  >
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "#750046",
+                        background: "white",
+                        padding: "5px",
+                        width: "fit-content",
+                        borderRadius: "5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      {formatDate(pkg.departureDate)}
+                    </Typography>
+                    <Typography
+                      variant="h4"
+                      fontWeight="900"
+                      sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
+                    >
+                      {pkg.destinations.join(", ")}
+                    </Typography>
+
+                    <Typography
+                      className="package-date"
+                      variant="body1"
+                      color="#A5A5A5"
+                      sx={{
+                        fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem" },
+                      }}
+                    >
+                      {pkg.totalDays} Days, {pkg.totalNights} Nights
+                    </Typography>
+
+                    <Typography variant="h6" color="#FED7D2">
+                      from {formatPrice(pkg.packagePrice)}
+                    </Typography>
+                  </CardContent>
+
+                  <CardActions disableSpacing>
+                    <Button
+                      className="btn btn-secondary"
+                      variant="contained"
+                      sx={{
+                        padding: { xs: "15px 60px", sm: "15px 80px" },
+                        width: { xs: "100%", sm: "auto" },
+                      }}
+                      onClick={() => handlePackageClick(pkg)}
+                    >
+                      Explore Trip
+                    </Button>
+                  </CardActions>
+                </Card>
+              </SwiperSlide>
+            ))
+          ) : (
+            <SwiperSlide>
+              <Typography
+                variant="h6"
+                sx={{ textAlign: "center", width: "100%", py: 4 }}
+              >
+                No packages available at the moment.
+              </Typography>
+            </SwiperSlide>
+          )}
+        </Swiper>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: 4,
+            flexDirection: "row",
+            alignItems: "flex-start",
+          }}
+        >
+          {packages.length > 0 ? (
+            packages.map((pkg, index) => (
+              <Card
+                className="explore-more-card"
+                key={pkg._id}
                 sx={{
+                  backgroundImage: `url(https://api.travistasl.com/${pkg.packagePicture})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  width: { xs: "100%", sm: "500px", md: "550px" },
+                  height: { xs: "500px", sm: "600px", md: "750px" },
                   display: "flex",
                   flexDirection: "column",
-                  gap: "10px",
                   justifyContent: "flex-end",
-                  background: "rgba(0,0,0,0.5)",
-                  backdropFilter: "blur(4px)",
-                  borderRadius: "8px",
-                  color: "white",
+                  position: "relative",
+                  borderRadius: "20px",
+                  padding: "30px",
+                  marginTop: { xs: 0, sm: index % 2 === 0 ? 0 : "50px" },
+                  transition: "all 0.4s",
+                  "&:hover": {
+                    width: { sm: "600px", md: "650px" },
+                  },
                 }}
               >
-                <Typography
-                  variant="body2"
+                <IconButton
+                  aria-label="add to favorites"
+                  sx={{ position: "absolute", top: "15px", right: "15px" }}
+                >
+                  <FavoriteBorderIcon
+                    sx={{
+                      color: "white",
+                      fontSize: "2rem",
+                    }}
+                  />
+                </IconButton>
+
+                <CardContent
                   sx={{
-                    color: "#750046",
-                    background: "white",
-                    padding: "5px",
-                    width: "fit-content",
-                    borderRadius: "5px",
-                    fontWeight: "700",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
+                    justifyContent: "flex-end",
+                    background: "rgba(0,0,0,0.5)",
+                    backdropFilter: "blur(4px)",
+                    borderRadius: "8px",
+                    color: "white",
                   }}
                 >
-                  {formatDate(pkg.departureDate)}
-                </Typography>
-                <Typography
-                  variant="h4"
-                  fontWeight="900"
-                  sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
-                >
-                  {pkg.destinations.join(", ")}
-                </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "#750046",
+                      background: "white",
+                      padding: "5px",
+                      width: "fit-content",
+                      borderRadius: "5px",
+                      fontWeight: "700",
+                    }}
+                  >
+                    {formatDate(pkg.departureDate)}
+                  </Typography>
+                  <Typography
+                    variant="h4"
+                    fontWeight="900"
+                    sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
+                  >
+                    {pkg.destinations.join(", ")}
+                  </Typography>
 
-                <Typography
-                  className="package-date"
-                  variant="body1"
-                  color="#A5A5A5"
-                  sx={{ fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem" } }}
-                >
-                  {pkg.totalDays} Days, {pkg.totalNights} Nights
-                </Typography>
+                  <Typography
+                    className="package-date"
+                    variant="body1"
+                    color="#A5A5A5"
+                    sx={{ fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem" } }}
+                  >
+                    {pkg.totalDays} Days, {pkg.totalNights} Nights
+                  </Typography>
 
-                <Typography variant="h6" color="#FED7D2">
-                  from {formatPrice(pkg.packagePrice)}
-                </Typography>
-              </CardContent>
+                  <Typography variant="h6" color="#FED7D2">
+                    from {formatPrice(pkg.packagePrice)}
+                  </Typography>
+                </CardContent>
 
-              <CardActions disableSpacing>
-                <Button
-                  className="btn btn-secondary"
-                  variant="contained"
-                  sx={{
-                    padding: { xs: "15px 60px", sm: "15px 80px" },
-                    width: { xs: "100%", sm: "auto" },
-                  }}
-                  onClick={() => handlePackageClick(pkg)}
-                >
-                  Explore Trip
-                </Button>
-              </CardActions>
-            </Card>
-          ))
-        ) : (
-          <Typography
-            variant="h6"
-            sx={{ textAlign: "center", width: "100%", py: 4 }}
-          >
-            No packages available at the moment.
-          </Typography>
-        )}
-      </Box>
+                <CardActions disableSpacing>
+                  <Button
+                    className="btn btn-secondary"
+                    variant="contained"
+                    sx={{
+                      padding: { xs: "15px 60px", sm: "15px 80px" },
+                      width: { xs: "100%", sm: "auto" },
+                    }}
+                    onClick={() => handlePackageClick(pkg)}
+                  >
+                    Explore Trip
+                  </Button>
+                </CardActions>
+              </Card>
+            ))
+          ) : (
+            <Typography
+              variant="h6"
+              sx={{ textAlign: "center", width: "100%", py: 4 }}
+            >
+              No packages available at the moment.
+            </Typography>
+          )}
+        </Box>
+      )}
       <Box textAlign="center" mt={4}>
         <Button
           className="btn btn-primary"
