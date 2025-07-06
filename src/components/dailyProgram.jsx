@@ -46,29 +46,11 @@ const ProgramPopup = ({ packageId, onClose }) => {
         justifyContent: "center",
         alignItems: "center",
         zIndex: 9999,
+        display: "flex",
+        flexDirection: "column",
       }}
       onClick={onClose}
     >
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        mb={3}
-        sx={{
-          position: "sticky",
-          top: 0,
-          background: "white",
-          zIndex: 10,
-          py: 1,
-        }}
-      >
-        <Typography variant="h5" fontWeight="bold">
-          Daily Program
-        </Typography>
-        <IconButton onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      </Box>
       <Box
         sx={{
           backgroundColor: "white",
@@ -81,6 +63,26 @@ const ProgramPopup = ({ packageId, onClose }) => {
         }}
         onClick={(e) => e.stopPropagation()}
       >
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          mb={3}
+          sx={{
+            position: "sticky",
+            top: 0,
+            background: "white",
+            zIndex: 10,
+            py: 1,
+          }}
+        >
+          <Typography variant="h5" fontWeight="bold">
+            Daily Program
+          </Typography>
+          <IconButton onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
         <Box>
           {loading ? (
             <Box
