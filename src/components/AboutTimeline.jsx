@@ -150,13 +150,13 @@ function Timeline() {
           </h3>
           <p
             style={{
-              fontFamily: "Futura",
+              fontFamily: "Arial, sans-serif",
               fontSize: "14px",
               letterSpacing: "0.5px",
               textAlign: "center",
             }}
           >
-            {text}
+            text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, ""){" "}
           </p>
         </Box>
       ))}
