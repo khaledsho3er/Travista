@@ -57,7 +57,19 @@ function Hero({ preloadedData = null }) {
             color: "white",
             fontWeight: "700",
             textAlign: "center",
-            fontSize: { xs: "2.5rem", md: "5rem" },
+            fontSize: {
+              xs: "2.5rem", // <600px
+              sm: "2.5rem", // 600px - 899px
+              md: "4rem", // 900px - 1079px
+              lg: "5rem", // >=1080px
+            },
+            // Custom media query for 900-1080px if you want more precision:
+            "@media (min-width:900px) and (max-width:1080px)": {
+              fontSize: "4rem",
+            },
+            "@media (min-width:1081px)": {
+              fontSize: "5rem",
+            },
           }}
         >
           {heroData.caption.split(".").map((segment, index) => (

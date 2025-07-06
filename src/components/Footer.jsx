@@ -317,7 +317,7 @@ function Footer() {
         </Typography>
       </Box>
 
-      <List>
+      <List style={{ fontFamily: "Arial, sans-serif" }}>
         <ListItem>
           <Typography variant="body1" color="#777777">
             Explore
@@ -346,7 +346,7 @@ function Footer() {
         </ListItem>
       </List>
 
-      <List>
+      <List style={{ fontFamily: "Arial, sans-serif" }}>
         <ListItem>
           <Typography variant="body1" color="#777777">
             Support

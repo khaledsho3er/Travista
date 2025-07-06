@@ -55,6 +55,7 @@ function SinglePackage({ tour, onClose }) {
   const [showSuccessDialog, setShowSuccessDialog] = useState(false); // Add state for success dialog
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isSmallScreens = useMediaQuery("(max-width:1199px)");
   // Inside your component function, add this effect
   useEffect(() => {
     // Add scroll event listener to the modal content
@@ -1177,7 +1178,7 @@ function SinglePackage({ tour, onClose }) {
             <Box
               sx={{
                 display: "flex",
-                flexDirection: window.innerWidth < 1024 ? "column" : "row",
+                flexDirection: isSmallScreen ? "column" : "row",
                 gap: isSmallScreen ? "15px" : "32px",
               }}
             >
