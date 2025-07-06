@@ -573,7 +573,7 @@ function SinglePackage({ tour, onClose }) {
                 key={index}
                 onClick={() => setSelectedFlight(index)}
                 sx={{
-                  width: isSmallScreen ? "125%" : "125%",
+                  width: isSmallScreen ? "125%" : "100%",
                   p: 2,
                   border: `2px solid ${
                     selectedFlight === index ? "#750046" : "#ddd"
@@ -964,7 +964,7 @@ function SinglePackage({ tour, onClose }) {
           ))}
         </Box>
       </Box>
-      <Box>
+      <Box sx={{ width: "100%" }}>
         <Button
           variant="contained"
           sx={{
@@ -1022,7 +1022,6 @@ function SinglePackage({ tour, onClose }) {
           width: "100%",
           padding: isSmallScreen ? "16px" : "32px",
           position: "relative",
-          height: "auto",
           borderTopRightRadius: "20px",
           display: "flex",
           flexDirection: "column",
@@ -1049,6 +1048,7 @@ function SinglePackage({ tour, onClose }) {
         <Box
           sx={{
             width: "100%",
+            marginTop: isSmallScreen ? "6rem" : "0",
           }}
         >
           <Typography
@@ -1398,7 +1398,7 @@ function SinglePackage({ tour, onClose }) {
             <Box
               sx={{
                 position: "relative",
-                width: isSmallScreen ? "100%" : "55%",
+                width: isSmallScreen ? "100%" : "50%",
                 height: "100%",
                 zIndex: 9999,
                 display: isSmallScreen ? "none" : "block",
