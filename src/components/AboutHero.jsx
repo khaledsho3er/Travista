@@ -26,13 +26,15 @@ function AboutHero() {
           <Box className="about-center-content">
             <Typography variant="h4">About us</Typography>
             <Typography variant="h3">
-              We’re here to unlock a world full of travel possibilities.
+              With over 35 years of experience in aviation and tourism.
             </Typography>
             <Typography variant="h5">
-              As a passionate team of travel lovers, we’re dedicated to helping
-              you explore, discover, and truly experience the world.
+              Mr. Abo Bakr founded Travista with a vision to elevate and
+              personalize travel experiences. What began as a local initiative
+              has since grown into a globally recognized brand known for its
+              reliability, innovation, and commitment to excellence.
             </Typography>
-            <Button>How to began?</Button>
+            <Button>Our Journey at a Glance</Button>
           </Box>
         </Grid>
 

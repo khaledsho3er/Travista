@@ -7,13 +7,14 @@ const currencySymbols = {
   USD: "$",
   EUR: "€",
   GBP: "£",
-  EGP: "£",
+  EGP: "E£",
   JPY: "¥",
   INR: "₹",
   AUD: "A$",
   CAD: "C$",
   CNY: "¥",
   AED: "د.إ",
+  SAR: "ر.س",
   // Add more as needed
 };
 function StepTwo({

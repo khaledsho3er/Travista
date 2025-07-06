@@ -3,14 +3,13 @@ import { Box, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 const milestones = [
-  "Travista was founded with a vision to make travel accessible for everyone.",
-  "Launched our first group tour, connecting travelers from different backgrounds.",
-  "Expanded our destinations to include over 20 countries worldwide.",
-  "Introduced personalized travel packages for unique customer experiences.",
-  "Partnered with leading airlines and hotels for exclusive deals.",
-  "Launched our user-friendly online booking platform.",
-  "Reached 10,000 happy travelers milestone.",
-  "Introduced 24/7 customer support for seamless travel assistance.",
+  "2004 - The company was officially founded and licensed as a Category (A) tourism company, laying the cornerstone for what would become a trusted name in the travel industry.",
+  "2009 - Relocated to our new multi-story headquarters in Heliopolis, Cairo — a significant step in scaling our operations and client services.",
+  "2010 – 2014 – Expanded our national footprint with new branches in Tanta, Fayoum, Alexandria, and El-Mahalla El-Kubra, bringing world-class travel services closer to clients across Egypt.",
+  "2015 – Travista Egypt joined the Travista Group, marking a strategic move that strengthened our organizational structure and global positioning.",
+  "2016 – Extended our international presence with offices and strategic partnerships in the United States, the United Arab Emirates, and Spain — enhancing our capacity to serve a global clientele.",
+  "2022 –Awarded the prestigious Luxury Travel Award, recognizing our excellence, innovation, and leadership in the global travel and tourism sector.",
+  "2025 –Celebrated a landmark achievement: over 400,000 clients served worldwide across aviation, visa facilitation, leisure travel, group tours, and corporate tourism",
 ];
 
 function Timeline() {
