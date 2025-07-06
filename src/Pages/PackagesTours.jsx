@@ -188,34 +188,102 @@ function PackagesTours() {
                       sx={{
                         height: "350px",
                         backgroundImage: `url(https://api.travistasl.com/${packageDetails.packagePicture})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
                         color: "white",
                         position: "relative",
                         borderRadius: "12px",
                         cursor: "pointer",
+                        overflow: "hidden",
+                        p: 0,
                       }}
                     >
-                      <Typography
+                      {/* Overlay for better text visibility */}
+                      <Box
                         sx={{
                           position: "absolute",
-                          top: "10px",
-                          left: "10px",
-                          background: "white",
-                          color: "var(--maroon)",
-                          padding: "5px 10px",
-                          borderRadius: "4px",
-                          fontSize: "12px",
-                          fontWeight: "bold",
+                          inset: 0,
+                          background:
+                            "linear-gradient(to top, rgba(0,0,0,0.75) 60%, rgba(0,0,0,0.2) 100%)",
+                          zIndex: 1,
                         }}
-                        variant="subtitle2"
+                      />
+                      {/* Main content */}
+                      <Box
+                        sx={{
+                          position: "relative",
+                          zIndex: 2,
+                          height: "100%",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "flex-end",
+                          p: 3,
+                        }}
                       >
-                        {new Date(
-                          packageDetails.departureDate
-                        ).toLocaleDateString("en-GB", {
-                          day: "2-digit",
-                          month: "long",
-                          year: "numeric",
-                        })}
-                      </Typography>
+                        <Typography
+                          variant="h5"
+                          fontWeight={900}
+                          sx={{
+                            mb: 1,
+                            color: "#fff",
+                            textShadow: "0 2px 8px rgba(0,0,0,0.7)",
+                          }}
+                        >
+                          {packageDetails.packageName}
+                        </Typography>
+                        <Typography
+                          variant="subtitle1"
+                          fontWeight={700}
+                          sx={{
+                            color: "#ffe082",
+                            textShadow: "0 2px 8px rgba(0,0,0,0.7)",
+                            mb: 1,
+                          }}
+                        >
+                          {packageDetails.destinations.join(" / ")}
+                        </Typography>
+                        <Typography
+                          variant="body1"
+                          fontWeight={500}
+                          sx={{
+                            color: "#fff",
+                            textShadow: "0 2px 8px rgba(0,0,0,0.7)",
+                            mb: 1,
+                          }}
+                        >
+                          {`${packageDetails.totalDays} days / ${packageDetails.totalNights} nights`}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: "#b3e5fc",
+                            textShadow: "0 2px 8px rgba(0,0,0,0.7)",
+                            mb: 1,
+                          }}
+                        >
+                          Departure:{" "}
+                          {new Date(
+                            packageDetails.departureDate
+                          ).toLocaleDateString("en-GB", {
+                            day: "2-digit",
+                            month: "long",
+                            year: "numeric",
+                          })}
+                        </Typography>
+                        <Typography
+                          variant="h6"
+                          fontWeight={900}
+                          sx={{
+                            color: "#ffb300",
+                            textShadow: "0 2px 8px rgba(0,0,0,0.7)",
+                            mt: 1,
+                          }}
+                        >
+                          {packageDetails.packagePrice.amount}{" "}
+                          {packageDetails.packagePrice.currency}
+                        </Typography>
+                      </Box>
+                      {/* Favorite button stays on top */}
                       <IconButton
                         onClick={(e) => {
                           e.stopPropagation();
@@ -232,51 +300,12 @@ function PackagesTours() {
                           "&:hover": {
                             color: "var(--maroon)",
                           },
+                          background: "rgba(0,0,0,0.3)",
+                          borderRadius: "50%",
                         }}
                       >
                         <FavoriteIcon />
                       </IconButton>
-
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          backgroundImage:
-                            "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0))",
-                          height: "100%",
-                          width: "100%",
-                          bottom: 0,
-                          left: 0,
-                          padding: "20px",
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "flex-end",
-                        }}
-                      >
-                        <Typography fontWeight={800} variant="h4" gutterBottom>
-                          {`${packageDetails.destinations[0]} / ${packageDetails.destinations[1]}`}{" "}
-                        </Typography>
-                        <Typography
-                          variant="body1"
-                          color="#777777"
-                          fontWeight={500}
-                        >
-                          {`${packageDetails.totalDays} days / ${packageDetails.totalNights} nights`}
-                        </Typography>
-                        <Typography
-                          variant="body1"
-                          color="#777777"
-                          fontWeight={500}
-                        >
-                          {`${packageDetails.destinations[0]} / ${packageDetails.destinations[1]}`}
-                        </Typography>
-                        <Typography
-                          variant="subtitle1"
-                          sx={{ color: "#266ef1" }}
-                        >
-                          {packageDetails.packagePrice.amount}{" "}
-                          {packageDetails.packagePrice.currency}
-                        </Typography>
-                      </Box>
                     </CardContent>
                   </Card>
                 </Grid>
