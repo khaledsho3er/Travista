@@ -464,6 +464,25 @@ const TravistaSignUp = () => {
                   </Typography>
                 </Link>
               </Typography>
+              <Typography sx={{ mt: 1, textAlign: "center", fontSize: "1rem" }}>
+                <a
+                  href="tel://19294"
+                  style={{
+                    display: "inline-flex", // Use flex to align items
+                    alignItems: "center", // Vertically center icon and text
+                    textDecoration: "none",
+                    color: "#222", // Make it a bit darker for visibility
+                    fontWeight: "bold", // Make the number stand out
+                    padding: "6px 14px", // Some padding for click area
+                    borderRadius: "8px", // Rounded corners
+                    gap: "8px", // Space between icon and number
+                    fontSize: "1.1rem",
+                  }}
+                >
+                  <FaGlobe size={23} />
+                  <span>19294</span>
+                </a>
+              </Typography>
             </Box>
           </Box>
         </Grid>
