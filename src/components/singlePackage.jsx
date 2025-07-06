@@ -23,7 +23,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BedIcon from "@mui/icons-material/Bed";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { useTheme, useMediaQuery } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { FaCheck } from "react-icons/fa";
 import ProgramPopup from "./dailyProgram"; // Import the new component
 import SuccessDialog from "./SuccessDialog"; // Import SuccessDialog component
