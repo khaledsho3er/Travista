@@ -27,7 +27,12 @@ const ProgramPopup = ({ packageId, onClose }) => {
 
     fetchDailyProgram();
   }, [packageId]);
-
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
   const formatDate = (dateString) => {
     const options = { day: "numeric", month: "long", year: "numeric" };
     return new Date(dateString).toLocaleDateString("en-GB", options);
@@ -46,8 +51,6 @@ const ProgramPopup = ({ packageId, onClose }) => {
         justifyContent: "center",
         alignItems: "center",
         zIndex: 9999,
-        display: "flex",
-        flexDirection: "column",
       }}
       onClick={onClose}
     >
@@ -64,16 +67,18 @@ const ProgramPopup = ({ packageId, onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          mb={3}
           sx={{
             position: "sticky",
             top: 0,
             background: "white",
-            zIndex: 10,
-            py: 1,
+            zIndex: 20,
+            py: 2,
+            px: 2,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
+            minHeight: "64px",
           }}
         >
           <Typography variant="h5" fontWeight="bold">
