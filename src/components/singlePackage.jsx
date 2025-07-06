@@ -23,8 +23,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BedIcon from "@mui/icons-material/Bed";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme, useMediaQuery } from "@mui/material/styles";
 import { FaCheck } from "react-icons/fa";
 import ProgramPopup from "./dailyProgram"; // Import the new component
 import SuccessDialog from "./SuccessDialog"; // Import SuccessDialog component
@@ -1178,7 +1177,7 @@ function SinglePackage({ tour, onClose }) {
             <Box
               sx={{
                 display: "flex",
-                flexDirection: isSmallScreen ? "column" : "row",
+                flexDirection: isSmallScreens ? "column" : "row",
                 gap: isSmallScreen ? "15px" : "32px",
               }}
             >

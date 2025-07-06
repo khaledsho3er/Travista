@@ -66,6 +66,13 @@ const ProgramPopup = ({ packageId, onClose }) => {
           justifyContent="space-between"
           alignItems="center"
           mb={3}
+          sx={{
+            position: "sticky",
+            top: 0,
+            background: "white",
+            zIndex: 10,
+            py: 1,
+          }}
         >
           <Typography variant="h5" fontWeight="bold">
             Daily Program
