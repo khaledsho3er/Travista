@@ -144,7 +144,7 @@ function Sidebar({ setActiveSection }) {
   };
 
   return (
-    <div className="bg-white overflow-y-auto shadow-lg w-64 h-screen=100%">
+    <div className="bg-white overflow-y-auto w-64 h-screen=100%">
       <div className="border-b p-4">
         <div className="flex gap-2 items-center">
           <h1 className="text-2xl text-blue-300 font-bold center">

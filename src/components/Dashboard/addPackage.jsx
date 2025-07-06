@@ -558,6 +558,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
             variant="text"
             startIcon={<Add />}
             onClick={() => handleAddItem(setGeneralNotes, "")}
+            disabled={generalNotes.length >= 5}
           >
             Add Note
           </Button>
@@ -881,6 +882,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
             variant="text"
             startIcon={<Add />}
             onClick={() => handleAddItem(setIncludes, "")}
+            disabled={includes.length >= 5}
           >
             Add Include Point
           </Button>
@@ -920,6 +922,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
             variant="text"
             startIcon={<Add />}
             onClick={() => handleAddItem(setExcludes, "")}
+            disabled={excludes.length >= 5}
           >
             Add Exclude Point
           </Button>
