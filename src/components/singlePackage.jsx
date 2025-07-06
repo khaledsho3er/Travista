@@ -1177,8 +1177,7 @@ function SinglePackage({ tour, onClose }) {
             <Box
               sx={{
                 display: "flex",
-                flexDirection:
-                  isSmallScreen || window.innerWidth < 1024 ? "column" : "row",
+                flexDirection: window.innerWidth < 1024 ? "column" : "row",
                 gap: isSmallScreen ? "15px" : "32px",
               }}
             >
