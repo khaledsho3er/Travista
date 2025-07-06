@@ -70,15 +70,18 @@ const ProgramPopup = ({ packageId, onClose }) => {
           sx={{
             position: "sticky",
             top: 0,
-            background: "white",
+            left: 0,
+            right: 0,
+            background: "#fff",
             zIndex: 20,
-            py: 2,
-            px: 2,
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
             minHeight: "64px",
+            px: 3,
+            py: 2,
+            borderBottom: "1px solid #eee",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
           }}
         >
           <Typography variant="h5" fontWeight="bold">

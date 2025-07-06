@@ -82,6 +82,12 @@ function SinglePackage({ tour, onClose }) {
       };
     }
   }, []);
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
   // Format the package data for display
   const packageDetails = {
     type: tour?.type || "Package",
