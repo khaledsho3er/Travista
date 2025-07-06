@@ -138,7 +138,11 @@ function Navbar() {
     setIsOpen(open);
   };
   const navColor = scrolling ? "white" : isLightBackground ? "black" : "white";
-
+  const IconNavColor = scrolling
+    ? "var(--maroon)"
+    : isLightBackground
+    ? "black"
+    : "white";
   const sideList = () => (
     <Box
       sx={{
@@ -347,7 +351,7 @@ function Navbar() {
                     sx={{
                       marginRight: "5px",
                       fontSize: "1.2rem",
-                      color: navColor,
+                      color: IconNavColor,
                       borderColor: navColor,
                       transition: "color 0.3s ease-in-out",
                     }}
