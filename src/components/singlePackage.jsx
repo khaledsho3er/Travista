@@ -682,9 +682,10 @@ function SinglePackage({ tour, onClose }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-between",
+        height: "100%",
       }}
     >
-      <div>
+      <div style={{ width: "100%" }}>
         <IconButton
           sx={{ position: "absolute", top: 16, right: 16 }}
           aria-label="close"
@@ -794,7 +795,7 @@ function SinglePackage({ tour, onClose }) {
 
         {renderTabContent()}
       </div>
-      <div>
+      <div style={{ width: "100%" }}>
         <Button
           variant="contained"
           color="primary"
