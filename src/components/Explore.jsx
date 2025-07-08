@@ -147,6 +147,12 @@ const Explore = () => {
           gap: 4,
           flexDirection: { xs: "column", sm: "row" },
           alignItems: { xs: "center", sm: "flex-start" },
+          "@media (max-height:680px)": {
+            flexDirection: "row",
+            flexWrap: "nowrap",
+            alignItems: "stretch",
+            gap: 2,
+          },
         }}
       >
         {packages.length > 0 ? (
@@ -170,6 +176,12 @@ const Explore = () => {
                 transition: "all 0.4s",
                 "&:hover": {
                   width: { sm: "600px", md: "650px" },
+                },
+                "@media (max-height:680px)": {
+                  width: "320px",
+                  height: "420px",
+                  padding: "16px",
+                  marginTop: 0,
                 },
               }}
             >
@@ -195,6 +207,13 @@ const Explore = () => {
                   backdropFilter: "blur(4px)",
                   borderRadius: "8px",
                   color: "white",
+                  "@media (max-height:680px)": {
+                    gap: "6px",
+                    "& .MuiTypography-h4": { fontSize: "1.1rem" },
+                    "& .MuiTypography-body1": { fontSize: "0.9rem" },
+                    "& .MuiTypography-h6": { fontSize: "1rem" },
+                    "& .MuiTypography-body2": { fontSize: "0.8rem" },
+                  },
                 }}
               >
                 <Typography
