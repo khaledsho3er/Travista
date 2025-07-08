@@ -97,15 +97,15 @@ function Comments() {
       }}
     >
       <Typography
-        variant="h6"
-        color={"white"}
+        variant="h4"
+        color="white"
         fontWeight={800}
         p={15}
         sx={{
-          margin: {
-            xs: "-59px",
-            md: 0,
-          },
+          fontSize: { xs: "1.8rem", md: "inherit" }, // 1.8rem on mobile, default on desktop
+          margin: { xs: "auto", md: 0 }, // auto on mobile, 0 on desktop
+          pl: { xs: "2rem", md: "inherit" }, // 2rem left padding on mobile
+          pr: { xs: "2rem", md: "inherit" }, // 2rem right padding on mobile
         }}
       >
         See why travelers love the journey with us <br /> Real stories. Real
