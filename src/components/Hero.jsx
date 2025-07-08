@@ -70,7 +70,7 @@ function Hero({ preloadedData = null }) {
             "@media (min-width:1081px)": {
               fontSize: "5rem",
             },
-            "@media (max-height:680px)": {
+            "@media (max-height:580px)": {
               marginTop: "20px",
               fontSize: "4rem",
               marginBottom: "-60px",

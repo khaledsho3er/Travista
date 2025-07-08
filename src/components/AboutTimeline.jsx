@@ -89,8 +89,9 @@ function Timeline() {
               sx={{
                 position: "absolute",
                 width: isMobile ? "80%" : 320,
-                left: `calc(${pos.x}px - ${isMobile ? "40%" : "160px"})`,
-                top: `calc(${pos.y}px - 60px)`,
+                left: pos.x,
+                top: pos.y,
+                transform: "translate(-50%, -50%)",
                 padding: "24px 28px",
                 backgroundColor: "white",
                 borderRadius: 5,

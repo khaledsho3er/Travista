@@ -302,14 +302,15 @@ function Navbar() {
                 <Button
                   color="inherit"
                   onClick={handleMyAccount}
+                  className="btn btn-primary"
                   sx={{
                     marginTop: "10px",
                     height: "40px",
                     fontSize: "0.5rem",
                     border: "1px solid",
-                    borderRadius: "20px",
-                    color: navColor,
-                    borderColor: navColor,
+                    // borderRadius: "20px",
+                    // color: navColor,
+                    // borderColor: navColor,
                     transition:
                       "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
                   }}
