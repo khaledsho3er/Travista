@@ -70,6 +70,11 @@ function Hero({ preloadedData = null }) {
             "@media (min-width:1081px)": {
               fontSize: "5rem",
             },
+            "@media (max-height:579px)": {
+              marginTop: "20px",
+              fontSize: "4rem",
+              marginBottom: "-60px",
+            },
           }}
         >
           {heroData.caption.split(".").map((segment, index) => (
