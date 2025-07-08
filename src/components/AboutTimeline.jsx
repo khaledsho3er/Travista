@@ -12,33 +12,21 @@ const milestones = [
   "2025 –Celebrated a landmark achievement: over 400,000 clients served worldwide across aviation, visa facilitation, leisure travel, group tours, and corporate tourism",
 ];
 
+const cardPositions = [
+  { x: 721.87, y: 316.06 },
+  { x: 1150.36, y: 602.45 },
+  { x: 721.87, y: 444.39 },
+  { x: 1150.36, y: 731.74 },
+  { x: 721.87, y: 942.58 },
+  { x: 1150.36, y: 1093.68 },
+  { x: 721.87, y: 1341.93 },
+];
+
 function Timeline() {
   const containerRef = useRef();
   const pathRef = useRef();
-  const [cardPositions, setCardPositions] = useState([]);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  // Calculate card positions along the SVG path
-  useEffect(() => {
-    const updatePositions = () => {
-      const path = pathRef.current;
-      const container = containerRef.current;
-      if (!path || !container) return;
-      const totalLength = path.getTotalLength();
-      const positions = [];
-      for (let i = 0; i < milestones.length; i++) {
-        const length = ((i + 1) / (milestones.length + 1)) * totalLength;
-        const { x, y } = path.getPointAtLength(length);
-        // Adjust for container offset
-        positions.push({ x, y });
-      }
-      setCardPositions(positions);
-    };
-    updatePositions();
-    window.addEventListener("resize", updatePositions);
-    return () => window.removeEventListener("resize", updatePositions);
-  }, []);
 
   return (
     <Box
@@ -49,7 +37,9 @@ function Timeline() {
         minHeight: isMobile ? `${milestones.length * 300}px` : "1960px",
         paddingTop: "50px",
         paddingBottom: "150px",
-        background: "#eaf3f7",
+        backgroundImage: 'url("assets/About/background.png")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
         overflow: "hidden",
       }}
     >
@@ -65,7 +55,7 @@ function Timeline() {
           top: 0,
           left: 0,
           width: "100%",
-          height: "100%",
+          height: "65%",
           zIndex: 0,
           pointerEvents: "none",
         }}
@@ -80,52 +70,51 @@ function Timeline() {
       </svg>
 
       {/* Milestone Cards */}
-      {cardPositions.length === milestones.length &&
-        milestones.map((text, index) => {
-          const pos = cardPositions[index];
-          return (
-            <Box
-              key={index}
-              sx={{
-                position: "absolute",
-                width: isMobile ? "80%" : 320,
-                left: pos.x,
-                top: pos.y,
-                transform: "translate(-50%, -50%)",
-                padding: "24px 28px",
-                backgroundColor: "white",
-                borderRadius: 5,
-                boxShadow: 3,
-                textAlign: "left",
-                zIndex: 2,
-                opacity: 1,
-                transition: "opacity 1s ease",
+      {milestones.map((text, index) => {
+        const pos = cardPositions[index];
+        return (
+          <Box
+            key={index}
+            sx={{
+              position: "absolute",
+              width: isMobile ? "80%" : 320,
+              left: pos.x,
+              top: pos.y,
+              transform: "translate(-50%, -50%)",
+              padding: "24px 28px",
+              backgroundColor: "white",
+              borderRadius: 5,
+              boxShadow: 3,
+              textAlign: "left",
+              zIndex: 2,
+              opacity: 1,
+              transition: "opacity 1s ease",
+            }}
+          >
+            <h3
+              style={{
+                fontWeight: "bold",
+                lineHeight: 1.1,
+                marginBottom: "20px",
+                fontSize: "20px",
+                fontFamily: "inter",
               }}
             >
-              <h3
-                style={{
-                  fontWeight: "bold",
-                  lineHeight: 1.1,
-                  marginBottom: "20px",
-                  fontSize: "20px",
-                  fontFamily: "inter",
-                }}
-              >
-                {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
-              </h3>
-              <p
-                style={{
-                  fontFamily: "inter",
-                  fontSize: "13px",
-                  letterSpacing: "0.5px",
-                  textAlign: "left",
-                }}
-              >
-                {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
-              </p>
-            </Box>
-          );
-        })}
+              {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
+            </h3>
+            <p
+              style={{
+                fontFamily: "inter",
+                fontSize: "13px",
+                letterSpacing: "0.5px",
+                textAlign: "left",
+              }}
+            >
+              {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
+            </p>
+          </Box>
+        );
+      })}
     </Box>
   );
 }
