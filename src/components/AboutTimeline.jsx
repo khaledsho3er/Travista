@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, useMediaQuery, Typography } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 const milestones = [
@@ -17,7 +17,13 @@ function Timeline() {
   const cardRefs = useRef([]);
   const [points, setPoints] = useState([]);
   const [visible, setVisible] = useState(false);
-
+  const timelineWidth = 800; // or your container width
+  const startX = timelineWidth / 2; // center of the timeline
+  const startY = 100; // starting y position
+  const vSpacing = 220; // vertical space between milestones
+  const hOffset = 180; // how far left/right the snake goes
+  const cardWidth = 260; // width of your card
+  const cardHeight = 120; // height of your card
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -87,6 +93,22 @@ function Timeline() {
     }
     return d;
   };
+  // Example: Generate a snake path for N milestones
+  const getSnakePath = (milestones, startX, startY, vSpacing, hOffset) => {
+    let d = `M ${startX},${startY}`;
+    let x = startX;
+    let y = startY;
+    let direction = 1;
+    for (let i = 1; i < milestones.length; i++) {
+      const nextY = y + vSpacing;
+      const nextX = startX + direction * hOffset;
+      d += ` Q ${x},${y + vSpacing / 2} ${nextX},${nextY}`;
+      x = nextX;
+      y = nextY;
+      direction *= -1;
+    }
+    return d;
+  };
   return (
     <Box
       ref={containerRef}
@@ -115,7 +137,7 @@ function Timeline() {
         }}
       >
         <path
-          d={generatePath()}
+          d={getSnakePath()}
           fill="none"
           stroke="#f7a9a8"
           strokeWidth="8"
@@ -136,10 +158,10 @@ function Timeline() {
           sx={{
             position: "absolute",
             width: isMobile ? "80%" : 220,
-            left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
+            // left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
             transform: isMobile ? "translateX(-50%)" : "none",
-            top: `${5 + index * (isMobile ? 14 : 12)}%`,
-            padding: 2,
+            // top: `${5 + index * (isMobile ? 14 : 12)}%`,
+            padding: "20px",
             backgroundColor: "white",
             borderRadius: 5,
             boxShadow: 3,
@@ -147,17 +169,30 @@ function Timeline() {
             zIndex: 2,
             opacity: visible ? 1 : 0,
             transition: "opacity 1s ease",
+            top: `${startY + index * vSpacing - cardHeight / 2}px`,
+            left:
+              index % 2 === 0
+                ? `${startX - hOffset - cardWidth}px`
+                : `${startX + hOffset}px`,
           }}
         >
-          <h3 style={{ fontWeight: "bold", lineHeight: 1.1, mb: 1.5 }}>
+          <h3
+            style={{
+              fontWeight: "bold",
+              lineHeight: 1.1,
+              mb: 1.5,
+              marginBottom: "20px",
+              fontSize: "20px",
+            }}
+          >
             {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
           </h3>
           <p
             style={{
               fontFamily: "Arial, sans-serif",
-              fontSize: "12px",
+              fontSize: "13px",
               letterSpacing: "0.5px",
-              textAlign: "center",
+              textAlign: "left",
             }}
           >
             {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
