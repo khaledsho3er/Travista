@@ -13,12 +13,12 @@ const milestones = [
 ];
 
 const cardPositions = [
-  { x: 721.87, y: 316.06 },
-  { x: 1150.36, y: 602.45 },
-  { x: 721.87, y: 444.39 },
+  { x: 721.87, y: 259.06 },
+  { x: 721.87, y: 605.45 },
+  { x: 1150.36, y: 447.39 },
   { x: 1150.36, y: 731.74 },
   { x: 721.87, y: 942.58 },
-  { x: 1150.36, y: 1093.68 },
+  { x: 1150.36, y: 1107.68 },
   { x: 721.87, y: 1341.93 },
 ];
 
@@ -34,7 +34,7 @@ function Timeline() {
       sx={{
         position: "relative",
         width: "100%",
-        minHeight: isMobile ? `${milestones.length * 300}px` : "1960px",
+        minHeight: isMobile ? `${milestones.length * 300}px` : "1560px",
         paddingTop: "50px",
         paddingBottom: "150px",
         backgroundImage: 'url("assets/About/background.png")',
@@ -55,7 +55,7 @@ function Timeline() {
           top: 0,
           left: 0,
           width: "100%",
-          height: "65%",
+          height: "90%",
           zIndex: 0,
           pointerEvents: "none",
         }}
