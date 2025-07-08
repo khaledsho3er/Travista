@@ -58,23 +58,15 @@ function Timeline() {
   const updatePoints = () => {
     if (!containerRef.current) return;
     const containerRect = containerRef.current.getBoundingClientRect();
-    // Start with the top center of the container
-    const startX = containerRect.width / 2;
-    const startY = 40; // some padding from the top
-    const newPoints = [
-      { x: startX, y: startY },
-      ...cardRefs.current
-        .map((ref) => {
-          if (!ref) return null;
-          const cardRect = ref.getBoundingClientRect();
-          return {
-            x: cardRect.left + cardRect.width / 2 - containerRect.left,
-            y: cardRect.top + cardRect.height / 2 - containerRect.top,
-          };
-        })
-        .filter(Boolean),
-    ];
-    setPoints(newPoints);
+    const newPoints = cardRefs.current.map((ref) => {
+      if (!ref) return null;
+      const cardRect = ref.getBoundingClientRect();
+      return {
+        x: cardRect.left + cardRect.width / 2 - containerRect.left,
+        y: cardRect.top + cardRect.height / 2 - containerRect.top,
+      };
+    });
+    setPoints(newPoints.filter(Boolean));
   };
 
   const generatePath = () => {
@@ -97,15 +89,18 @@ function Timeline() {
   };
   const generateSnakePath = () => {
     if (points.length < 2) return "";
+
     const amplitude = 120; // How far the snake path deviates left/right
     let d = `M ${points[0].x},${points[0].y}`;
+
     for (let i = 1; i < points.length; i++) {
-      // Alternate left/right for control point, but skip for the first segment (straight down)
+      // Alternate left/right for control point
       const direction = i % 2 === 0 ? 1 : -1;
       const controlX = points[i].x + amplitude * direction;
       const controlY = (points[i - 1].y + points[i].y) / 2;
       d += ` Q ${controlX},${controlY} ${points[i].x},${points[i].y}`;
     }
+
     return d;
   };
 
@@ -157,11 +152,11 @@ function Timeline() {
           ref={(el) => (cardRefs.current[index] = el)}
           sx={{
             position: "absolute",
-            width: isMobile ? "80%" : 320,
-            left: "50%",
-            transform: "translateX(-50%)",
+            width: isMobile ? "65%" : 280,
+            left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
+            transform: isMobile ? "translateX(-50%)" : "none",
             top: `${5 + index * (isMobile ? 14 : 12)}%`,
-            padding: "24px 28px",
+            padding: "20px",
             backgroundColor: "white",
             borderRadius: 5,
             boxShadow: 3,
