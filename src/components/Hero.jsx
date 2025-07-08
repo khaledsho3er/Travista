@@ -80,7 +80,6 @@ function Hero({ preloadedData = null }) {
               fontSize: "3rem",
               marginBottom: "-60px",
             },
-            ß,
           }}
         >
           {heroData.caption.split(".").map((segment, index) => (
