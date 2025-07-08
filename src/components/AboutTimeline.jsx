@@ -12,17 +12,14 @@ const milestones = [
   "2025 –Celebrated a landmark achievement: over 400,000 clients served worldwide across aviation, visa facilitation, leisure travel, group tours, and corporate tourism",
 ];
 
-const SVG_WIDTH = 1245;
-const SVG_HEIGHT = 1560;
-
 const cardPositions = [
-  { x: 721.87 / SVG_WIDTH, y: 259.06 / SVG_HEIGHT },
-  { x: 721.87 / SVG_WIDTH, y: 605.45 / SVG_HEIGHT },
-  { x: 1150.36 / SVG_WIDTH, y: 447.39 / SVG_HEIGHT },
-  { x: 1150.36 / SVG_WIDTH, y: 731.74 / SVG_HEIGHT },
-  { x: 721.87 / SVG_WIDTH, y: 942.58 / SVG_HEIGHT },
-  { x: 1150.36 / SVG_WIDTH, y: 1107.68 / SVG_HEIGHT },
-  { x: 721.87 / SVG_WIDTH, y: 1341.93 / SVG_HEIGHT },
+  { x: 721.87, y: 259.06 },
+  { x: 721.87, y: 605.45 },
+  { x: 1150.36, y: 447.39 },
+  { x: 1150.36, y: 731.74 },
+  { x: 721.87, y: 942.58 },
+  { x: 1150.36, y: 1107.68 },
+  { x: 721.87, y: 1341.93 },
 ];
 
 function Timeline() {
@@ -30,24 +27,6 @@ function Timeline() {
   const pathRef = useRef();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [containerSize, setContainerSize] = useState({
-    width: SVG_WIDTH,
-    height: SVG_HEIGHT,
-  });
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (containerRef.current) {
-        setContainerSize({
-          width: containerRef.current.offsetWidth,
-          height: containerRef.current.offsetHeight,
-        });
-      }
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   return (
     <Box
@@ -71,7 +50,7 @@ function Timeline() {
             position: "absolute",
             left: "50%",
             top: 0,
-            width: "4px",
+            width: "13px",
             height: `calc(100% - 100px)`,
             background: "#FED7D2",
             transform: "translateX(-50%)",
@@ -115,17 +94,14 @@ function Timeline() {
             y: `${120 + index * 220}px`,
           };
         } else {
-          pos = {
-            x: cardPositions[index].x * containerSize.width,
-            y: cardPositions[index].y * containerSize.height,
-          };
+          pos = cardPositions[index];
         }
         return (
           <Box
             key={index}
             sx={{
               position: "absolute",
-              width: isMobile ? "90%" : 320,
+              width: isMobile ? "80%" : 320,
               left: pos.x,
               top: pos.y,
               transform: "translate(-50%, -50%)",
