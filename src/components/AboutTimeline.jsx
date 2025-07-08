@@ -90,18 +90,15 @@ function Timeline() {
   const generateSnakePath = () => {
     if (points.length < 2) return "";
 
-    const amplitude = 60; // How far the snake path deviates up and down
-    const vSpacing =
-      (points[points.length - 1].y - points[0].y) / (points.length - 1);
-
-    let d = `M ${points[0].x},${points[0].y}`; // Start the path at the first point
+    const amplitude = 120; // How far the snake path deviates left/right
+    let d = `M ${points[0].x},${points[0].y}`;
 
     for (let i = 1; i < points.length; i++) {
-      const direction = i % 2 === 0 ? 1 : -1; // Alternate directions
-      const controlY = points[i - 1].y + (vSpacing / 2) * direction;
-
-      // Create smooth curves between the points
-      d += ` Q ${points[i - 1].x},${controlY} ${points[i].x},${points[i].y}`;
+      // Alternate left/right for control point
+      const direction = i % 2 === 0 ? 1 : -1;
+      const controlX = points[i].x + amplitude * direction;
+      const controlY = (points[i - 1].y + points[i].y) / 2;
+      d += ` Q ${controlX},${controlY} ${points[i].x},${points[i].y}`;
     }
 
     return d;
@@ -155,7 +152,7 @@ function Timeline() {
           ref={(el) => (cardRefs.current[index] = el)}
           sx={{
             position: "absolute",
-            width: isMobile ? "80%" : 220,
+            width: isMobile ? "65%" : 280,
             left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
             transform: isMobile ? "translateX(-50%)" : "none",
             top: `${5 + index * (isMobile ? 14 : 12)}%`,
