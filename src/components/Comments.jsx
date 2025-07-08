@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Box,
   Typography,
@@ -14,12 +14,25 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 function Comments() {
-  const slider = React.useRef(null);
-  const [currentSlide, setCurrentSlide] = React.useState(0);
-  const comments = [1, 2, 3, 4, 5, 6];
+  const slider = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
   const theme = useTheme();
   const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
   const isSmDown = useMediaQuery(theme.breakpoints.down("sm"));
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("https://api.travistasl.com/api/comments/admin")
+      .then((res) => res.json())
+      .then((data) => {
+        const filtered = data.filter((c) => c.isShow === true);
+        setComments(filtered);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
 
   var settings = {
     dots: false,
@@ -107,66 +120,80 @@ function Comments() {
           minHeight: { xs: 320, md: 520, lg: 620 },
         }}
       >
-        <Slider ref={slider} {...settings}>
-          {comments.map((_, index) => {
-            let scale = 0.7;
-            let zIndex = 0;
-            let opacity = 0.7;
-            const diff = getRealIndex(index);
-            if (diff === 0) {
-              scale = 1;
-              zIndex = 2;
-              opacity = 1;
-            } else if (Math.abs(diff) === 1) {
-              scale = 0.8;
-              zIndex = 1;
-              opacity = 0.9;
-            }
-            return (
-              <Card
-                key={index}
-                sx={{
-                  background: "white",
-                  borderRadius: "30px",
-                  textAlign: "left",
-                  transform: `scale(${scale})`,
-                  transition: "all 0.3s cubic-bezier(.4,2,.6,1)",
-                  zIndex,
-                  opacity,
-                  margin: { xs: "0 2px", md: "0 10px" },
-                  boxShadow: diff === 0 ? 6 : 2,
-                  mx: "auto",
-                }}
-                component={"div"}
-                className="comment-card"
-              >
-                <CardContent
-                  sx={{ display: "flex", flexDirection: "column", gap: "20px" }}
-                  className="comment-content"
+        {loading ? (
+          <Typography color="white" align="center" sx={{ mt: 8 }}>
+            Loading comments...
+          </Typography>
+        ) : comments.length === 0 ? (
+          <Typography color="white" align="center" sx={{ mt: 8 }}>
+            No comments to show.
+          </Typography>
+        ) : (
+          <Slider ref={slider} {...settings}>
+            {comments.map((comment, index) => {
+              let scale = 0.7;
+              let zIndex = 0;
+              let opacity = 0.7;
+              const diff = getRealIndex(index);
+              if (diff === 0) {
+                scale = 1;
+                zIndex = 2;
+                opacity = 1;
+              } else if (Math.abs(diff) === 1) {
+                scale = 0.8;
+                zIndex = 1;
+                opacity = 0.9;
+              }
+              return (
+                <Card
+                  key={comment._id}
+                  sx={{
+                    background: "white",
+                    borderRadius: "30px",
+                    textAlign: "left",
+                    transform: `scale(${scale})`,
+                    transition: "all 0.3s cubic-bezier(.4,2,.6,1)",
+                    zIndex,
+                    opacity,
+                    margin: { xs: "0 2px", md: "0 10px" },
+                    boxShadow: diff === 0 ? 6 : 2,
+                    mx: "auto",
+                  }}
+                  component={"div"}
+                  className="comment-card"
                 >
-                  <Typography
-                    variant="body1"
-                    fontSize="1.2rem"
-                    color={"black"}
-                    fontWeight={700}
+                  <CardContent
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "20px",
+                    }}
+                    className="comment-content"
                   >
-                    Travista's expert guidance and affordable options made it
-                    possible for me to embark on this dream journey without
-                    compromising on quality. I can't recommend them enough.
-                  </Typography>
-
-                  <Box>
-                    <Typography variant="h7" color={"black"} fontWeight={800}>
-                      Sarah H.
+                    <Typography
+                      variant="body1"
+                      fontSize="1.2rem"
+                      color={"black"}
+                      fontWeight={700}
+                    >
+                      {comment.content}
                     </Typography>
 
-                    <Typography variant="body1">Member since 2016</Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </Slider>
+                    <Box>
+                      <Typography variant="h7" color={"black"} fontWeight={800}>
+                        {comment.author}
+                      </Typography>
+
+                      <Typography variant="body1">
+                        Member since {comment.memberSince}
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </Slider>
+        )}
         {/* Navigation buttons below, centered */}
         <Box
           sx={{

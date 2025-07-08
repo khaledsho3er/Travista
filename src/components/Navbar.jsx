@@ -244,14 +244,11 @@ function Navbar() {
     </Box>
   );
   return (
-    <Box sx={{ position: "sticky", top: 0, zIndex: 1100 }}>
+    <Box sx={{ position: "sticky", top: 0, zIndex: 10 }}>
       {!isOpen && (
         <AppBar
           // Sticky navbar
           sx={{
-            position: "sticky",
-            top: 0,
-            zIndex: 1100,
             padding: "10px 5%",
             backgroundColor: scrolling
               ? "rgba(0, 0, 0, 0.2)" // Semi-transparent background when scrolling
