@@ -17,13 +17,7 @@ function Timeline() {
   const cardRefs = useRef([]);
   const [points, setPoints] = useState([]);
   const [visible, setVisible] = useState(false);
-  const timelineWidth = 800; // or your container width
-  const startX = timelineWidth / 2; // center of the timeline
-  const startY = 100; // starting y position
-  const vSpacing = 220; // vertical space between milestones
-  const hOffset = 180; // how far left/right the snake goes
-  const cardWidth = 260; // width of your card
-  const cardHeight = 120; // height of your card
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -93,19 +87,21 @@ function Timeline() {
     }
     return d;
   };
-  // Example: Generate a snake path for N milestones
-  const getSnakePath = (milestones, startX, startY, vSpacing, hOffset) => {
-    let d = `M ${startX},${startY}`;
-    let x = startX;
-    let y = startY;
-    let direction = 1;
-    for (let i = 1; i < milestones.length; i++) {
-      const nextY = y + vSpacing;
-      const nextX = startX + direction * hOffset;
-      d += ` Q ${x},${y + vSpacing / 2} ${nextX},${nextY}`;
-      x = nextX;
-      y = nextY;
-      direction *= -1;
+  const generateSnakePath = () => {
+    if (points.length < 2) return "";
+    // Calculate the center x of the container
+    const containerWidth = 800; // or use a ref to get actual width
+    const centerX = containerWidth / 2;
+    const amplitude = 120; // how far left/right the snake goes
+    const vSpacing =
+      (points[points.length - 1].y - points[0].y) / (points.length - 1);
+
+    let d = `M ${centerX},${points[0].y}`;
+    for (let i = 1; i < points.length; i++) {
+      const direction = i % 2 === 0 ? -1 : 1;
+      const controlX = centerX + direction * amplitude;
+      const controlY = points[i - 1].y + vSpacing / 2;
+      d += ` Q ${controlX},${controlY} ${centerX},${points[i].y}`;
     }
     return d;
   };
@@ -137,7 +133,7 @@ function Timeline() {
         }}
       >
         <path
-          d={getSnakePath()}
+          d={generateSnakePath()}
           fill="none"
           stroke="#f7a9a8"
           strokeWidth="8"
@@ -158,9 +154,9 @@ function Timeline() {
           sx={{
             position: "absolute",
             width: isMobile ? "80%" : 220,
-            // left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
+            left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
             transform: isMobile ? "translateX(-50%)" : "none",
-            // top: `${5 + index * (isMobile ? 14 : 12)}%`,
+            top: `${5 + index * (isMobile ? 14 : 12)}%`,
             padding: "20px",
             backgroundColor: "white",
             borderRadius: 5,
@@ -169,11 +165,6 @@ function Timeline() {
             zIndex: 2,
             opacity: visible ? 1 : 0,
             transition: "opacity 1s ease",
-            top: `${startY + index * vSpacing - cardHeight / 2}px`,
-            left:
-              index % 2 === 0
-                ? `${startX - hOffset - cardWidth}px`
-                : `${startX + hOffset}px`,
           }}
         >
           <h3
