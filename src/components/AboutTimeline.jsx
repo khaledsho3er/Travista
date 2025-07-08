@@ -12,14 +12,17 @@ const milestones = [
   "2025 –Celebrated a landmark achievement: over 400,000 clients served worldwide across aviation, visa facilitation, leisure travel, group tours, and corporate tourism",
 ];
 
+const SVG_WIDTH = 1245;
+const SVG_HEIGHT = 1560;
+
 const cardPositions = [
-  { x: 721.87, y: 259.06 },
-  { x: 721.87, y: 605.45 },
-  { x: 1150.36, y: 447.39 },
-  { x: 1150.36, y: 731.74 },
-  { x: 721.87, y: 942.58 },
-  { x: 1150.36, y: 1107.68 },
-  { x: 721.87, y: 1341.93 },
+  { x: 721.87 / SVG_WIDTH, y: 259.06 / SVG_HEIGHT },
+  { x: 721.87 / SVG_WIDTH, y: 605.45 / SVG_HEIGHT },
+  { x: 1150.36 / SVG_WIDTH, y: 447.39 / SVG_HEIGHT },
+  { x: 1150.36 / SVG_WIDTH, y: 731.74 / SVG_HEIGHT },
+  { x: 721.87 / SVG_WIDTH, y: 942.58 / SVG_HEIGHT },
+  { x: 1150.36 / SVG_WIDTH, y: 1107.68 / SVG_HEIGHT },
+  { x: 721.87 / SVG_WIDTH, y: 1341.93 / SVG_HEIGHT },
 ];
 
 function Timeline() {
@@ -27,6 +30,24 @@ function Timeline() {
   const pathRef = useRef();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [containerSize, setContainerSize] = useState({
+    width: SVG_WIDTH,
+    height: SVG_HEIGHT,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (containerRef.current) {
+        setContainerSize({
+          width: containerRef.current.offsetWidth,
+          height: containerRef.current.offsetHeight,
+        });
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <Box
@@ -43,41 +64,68 @@ function Timeline() {
         overflow: "hidden",
       }}
     >
-      {/* SVG Path as background */}
-      <svg
-        width="1245"
-        height="1960"
-        viewBox="0 0 1245 1960"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "90%",
-          zIndex: 0,
-          pointerEvents: "none",
-        }}
-      >
-        <path
-          ref={pathRef}
-          d="M631.134 1C637.633 407.591 296.928 522.502 130.621 613.098C-31.1011 701.194 -22.4677 881.881 168.012 891.775C178.939 892.343 189.831 889.953 199.87 885.602L773.128 637.142L916.622 613.098C1303.41 547.981 1334.25 904.82 1010.11 995.095C1006.21 996.181 1002.1 996.939 998.071 997.372L352.644 1066.74C-51.8401 1107.25 -30.3408 1258.78 83.6548 1287.29L877.148 1407.9C881.126 1408.51 885.324 1408.8 889.347 1408.84C1216.42 1411.84 1161.39 1651.37 1047.62 1651.37L291.147 1667.37C-49.3401 1646.37 -51.3402 1933.93 184.651 1933.93H530C538.167 1933.93 241.348 1937.57 526.5 1933.93C241.348 1937.57 643.815 1933.17 259 1947L96.8627 1917.42"
-          stroke="#FED7D2"
-          strokeWidth="24"
-          fill="none"
+      {/* Timeline Path */}
+      {isMobile ? (
+        <Box
+          sx={{
+            position: "absolute",
+            left: "50%",
+            top: 0,
+            width: "4px",
+            height: `calc(100% - 100px)`,
+            background: "#FED7D2",
+            transform: "translateX(-50%)",
+            zIndex: 0,
+          }}
         />
-      </svg>
+      ) : (
+        <svg
+          width="1245"
+          height="1560"
+          viewBox="0 0 1245 1560"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "90%",
+            zIndex: 0,
+            pointerEvents: "none",
+          }}
+        >
+          <path
+            ref={pathRef}
+            d="M631.134 1C637.633 407.591 296.928 522.502 130.621 613.098C-31.1011 701.194 -22.4677 881.881 168.012 891.775C178.939 892.343 189.831 889.953 199.87 885.602L773.128 637.142L916.622 613.098C1303.41 547.981 1334.25 904.82 1010.11 995.095C1006.21 996.181 1002.1 996.939 998.071 997.372L352.644 1066.74C-51.8401 1107.25 -30.3408 1258.78 83.6548 1287.29L877.148 1407.9C881.126 1408.51 885.324 1408.8 889.347 1408.84C1216.42 1411.84 1161.39 1651.37 1047.62 1651.37L291.147 1667.37C-49.3401 1646.37 -51.3402 1933.93 184.651 1933.93H530C538.167 1933.93 241.348 1937.57 526.5 1933.93C241.348 1937.57 643.815 1933.17 259 1947L96.8627 1917.42"
+            stroke="#FED7D2"
+            strokeWidth="24"
+            fill="none"
+          />
+        </svg>
+      )}
 
       {/* Milestone Cards */}
       {milestones.map((text, index) => {
-        const pos = cardPositions[index];
+        let pos;
+        if (isMobile) {
+          // Stack vertically, center horizontally
+          pos = {
+            x: "50%",
+            y: `${120 + index * 220}px`,
+          };
+        } else {
+          pos = {
+            x: cardPositions[index].x * containerSize.width,
+            y: cardPositions[index].y * containerSize.height,
+          };
+        }
         return (
           <Box
             key={index}
             sx={{
               position: "absolute",
-              width: isMobile ? "80%" : 320,
+              width: isMobile ? "90%" : 320,
               left: pos.x,
               top: pos.y,
               transform: "translate(-50%, -50%)",
