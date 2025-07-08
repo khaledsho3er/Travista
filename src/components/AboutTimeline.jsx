@@ -12,7 +12,7 @@ const milestones = [
   "2025 –Celebrated a landmark achievement: over 400,000 clients served worldwide across aviation, visa facilitation, leisure travel, group tours, and corporate tourism",
 ];
 
-function Timeline() {
+const Timeline = () => {
   const containerRef = useRef();
   const cardRefs = useRef([]);
   const [points, setPoints] = useState([]);
@@ -21,34 +21,27 @@ function Timeline() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  // Reveal animation trigger
+  const lineDuration = 4; // seconds
+  const animationOffset = 0.3; // card delay spacing in seconds
+
   useEffect(() => {
-    const node = containerRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setVisible(true);
       },
       { threshold: 0.1 }
     );
-
+    const node = containerRef.current;
     if (node) observer.observe(node);
-
-    return () => {
-      if (node) observer.unobserve(node);
-    };
+    return () => node && observer.unobserve(node);
   }, []);
 
-  // Measure layout once visible with small delay
   useEffect(() => {
     if (!visible) return;
-    const timeout = setTimeout(() => {
-      updatePoints();
-    }, 100); // 100ms gives Chrome time to stabilize layout
-
+    const timeout = setTimeout(() => updatePoints(), 100);
     return () => clearTimeout(timeout);
   }, [visible]);
 
-  // Recalculate on window resize
   useEffect(() => {
     const handleResize = () => updatePoints();
     window.addEventListener("resize", handleResize);
@@ -56,7 +49,6 @@ function Timeline() {
   }, []);
 
   const updatePoints = () => {
-    if (!containerRef.current) return;
     const containerRect = containerRef.current.getBoundingClientRect();
     const newPoints = cardRefs.current.map((ref) => {
       if (!ref) return null;
@@ -69,58 +61,36 @@ function Timeline() {
     setPoints(newPoints.filter(Boolean));
   };
 
-  const generatePath = () => {
-    if (points.length < 2) return "";
-    // Define left and right x positions for the snake
-    const leftX = points[0].x - 120; // adjust as needed
-    const rightX = points[0].x + 120; // adjust as needed
-    let d = `M ${points[0].x},${points[0].y}`;
-    for (let i = 1; i < points.length; i++) {
-      // Alternate between left and right
-      const isEven = i % 2 === 0;
-      const targetX = isEven ? leftX : rightX;
-      // Go horizontal to the side, then vertical to the next point
-      d += ` Q ${targetX},${points[i - 1].y} ${targetX},${
-        (points[i - 1].y + points[i].y) / 2
-      }`;
-      d += ` Q ${targetX},${points[i].y} ${points[i].x},${points[i].y}`;
-    }
-    return d;
-  };
   const generateSnakePath = () => {
     if (points.length < 2) return "";
-    // Calculate the center x of the container
-    const containerWidth = 800; // or use a ref to get actual width
-    const centerX = containerWidth / 2;
-    const amplitude = 120; // how far left/right the snake goes
-    const vSpacing =
-      (points[points.length - 1].y - points[0].y) / (points.length - 1);
-
+    const centerX = points[0].x;
+    const amplitude = 140;
     let d = `M ${centerX},${points[0].y}`;
     for (let i = 1; i < points.length; i++) {
       const direction = i % 2 === 0 ? -1 : 1;
       const controlX = centerX + direction * amplitude;
-      const controlY = points[i - 1].y + vSpacing / 2;
+      const controlY = (points[i - 1].y + points[i].y) / 2;
       d += ` Q ${controlX},${controlY} ${centerX},${points[i].y}`;
     }
     return d;
   };
+
   return (
     <Box
       ref={containerRef}
       sx={{
         position: "relative",
         width: "100%",
-        minHeight: isMobile ? `${milestones.length * 300}px` : "1450px",
-        paddingTop: "50px",
-        paddingBottom: "150px", // prevents clipping into footer
-        backgroundImage: 'url("assets/About/background.png")',
+        minHeight: isMobile ? `${milestones.length * 300}px` : "1800px",
+        pt: 10,
+        pb: 20,
+        backgroundImage: 'url("/assets/About/background.png")',
         backgroundSize: "cover",
         backgroundPosition: "center",
         overflow: "hidden",
       }}
     >
-      {/* Timeline Path */}
+      {/* Snake Path Line */}
       <svg
         style={{
           position: "absolute",
@@ -128,7 +98,7 @@ function Timeline() {
           left: 0,
           width: "100%",
           height: "100%",
-          zIndex: 0,
+          zIndex: 1,
           pointerEvents: "none",
         }}
       >
@@ -141,57 +111,54 @@ function Timeline() {
           style={{
             strokeDasharray: 10000,
             strokeDashoffset: 10000,
-            animation: visible ? "drawLine 3s ease forwards" : "none",
+            animation: visible
+              ? `drawLine ${lineDuration}s ease forwards`
+              : "none",
           }}
         />
       </svg>
 
-      {/* Milestone Cards */}
-      {milestones.map((text, index) => (
-        <Box
-          key={index}
-          ref={(el) => (cardRefs.current[index] = el)}
-          sx={{
-            position: "absolute",
-            width: isMobile ? "80%" : 220,
-            left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
-            transform: isMobile ? "translateX(-50%)" : "none",
-            top: `${5 + index * (isMobile ? 14 : 12)}%`,
-            padding: "20px",
-            backgroundColor: "white",
-            borderRadius: 5,
-            boxShadow: 3,
-            textAlign: "left",
-            zIndex: 2,
-            opacity: visible ? 1 : 0,
-            transition: "opacity 1s ease",
-          }}
-        >
-          <h3
-            style={{
-              fontWeight: "bold",
-              lineHeight: 1.1,
-              mb: 1.5,
-              marginBottom: "20px",
-              fontSize: "20px",
-            }}
-          >
-            {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
-          </h3>
-          <p
-            style={{
-              fontFamily: "Arial, sans-serif",
-              fontSize: "13px",
-              letterSpacing: "0.5px",
-              textAlign: "left",
-            }}
-          >
-            {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
-          </p>
-        </Box>
-      ))}
+      {/* Milestones */}
+      {milestones.map((text, index) => {
+        const year = text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0];
+        const content = text.replace(
+          /^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/,
+          ""
+        );
+        const delay = animationOffset * index;
 
-      {/* Keyframe animation */}
+        return (
+          <Box
+            key={index}
+            ref={(el) => (cardRefs.current[index] = el)}
+            sx={{
+              position: "absolute",
+              width: isMobile ? "80%" : "250px",
+              left: isMobile ? "50%" : index % 2 === 0 ? "18%" : "58%",
+              transform: isMobile ? "translateX(-50%)" : "none",
+              top: `${100 + index * (isMobile ? 280 : 220)}px`,
+              p: 2,
+              backgroundColor: "white",
+              borderRadius: 3,
+              boxShadow: 3,
+              zIndex: 2,
+              opacity: 0,
+              animation: visible
+                ? `fadeInUp 0.8s ease ${delay + 1}s forwards`
+                : "none",
+            }}
+          >
+            <h3
+              style={{ fontWeight: "bold", fontSize: "18px", marginBottom: 10 }}
+            >
+              {year}
+            </h3>
+            <p style={{ fontSize: "13px", lineHeight: 1.5 }}>{content}</p>
+          </Box>
+        );
+      })}
+
+      {/* Animations */}
       <style>
         {`
           @keyframes drawLine {
@@ -199,10 +166,21 @@ function Timeline() {
               stroke-dashoffset: 0;
             }
           }
+
+          @keyframes fadeInUp {
+            from {
+              transform: translateY(20px);
+              opacity: 0;
+            }
+            to {
+              transform: translateY(0px);
+              opacity: 1;
+            }
+          }
         `}
       </style>
     </Box>
   );
-}
+};
 
 export default Timeline;
