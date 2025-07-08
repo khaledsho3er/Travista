@@ -76,13 +76,16 @@ function Timeline() {
       const prev = points[i - 1];
       const curr = points[i];
       const deltaX = curr.x - prev.x;
-      const control1 = { x: prev.x + deltaX * 0.3, y: prev.y };
-      const control2 = { x: curr.x - deltaX * 0.3, y: curr.y };
+      const deltaY = curr.y - prev.y;
+      // Alternate the curve direction for each segment
+      const direction = i % 2 === 0 ? 1 : -1;
+      const controlOffsetX = direction * Math.max(Math.abs(deltaX), 80); // 80px or more for snakey effect
+      const control1 = { x: prev.x + controlOffsetX, y: prev.y + deltaY / 3 };
+      const control2 = { x: curr.x - controlOffsetX, y: curr.y - deltaY / 3 };
       d += ` C ${control1.x},${control1.y} ${control2.x},${control2.y} ${curr.x},${curr.y}`;
     }
     return d;
   };
-
   return (
     <Box
       ref={containerRef}
@@ -131,7 +134,7 @@ function Timeline() {
           ref={(el) => (cardRefs.current[index] = el)}
           sx={{
             position: "absolute",
-            width: isMobile ? "80%" : 200,
+            width: isMobile ? "80%" : 220,
             left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
             transform: isMobile ? "translateX(-50%)" : "none",
             top: `${5 + index * (isMobile ? 14 : 12)}%`,
@@ -151,7 +154,7 @@ function Timeline() {
           <p
             style={{
               fontFamily: "Arial, sans-serif",
-              fontSize: "14px",
+              fontSize: "12px",
               letterSpacing: "0.5px",
               textAlign: "center",
             }}
