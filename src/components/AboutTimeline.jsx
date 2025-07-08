@@ -12,38 +12,36 @@ const milestones = [
   "2025 –Celebrated a landmark achievement: over 400,000 clients served worldwide across aviation, visa facilitation, leisure travel, group tours, and corporate tourism",
 ];
 
+const cardPositions = [
+  { x: 721.87, y: 259.06 },
+  { x: 721.87, y: 605.45 },
+  { x: 1150.36, y: 447.39 },
+  { x: 1150.36, y: 731.74 },
+  { x: 721.87, y: 942.58 },
+  { x: 1150.36, y: 1107.68 },
+  { x: 721.87, y: 1341.93 },
+];
+
 function Timeline() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  // 1024px breakpoint
-  const is1024 = useMediaQuery("(max-width:1024px)");
-  // 1440px breakpoint
-  const is1440 = useMediaQuery("(max-width:1440px)");
   const isTablet = useMediaQuery(theme.breakpoints.between(768, 1023));
+  const is1024 = useMediaQuery("(max-width:1024px)");
+  const is1440 = useMediaQuery("(max-width:1440px)");
 
   const containerRef = useRef();
 
-  // Responsive X positions
-  let leftX, rightX;
-  if (is1024) {
-    leftX = 251.87;
-    rightX = 721.87;
-  } else if (is1440) {
-    leftX = 442.87;
-    rightX = 934.36;
-  } else {
-    leftX = 721.87;
-    rightX = 1150.36;
-  }
-
-  // Y positions remain the same
-  const yPositions = [259.06, 605.45, 447.39, 731.74, 942.58, 1107.68, 1341.93];
-
-  // Alternate X for each card
-  const cardPositions = yPositions.map((y, i) => ({
-    x: i % 2 === 0 ? leftX : rightX,
-    y,
-  }));
+  // Helper to get responsive X
+  const getResponsiveX = (x) => {
+    if (is1024) {
+      if (x === 721.87) return 251.87;
+      if (x === 1150.36) return 721.87;
+    } else if (is1440) {
+      if (x === 721.87) return 442.87;
+      if (x === 1150.36) return 934.36;
+    }
+    return x;
+  };
 
   return (
     <Box
@@ -155,13 +153,14 @@ function Timeline() {
           {/* Desktop: Positioned Cards */}
           {milestones.map((text, index) => {
             const pos = cardPositions[index];
+            const responsiveX = getResponsiveX(pos.x);
             return (
               <Box
                 key={index}
                 sx={{
                   position: "absolute",
                   width: 320,
-                  left: pos.x,
+                  left: responsiveX,
                   top: pos.y,
                   transform: "translate(-50%, -50%)",
                   padding: "24px 28px",
