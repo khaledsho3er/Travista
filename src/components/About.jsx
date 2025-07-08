@@ -26,7 +26,12 @@ function About() {
 
       <Button
         className="btn btn-primary"
-        sx={{ padding: "10px 80px !important", fontweight: "bold" }}
+        sx={{
+          padding: "10px 80px !important",
+          fontweight: "bold",
+          color: "white",
+          backgroundColor: "var(--maroon)",
+        }}
         onClick={handleAboutUs}
       >
         Our Story
