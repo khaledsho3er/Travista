@@ -310,7 +310,7 @@ function Navbar() {
                     border: "1px solid",
                     transition:
                       "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
-                    "@media (max-width:375px)": {
+                    "@media (max-width:600px)": {
                       display: "none",
                     },
                   }}
@@ -339,7 +339,7 @@ function Navbar() {
                     border: "1px solid",
                     transition:
                       "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
-                    "@media (max-width:375px)": {
+                    "@media (max-width:600px)": {
                       display: "none",
                     },
                   }}
