@@ -49,8 +49,7 @@ function Timeline() {
       sx={{
         position: "relative",
         width: "100%",
-        minHeight:
-          isMobile || isTablet ? `${milestones.length * 300}px` : "1700px",
+        minHeight: isMobile || isTablet ? `100%` : "1700px",
         pt: 8,
         pb: 12,
         backgroundImage: 'url("assets/About/background.png")',
@@ -68,7 +67,7 @@ function Timeline() {
               top: 0,
               left: "50%",
               width: "10px",
-              height: "65%",
+              height: "92%",
               transform: "translateX(-50%)",
               backgroundColor: "#FED7D2",
               zIndex: 1,
