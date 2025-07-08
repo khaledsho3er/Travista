@@ -308,11 +308,11 @@ function Navbar() {
                     height: "40px",
                     fontSize: "0.5rem",
                     border: "1px solid",
-                    // borderRadius: "20px",
-                    // color: navColor,
-                    // borderColor: navColor,
                     transition:
                       "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
+                    "@media (max-width:375px)": {
+                      display: "none",
+                    },
                   }}
                 >
                   {/* <PersonOutlineIcon
@@ -337,11 +337,11 @@ function Navbar() {
                     height: "40px",
                     fontSize: "0.65rem",
                     border: "1px solid",
-                    // borderRadius: "20px",
-                    // color: navColor,
-                    // borderColor: navColor,
                     transition:
                       "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
+                    "@media (max-width:375px)": {
+                      display: "none",
+                    },
                   }}
                 >
                   <PersonOutlineIcon
