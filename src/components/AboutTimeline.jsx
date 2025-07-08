@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 const milestones = [
