@@ -1039,6 +1039,13 @@
   .FAQs-content {
     margin: 0;
   }
+  .toolbar button.btn {
+    font-size: small;
+    width: 130px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 /* Laptop Views (Keep Images) BMP steps*/
 @media screen and (min-width: 1025px) and (max-width: 1400px) {
