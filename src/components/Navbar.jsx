@@ -50,7 +50,7 @@ function Timeline() {
             position: "absolute",
             left: "50%",
             top: 0,
-            width: "4px",
+            width: "13px",
             height: `calc(100% - 100px)`,
             background: "#FED7D2",
             transform: "translateX(-50%)",
@@ -86,13 +86,15 @@ function Timeline() {
 
       {/* Milestone Cards */}
       {milestones.map((text, index) => {
-        const pos = cardPositions[index];
+        let pos;
         if (isMobile) {
           // Stack vertically, center horizontally
           pos = {
             x: "50%",
             y: `${120 + index * 220}px`,
           };
+        } else {
+          pos = cardPositions[index];
         }
         return (
           <Box
