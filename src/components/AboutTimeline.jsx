@@ -89,22 +89,24 @@ function Timeline() {
   };
   const generateSnakePath = () => {
     if (points.length < 2) return "";
-    // Calculate the center x of the container
-    const containerWidth = 800; // or use a ref to get actual width
-    const centerX = containerWidth / 2;
-    const amplitude = 120; // how far left/right the snake goes
+
+    const amplitude = 60; // How far the snake path deviates up and down
     const vSpacing =
       (points[points.length - 1].y - points[0].y) / (points.length - 1);
 
-    let d = `M ${centerX},${points[0].y}`;
+    let d = `M ${points[0].x},${points[0].y}`; // Start the path at the first point
+
     for (let i = 1; i < points.length; i++) {
-      const direction = i % 2 === 0 ? -1 : 1;
-      const controlX = centerX + direction * amplitude;
-      const controlY = points[i - 1].y + vSpacing / 2;
-      d += ` Q ${controlX},${controlY} ${centerX},${points[i].y}`;
+      const direction = i % 2 === 0 ? 1 : -1; // Alternate directions
+      const controlY = points[i - 1].y + (vSpacing / 2) * direction;
+
+      // Create smooth curves between the points
+      d += ` Q ${points[i - 1].x},${controlY} ${points[i].x},${points[i].y}`;
     }
+
     return d;
   };
+
   return (
     <Box
       ref={containerRef}
@@ -135,7 +137,7 @@ function Timeline() {
         <path
           d={generateSnakePath()}
           fill="none"
-          stroke="#f7a9a8"
+          stroke="#f7a9a8" // Match your chosen aesthetic
           strokeWidth="8"
           strokeLinecap="round"
           style={{
