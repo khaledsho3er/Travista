@@ -130,85 +130,38 @@ function Timeline() {
 
       {/* Milestone Cards */}
       {milestones.map((text, index) => (
-        // <Box
-        //   key={index}
-        //   ref={(el) => (cardRefs.current[index] = el)}
-        //   sx={{
-        //     position: "absolute",
-        //     width: isMobile ? "80%" : 220,
-        //     left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
-        //     transform: isMobile ? "translateX(-50%)" : "none",
-        //     top: `${5 + index * (isMobile ? 14 : 12)}%`,
-        //     padding: 2,
-        //     backgroundColor: "white",
-        //     borderRadius: 2,
-        //     boxShadow: 3,
-        //     textAlign: "center",
-        //     zIndex: 2,
-        //     opacity: visible ? 1 : 0,
-        //     transition: "opacity 1s ease",
-        //   }}
-        // >
-        //   <h3 style={{ fontWeight: "bold" }}>
-        //     {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
-        //   </h3>
-        //   <p
-        //     style={{
-        //       fontFamily: "Arial, sans-serif",
-        //       fontSize: "12px",
-        //       letterSpacing: "0.5px",
-        //       textAlign: "center",
-        //     }}
-        //   >
-        //     {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
-        //   </p>
-        // </Box>
         <Box
+          key={index}
+          ref={(el) => (cardRefs.current[index] = el)}
           sx={{
-            background: "#fff",
-            borderRadius: "16px",
-            boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
-            padding: "28px 24px",
-            minWidth: 260,
-            maxWidth: 340,
+            position: "absolute",
+            width: isMobile ? "80%" : 220,
+            left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
+            transform: isMobile ? "translateX(-50%)" : "none",
+            top: `${5 + index * (isMobile ? 14 : 12)}%`,
+            padding: 2,
+            backgroundColor: "white",
+            borderRadius: 5,
+            boxShadow: 3,
             textAlign: "left",
-            display: "flex",
-            flexDirection: "column",
-            gap: 1.5,
+            zIndex: 2,
+            opacity: visible ? 1 : 0,
+            transition: "opacity 1s ease",
           }}
         >
-          <Typography
-            variant="subtitle2"
-            sx={{
-              color: "#8A8A8A",
-              fontWeight: 500,
-              fontSize: "1rem",
-              mb: 0.5,
-            }}
-          ></Typography>
-          <Typography
-            variant="h4"
-            sx={{
-              color: "#22313F",
-              fontWeight: 900,
-              fontSize: "2.2rem",
-              lineHeight: 1.1,
-              mb: 1.5,
-            }}
-          >
+          <h3 style={{ fontWeight: "bold", lineHeight: 1.1, mb: 1.5 }}>
             {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color: "#22313F",
-              fontWeight: 400,
-              fontSize: "1.05rem",
-              lineHeight: 1.5,
+          </h3>
+          <p
+            style={{
+              fontFamily: "Arial, sans-serif",
+              fontSize: "12px",
+              letterSpacing: "0.5px",
+              textAlign: "center",
             }}
           >
             {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
-          </Typography>
+          </p>
         </Box>
       ))}
 
