@@ -89,7 +89,7 @@ function Timeline() {
       sx={{
         position: "relative",
         width: "100%",
-        minHeight: isMobile ? `${milestones.length * 220}px` : "1450px",
+        minHeight: isMobile ? `${milestones.length * 350}px` : "1450px",
         paddingTop: "50px",
         paddingBottom: "150px", // prevents clipping into footer
         backgroundImage: 'url("assets/About/background.png")',
@@ -134,7 +134,7 @@ function Timeline() {
             width: isMobile ? "80%" : 200,
             left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
             transform: isMobile ? "translateX(-50%)" : "none",
-            top: `${5 + index * (isMobile ? 17 : 12)}%`,
+            top: `${5 + index * (isMobile ? 14 : 12)}%`,
             padding: 2,
             backgroundColor: "white",
             borderRadius: 2,
