@@ -97,7 +97,7 @@ function Comments() {
       }}
     >
       <Typography
-        variant="h4"
+        variant="h6"
         color={"white"}
         fontWeight={800}
         p={15}
