@@ -89,7 +89,7 @@ function Timeline() {
       sx={{
         position: "relative",
         width: "100%",
-        minHeight: isMobile ? `${milestones.length * 160}px` : "1450px",
+        minHeight: isMobile ? `${milestones.length * 220}px` : "1450px",
         paddingTop: "50px",
         paddingBottom: "150px", // prevents clipping into footer
         backgroundImage: 'url("assets/About/background.png")',
