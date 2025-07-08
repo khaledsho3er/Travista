@@ -14,95 +14,31 @@ const milestones = [
 
 function Timeline() {
   const containerRef = useRef();
-  const cardRefs = useRef([]);
-  const [points, setPoints] = useState([]);
-  const [visible, setVisible] = useState(false);
-
+  const pathRef = useRef();
+  const [cardPositions, setCardPositions] = useState([]);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  // Reveal animation trigger
+  // Calculate card positions along the SVG path
   useEffect(() => {
-    const node = containerRef.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-
-    if (node) observer.observe(node);
-
-    return () => {
-      if (node) observer.unobserve(node);
+    const updatePositions = () => {
+      const path = pathRef.current;
+      const container = containerRef.current;
+      if (!path || !container) return;
+      const totalLength = path.getTotalLength();
+      const positions = [];
+      for (let i = 0; i < milestones.length; i++) {
+        const length = ((i + 1) / (milestones.length + 1)) * totalLength;
+        const { x, y } = path.getPointAtLength(length);
+        // Adjust for container offset
+        positions.push({ x, y });
+      }
+      setCardPositions(positions);
     };
+    updatePositions();
+    window.addEventListener("resize", updatePositions);
+    return () => window.removeEventListener("resize", updatePositions);
   }, []);
-
-  // Measure layout once visible with small delay
-  useEffect(() => {
-    if (!visible) return;
-    const timeout = setTimeout(() => {
-      updatePoints();
-    }, 100); // 100ms gives Chrome time to stabilize layout
-
-    return () => clearTimeout(timeout);
-  }, [visible]);
-
-  // Recalculate on window resize
-  useEffect(() => {
-    const handleResize = () => updatePoints();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const updatePoints = () => {
-    if (!containerRef.current) return;
-    const containerRect = containerRef.current.getBoundingClientRect();
-    const newPoints = cardRefs.current.map((ref) => {
-      if (!ref) return null;
-      const cardRect = ref.getBoundingClientRect();
-      return {
-        x: cardRect.left + cardRect.width / 2 - containerRect.left,
-        y: cardRect.top + cardRect.height / 2 - containerRect.top,
-      };
-    });
-    setPoints(newPoints.filter(Boolean));
-  };
-
-  const generatePath = () => {
-    if (points.length < 2) return "";
-    // Define left and right x positions for the snake
-    const leftX = points[0].x - 120; // adjust as needed
-    const rightX = points[0].x + 120; // adjust as needed
-    let d = `M ${points[0].x},${points[0].y}`;
-    for (let i = 1; i < points.length; i++) {
-      // Alternate between left and right
-      const isEven = i % 2 === 0;
-      const targetX = isEven ? leftX : rightX;
-      // Go horizontal to the side, then vertical to the next point
-      d += ` Q ${targetX},${points[i - 1].y} ${targetX},${
-        (points[i - 1].y + points[i].y) / 2
-      }`;
-      d += ` Q ${targetX},${points[i].y} ${points[i].x},${points[i].y}`;
-    }
-    return d;
-  };
-  const generateSnakePath = () => {
-    if (points.length < 2) return "";
-
-    const amplitude = 120; // How far the snake path deviates left/right
-    let d = `M ${points[0].x},${points[0].y}`;
-
-    for (let i = 1; i < points.length; i++) {
-      // Alternate left/right for control point
-      const direction = i % 2 === 0 ? 1 : -1;
-      const controlX = points[i].x + amplitude * direction;
-      const controlY = (points[i - 1].y + points[i].y) / 2;
-      d += ` Q ${controlX},${controlY} ${points[i].x},${points[i].y}`;
-    }
-
-    return d;
-  };
 
   return (
     <Box
@@ -110,17 +46,20 @@ function Timeline() {
       sx={{
         position: "relative",
         width: "100%",
-        minHeight: isMobile ? `${milestones.length * 300}px` : "1450px",
+        minHeight: isMobile ? `${milestones.length * 300}px` : "1960px",
         paddingTop: "50px",
-        paddingBottom: "150px", // prevents clipping into footer
-        backgroundImage: 'url("assets/About/background.png")',
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        paddingBottom: "150px",
+        background: "#eaf3f7",
         overflow: "hidden",
       }}
     >
-      {/* Timeline Path */}
+      {/* SVG Path as background */}
       <svg
+        width="1245"
+        height="1960"
+        viewBox="0 0 1245 1960"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
         style={{
           position: "absolute",
           top: 0,
@@ -132,75 +71,60 @@ function Timeline() {
         }}
       >
         <path
-          d={generateSnakePath()}
+          ref={pathRef}
+          d="M631.134 1C637.633 407.591 296.928 522.502 130.621 613.098C-31.1011 701.194 -22.4677 881.881 168.012 891.775C178.939 892.343 189.831 889.953 199.87 885.602L773.128 637.142L916.622 613.098C1303.41 547.981 1334.25 904.82 1010.11 995.095C1006.21 996.181 1002.1 996.939 998.071 997.372L352.644 1066.74C-51.8401 1107.25 -30.3408 1258.78 83.6548 1287.29L877.148 1407.9C881.126 1408.51 885.324 1408.8 889.347 1408.84C1216.42 1411.84 1161.39 1651.37 1047.62 1651.37L291.147 1667.37C-49.3401 1646.37 -51.3402 1933.93 184.651 1933.93H530C538.167 1933.93 241.348 1937.57 526.5 1933.93C241.348 1937.57 643.815 1933.17 259 1947L96.8627 1917.42"
+          stroke="#FED7D2"
+          strokeWidth="24"
           fill="none"
-          stroke="#f7a9a8" // Match your chosen aesthetic
-          strokeWidth="8"
-          strokeLinecap="round"
-          style={{
-            strokeDasharray: 10000,
-            strokeDashoffset: 10000,
-            animation: visible ? "drawLine 3s ease forwards" : "none",
-          }}
         />
       </svg>
 
       {/* Milestone Cards */}
-      {milestones.map((text, index) => (
-        <Box
-          key={index}
-          ref={(el) => (cardRefs.current[index] = el)}
-          sx={{
-            position: "absolute",
-            width: isMobile ? "65%" : 280,
-            left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
-            transform: isMobile ? "translateX(-50%)" : "none",
-            top: `${5 + index * (isMobile ? 14 : 12)}%`,
-            padding: "20px",
-            backgroundColor: "white",
-            borderRadius: 5,
-            boxShadow: 3,
-            textAlign: "left",
-            zIndex: 2,
-            opacity: visible ? 1 : 0,
-            transition: "opacity 1s ease",
-          }}
-        >
-          <h3
-            style={{
-              fontWeight: "bold",
-              lineHeight: 1.1,
-              mb: 1.5,
-              marginBottom: "20px",
-              fontSize: "20px",
-              fontFamily: "inter",
-            }}
-          >
-            {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
-          </h3>
-          <p
-            style={{
-              fontFamily: "inter",
-              fontSize: "13px",
-              letterSpacing: "0.5px",
-              textAlign: "left",
-            }}
-          >
-            {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
-          </p>
-        </Box>
-      ))}
-
-      {/* Keyframe animation */}
-      <style>
-        {`
-          @keyframes drawLine {
-            to {
-              stroke-dashoffset: 0;
-            }
-          }
-        `}
-      </style>
+      {cardPositions.length === milestones.length &&
+        milestones.map((text, index) => {
+          const pos = cardPositions[index];
+          return (
+            <Box
+              key={index}
+              sx={{
+                position: "absolute",
+                width: isMobile ? "80%" : 320,
+                left: `calc(${pos.x}px - ${isMobile ? "40%" : "160px"})`,
+                top: `calc(${pos.y}px - 60px)`,
+                padding: "24px 28px",
+                backgroundColor: "white",
+                borderRadius: 5,
+                boxShadow: 3,
+                textAlign: "left",
+                zIndex: 2,
+                opacity: 1,
+                transition: "opacity 1s ease",
+              }}
+            >
+              <h3
+                style={{
+                  fontWeight: "bold",
+                  lineHeight: 1.1,
+                  marginBottom: "20px",
+                  fontSize: "20px",
+                  fontFamily: "inter",
+                }}
+              >
+                {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
+              </h3>
+              <p
+                style={{
+                  fontFamily: "inter",
+                  fontSize: "13px",
+                  letterSpacing: "0.5px",
+                  textAlign: "left",
+                }}
+              >
+                {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
+              </p>
+            </Box>
+          );
+        })}
     </Box>
   );
 }
