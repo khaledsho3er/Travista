@@ -158,6 +158,13 @@ function Comments() {
                     margin: { xs: "0 2px", md: "0 10px" },
                     boxShadow: diff === 0 ? 6 : 2,
                     mx: "auto",
+                    width: {
+                      xs: "220px",
+                      sm: "260px",
+                      md: "320px",
+                      lg: "360px",
+                    }, // <--- add this line
+                    minHeight: { xs: "180px", md: "220px" }, // optional: adjust height for mobile
                   }}
                   component={"div"}
                   className="comment-card"
