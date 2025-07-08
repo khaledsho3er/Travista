@@ -71,18 +71,19 @@ function Timeline() {
 
   const generatePath = () => {
     if (points.length < 2) return "";
+    // Define left and right x positions for the snake
+    const leftX = points[0].x - 120; // adjust as needed
+    const rightX = points[0].x + 120; // adjust as needed
     let d = `M ${points[0].x},${points[0].y}`;
     for (let i = 1; i < points.length; i++) {
-      const prev = points[i - 1];
-      const curr = points[i];
-      const deltaX = curr.x - prev.x;
-      const deltaY = curr.y - prev.y;
-      // Alternate the curve direction for each segment
-      const direction = i % 2 === 0 ? 1 : -1;
-      const controlOffsetX = direction * Math.max(Math.abs(deltaX), 80); // 80px or more for snakey effect
-      const control1 = { x: prev.x + controlOffsetX, y: prev.y + deltaY / 3 };
-      const control2 = { x: curr.x - controlOffsetX, y: curr.y - deltaY / 3 };
-      d += ` C ${control1.x},${control1.y} ${control2.x},${control2.y} ${curr.x},${curr.y}`;
+      // Alternate between left and right
+      const isEven = i % 2 === 0;
+      const targetX = isEven ? leftX : rightX;
+      // Go horizontal to the side, then vertical to the next point
+      d += ` Q ${targetX},${points[i - 1].y} ${targetX},${
+        (points[i - 1].y + points[i].y) / 2
+      }`;
+      d += ` Q ${targetX},${points[i].y} ${points[i].x},${points[i].y}`;
     }
     return d;
   };
@@ -129,38 +130,85 @@ function Timeline() {
 
       {/* Milestone Cards */}
       {milestones.map((text, index) => (
+        // <Box
+        //   key={index}
+        //   ref={(el) => (cardRefs.current[index] = el)}
+        //   sx={{
+        //     position: "absolute",
+        //     width: isMobile ? "80%" : 220,
+        //     left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
+        //     transform: isMobile ? "translateX(-50%)" : "none",
+        //     top: `${5 + index * (isMobile ? 14 : 12)}%`,
+        //     padding: 2,
+        //     backgroundColor: "white",
+        //     borderRadius: 2,
+        //     boxShadow: 3,
+        //     textAlign: "center",
+        //     zIndex: 2,
+        //     opacity: visible ? 1 : 0,
+        //     transition: "opacity 1s ease",
+        //   }}
+        // >
+        //   <h3 style={{ fontWeight: "bold" }}>
+        //     {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
+        //   </h3>
+        //   <p
+        //     style={{
+        //       fontFamily: "Arial, sans-serif",
+        //       fontSize: "12px",
+        //       letterSpacing: "0.5px",
+        //       textAlign: "center",
+        //     }}
+        //   >
+        //     {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
+        //   </p>
+        // </Box>
         <Box
-          key={index}
-          ref={(el) => (cardRefs.current[index] = el)}
           sx={{
-            position: "absolute",
-            width: isMobile ? "80%" : 220,
-            left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
-            transform: isMobile ? "translateX(-50%)" : "none",
-            top: `${5 + index * (isMobile ? 14 : 12)}%`,
-            padding: 2,
-            backgroundColor: "white",
-            borderRadius: 2,
-            boxShadow: 3,
-            textAlign: "center",
-            zIndex: 2,
-            opacity: visible ? 1 : 0,
-            transition: "opacity 1s ease",
+            background: "#fff",
+            borderRadius: "16px",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
+            padding: "28px 24px",
+            minWidth: 260,
+            maxWidth: 340,
+            textAlign: "left",
+            display: "flex",
+            flexDirection: "column",
+            gap: 1.5,
           }}
         >
-          <h3 style={{ fontWeight: "bold" }}>
+          <Typography
+            variant="subtitle2"
+            sx={{
+              color: "#8A8A8A",
+              fontWeight: 500,
+              fontSize: "1rem",
+              mb: 0.5,
+            }}
+          ></Typography>
+          <Typography
+            variant="h4"
+            sx={{
+              color: "#22313F",
+              fontWeight: 900,
+              fontSize: "2.2rem",
+              lineHeight: 1.1,
+              mb: 1.5,
+            }}
+          >
             {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
-          </h3>
-          <p
-            style={{
-              fontFamily: "Arial, sans-serif",
-              fontSize: "12px",
-              letterSpacing: "0.5px",
-              textAlign: "center",
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "#22313F",
+              fontWeight: 400,
+              fontSize: "1.05rem",
+              lineHeight: 1.5,
             }}
           >
             {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
-          </p>
+          </Typography>
         </Box>
       ))}
 
