@@ -22,12 +22,41 @@ const AnimatedSection = ({ children, delay = 0 }) => {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      initial={{
+        opacity: 0,
+        y: 60,
+        scale: 0.96,
+        skewY: 4,
+        boxShadow: "0 24px 48px rgba(0,0,0,0.08)",
+      }}
+      animate={
+        isInView
+          ? {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              skewY: 0,
+              boxShadow: "0 4px 16px rgba(0,0,0,0.04)",
+            }
+          : {
+              opacity: 0,
+              y: 60,
+              scale: 0.96,
+              skewY: 4,
+              boxShadow: "0 24px 48px rgba(0,0,0,0.08)",
+            }
+      }
       transition={{
-        duration: 0.8,
+        duration: 0.55,
         delay: delay,
-        ease: "easeOut",
+        ease: [0.4, 0.0, 0.2, 1], // classic sharp cubic-bezier
+        type: "spring",
+        stiffness: 80,
+        damping: 18,
+      }}
+      style={{
+        borderRadius: "12px",
+        background: "rgba(255,255,255,0.01)", // subtle, for sharpness
       }}
     >
       {children}

@@ -185,9 +185,28 @@ const Explore = () => {
                 },
               }}
             >
+              {/* Overlay for image opacity */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  background: "rgba(0,0,0,0.35)", // adjust opacity as needed
+                  borderRadius: "20px",
+                  zIndex: 1,
+                  pointerEvents: "none",
+                }}
+              />
               <IconButton
                 aria-label="add to favorites"
-                sx={{ position: "absolute", top: "15px", right: "15px" }}
+                sx={{
+                  position: "absolute",
+                  top: "15px",
+                  right: "15px",
+                  zIndex: 2,
+                }}
               >
                 <FavoriteBorderIcon
                   sx={{
@@ -207,6 +226,8 @@ const Explore = () => {
                   backdropFilter: "blur(4px)",
                   borderRadius: "8px",
                   color: "white",
+                  position: "relative",
+                  zIndex: 2,
                   "@media (max-height:580px)": {
                     gap: "6px",
                     "& .MuiTypography-h4": { fontSize: "1.1rem" },
@@ -258,6 +279,8 @@ const Explore = () => {
                   sx={{
                     padding: { xs: "15px 60px", sm: "15px 80px" },
                     width: { xs: "100%", sm: "auto" },
+                    zIndex: 2,
+                    position: "relative",
                   }}
                   onClick={() => handlePackageClick(pkg)}
                 >
