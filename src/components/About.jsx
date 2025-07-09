@@ -18,7 +18,7 @@ function About() {
       gap="2rem"
       padding="5rem 10%"
     >
-      <Typography variant="h2" fontSize="2rem">
+      <Typography variant="h2" fontSize="1.4rem">
         With a sprinkle of wonder and a spirit of adventure, we craft
         unforgettable journeys that leave you inspired, amazed, and craving
         more.
@@ -55,7 +55,7 @@ function About() {
             alt="figure-1"
             style={{ display: "inline" }}
           />
-          <Typography variant="h4" fontWeight="800">
+          <Typography variant="h4" fontWeight="800" fontSize="2rem">
             Curated experiences
           </Typography>
           <Typography
@@ -63,6 +63,7 @@ function About() {
             width="80%"
             margin="0 auto"
             marginTop="20px"
+            fontSize="0.9"
           >
             Dive into immersive escapes where hidden gems, authentic flavors,
             and unique activities come together for one-of-a-kind travel
@@ -76,7 +77,7 @@ function About() {
             alt="figure-1"
             style={{ display: "inline" }}
           />
-          <Typography variant="h4" fontWeight="800">
+          <Typography variant="h4" fontWeight="800" fontSize="2rem">
             Trips all year long
           </Typography>
           <Typography
@@ -84,6 +85,7 @@ function About() {
             width="80%"
             margin="0 auto"
             marginTop="20px"
+            fontSize="0.9rem"
           >
             From summer getaways to winter retreats , we make every season the
             perfect time to discover somewhere new.
@@ -96,7 +98,7 @@ function About() {
             alt="figure-1"
             style={{ display: "inline" }}
           />
-          <Typography variant="h4" fontWeight="800">
+          <Typography variant="h4" fontWeight="800" fontSize="2rem">
             Travel on budget
           </Typography>
           <Typography
@@ -104,6 +106,7 @@ function About() {
             width="80%"
             margin="0 auto"
             marginTop="20px"
+            fontSize="0.9rem"
           >
             Live your travel dreams without the splurge. We make unforgettable
             trips affordable — so you never have to choose between budget and
