@@ -124,7 +124,7 @@ const Explore = () => {
           variant="h4"
           fontWeight="900"
           gutterBottom
-          sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" } }}
+          sx={{ fontSize: { xs: "1.2rem", sm: "1.7rem", md: "2.5rem" } }}
         >
           Explore our packages
         </Typography>
@@ -242,10 +242,11 @@ const Explore = () => {
                   sx={{
                     color: "#750046",
                     background: "white",
-                    padding: "5px",
+                    padding: { xs: "3px 8px", sm: "5px" },
                     width: "fit-content",
                     borderRadius: "5px",
                     fontWeight: "700",
+                    fontSize: { xs: "0.85rem", sm: "1rem" },
                   }}
                 >
                   {formatDate(pkg.departureDate)}
@@ -253,7 +254,7 @@ const Explore = () => {
                 <Typography
                   variant="h4"
                   fontWeight="900"
-                  sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
+                  sx={{ fontSize: { xs: "1.1rem", sm: "1.5rem", md: "2rem" } }}
                 >
                   {pkg.destinations.join(", ")}
                 </Typography>
@@ -262,12 +263,18 @@ const Explore = () => {
                   className="package-date"
                   variant="body1"
                   color="#fff"
-                  sx={{ fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem" } }}
+                  sx={{
+                    fontSize: { xs: "0.95rem", sm: "1.2rem", md: "1.5rem" },
+                  }}
                 >
                   {pkg.totalDays} Days, {pkg.totalNights} Nights
                 </Typography>
 
-                <Typography variant="h6" color="#bcdcf9">
+                <Typography
+                  variant="h6"
+                  color="#bcdcf9"
+                  sx={{ fontSize: { xs: "1rem", sm: "1.1rem", md: "1.2rem" } }}
+                >
                   from {formatPrice(pkg.packagePrice)}
                 </Typography>
               </CardContent>
@@ -277,8 +284,9 @@ const Explore = () => {
                   className="btn btn-secondary"
                   variant="contained"
                   sx={{
-                    padding: { xs: "15px 60px", sm: "15px 80px" },
+                    padding: { xs: "10px 0", sm: "15px 60px", md: "15px 80px" },
                     width: { xs: "100%", sm: "auto" },
+                    fontSize: { xs: "0.95rem", sm: "1rem" },
                     zIndex: 2,
                     position: "relative",
                   }}
@@ -301,7 +309,11 @@ const Explore = () => {
       <Box textAlign="center" mt={4}>
         <Button
           className="btn btn-primary"
-          sx={{ border: "1px solid var(--maroon)" }}
+          sx={{
+            border: "1px solid var(--maroon)",
+            fontSize: { xs: "0.95rem", sm: "1rem" },
+            padding: { xs: "10px 24px", sm: "12px 40px" },
+          }}
           onClick={handlePackagesClick}
         >
           Explore All Packages
