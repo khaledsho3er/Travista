@@ -124,7 +124,7 @@ const Explore = () => {
           variant="h4"
           fontWeight="900"
           gutterBottom
-          sx={{ fontSize: { xs: "1.2rem", sm: "1.7rem", md: "2.5rem" } }}
+          sx={{ fontSize: { xs: "1.5rem", sm: "1.7rem", md: "2.5rem" } }}
         >
           Explore our packages
         </Typography>
