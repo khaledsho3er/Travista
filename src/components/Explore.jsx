@@ -274,7 +274,7 @@ const Explore = () => {
                 {/* Price Highlight at the bottom */}
                 <Box
                   sx={{
-                    background: "var(--pink)",
+                    background: "var(--maroon)",
                     color: "#fff",
                     fontWeight: "bold",
                     fontSize: { xs: "1.3rem", sm: "1.6rem" },
@@ -283,10 +283,10 @@ const Explore = () => {
                     py: 1,
                     boxShadow: "0 2px 8px rgba(117,0,70,0.15)",
                     mt: 2,
-                    alignSelf: "flex-end",
+                    alignSelf: "flex-start",
                   }}
                 >
-                  from {formatPrice(pkg.packagePrice)}
+                  From {formatPrice(pkg.packagePrice)}
                 </Box>
               </CardContent>
 
