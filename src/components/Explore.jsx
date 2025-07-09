@@ -240,13 +240,13 @@ const Explore = () => {
                 <Typography
                   className="package-date"
                   variant="body1"
-                  color="#A5A5A5"
+                  color="#fff"
                   sx={{ fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem" } }}
                 >
                   {pkg.totalDays} Days, {pkg.totalNights} Nights
                 </Typography>
 
-                <Typography variant="h6" color="#FED7D2">
+                <Typography variant="h6" color="#bcdcf9">
                   from {formatPrice(pkg.packagePrice)}
                 </Typography>
               </CardContent>

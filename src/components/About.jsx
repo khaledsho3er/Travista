@@ -23,14 +23,13 @@ function About() {
         unforgettable journeys that leave you inspired, amazed, and craving
         more.
       </Typography>
-
       <Button
         className="btn btn-primary"
         sx={{
           padding: "10px 80px !important",
-          fontweight: "bold",
-          color: "white",
-          backgroundColor: "var(--maroon)",
+          fontWeight: "bold",
+          color: "#fff",
+          backgroundColor: "#750046",
         }}
         onClick={handleAboutUs}
       >
