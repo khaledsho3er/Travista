@@ -55,7 +55,7 @@ function About() {
             alt="figure-1"
             style={{ display: "inline" }}
           />
-          <Typography variant="h4" fontWeight="800" fontSize="2rem">
+          <Typography variant="h4" fontWeight="800" fontSize="1.5rem">
             Curated experiences
           </Typography>
           <Typography
@@ -63,7 +63,8 @@ function About() {
             width="80%"
             margin="0 auto"
             marginTop="20px"
-            fontSize="0.9"
+            marginBottom="20px"
+            fontSize="0.9rem"
           >
             Dive into immersive escapes where hidden gems, authentic flavors,
             and unique activities come together for one-of-a-kind travel
@@ -77,7 +78,7 @@ function About() {
             alt="figure-1"
             style={{ display: "inline" }}
           />
-          <Typography variant="h4" fontWeight="800" fontSize="2rem">
+          <Typography variant="h4" fontWeight="800" fontSize="1.5rem">
             Trips all year long
           </Typography>
           <Typography
@@ -85,7 +86,8 @@ function About() {
             width="80%"
             margin="0 auto"
             marginTop="20px"
-            fontSize="0.9rem"
+            marginBottom="20px"
+            fontSize="0.8rem"
           >
             From summer getaways to winter retreats , we make every season the
             perfect time to discover somewhere new.
@@ -98,7 +100,7 @@ function About() {
             alt="figure-1"
             style={{ display: "inline" }}
           />
-          <Typography variant="h4" fontWeight="800" fontSize="2rem">
+          <Typography variant="h4" fontWeight="800" fontSize="1.5rem">
             Travel on budget
           </Typography>
           <Typography
@@ -106,7 +108,8 @@ function About() {
             width="80%"
             margin="0 auto"
             marginTop="20px"
-            fontSize="0.9rem"
+            marginBottom="20px"
+            fontSize="0.8rem"
           >
             Live your travel dreams without the splurge. We make unforgettable
             trips affordable — so you never have to choose between budget and
