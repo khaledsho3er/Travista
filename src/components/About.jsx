@@ -28,8 +28,12 @@ function About() {
         sx={{
           padding: "10px 80px !important",
           fontWeight: "bold",
-          color: "#fff",
-          backgroundColor: "#750046",
+          color: "#750046",
+          backgroundColor: "#fff",
+          "&:hover": {
+            backgroundColor: "#750046",
+            color: "#fff",
+          },
         }}
         onClick={handleAboutUs}
       >
