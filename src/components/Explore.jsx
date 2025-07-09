@@ -228,6 +228,7 @@ const Explore = () => {
                   color: "white",
                   position: "relative",
                   zIndex: 2,
+                  alignItems: "flex-start",
                   "@media (max-height:580px)": {
                     gap: "6px",
                     "& .MuiTypography-h4": { fontSize: "1.1rem" },
@@ -270,13 +271,23 @@ const Explore = () => {
                   {pkg.totalDays} Days, {pkg.totalNights} Nights
                 </Typography>
 
-                <Typography
-                  variant="h6"
-                  color="#bcdcf9"
-                  sx={{ fontSize: { xs: "1rem", sm: "1.1rem", md: "1.2rem" } }}
+                {/* Price Highlight at the bottom */}
+                <Box
+                  sx={{
+                    background: "var(--pink)",
+                    color: "#fff",
+                    fontWeight: "bold",
+                    fontSize: { xs: "1.3rem", sm: "1.6rem" },
+                    borderRadius: "8px",
+                    px: 2,
+                    py: 1,
+                    boxShadow: "0 2px 8px rgba(117,0,70,0.15)",
+                    mt: 2,
+                    alignSelf: "flex-end",
+                  }}
                 >
                   from {formatPrice(pkg.packagePrice)}
-                </Typography>
+                </Box>
               </CardContent>
 
               <CardActions disableSpacing>

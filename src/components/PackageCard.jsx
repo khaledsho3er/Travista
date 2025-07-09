@@ -55,10 +55,7 @@ function PackageCard() {
             clicks away.
           </Typography>
 
-          <Typography
-            variant="body1"
-            fontSize={{ xs: "0.98rem", md: "1.1rem" }}
-          >
+          <Typography variant="body1" fontSize={{ xs: "0.8rem", md: "1.1rem" }}>
             Fuel your travel dreams and bring your ultimate getaway to life.
             Whether you crave tropical beaches, cultural gems, or wild
             adventures , mix and match destinations, experiences, and stays to
