@@ -30,7 +30,7 @@ function Hero({ preloadedData = null }) {
   return (
     <div
       style={{
-        height: "90vh",
+        height: "100vh",
         background: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://api.travistasl.com${heroData.imageUrl})`,
         backgroundPosition: "top",
         backgroundSize: "cover",
@@ -39,6 +39,7 @@ function Hero({ preloadedData = null }) {
         justifyContent: "center",
         alignItems: "center",
         position: "relative",
+        overflow: "hidden", // Prevents arrow/gradient overflow
       }}
     >
       <Box
@@ -106,6 +107,75 @@ function Hero({ preloadedData = null }) {
           </Button>
         </Box>
       </Box>
+      {/* Bottom gradient overlay for blending */}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          bottom: 0,
+          width: "100%",
+          height: "120px",
+          pointerEvents: "none",
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)",
+          zIndex: 1,
+        }}
+      />
+      {/* Bouncing scroll down arrow */}
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          bottom: 24,
+          transform: "translateX(-50%)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          zIndex: 3,
+          opacity: 0.85,
+        }}
+      >
+        {/* SVG Arrow */}
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            animation: "bounce 1.5s infinite",
+            filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.3))",
+          }}
+        >
+          <path
+            d="M12 5v14m0 0l-6-6m6 6l6-6"
+            stroke="#fff"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <span
+          style={{
+            color: "#fff",
+            fontSize: "1rem",
+            marginTop: 4,
+            textShadow: "0 2px 8px rgba(0,0,0,0.4)",
+            letterSpacing: 1,
+            fontWeight: 500,
+            opacity: 0.9,
+          }}
+        >
+          Scroll Down
+        </span>
+      </div>
+      {/* Keyframes for bounce animation */}
+      <style>{`
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(12px); }
+        }
+      `}</style>
     </div>
   );
 }
