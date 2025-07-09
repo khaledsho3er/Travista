@@ -58,7 +58,7 @@ function Hero({ preloadedData = null }) {
             fontWeight: "700",
             textAlign: "center",
             fontSize: {
-              xs: "2.5rem", // <600px
+              xs: "1.4rem", // <600px
               sm: "2.5rem", // 600px - 899px
               md: "4rem", // 900px - 1079px
               lg: "5rem", // >=1080px
