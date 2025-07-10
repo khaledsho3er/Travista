@@ -17,7 +17,6 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
-import { Delete } from "@mui/icons-material";
 
 const UsersTable = () => {
   const [users, setUsers] = useState([]);
@@ -104,7 +103,6 @@ const UsersTable = () => {
                     variant="outlined"
                     onClick={() => deleteUser(user._id)}
                     color="error"
-                    startIcon={<Delete />}
                   >
                     Delete
                   </Button>

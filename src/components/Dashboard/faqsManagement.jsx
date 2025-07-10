@@ -201,7 +201,7 @@ const FAQManagement = () => {
                     variant="outlined"
                     color="primary"
                     onClick={() => handleOpen(faq)}
-                    sx={{ mr: 1 }}
+                    sx={{ mr: 1, minWidth: 80 }}
                   >
                     Edit
                   </Button>
@@ -209,6 +209,7 @@ const FAQManagement = () => {
                     variant="outlined"
                     color="error"
                     onClick={() => handleDelete(faq.faqId)}
+                    sx={{ minWidth: 80 }}
                   >
                     Delete
                   </Button>
