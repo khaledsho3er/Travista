@@ -159,6 +159,7 @@ function PackagesTours() {
             color="white"
             fontWeight={800}
             textAlign="center"
+            fontSize={{ xs: "1.5rem" }}
           >
             Travel Beyond the Ordinary
           </Typography>
