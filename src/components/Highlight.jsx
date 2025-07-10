@@ -46,6 +46,9 @@ function Highlight() {
         padding: "2rem", // Adds padding inside the container
         boxSizing: "border-box", // Ensures padding is included in the total width/height
         position: "relative", // Enables absolute positioning for child elements
+        "@media (max-height:680px)": {
+          height: "104vh",
+        },
       }}
       className="highlight-section container-padding"
     >

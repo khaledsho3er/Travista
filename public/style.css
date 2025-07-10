@@ -1,3 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap");
+body,
+html {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+.inter {
+  font-family: "Inter", Arial, Helvetica, sans-serif !important;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
 /* Default Color */
 :root {
   --primary: #000000;
@@ -372,7 +383,7 @@ a.nav-link:active {
 
 .packages-page .hero {
   background: url("/assets/packages_Tours.jpg");
-  height: 45vh;
+  height: 60vh;
 
   position: relative;
 }
@@ -2112,16 +2123,16 @@ textarea.form-input {
 }
 
 .about-center-content h3 {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1rem;
   color: #fed7d2; /* Ensure the title is visible on dark background */
-  padding-left: 7rem;
-  padding-right: 7rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .about-center-content h5 {
-  font-size: 1.5rem;
+  font-size: 0.8rem;
   margin-bottom: 1.5rem;
   color: #fed7d2; /* Ensure the description is visible on dark background */
   padding-left: 4rem;

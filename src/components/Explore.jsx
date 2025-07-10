@@ -124,7 +124,7 @@ const Explore = () => {
           variant="h4"
           fontWeight="900"
           gutterBottom
-          sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" } }}
+          sx={{ fontSize: { xs: "1.5rem", sm: "1.7rem", md: "2.5rem" } }}
         >
           Explore our packages
         </Typography>
@@ -147,6 +147,12 @@ const Explore = () => {
           gap: 4,
           flexDirection: { xs: "column", sm: "row" },
           alignItems: { xs: "center", sm: "flex-start" },
+          "@media (max-height:580px)": {
+            flexDirection: "row",
+            flexWrap: "nowrap",
+            alignItems: "stretch",
+            gap: 2,
+          },
         }}
       >
         {packages.length > 0 ? (
@@ -171,11 +177,36 @@ const Explore = () => {
                 "&:hover": {
                   width: { sm: "600px", md: "650px" },
                 },
+                "@media (max-height:580px)": {
+                  width: "320px",
+                  height: "420px",
+                  padding: "16px",
+                  marginTop: 0,
+                },
               }}
             >
+              {/* Overlay for image opacity */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  background: "rgba(0,0,0,0.35)", // adjust opacity as needed
+                  borderRadius: "20px",
+                  zIndex: 1,
+                  pointerEvents: "none",
+                }}
+              />
               <IconButton
                 aria-label="add to favorites"
-                sx={{ position: "absolute", top: "15px", right: "15px" }}
+                sx={{
+                  position: "absolute",
+                  top: "15px",
+                  right: "15px",
+                  zIndex: 2,
+                }}
               >
                 <FavoriteBorderIcon
                   sx={{
@@ -195,6 +226,16 @@ const Explore = () => {
                   backdropFilter: "blur(4px)",
                   borderRadius: "8px",
                   color: "white",
+                  position: "relative",
+                  zIndex: 2,
+                  alignItems: "flex-start",
+                  "@media (max-height:580px)": {
+                    gap: "6px",
+                    "& .MuiTypography-h4": { fontSize: "1.1rem" },
+                    "& .MuiTypography-body1": { fontSize: "0.9rem" },
+                    "& .MuiTypography-h6": { fontSize: "1rem" },
+                    "& .MuiTypography-body2": { fontSize: "0.8rem" },
+                  },
                 }}
               >
                 <Typography
@@ -202,10 +243,11 @@ const Explore = () => {
                   sx={{
                     color: "#750046",
                     background: "white",
-                    padding: "5px",
+                    padding: { xs: "3px 8px", sm: "5px" },
                     width: "fit-content",
                     borderRadius: "5px",
                     fontWeight: "700",
+                    fontSize: { xs: "0.85rem", sm: "1rem" },
                   }}
                 >
                   {formatDate(pkg.departureDate)}
@@ -213,7 +255,7 @@ const Explore = () => {
                 <Typography
                   variant="h4"
                   fontWeight="900"
-                  sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
+                  sx={{ fontSize: { xs: "1.1rem", sm: "1.5rem", md: "2rem" } }}
                 >
                   {pkg.destinations.join(", ")}
                 </Typography>
@@ -221,15 +263,31 @@ const Explore = () => {
                 <Typography
                   className="package-date"
                   variant="body1"
-                  color="#A5A5A5"
-                  sx={{ fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem" } }}
+                  color="#fff"
+                  sx={{
+                    fontSize: { xs: "0.95rem", sm: "1.2rem", md: "1.5rem" },
+                  }}
                 >
                   {pkg.totalDays} Days, {pkg.totalNights} Nights
                 </Typography>
 
-                <Typography variant="h6" color="#FED7D2">
-                  from {formatPrice(pkg.packagePrice)}
-                </Typography>
+                {/* Price Highlight at the bottom */}
+                <Box
+                  sx={{
+                    background: "var(--maroon)",
+                    color: "#fff",
+                    fontWeight: "bold",
+                    fontSize: { xs: "1.3rem", sm: "1.6rem" },
+                    borderRadius: "8px",
+                    px: 2,
+                    py: 1,
+                    boxShadow: "0 2px 8px rgba(117,0,70,0.15)",
+                    mt: 2,
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  From {formatPrice(pkg.packagePrice)}
+                </Box>
               </CardContent>
 
               <CardActions disableSpacing>
@@ -237,8 +295,11 @@ const Explore = () => {
                   className="btn btn-secondary"
                   variant="contained"
                   sx={{
-                    padding: { xs: "15px 60px", sm: "15px 80px" },
+                    padding: { xs: "10px 0", sm: "15px 60px", md: "15px 80px" },
                     width: { xs: "100%", sm: "auto" },
+                    fontSize: { xs: "0.95rem", sm: "1rem" },
+                    zIndex: 2,
+                    position: "relative",
                   }}
                   onClick={() => handlePackageClick(pkg)}
                 >
@@ -259,7 +320,11 @@ const Explore = () => {
       <Box textAlign="center" mt={4}>
         <Button
           className="btn btn-primary"
-          sx={{ border: "1px solid var(--maroon)" }}
+          sx={{
+            border: "1px solid var(--maroon)",
+            fontSize: { xs: "0.95rem", sm: "1rem" },
+            padding: { xs: "10px 24px", sm: "12px 40px" },
+          }}
           onClick={handlePackagesClick}
         >
           Explore All Packages

@@ -136,6 +136,27 @@ const TravistaSignIn = () => {
                 alignItems: "center",
               }}
             >
+              {error && (
+                <Box
+                  sx={{
+                    color: "#ff3333",
+                    background: "rgba(255,0,0,0.08)",
+                    borderRadius: "12px",
+                    padding: "12px 16px",
+                    mt: 1,
+                    mb: 2,
+                    fontWeight: 500,
+                    fontSize: "1rem",
+                    boxShadow: "0 2px 8px 0 rgba(0,0,0,0.04)",
+                    borderLeft: "4px solid #ff3333",
+                    maxWidth: 400,
+                    mx: "auto",
+                    textAlign: "left",
+                  }}
+                >
+                  {error}
+                </Box>
+              )}
               <TextField
                 size="small"
                 margin="normal"
@@ -170,28 +191,6 @@ const TravistaSignIn = () => {
                   ),
                 }}
               />
-
-              {error && (
-                <Box
-                  sx={{
-                    color: "#ff3333",
-                    background: "rgba(255,0,0,0.08)",
-                    borderRadius: "12px",
-                    padding: "12px 16px",
-                    mt: 1,
-                    mb: 2,
-                    fontWeight: 500,
-                    fontSize: "1rem",
-                    boxShadow: "0 2px 8px 0 rgba(0,0,0,0.04)",
-                    borderLeft: "4px solid #ff3333",
-                    maxWidth: 400,
-                    mx: "auto",
-                    textAlign: "left",
-                  }}
-                >
-                  {error}
-                </Box>
-              )}
 
               <Button
                 type="submit"

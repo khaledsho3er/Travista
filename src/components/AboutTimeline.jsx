@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Box, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
@@ -12,75 +12,35 @@ const milestones = [
   "2025 –Celebrated a landmark achievement: over 400,000 clients served worldwide across aviation, visa facilitation, leisure travel, group tours, and corporate tourism",
 ];
 
-function Timeline() {
-  const containerRef = useRef();
-  const cardRefs = useRef([]);
-  const [points, setPoints] = useState([]);
-  const [visible, setVisible] = useState(false);
+const cardPositions = [
+  { x: 721.87, y: 259.06 },
+  { x: 721.87, y: 605.45 },
+  { x: 1150.36, y: 447.39 },
+  { x: 1150.36, y: 731.74 },
+  { x: 721.87, y: 942.58 },
+  { x: 1150.36, y: 1196.68 },
+  { x: 721.87, y: 1438.93 },
+];
 
+function Timeline() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.between(768, 1023));
+  const is1024 = useMediaQuery("(max-width:1024px)");
+  const is1440 = useMediaQuery("(max-width:1440px)");
 
-  // Reveal animation trigger
-  useEffect(() => {
-    const node = containerRef.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.1 }
-    );
+  const containerRef = useRef();
 
-    if (node) observer.observe(node);
-
-    return () => {
-      if (node) observer.unobserve(node);
-    };
-  }, []);
-
-  // Measure layout once visible with small delay
-  useEffect(() => {
-    if (!visible) return;
-    const timeout = setTimeout(() => {
-      updatePoints();
-    }, 100); // 100ms gives Chrome time to stabilize layout
-
-    return () => clearTimeout(timeout);
-  }, [visible]);
-
-  // Recalculate on window resize
-  useEffect(() => {
-    const handleResize = () => updatePoints();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const updatePoints = () => {
-    if (!containerRef.current) return;
-    const containerRect = containerRef.current.getBoundingClientRect();
-    const newPoints = cardRefs.current.map((ref) => {
-      if (!ref) return null;
-      const cardRect = ref.getBoundingClientRect();
-      return {
-        x: cardRect.left + cardRect.width / 2 - containerRect.left,
-        y: cardRect.top + cardRect.height / 2 - containerRect.top,
-      };
-    });
-    setPoints(newPoints.filter(Boolean));
-  };
-
-  const generatePath = () => {
-    if (points.length < 2) return "";
-    let d = `M ${points[0].x},${points[0].y}`;
-    for (let i = 1; i < points.length; i++) {
-      const prev = points[i - 1];
-      const curr = points[i];
-      const deltaX = curr.x - prev.x;
-      const control1 = { x: prev.x + deltaX * 0.3, y: prev.y };
-      const control2 = { x: curr.x - deltaX * 0.3, y: curr.y };
-      d += ` C ${control1.x},${control1.y} ${control2.x},${control2.y} ${curr.x},${curr.y}`;
+  // Helper to get responsive X
+  const getResponsiveX = (x) => {
+    if (is1024) {
+      if (x === 721.87) return 251.87;
+      if (x === 1150.36) return 721.87;
+    } else if (is1440) {
+      if (x === 721.87) return 442.87;
+      if (x === 1150.36) return 934.36;
     }
-    return d;
+    return x;
   };
 
   return (
@@ -89,88 +49,152 @@ function Timeline() {
       sx={{
         position: "relative",
         width: "100%",
-        minHeight: isMobile ? `${milestones.length * 160}px` : "1450px",
-        paddingTop: "50px",
-        paddingBottom: "150px", // prevents clipping into footer
+        minHeight: isMobile || isTablet ? `100%` : "1700px",
+        pt: 8,
+        pb: 12,
         backgroundImage: 'url("assets/About/background.png")',
         backgroundSize: "cover",
         backgroundPosition: "center",
         overflow: "hidden",
       }}
     >
-      {/* Timeline Path */}
-      <svg
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          zIndex: 0,
-          pointerEvents: "none",
-        }}
-      >
-        <path
-          d={generatePath()}
-          fill="none"
-          stroke="#f7a9a8"
-          strokeWidth="8"
-          strokeLinecap="round"
-          style={{
-            strokeDasharray: 10000,
-            strokeDashoffset: 10000,
-            animation: visible ? "drawLine 3s ease forwards" : "none",
-          }}
-        />
-      </svg>
+      {isMobile || isTablet ? (
+        <>
+          {/* Mobile: Vertical Line */}
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: "50%",
+              width: "10px",
+              height: "92%",
+              transform: "translateX(-50%)",
+              backgroundColor: "#FED7D2",
+              zIndex: 1,
+            }}
+          />
 
-      {/* Milestone Cards */}
-      {milestones.map((text, index) => (
-        <Box
-          key={index}
-          ref={(el) => (cardRefs.current[index] = el)}
-          sx={{
-            position: "absolute",
-            width: isMobile ? "80%" : 200,
-            left: isMobile ? "50%" : index % 2 === 0 ? "25%" : "60%",
-            transform: isMobile ? "translateX(-50%)" : "none",
-            top: `${5 + index * (isMobile ? 17 : 12)}%`,
-            padding: 2,
-            backgroundColor: "white",
-            borderRadius: 2,
-            boxShadow: 3,
-            textAlign: "center",
-            zIndex: 2,
-            opacity: visible ? 1 : 0,
-            transition: "opacity 1s ease",
-          }}
-        >
-          <h3 style={{ fontWeight: "bold" }}>
-            {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
-          </h3>
-          <p
-            style={{
-              fontFamily: "Arial, sans-serif",
-              fontSize: "14px",
-              letterSpacing: "0.5px",
-              textAlign: "center",
+          {/* Mobile: Stacked Cards */}
+          <Box
+            sx={{
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 5,
+              zIndex: 2,
             }}
           >
-            {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
-          </p>
-        </Box>
-      ))}
+            {milestones.map((text, index) => (
+              <Box
+                key={index}
+                sx={{
+                  width: "80%",
+                  maxWidth: "360px",
+                  padding: "24px 28px",
+                  backgroundColor: "white",
+                  borderRadius: 5,
+                  boxShadow: 3,
+                  textAlign: "left",
+                }}
+              >
+                <h3
+                  style={{
+                    fontWeight: "bold",
+                    marginBottom: "16px",
+                    fontSize: "20px",
+                    fontFamily: "inter",
+                  }}
+                >
+                  {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "inter",
+                    fontSize: "13px",
+                    letterSpacing: "0.5px",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
+                </p>
+              </Box>
+            ))}
+          </Box>
+        </>
+      ) : (
+        <>
+          {/* Desktop: Snake Path SVG */}
+          <svg
+            width="1245"
+            height="1960"
+            viewBox="0 0 1245 1960"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "90%",
+              zIndex: 0,
+              pointerEvents: "none",
+            }}
+          >
+            <path
+              d="M631.134 1C637.633 407.591 296.928 522.502 130.621 613.098C-31.1011 701.194 -22.4677 881.881 168.012 891.775C178.939 892.343 189.831 889.953 199.87 885.602L773.128 637.142L916.622 613.098C1303.41 547.981 1334.25 904.82 1010.11 995.095C1006.21 996.181 1002.1 996.939 998.071 997.372L352.644 1066.74C-51.8401 1107.25 -30.3408 1258.78 83.6548 1287.29L877.148 1407.9C881.126 1408.51 885.324 1408.8 889.347 1408.84C1216.42 1411.84 1161.39 1651.37 1047.62 1651.37L291.147 1667.37C-49.3401 1646.37 -51.3402 1933.93 184.651 1933.93H530C538.167 1933.93 241.348 1937.57 526.5 1933.93C241.348 1937.57 643.815 1933.17 259 1947L96.8627 1917.42"
+              stroke="#FED7D2"
+              strokeWidth="24"
+              fill="none"
+            />
+          </svg>
 
-      {/* Keyframe animation */}
-      <style>
-        {`
-          @keyframes drawLine {
-            to {
-              stroke-dashoffset: 0;
-            }
-          }
-        `}
-      </style>
+          {/* Desktop: Positioned Cards */}
+          {milestones.map((text, index) => {
+            const pos = cardPositions[index];
+            const responsiveX = getResponsiveX(pos.x);
+            return (
+              <Box
+                key={index}
+                sx={{
+                  position: "absolute",
+                  width: 320,
+                  left: responsiveX,
+                  top: pos.y,
+                  transform: "translate(-50%, -50%)",
+                  padding: "24px 28px",
+                  backgroundColor: "white",
+                  borderRadius: 5,
+                  boxShadow: 3,
+                  textAlign: "left",
+                  zIndex: 2,
+                }}
+              >
+                <h3
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "20px",
+                    fontFamily: "inter",
+                    marginBottom: "16px",
+                  }}
+                >
+                  {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "inter",
+                    fontSize: "13px",
+                    letterSpacing: "0.5px",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
+                </p>
+              </Box>
+            );
+          })}
+        </>
+      )}
     </Box>
   );
 }
