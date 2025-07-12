@@ -206,7 +206,8 @@ function Comments() {
           sx={{
             display: "flex",
             justifyContent: "center",
-            mt: { xs: 2, md: 4 },
+            mt: { xs: 0, md: 4 },
+            marginBottom: { xs: 2, md: 4 },
           }}
         >
           <button
