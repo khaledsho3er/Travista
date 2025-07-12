@@ -408,7 +408,6 @@ function Navbar() {
                   color="inherit"
                   onClick={handleMyAccount}
                   sx={{
-                    marginTop: "10px",
                     height: "40px",
                     fontSize: "0.5rem",
                     border: "1px solid",
