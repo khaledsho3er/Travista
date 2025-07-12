@@ -584,7 +584,6 @@
     padding-bottom: 50px;
   }
   .build-my-package-header {
-    padding-top: 28px;
     text-align: left;
     margin-left: 0px;
   }
@@ -721,6 +720,12 @@
   }
   .careers-header .overlay-photo {
     top: 39%;
+  }
+
+  .ApplyForVisa-hero {
+    padding: 35px;
+    flex: 1;
+    padding-top: 95px;
   }
 }
 /*Build my package*/
