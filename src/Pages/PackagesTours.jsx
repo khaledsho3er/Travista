@@ -211,7 +211,7 @@ function PackagesTours() {
                       backgroundImage: `url(https://api.travistasl.com/${packageDetails.packagePicture})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
-                      height: { xs: "450px", sm: "500px", md: "550px" },
+                      height: { xs: "300px", sm: "400px", md: "450px" },
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "flex-end",
