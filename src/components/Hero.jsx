@@ -91,8 +91,8 @@ function Hero({ preloadedData = null }) {
                   segment.trim() +
                   (index < heroData.caption.split(".").length - 1 ? "." : "")
                 }
-                duration={30000} // 30 seconds for the whole text
-                revealDelay={index * 10}
+                scrambleDurationPerLetter={500} // 0.5s per letter
+                scrambleInterval={30} // fast scramble
                 style={{ display: "inline-block" }}
               />
               <br />

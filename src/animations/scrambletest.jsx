@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const CHARS = "abcdefghijklmnopqrstuvwxyz";
 
@@ -8,46 +8,46 @@ function randomChar() {
 
 export default function ScrambleText({
   text,
-  duration = 30000,
-  revealDelay = 0,
+  scrambleDurationPerLetter = 500, // ms each letter scrambles before settling
+  scrambleInterval = 30, // ms between each scramble frame
   ...props
 }) {
-  const [display, setDisplay] = useState("");
-  const index = useRef(0);
+  const [display, setDisplay] = useState(text);
 
   useEffect(() => {
-    let timeout;
     let running = true;
-    const total = text.length;
-    const speed = total > 0 ? duration / total : 30; // ms per letter
+    const startTimes = Array.from(
+      { length: text.length },
+      (_, i) => Date.now() + i * scrambleDurationPerLetter
+    );
+    const endTimes = startTimes.map((t) => t + scrambleDurationPerLetter);
 
-    function reveal() {
+    function scrambleFrame() {
+      const now = Date.now();
       let output = "";
+      let done = true;
       for (let i = 0; i < text.length; i++) {
-        if (i < index.current) {
+        if (text[i] === " " || text[i] === "\n") {
           output += text[i];
-        } else if (text[i] === " " || text[i] === "\n") {
+        } else if (now >= endTimes[i]) {
           output += text[i];
         } else {
           output += randomChar();
+          done = false;
         }
       }
       setDisplay(output);
-
-      if (index.current <= text.length && running) {
-        index.current += 1;
-        timeout = setTimeout(reveal, speed);
+      if (!done && running) {
+        setTimeout(scrambleFrame, scrambleInterval);
       }
     }
 
-    index.current = 0;
-    reveal();
-
+    scrambleFrame();
     return () => {
       running = false;
-      clearTimeout(timeout);
     };
-  }, [text, duration, revealDelay]);
+    // eslint-disable-next-line
+  }, [text, scrambleDurationPerLetter, scrambleInterval]);
 
   return <span {...props}>{display}</span>;
 }
