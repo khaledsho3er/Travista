@@ -3,6 +3,7 @@ import { Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ScrambleText from "../animations/scrambletest"; // Add this import at the top
+import { motion } from "framer-motion";
 
 function Hero({ preloadedData = null }) {
   const [heroData, setHeroData] = useState(preloadedData);
@@ -85,18 +86,21 @@ function Hero({ preloadedData = null }) {
           }}
         >
           {heroData.caption.split(".").map((segment, index) => (
-            <span
+            <motion.span
               key={index}
-              className="slide-up-fade-in"
-              style={{
-                display: "inline-block",
-                animationDelay: `${index * 0.2}s`, // Stagger each line by 0.2s
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: index * 0.2, // Stagger each line
+                ease: [0.23, 1, 0.32, 1],
               }}
+              style={{ display: "inline-block" }}
             >
               {segment.trim() +
                 (index < heroData.caption.split(".").length - 1 ? "." : "")}
               <br />
-            </span>
+            </motion.span>
           ))}
         </Typography>
 

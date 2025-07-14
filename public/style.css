@@ -460,6 +460,7 @@ a.nav-link:active {
 .hero img {
   border-radius: 0.5rem;
 }
+
 @keyframes slideUpFadeIn {
   from {
     opacity: 0;
@@ -470,7 +471,6 @@ a.nav-link:active {
     transform: translateY(0);
   }
 }
-
 .slide-up-fade-in {
   opacity: 0;
   animation: slideUpFadeIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
