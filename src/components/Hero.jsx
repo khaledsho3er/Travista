@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import ScrambleText from "../animations/scrambletest"; // Add this import at the top
 
 function Hero({ preloadedData = null }) {
   const [heroData, setHeroData] = useState(preloadedData);
@@ -84,11 +85,18 @@ function Hero({ preloadedData = null }) {
           }}
         >
           {heroData.caption.split(".").map((segment, index) => (
-            <span key={index}>
-              {segment.trim()}
-              {index < heroData.caption.split(".").length - 1 ? "." : ""}
+            <React.Fragment key={index}>
+              <ScrambleText
+                text={
+                  segment.trim() +
+                  (index < heroData.caption.split(".").length - 1 ? "." : "")
+                }
+                speed={20}
+                revealDelay={index * 10} // Stagger each line
+                style={{ display: "inline-block" }}
+              />
               <br />
-            </span>
+            </React.Fragment>
           ))}
         </Typography>
 
