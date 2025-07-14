@@ -85,18 +85,18 @@ function Hero({ preloadedData = null }) {
           }}
         >
           {heroData.caption.split(".").map((segment, index) => (
-            <React.Fragment key={index}>
-              <ScrambleText
-                text={
-                  segment.trim() +
-                  (index < heroData.caption.split(".").length - 1 ? "." : "")
-                }
-                scrambleDurationPerLetter={500} // 0.5s per letter
-                scrambleInterval={30} // fast scramble
-                style={{ display: "inline-block" }}
-              />
+            <span
+              key={index}
+              className="slide-up-fade-in"
+              style={{
+                display: "inline-block",
+                animationDelay: `${index * 0.2}s`, // Stagger each line by 0.2s
+              }}
+            >
+              {segment.trim() +
+                (index < heroData.caption.split(".").length - 1 ? "." : "")}
               <br />
-            </React.Fragment>
+            </span>
           ))}
         </Typography>
 

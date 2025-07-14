@@ -460,7 +460,21 @@ a.nav-link:active {
 .hero img {
   border-radius: 0.5rem;
 }
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+.slide-up-fade-in {
+  opacity: 0;
+  animation: slideUpFadeIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
 /* Core Values Styles */
 .core-values {
   background-color: #f3f4f6;
