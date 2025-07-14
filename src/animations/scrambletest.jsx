@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const CHARS = "!<>-_\\/[]{}—=+*^?#________";
+const CHARS = "abcdefghijklmnopqrstuvwxyz";
 
 function randomChar() {
   return CHARS[Math.floor(Math.random() * CHARS.length)];
@@ -8,47 +8,46 @@ function randomChar() {
 
 export default function ScrambleText({
   text,
-  speed = 30,
+  duration = 30000,
   revealDelay = 0,
   ...props
 }) {
   const [display, setDisplay] = useState("");
-  const frame = useRef(0);
+  const index = useRef(0);
 
   useEffect(() => {
     let timeout;
     let running = true;
+    const total = text.length;
+    const speed = total > 0 ? duration / total : 30; // ms per letter
 
-    function scramble() {
+    function reveal() {
       let output = "";
-      let complete = 0;
       for (let i = 0; i < text.length; i++) {
-        if (frame.current > i + revealDelay) {
+        if (i < index.current) {
           output += text[i];
-          complete++;
         } else if (text[i] === " " || text[i] === "\n") {
           output += text[i];
-          complete++;
         } else {
           output += randomChar();
         }
       }
       setDisplay(output);
 
-      if (complete < text.length && running) {
-        frame.current += 1;
-        timeout = setTimeout(scramble, speed);
+      if (index.current <= text.length && running) {
+        index.current += 1;
+        timeout = setTimeout(reveal, speed);
       }
     }
 
-    frame.current = 0;
-    scramble();
+    index.current = 0;
+    reveal();
 
     return () => {
       running = false;
       clearTimeout(timeout);
     };
-  }, [text, speed, revealDelay]);
+  }, [text, duration, revealDelay]);
 
   return <span {...props}>{display}</span>;
 }

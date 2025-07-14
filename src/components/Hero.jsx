@@ -91,8 +91,8 @@ function Hero({ preloadedData = null }) {
                   segment.trim() +
                   (index < heroData.caption.split(".").length - 1 ? "." : "")
                 }
-                speed={20}
-                revealDelay={index * 10} // Stagger each line
+                duration={30000} // 30 seconds for the whole text
+                revealDelay={index * 10}
                 style={{ display: "inline-block" }}
               />
               <br />
