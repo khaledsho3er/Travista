@@ -1055,7 +1055,7 @@ function SinglePackage({ tour, onClose }) {
         <Box
           sx={{
             width: "100%",
-            marginTop: isSmallScreen ? "6rem" : "0",
+            marginTop: isSmallScreen ? "8.5rem" : "0",
           }}
         >
           <Typography
