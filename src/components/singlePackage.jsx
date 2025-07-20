@@ -878,7 +878,7 @@ function SinglePackage({ tour, onClose }) {
         <Typography
           variant={isSmallScreen ? "h5" : "h4"}
           fontWeight="bold"
-          mt={3}
+          mt={4}
         >
           Choose Your Preferences
         </Typography>
@@ -1061,7 +1061,7 @@ function SinglePackage({ tour, onClose }) {
           <Typography
             variant={isSmallScreen ? "h5" : "h4"}
             fontWeight="bold"
-            mt={3}
+            mt={4}
           >
             Let's get personal
           </Typography>
