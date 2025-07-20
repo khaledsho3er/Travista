@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, IconButton, CircularProgress } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  IconButton,
+  Typography,
+  CircularProgress,
+  Box,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-const ProgramPopup = ({ packageId, onClose }) => {
+const ProgramPopup = ({ packageId, onClose, open }) => {
   const [dailyPrograms, setDailyPrograms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,70 +33,61 @@ const ProgramPopup = ({ packageId, onClose }) => {
       }
     };
 
-    fetchDailyProgram();
-  }, [packageId]);
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, []);
+    if (open) {
+      fetchDailyProgram();
+    }
+  }, [packageId, open]);
+
   const formatDate = (dateString) => {
     const options = { day: "numeric", month: "long", year: "numeric" };
     return new Date(dateString).toLocaleDateString("en-GB", options);
   };
 
   return (
-    <Box
-      sx={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0,0,0,0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 9999,
-      }}
-      onClick={onClose}
-    >
-      <Box
-        sx={{
-          backgroundColor: "white",
-          borderRadius: "12px",
-          padding: "24px",
-          maxWidth: "800px",
-          width: "90%",
+    <Dialog
+      open={open}
+      onClose={onClose}
+      fullWidth
+      maxWidth="md"
+      PaperProps={{
+        sx: {
+          borderRadius: 3,
           maxHeight: "80vh",
-          overflowY: "auto",
+          overflow: "hidden",
+        },
+      }}
+    >
+      {/* Sticky Header */}
+      <DialogTitle
+        sx={{
+          position: "sticky",
+          top: 0,
+          backgroundColor: "white",
+          zIndex: 10,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          px: 3,
+          py: 2,
+          borderBottom: "1px solid #eee",
         }}
-        onClick={(e) => e.stopPropagation()}
       >
-        <Box
-          sx={{
-            position: "sticky",
-            top: 0,
-            backgroundColor: "white", // Prevent transparency over content
-            zIndex: 10, // Ensure it's above scrolling content
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            mb: 3,
-            pb: 1,
-            pt: 1,
-            borderBottom: "1px solid #eee", // Optional: subtle border for separation
-          }}
-        >
-          <Typography variant="h5" fontWeight="bold">
-            Daily Program
-          </Typography>
-          <IconButton onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
-        </Box>
+        <Typography variant="h5" fontWeight="bold">
+          Daily Program
+        </Typography>
+        <IconButton onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
 
+      {/* Scrollable Content */}
+      <DialogContent
+        dividers
+        sx={{
+          px: 3,
+          py: 2,
+        }}
+      >
         {loading ? (
           <Box
             display="flex"
@@ -148,8 +147,8 @@ const ProgramPopup = ({ packageId, onClose }) => {
             </Box>
           ))
         )}
-      </Box>
-    </Box>
+      </DialogContent>
+    </Dialog>
   );
 };
 
