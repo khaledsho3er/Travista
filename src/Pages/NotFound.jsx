@@ -83,7 +83,15 @@ function NotFound() {
             Looks like you've ventured off the map! This destination isn't in
             our travel catalog.
           </Typography>
-          <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 2,
+              flexDirection: { xs: "column", sm: "row" }, // column on mobile, row on >=600px
+              alignItems: "center", // optional: center items in column mode
+            }}
+          >
             <Button
               variant="contained"
               startIcon={<FaMapMarkerAlt />}

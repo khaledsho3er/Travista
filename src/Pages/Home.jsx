@@ -105,9 +105,8 @@ function Home() {
         </script>
       </Helmet>
       <Navbar />
-      <AnimatedSection y={60} duration={1}>
-        <Hero preloadedData={heroData} />
-      </AnimatedSection>
+      <Hero preloadedData={heroData} />
+
       <AnimatedSection delay={0.1}>
         <Explore />
       </AnimatedSection>
