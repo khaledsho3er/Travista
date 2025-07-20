@@ -10,25 +10,25 @@ import FAQ from "../components/FAQsSection";
 import Footer from "../components/Footer";
 import TravistaLoading from "../components/loading";
 import axios from "axios";
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Helmet } from "react-helmet";
 
 // Animation wrapper component
-const AnimatedSection = ({ children, delay = 0 }) => {
+const AnimatedSection = ({ children, delay = 0, y = 50, duration = 0.8 }) => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y }}
       transition={{
-        duration: 0.8,
-        delay: delay,
+        duration,
+        delay,
         ease: "easeOut",
       }}
+      style={{ width: "100%" }}
     >
       {children}
     </motion.div>
@@ -105,23 +105,25 @@ function Home() {
         </script>
       </Helmet>
       <Navbar />
-      <Hero preloadedData={heroData} />
-      <AnimatedSection>
+      <AnimatedSection y={60} duration={1}>
+        <Hero preloadedData={heroData} />
+      </AnimatedSection>
+      <AnimatedSection delay={0.1}>
         <Explore />
       </AnimatedSection>
-      <AnimatedSection delay={0.1}>
+      <AnimatedSection delay={0.2}>
         <Highlight />
       </AnimatedSection>
-      <AnimatedSection delay={0.2}>
+      <AnimatedSection delay={0.3}>
         <About />
       </AnimatedSection>
-      <AnimatedSection delay={0.1}>
+      <AnimatedSection delay={0.4}>
         <PackageCard />
       </AnimatedSection>
-      <AnimatedSection delay={0.2}>
+      <AnimatedSection delay={0.5}>
         <Comments />
       </AnimatedSection>
-      <AnimatedSection delay={0.1}>
+      <AnimatedSection delay={0.6}>
         <FAQ />
       </AnimatedSection>
       <Footer />

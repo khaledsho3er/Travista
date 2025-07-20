@@ -91,8 +91,8 @@ function Hero({ preloadedData = null }) {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.8,
-                delay: index * 0.2, // Stagger each line
+                duration: 1.2,
+                delay: index * 0.4, // Stagger each line
                 ease: [0.23, 1, 0.32, 1],
               }}
               style={{ display: "inline-block" }}

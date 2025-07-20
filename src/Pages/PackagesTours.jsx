@@ -6,6 +6,7 @@ import { Box, Typography, Card, CardContent, Grid } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Filter from "../components/filter";
 import axios from "axios"; // Make sure to install axios using npm or yarn
+import { motion } from "framer-motion";
 import { useUser } from "../utils/userContext"; // Adjust path if needed
 import { Helmet } from "react-helmet"; // Import Helmet for SEO management
 function PackagesTours() {
@@ -178,19 +179,45 @@ function PackagesTours() {
           }}
           className="overlay"
         >
-          <Typography
-            variant="h3"
-            color="white"
-            fontWeight={800}
-            textAlign="center"
-            fontSize={{ xs: "1.5rem", sm: "2rem", md: "3rem", lg: "3.5rem" }}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1.2,
+              delay: 0, // You can set a delay if you want to stagger
+              ease: [0.23, 1, 0.32, 1],
+            }}
           >
-            Travel Beyond the Ordinary
-          </Typography>
-          <Typography variant="body1" color="white">
-            From stunning landscapes to rich cultures, experience the world like
-            never before with our unforgettable adventures
-          </Typography>
+            <Typography
+              variant="h3"
+              color="white"
+              fontWeight={800}
+              textAlign="center"
+              fontSize={{
+                xs: "1.5rem",
+                sm: "2rem",
+                md: "2.5rem",
+                lg: "3.5rem",
+              }}
+            >
+              Travel Beyond the Ordinary
+            </Typography>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1.2,
+              delay: 0.4, // Stagger the body text after the heading
+              ease: [0.23, 1, 0.32, 1],
+            }}
+          >
+            <Typography variant="body1" color="white">
+              From stunning landscapes to rich cultures, experience the world
+              like never before with our unforgettable adventures
+            </Typography>
+          </motion.div>
         </Box>
       </Box>
       <div className="packages-tours-body">
