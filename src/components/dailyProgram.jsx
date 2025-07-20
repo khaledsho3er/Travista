@@ -67,10 +67,18 @@ const ProgramPopup = ({ packageId, onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          mb={3}
+          sx={{
+            position: "sticky",
+            top: 0,
+            backgroundColor: "white",
+            zIndex: 1,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 3,
+            pb: 1,
+            pt: 1,
+          }}
         >
           <Typography variant="h5" fontWeight="bold">
             Daily Program
