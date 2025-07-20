@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Typography,
-  IconButton,
-  CircularProgress,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from "@mui/material";
+import { Box, Typography, IconButton, CircularProgress } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-const ProgramPopup = ({ packageId, onClose, open }) => {
+const ProgramPopup = ({ packageId, onClose }) => {
   const [dailyPrograms, setDailyPrograms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!open) return;
     const fetchDailyProgram = async () => {
       try {
         const response = await fetch(
@@ -36,37 +26,60 @@ const ProgramPopup = ({ packageId, onClose, open }) => {
     };
 
     fetchDailyProgram();
-  }, [packageId, open]);
-
+  }, [packageId]);
   useEffect(() => {
-    if (open) document.body.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [open]);
-
+  }, []);
   const formatDate = (dateString) => {
     const options = { day: "numeric", month: "long", year: "numeric" };
     return new Date(dateString).toLocaleDateString("en-GB", options);
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
-      <DialogTitle
+    <Box
+      sx={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(0,0,0,0.5)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 9999,
+      }}
+      onClick={onClose}
+    >
+      <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          backgroundColor: "white",
+          borderRadius: "12px",
+          padding: "24px",
+          maxWidth: "800px",
+          width: "90%",
+          maxHeight: "80vh",
+          overflowY: "auto",
         }}
+        onClick={(e) => e.stopPropagation()}
       >
-        <Typography variant="h5" fontWeight="bold">
-          Daily Program
-        </Typography>
-        <IconButton onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent dividers sx={{ maxHeight: "70vh" }}>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          mb={3}
+        >
+          <Typography variant="h5" fontWeight="bold">
+            Daily Program
+          </Typography>
+          <IconButton onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
+
         {loading ? (
           <Box
             display="flex"
@@ -95,9 +108,11 @@ const ProgramPopup = ({ packageId, onClose, open }) => {
                   {formatDate(day.date)}
                 </Typography>
               </Box>
+
               <Typography variant="subtitle2" color="textSecondary" mb={1}>
                 {day.city}, {day.country}
               </Typography>
+
               <Box
                 sx={{
                   backgroundColor: day.price.included ? "#e8f5e9" : "#ffebee",
@@ -112,24 +127,20 @@ const ProgramPopup = ({ packageId, onClose, open }) => {
                     : `Optional activity: £${day.price.excluded.adult} per adult, £${day.price.excluded.child} per child`}
                 </Typography>
               </Box>
+
               {day.description.map((item, index) => (
                 <Box key={index} display="flex" mb={1}>
                   <Box mr={1}>•</Box>
                   <Typography variant="body2">{item}</Typography>
                 </Box>
               ))}
+
               <hr style={{ marginTop: "16px", borderColor: "#f0f0f0" }} />
             </Box>
           ))
         )}
-      </DialogContent>
-      <DialogActions>
-        <Box flex={1} />
-        <IconButton onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      </DialogActions>
-    </Dialog>
+      </Box>
+    </Box>
   );
 };
 
