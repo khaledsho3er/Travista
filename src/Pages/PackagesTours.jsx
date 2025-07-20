@@ -213,7 +213,16 @@ function PackagesTours() {
               ease: [0.23, 1, 0.32, 1],
             }}
           >
-            <Typography variant="body1" color="white">
+            <Typography
+              variant="body1"
+              color="white"
+              sx={{
+                width: "85%",
+                margin: "auto",
+                textAlign: "center",
+                fontSize: { xs: "0.9rem", sm: "1rem", md: "1.2rem" },
+              }}
+            >
               From stunning landscapes to rich cultures, experience the world
               like never before with our unforgettable adventures
             </Typography>
