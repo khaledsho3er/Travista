@@ -217,10 +217,11 @@ function PackagesTours() {
               variant="body1"
               color="white"
               sx={{
-                width: "85%",
-                margin: "auto",
+                width: { xs: "100%", sm: "85%" }, // 100% on mobile, 85% on larger screens
+                mx: "auto", // horizontal centering
                 textAlign: "center",
                 fontSize: { xs: "0.9rem", sm: "1rem", md: "1.2rem" },
+                display: "block", // ensures block-level for mx:auto
               }}
             >
               From stunning landscapes to rich cultures, experience the world
