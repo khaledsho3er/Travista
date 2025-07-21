@@ -38,12 +38,26 @@ function SingleBlog() {
         }
       })
       .catch((err) => console.error("Error fetching blog:", err));
-  }, [id, userSession]);
+  }, [slug, userSession]);
 
   const handleBacktoBlogs = () => {
     navigate("/Blogs");
   };
-
+  const handleShare = () => {
+    const url = window.location.href;
+    if (navigator.share) {
+      // Use the Web Share API if available (mobile-friendly)
+      navigator.share({
+        title: blog.title,
+        text: blog.subTitle,
+        url,
+      });
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(url);
+      alert("Blog URL copied to clipboard!");
+    }
+  };
   // Function to render content and insert embedded image after N words
   const renderContentWithEmbeddedImage = (
     content,
@@ -244,11 +258,11 @@ function SingleBlog() {
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
-          content={`https://travista.vercel.app/Blogs/${id}`}
+          content={`https://travista.vercel.app/Blogs/${slug}`}
         />
         <link
           rel="canonical"
-          href={`https://travista.vercel.app/Blogs/${id}`}
+          href={`https://travista.vercel.app/Blogs/${slug}`}
         />
       </Helmet>
       <Navbar />
@@ -275,7 +289,9 @@ function SingleBlog() {
           </Box>
           <Box className="Single-Blog-button-container">
             <button className="Single-Blog-action-button">Save</button>
-            <button className="Single-Blog-action-button">Share</button>
+            <button className="Single-Blog-action-button" onClick={handleShare}>
+              Share
+            </button>
             <IconButton
               onClick={handleFavoriteToggle}
               sx={{
