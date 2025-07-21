@@ -1302,10 +1302,6 @@ textarea.form-input {
     padding-left: 50px;
     margin-bottom: 30px;
   }
-  .blog-content ul {
-    margin: 0;
-    padding: 0;
-  }
 }
 
 /*Build My Package Page*/
@@ -2636,7 +2632,9 @@ textarea.form-input {
   font-size: 1.7rem;
   font-weight: bold;
   margin: 2rem 0 1rem 0;
+  padding: 0px 0px 0px 195px;
   text-decoration: underline;
+  text-align: left;
 }
 
 .blog-content ul {

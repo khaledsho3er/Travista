@@ -200,6 +200,14 @@
   .about-image-container img {
     display: none;
   }
+  .blog-content ul {
+    margin: 0;
+    padding: 0;
+  }
+  .blog-content h2 {
+    padding: 0px;
+    text-align: center;
+  }
 
   /* Make cards stack vertically in one column */
   .about-card-container {
@@ -1065,6 +1073,14 @@
     display: none;
     justify-content: space-between;
     align-items: center;
+  }
+  .blog-content ul {
+    margin: 0;
+    padding: 0;
+  }
+  .blog-content h2 {
+    padding: 0px;
+    text-align: center;
   }
 }
 /* Laptop Views (Keep Images) BMP steps*/
