@@ -55,9 +55,9 @@ function Navbar() {
       { pattern: /^\/services$/i, type: "light" },
       { pattern: /^\/contactus$/i, type: "dark" },
       { pattern: /^\/account$/i, type: "light" },
-      { pattern: /^\/login$/i, type: "dark" },
+      { pattern: /^\/login$/i, type: "light" },
       { pattern: /^\/loading$/i, type: "light" },
-      { pattern: /^\/signup$/i, type: "dark" },
+      { pattern: /^\/signup$/i, type: "light" },
       { pattern: /^\/packages$/i, type: "dark" },
       { pattern: /^\/buildmypackagesteps$/i, type: "light" },
       { pattern: /^\/blogs$/i, type: "light" },
@@ -451,7 +451,6 @@ function Navbar() {
                   color="inherit"
                   onClick={handleSignIn}
                   sx={{
-                    marginTop: "10px",
                     height: "40px",
                     fontSize: "0.5rem",
                     border: "1px solid",

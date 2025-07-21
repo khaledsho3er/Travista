@@ -141,7 +141,7 @@
 
   .packages-page .hero p {
     width: 80%;
-    margin: 10px 0;
+    margin: auto;
     font-size: 0.8rem;
   }
 
@@ -514,6 +514,19 @@
   .ApplyForVisa-Form-content {
     margin: 0;
   }
+
+  .ApplyForVisa-hero {
+    padding: 35px;
+    flex: 1;
+    padding-top: 95px;
+  }
+
+  .build-my-package-header {
+    padding-top: 0px;
+    /* text-align: left;
+    margin-left: -30px;
+    flex-direction: column; */
+  }
 }
 
 /* Responsive Styles */
@@ -584,7 +597,6 @@
     padding-bottom: 50px;
   }
   .build-my-package-header {
-    padding-top: 28px;
     text-align: left;
     margin-left: 0px;
   }
@@ -721,6 +733,12 @@
   }
   .careers-header .overlay-photo {
     top: 39%;
+  }
+
+  .ApplyForVisa-hero {
+    padding: 35px;
+    flex: 1;
+    padding-top: 95px;
   }
 }
 /*Build my package*/

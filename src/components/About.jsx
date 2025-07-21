@@ -36,6 +36,7 @@ function About() {
           fontWeight: "bold",
           fontSize: { xs: "0.9rem", md: "1rem" },
           color: "#750046",
+          border: "2px solid #750046",
           backgroundColor: "#fff",
           "&:hover": {
             backgroundColor: "#750046",

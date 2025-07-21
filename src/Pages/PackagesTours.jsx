@@ -6,6 +6,7 @@ import { Box, Typography, Card, CardContent, Grid } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Filter from "../components/filter";
 import axios from "axios"; // Make sure to install axios using npm or yarn
+import { motion } from "framer-motion";
 import { useUser } from "../utils/userContext"; // Adjust path if needed
 import { Helmet } from "react-helmet"; // Import Helmet for SEO management
 function PackagesTours() {
@@ -114,6 +115,30 @@ function PackagesTours() {
       )
     : packages;
 
+  // Format date to display in a readable format
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  };
+
+  // Format currency with symbol
+  const formatPrice = (price) => {
+    const { amount, currency } = price;
+
+    const currencySymbols = {
+      USD: "$",
+      EUR: "€",
+      GBP: "£",
+      // Add more currencies as needed
+    };
+
+    const symbol = currencySymbols[currency] || currency;
+    return `${symbol}${amount.toLocaleString()}`;
+  };
+
   return (
     <Box className="packages-page">
       <Helmet>
@@ -154,19 +179,55 @@ function PackagesTours() {
           }}
           className="overlay"
         >
-          <Typography
-            variant="h3"
-            color="white"
-            fontWeight={800}
-            textAlign="center"
-            fontSize={{ xs: "1.5rem", sm: "2rem", md: "3rem", lg: "3.5rem" }}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1.2,
+              delay: 0, // You can set a delay if you want to stagger
+              ease: [0.23, 1, 0.32, 1],
+            }}
           >
-            Travel Beyond the Ordinary
-          </Typography>
-          <Typography variant="body1" color="white">
-            From stunning landscapes to rich cultures, experience the world like
-            never before with our unforgettable adventures
-          </Typography>
+            <Typography
+              variant="h3"
+              color="white"
+              fontWeight={800}
+              textAlign="center"
+              fontSize={{
+                xs: "1.5rem",
+                sm: "2rem",
+                md: "2.5rem",
+                lg: "3.5rem",
+              }}
+            >
+              Travel Beyond the Ordinary
+            </Typography>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1.2,
+              delay: 0.4, // Stagger the body text after the heading
+              ease: [0.23, 1, 0.32, 1],
+            }}
+          >
+            <Typography
+              variant="body1"
+              color="white"
+              sx={{
+                width: { xs: "100%", sm: "85%" }, // 100% on mobile, 85% on larger screens
+                mx: "auto", // horizontal centering
+                textAlign: "center",
+                fontSize: { xs: "0.9rem", sm: "1rem", md: "1.2rem" },
+                display: "block", // ensures block-level for mx:auto
+              }}
+            >
+              From stunning landscapes to rich cultures, experience the world
+              like never before with our unforgettable adventures
+            </Typography>
+          </motion.div>
         </Box>
       </Box>
       <div className="packages-tours-body">
@@ -183,130 +244,168 @@ function PackagesTours() {
                 <Grid item xs={12} sm={6} md={4} key={index}>
                   <Card
                     onClick={() => handlePackageClick(packageDetails)}
-                    style={{ borderRadius: "12px" }}
+                    sx={{
+                      backgroundImage: `url(https://api.travistasl.com/${packageDetails.packagePicture})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      height: { xs: "370px", sm: "400px", md: "450px" },
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "flex-end",
+                      position: "relative",
+                      borderRadius: "20px",
+                      padding: "25px",
+                      cursor: "pointer",
+                      overflow: "hidden",
+                      transition: "all 0.4s ease",
+                      "&:hover": {
+                        transform: "translateY(-8px)",
+                        boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+                      },
+                    }}
                   >
-                    <CardContent
+                    {/* Overlay for image opacity */}
+                    <Box
                       sx={{
-                        height: "350px",
-                        backgroundImage: `url(https://api.travistasl.com/${packageDetails.packagePicture})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        color: "white",
-                        position: "relative",
-                        borderRadius: "12px",
-                        cursor: "pointer",
-                        overflow: "hidden",
-                        p: 0,
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        background: "rgba(0,0,0,0.35)",
+                        borderRadius: "20px",
+                        zIndex: 1,
+                        pointerEvents: "none",
+                      }}
+                    />
+
+                    {/* Favorite button */}
+                    <IconButton
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleFavorite(packageDetails._id);
+                      }}
+                      sx={{
+                        position: "absolute",
+                        top: "15px",
+                        right: "15px",
+                        color: favoritedPackages.includes(packageDetails._id)
+                          ? "var(--maroon)"
+                          : "white",
+                        zIndex: 10,
+                        "&:hover": {
+                          color: "var(--maroon)",
+                          transform: "scale(1.1)",
+                        },
+                        background: "rgba(0,0,0,0.3)",
+                        borderRadius: "50%",
+                        transition: "all 0.3s ease",
                       }}
                     >
-                      {/* Overlay for better text visibility */}
-                      <Box
+                      <FavoriteIcon sx={{ fontSize: "1.5rem" }} />
+                    </IconButton>
+
+                    {/* Main content */}
+                    <CardContent
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "12px",
+                        justifyContent: "flex-end",
+                        background: "rgba(0,0,0,0.5)",
+                        backdropFilter: "blur(4px)",
+                        borderRadius: "12px",
+                        color: "white",
+                        position: "relative",
+                        zIndex: 2,
+                        alignItems: "flex-start",
+                        p: 3,
+                        m: 0,
+                      }}
+                    >
+                      {/* Date badge */}
+                      <Typography
+                        variant="body2"
                         sx={{
-                          position: "absolute",
-                          inset: 0,
-                          background:
-                            "linear-gradient(to top, rgba(0,0,0,0.75) 60%, rgba(0,0,0,0.2) 100%)",
-                          zIndex: 1,
-                        }}
-                      />
-                      {/* Main content */}
-                      <Box
-                        sx={{
-                          position: "relative",
-                          zIndex: 2,
-                          height: "100%",
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "flex-end",
-                          p: 3,
+                          color: "#750046",
+                          background: "white",
+                          padding: "4px 10px",
+                          width: "fit-content",
+                          borderRadius: "6px",
+                          fontWeight: "700",
+                          fontSize: "0.9rem",
+                          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
                         }}
                       >
-                        <Typography
-                          variant="h5"
-                          fontWeight={900}
-                          sx={{
-                            mb: 1,
-                            color: "#fff",
-                            textShadow: "0 2px 8px rgba(0,0,0,0.7)",
-                          }}
-                        >
-                          {packageDetails.packageName}
-                        </Typography>
-                        <Typography
-                          variant="subtitle1"
-                          fontWeight={700}
-                          sx={{
-                            color: "#f1bfdd",
-                            textShadow: "0 2px 8px rgba(0,0,0,0.7)",
-                            mb: 1,
-                          }}
-                        >
-                          {packageDetails.destinations.join(" / ")}
-                        </Typography>
-                        <Typography
-                          variant="body1"
-                          fontWeight={500}
-                          sx={{
-                            color: "#fff",
-                            textShadow: "0 2px 8px rgba(0,0,0,0.7)",
-                            mb: 1,
-                          }}
-                        >
-                          {`${packageDetails.totalDays} days / ${packageDetails.totalNights} nights`}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          sx={{
-                            color: "#b3e5fc",
-                            textShadow: "0 2px 8px rgba(0,0,0,0.7)",
-                            mb: 1,
-                          }}
-                        >
-                          Departure:{" "}
-                          {new Date(
-                            packageDetails.departureDate
-                          ).toLocaleDateString("en-GB", {
-                            day: "2-digit",
-                            month: "long",
-                            year: "numeric",
-                          })}
-                        </Typography>
-                        <Typography
-                          variant="h6"
-                          fontWeight={900}
-                          sx={{
-                            color: "#a5beec",
-                            textShadow: "0 2px 8px rgba(0,0,0,0.7)",
-                            mt: 1,
-                          }}
-                        >
-                          {packageDetails.packagePrice.amount}{" "}
-                          {packageDetails.packagePrice.currency}
-                        </Typography>
-                      </Box>
-                      {/* Favorite button stays on top */}
-                      <IconButton
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleFavorite(packageDetails._id);
-                        }}
+                        {formatDate(packageDetails.departureDate)}
+                      </Typography>
+
+                      {/* Package name */}
+                      <Typography
+                        variant="h5"
+                        fontWeight="900"
                         sx={{
-                          position: "absolute",
-                          top: "10px",
-                          right: "10px",
-                          color: favoritedPackages.includes(packageDetails._id)
-                            ? "var(--maroon)"
-                            : "white",
-                          zIndex: 10,
-                          "&:hover": {
-                            color: "var(--maroon)",
+                          fontSize: {
+                            xs: "1.2rem",
+                            sm: "1.4rem",
+                            md: "1.6rem",
                           },
-                          background: "rgba(0,0,0,0.3)",
-                          borderRadius: "50%",
+                          lineHeight: 1.2,
+                          textShadow: "0 2px 8px rgba(0,0,0,0.7)",
                         }}
                       >
-                        <FavoriteIcon />
-                      </IconButton>
+                        {packageDetails.packageName}
+                      </Typography>
+
+                      {/* Destinations */}
+                      <Typography
+                        variant="subtitle1"
+                        fontWeight="700"
+                        sx={{
+                          color: "#f1bfdd",
+                          fontSize: { xs: "0.95rem", sm: "1.1rem" },
+                          textShadow: "0 2px 8px rgba(0,0,0,0.7)",
+                        }}
+                      >
+                        {packageDetails.destinations.join(" / ")}
+                      </Typography>
+
+                      {/* Duration */}
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: "#fff",
+                          fontSize: { xs: "0.9rem", sm: "1rem" },
+                          textShadow: "0 2px 8px rgba(0,0,0,0.7)",
+                          fontWeight: "500",
+                        }}
+                      >
+                        {packageDetails.totalDays} Days,{" "}
+                        {packageDetails.totalNights} Nights
+                      </Typography>
+
+                      {/* Price Highlight */}
+                      <Box
+                        sx={{
+                          background: "var(--maroon)",
+                          color: "#fff",
+                          fontWeight: "bold",
+                          fontSize: { xs: "1.1rem", sm: "1.3rem" },
+                          borderRadius: "8px",
+                          px: 2,
+                          py: 1,
+                          boxShadow: "0 4px 12px rgba(117,0,70,0.3)",
+                          mt: 1,
+                          alignSelf: "flex-start",
+                          transition: "all 0.3s ease",
+                          "&:hover": {
+                            transform: "scale(1.05)",
+                            boxShadow: "0 6px 16px rgba(117,0,70,0.4)",
+                          },
+                        }}
+                      >
+                        From {formatPrice(packageDetails.packagePrice)}
+                      </Box>
                     </CardContent>
                   </Card>
                 </Grid>

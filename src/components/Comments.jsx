@@ -93,7 +93,7 @@ function Comments() {
       className="comments-section"
       sx={{
         position: "flex",
-        padding: { xs: "2px 0px 60px", md: "2px 0px 150px" },
+        padding: { xs: "0px 0px 70px", md: "2px 0px 150px" },
       }}
     >
       <Typography
@@ -206,7 +206,8 @@ function Comments() {
           sx={{
             display: "flex",
             justifyContent: "center",
-            mt: { xs: 2, md: 4 },
+            mt: { xs: 0, md: 4 },
+            marginBottom: { xs: 2, md: 4 },
           }}
         >
           <button

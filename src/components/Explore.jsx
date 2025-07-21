@@ -295,7 +295,11 @@ const Explore = () => {
                   className="btn btn-secondary"
                   variant="contained"
                   sx={{
-                    padding: { xs: "10px 0", sm: "15px 60px", md: "15px 80px" },
+                    padding: {
+                      xs: "10px 50px",
+                      sm: "15px 60px",
+                      md: "15px 80px",
+                    },
                     width: { xs: "100%", sm: "auto" },
                     fontSize: { xs: "0.95rem", sm: "1rem" },
                     zIndex: 2,
