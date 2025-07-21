@@ -43,38 +43,44 @@ function SingleBlog() {
     navigate("/Blogs");
   };
 
-  // Check if content contains HTML and split it accordingly
-  // Function to split content and insert image at placeholder
-  const renderContent = (content, embeddedImages) => {
-    // Always treat embeddedImages as an array
-    let images = [];
-    if (Array.isArray(embeddedImages)) {
-      images = [...embeddedImages];
-    } else if (
-      typeof embeddedImages === "string" &&
-      embeddedImages.length > 0
-    ) {
-      images = [embeddedImages];
-    }
-    const paragraphs = content.split("\n").map((text, index) => {
-      if (index % 2 === 1 && images.length > 0) {
-        const image = images.shift();
-        return (
-          <React.Fragment key={`frag-${index}`}>
-            <p key={`text-${index}`}>{text}</p>
+  // Function to split content and insert image at the middle
+  const renderContent = (content, embeddedImage) => {
+    if (!content) return null;
+    // Split content into words
+    const words = content.split(/\s+/);
+    const half = Math.floor(words.length / 2);
+    // Join the first and second half
+    const firstHalf = words.slice(0, half).join(" ");
+    const secondHalf = words.slice(half).join(" ");
+    return (
+      <>
+        <p>{firstHalf}</p>
+        {embeddedImage && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "40px 0",
+            }}
+          >
             <img
-              src={`https://api.travistasl.com/uploads/${image}`}
+              src={`https://api.travistasl.com/uploads/${embeddedImage}`}
               alt="Embedded Content"
-              key={`img-${index}`}
-              style={{ width: "100%", margin: "20px 0" }}
+              style={{
+                width: "100%",
+                maxWidth: "800px",
+                height: "300px",
+                objectFit: "cover",
+                borderRadius: "8px",
+                background: "#fff",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+              }}
             />
-          </React.Fragment>
-        );
-      } else {
-        return <p key={`text-${index}`}>{text}</p>;
-      }
-    });
-    return paragraphs;
+          </div>
+        )}
+        <p>{secondHalf}</p>
+      </>
+    );
   };
   const handleFavoriteToggle = async () => {
     if (!userSession?._id) {
@@ -178,6 +184,13 @@ function SingleBlog() {
         <img
           src={`https://api.travistasl.com/uploads/${blog.featuredImage}`}
           alt="Blog Hero"
+          style={{
+            width: "100%",
+            height: "350px",
+            objectFit: "cover",
+            borderRadius: "8px",
+            marginBottom: "32px",
+          }}
         />
       </Box>
 
