@@ -115,7 +115,7 @@ function App() {
             />
             <Route path="/faqs" element={<FAQsPage />} />
             <Route path="/applyforvisa" element={<ApplyForVisa />} />
-            <Route path="/singleblog/:id" element={<SingleBLog />} />
+            <Route path="/singleblog/:slug" element={<SingleBLog />} />
             <Route path="/buildmypackage" element={<BuildMyPackage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contactus" element={<ContactUs />} />

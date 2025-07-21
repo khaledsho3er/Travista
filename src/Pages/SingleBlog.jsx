@@ -10,13 +10,13 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
 import DOMPurify from "dompurify";
 function SingleBlog() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const [blog, setBlog] = useState(null);
   const [isFavorited, setIsFavorited] = useState(false);
   const { userSession } = useUser();
   useEffect(() => {
-    fetch(`https://api.travistasl.com/api/blog/${id}`)
+    fetch(`https://api.travistasl.com/api/blog/${slug}`)
       .then((res) => res.json())
       .then((data) => {
         setBlog(data); // ✅ set blog state

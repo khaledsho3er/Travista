@@ -173,7 +173,7 @@ function BlogsPage() {
               }}
             >
               <Link
-                to={`/singleblog/${blog._id}`}
+                to={`/singleblog/${blog.slug}`}
                 style={{ textDecoration: "none" }}
               >
                 <img

@@ -2625,7 +2625,6 @@ textarea.form-input {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 .blog-content h2 {
