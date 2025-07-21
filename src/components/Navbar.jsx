@@ -378,7 +378,6 @@ function Navbar() {
         <div
           style={{
             width: "auto",
-            height: "90vh",
             background: "#142328",
             padding: "0 4%",
           }}
