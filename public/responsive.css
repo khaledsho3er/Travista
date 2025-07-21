@@ -201,8 +201,8 @@
     display: none;
   }
   .blog-content ul {
-    margin: 0;
-    padding: 0;
+    margin: 14px;
+    padding: 15px;
   }
   .blog-content h2 {
     padding: 0px;
@@ -1075,8 +1075,8 @@
     align-items: center;
   }
   .blog-content ul {
-    margin: 0;
-    padding: 0;
+    margin: 14px;
+    padding: 15px;
   }
   .blog-content h2 {
     padding: 0px;
