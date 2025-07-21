@@ -1199,10 +1199,10 @@ textarea.form-input {
   display: block;
 }
 .Single-Blog-Content h3 {
-  padding-left: 200px;
-  text-align: left;
+  text-align: center;
   font-weight: normal;
-  font-size: 36px;
+  font-size: 2rem;
+  font-weight: bold;
 }
 .Single-Blog-Content p {
   font-size: 20px;
@@ -2629,7 +2629,7 @@ textarea.form-input {
   -webkit-box-orient: vertical;
 }
 .blog-content h2 {
-  font-size: 2rem;
+  font-size: 1.7rem;
   font-weight: bold;
   margin: 2rem 0 1rem 0;
   text-decoration: underline;
@@ -2637,8 +2637,9 @@ textarea.form-input {
 
 .blog-content ul {
   margin: 1.5rem 0 1.5rem 2rem;
-  padding-left: 1.5rem;
   list-style-type: disc;
+  padding: 0px 190px;
+  text-align: justify;
 }
 
 .blog-content li {
