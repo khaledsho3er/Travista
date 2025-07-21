@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { X } from "lucide-react";
 import { Typography } from "@mui/material";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const BlogManager = () => {
   const [blogs, setBlogs] = useState([]);
@@ -107,11 +109,13 @@ const BlogManager = () => {
       form.seoKeywords.length >= 3 &&
       form.slug.length > 5;
 
-    alert(
-      isSeoFriendly
-        ? "Your blog is SEO-friendly and ready to be discovered!"
-        : "Your blog is missing some SEO elements. Improve title, subtitle, keywords, and slug."
-    );
+    if (isSeoFriendly) {
+      toast.success("Your blog is SEO-friendly and ready to be discovered!");
+    } else {
+      toast.warn(
+        "Your blog is missing some SEO elements. Improve title, subtitle, keywords, and slug."
+      );
+    }
     fetchBlogs();
     setForm({
       title: "",
@@ -427,6 +431,11 @@ const BlogManager = () => {
           </div>
         </div>
       )}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+      />
     </div>
   );
 };
