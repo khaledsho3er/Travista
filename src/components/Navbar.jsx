@@ -565,6 +565,7 @@ function Navbar() {
                     }}
                   >
                     <Box
+                      onClick={() => navigate(`/singleblog/${blog.slug}`)}
                       sx={{
                         borderRadius: "8px",
                         minWidth: "120px",
@@ -583,7 +584,7 @@ function Navbar() {
                         }}
                       />
                     </Box>
-                    <Box onClick={() => navigate(`/singleblog/${blog.slug}`)}>
+                    <Box>
                       <Typography
                         variant="caption"
                         display="block"
