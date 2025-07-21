@@ -553,7 +553,6 @@ function Navbar() {
               {blogs.map((blog) => (
                 <Grid item xs={12} md={6} key={blog._id}>
                   <Box
-                    onClick={navigateToBlogs}
                     sx={{
                       borderRadius: 1,
                       display: "flex",
@@ -584,7 +583,7 @@ function Navbar() {
                         }}
                       />
                     </Box>
-                    <Box>
+                    <Box onClick={() => navigate(`/singleblog/${blog.slug}`)}>
                       <Typography
                         variant="caption"
                         display="block"

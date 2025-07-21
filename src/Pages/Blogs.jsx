@@ -96,12 +96,15 @@ function BlogsPage() {
             value={selectedCategory}
             onChange={handleCategoryChange}
             fullWidth
-            sx={{ marginBottom: "1rem" }}
+            sx={{
+              marginBottom: "1rem",
+              width: "95%",
+            }}
           >
             <MenuItem value="All articles">All articles</MenuItem>
-            <MenuItem value="Stories">Stories</MenuItem>
-            <MenuItem value="News">News</MenuItem>
-            <MenuItem value="Guides">Guides</MenuItem>
+            <MenuItem value="stories">Stories</MenuItem>
+            <MenuItem value="news">News</MenuItem>
+            <MenuItem value="guide">Guides</MenuItem>
           </Select>
         ) : (
           <>
@@ -120,7 +123,7 @@ function BlogsPage() {
               All articles
             </Button>
             <Button
-              onClick={() => setSelectedCategory("Stories")}
+              onClick={() => setSelectedCategory("stories")}
               sx={{
                 border: "1px solid black",
                 borderRadius: "20px",
@@ -133,7 +136,7 @@ function BlogsPage() {
               Stories
             </Button>
             <Button
-              onClick={() => setSelectedCategory("News")}
+              onClick={() => setSelectedCategory("news")}
               sx={{
                 border: "1px solid black",
                 borderRadius: "20px",
@@ -146,7 +149,7 @@ function BlogsPage() {
               News
             </Button>
             <Button
-              onClick={() => setSelectedCategory("Guides")}
+              onClick={() => setSelectedCategory("guide")}
               sx={{
                 border: "1px solid black",
                 borderRadius: "20px",
@@ -195,7 +198,9 @@ function BlogsPage() {
                 })}
               </Typography>
               <Typography variant="h4" className="Blog-title">
-                {blog.title}
+                {blog.title.split(" ").length > 6
+                  ? blog.title.split(" ").slice(0, 6).join(" ") + "..."
+                  : blog.title}{" "}
               </Typography>
               <Box
                 sx={{

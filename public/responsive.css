@@ -181,7 +181,6 @@
   }
   .Blogs-grid {
     grid-template-columns: 1fr;
-    padding-left: 2rem;
     margin-bottom: 100px;
   }
 
