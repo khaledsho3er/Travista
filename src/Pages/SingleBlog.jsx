@@ -16,7 +16,7 @@ function SingleBlog() {
   const [isFavorited, setIsFavorited] = useState(false);
   const { userSession } = useUser();
   useEffect(() => {
-    fetch(`https://api.travistasl.com/api/blog/${slug}`)
+    fetch(`https://api.travistasl.com/api/blog/slug/${slug}`)
       .then((res) => res.json())
       .then((data) => {
         setBlog(data); // ✅ set blog state
