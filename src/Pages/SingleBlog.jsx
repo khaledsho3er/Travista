@@ -253,8 +253,12 @@ function SingleBlog() {
 
       <Box className="Single-Blog-Content">
         <h3>{blog.contentTitle}</h3>
-        {/* Render the blog content (handle HTML or plain text) */}
-        {renderContentWithEmbeddedImage(blog.content, blog.embeddedImages, 500)}
+        <div
+          className="blog-content"
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(blog.content),
+          }}
+        />
       </Box>
       <Box className="Single-Blog-Back-btn" onClick={handleBacktoBlogs}>
         <button>Back to Blog</button>

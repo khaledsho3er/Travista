@@ -2628,7 +2628,37 @@ textarea.form-input {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+.blog-content h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 2rem 0 1rem 0;
+  text-decoration: underline;
+}
 
+.blog-content ul {
+  margin: 1.5rem 0 1.5rem 2rem;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.blog-content li {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.blog-content p {
+  margin: 1.2rem 0;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.blog-content strong {
+  font-weight: bold;
+}
+
+.blog-content u {
+  text-decoration: underline;
+}
 .Blog-date {
   font-size: 14px;
   color: gray;
