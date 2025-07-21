@@ -4,6 +4,8 @@ import { X } from "lucide-react";
 import { Typography } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const BlogManager = () => {
   const [blogs, setBlogs] = useState([]);
@@ -250,13 +252,22 @@ const BlogManager = () => {
               />
 
               <label>Content</label>
-              <textarea
-                name="content"
+              <ReactQuill
                 value={form.content}
-                onChange={handleChange}
-                className="w-full p-2 border rounded h-40"
-                required
-              ></textarea>
+                onChange={(value) =>
+                  setForm((prev) => ({ ...prev, content: value }))
+                }
+                modules={{
+                  toolbar: [
+                    [{ header: [1, 2, 3, false] }],
+                    ["bold", "italic", "underline", "strike"],
+                    [{ list: "ordered" }, { list: "bullet" }],
+                    ["link", "image"],
+                    ["clean"],
+                  ],
+                }}
+                theme="snow"
+              />
 
               <label>SEO Keywords</label>
               <div className="flex items-center gap-2">
