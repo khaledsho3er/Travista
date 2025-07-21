@@ -61,7 +61,7 @@ function Navbar() {
       { pattern: /^\/packages$/i, type: "dark" },
       { pattern: /^\/buildmypackagesteps$/i, type: "light" },
       { pattern: /^\/blogs$/i, type: "light" },
-      { pattern: /^\/singleblog\/[\w\d]+$/i, type: "light" },
+      { pattern: /^\/singleblog\/[\w\d-]+$/i, type: "light" },
       { pattern: /^\/applyforvisa$/i, type: "dark" },
       { pattern: /^\/404$/, type: "light" },
     ];
