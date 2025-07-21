@@ -46,12 +46,21 @@ function SingleBlog() {
   // Check if content contains HTML and split it accordingly
   // Function to split content and insert image at placeholder
   const renderContent = (content, embeddedImages) => {
+    // Always treat embeddedImages as an array
+    let images = [];
+    if (Array.isArray(embeddedImages)) {
+      images = [...embeddedImages];
+    } else if (
+      typeof embeddedImages === "string" &&
+      embeddedImages.length > 0
+    ) {
+      images = [embeddedImages];
+    }
     const paragraphs = content.split("\n").map((text, index) => {
-      if (index % 2 === 1 && embeddedImages && embeddedImages.length > 0) {
-        // If there are embedded images, insert them
-        const image = embeddedImages.shift(); // Remove the first image from the list
+      if (index % 2 === 1 && images.length > 0) {
+        const image = images.shift();
         return (
-          <>
+          <React.Fragment key={`frag-${index}`}>
             <p key={`text-${index}`}>{text}</p>
             <img
               src={`https://api.travistasl.com/uploads/${image}`}
@@ -59,7 +68,7 @@ function SingleBlog() {
               key={`img-${index}`}
               style={{ width: "100%", margin: "20px 0" }}
             />
-          </>
+          </React.Fragment>
         );
       } else {
         return <p key={`text-${index}`}>{text}</p>;

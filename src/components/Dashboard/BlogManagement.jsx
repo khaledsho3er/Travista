@@ -19,7 +19,7 @@ const BlogManager = () => {
     scheduledDate: "",
     seoKeywords: [],
     featuredImage: null,
-    embeddedImages: [],
+    embeddedImages: null, // single file or null
     tagInput: "",
     seoInput: "",
     metaDescription: "",
@@ -39,7 +39,10 @@ const BlogManager = () => {
     if (name === "featuredImage") {
       setForm((prev) => ({ ...prev, featuredImage: files[0] }));
     } else if (name === "embeddedImages") {
-      setForm((prev) => ({ ...prev, embeddedImages: Array.from(files) }));
+      setForm((prev) => ({
+        ...prev,
+        embeddedImages: files && files[0] ? files[0] : null,
+      }));
     } else {
       setForm((prev) => ({ ...prev, [name]: value }));
     }
@@ -80,13 +83,11 @@ const BlogManager = () => {
     const formData = new FormData();
     for (let key in form) {
       if (["tagInput", "seoInput"].includes(key)) continue;
-      if (key === "embeddedImages") {
-        form.embeddedImages.forEach((file) =>
-          formData.append("embeddedImages", file)
-        );
+      if (key === "embeddedImages" && form.embeddedImages) {
+        formData.append("embeddedImages", form.embeddedImages);
       } else if (key === "tags" || key === "seoKeywords") {
         form[key].forEach((item) => formData.append(key, item));
-      } else {
+      } else if (key !== "embeddedImages") {
         formData.append(key, form[key]);
       }
     }
@@ -124,7 +125,7 @@ const BlogManager = () => {
       scheduledDate: "",
       seoKeywords: [],
       featuredImage: null,
-      embeddedImages: [],
+      embeddedImages: null,
       tagInput: "",
       seoInput: "",
     });
@@ -167,7 +168,7 @@ const BlogManager = () => {
             scheduledDate: "",
             seoKeywords: [],
             featuredImage: null,
-            embeddedImages: [],
+            embeddedImages: null,
             tagInput: "",
             seoInput: "",
           });
@@ -403,8 +404,7 @@ const BlogManager = () => {
               <input
                 type="file"
                 name="embeddedImages"
-                multiple
-                onChange={handleChange}
+                onChange={handleChange} // ✅ keep as is
                 className="block w-full"
               />
 
