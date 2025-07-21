@@ -414,6 +414,26 @@ const BlogManager = () => {
                 onChange={handleChange}
                 className="block w-full"
               />
+              {form.featuredImage && (
+                <div style={{ margin: "10px 0" }}>
+                  <img
+                    src={
+                      typeof form.featuredImage === "string"
+                        ? `https://api.travistasl.com/uploads/${form.featuredImage}`
+                        : URL.createObjectURL(form.featuredImage)
+                    }
+                    alt="Featured Preview"
+                    style={{
+                      width: 100,
+                      height: 100,
+                      objectFit: "cover",
+                      borderRadius: 8,
+                      border: "1px solid #ccc",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+                    }}
+                  />
+                </div>
+              )}
 
               <label>Embedded Images</label>
               <input
@@ -422,6 +442,26 @@ const BlogManager = () => {
                 onChange={handleChange} // ✅ keep as is
                 className="block w-full"
               />
+              {form.embeddedImages && (
+                <div style={{ margin: "10px 0" }}>
+                  <img
+                    src={
+                      typeof form.embeddedImages === "string"
+                        ? `https://api.travistasl.com/uploads/${form.embeddedImages}`
+                        : URL.createObjectURL(form.embeddedImages)
+                    }
+                    alt="Embedded Preview"
+                    style={{
+                      width: 100,
+                      height: 100,
+                      objectFit: "cover",
+                      borderRadius: 8,
+                      border: "1px solid #ccc",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+                    }}
+                  />
+                </div>
+              )}
 
               <div className="flex justify-end space-x-2">
                 <button
