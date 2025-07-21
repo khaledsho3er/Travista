@@ -8,6 +8,7 @@ import { useUser } from "../utils/userContext";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
+import DOMPurify from "dompurify";
 function SingleBlog() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -43,42 +44,98 @@ function SingleBlog() {
     navigate("/Blogs");
   };
 
-  // Function to split content and insert image at the middle
-  const renderContent = (content, embeddedImage) => {
+  // Function to render content and insert embedded image after N words
+  const renderContentWithEmbeddedImage = (
+    content,
+    embeddedImage,
+    splitAt = 500
+  ) => {
     if (!content) return null;
-    // Split content into words
-    const words = content.split(/\s+/);
-    const half = Math.floor(words.length / 2);
-    // Join the first and second half
-    const firstHalf = words.slice(0, half).join(" ");
-    const secondHalf = words.slice(half).join(" ");
+
+    // Remove HTML tags to count words
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = content;
+    const text = tempDiv.textContent || tempDiv.innerText || "";
+    const words = text.split(/\s+/);
+
+    if (words.length <= splitAt || !embeddedImage) {
+      // Not enough words or no image, just render the content
+      return (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(content),
+          }}
+        />
+      );
+    }
+
+    // Find the index in the HTML string where the split should happen
+    let wordCount = 0;
+    let splitIndex = 0;
+    const html = content;
+    const regex = /(\s+|<[^>]+>)/g;
+    let match;
+    let lastIndex = 0;
+
+    while ((match = regex.exec(html)) !== null) {
+      if (!match[0].startsWith("<")) {
+        // It's a space or word
+        wordCount += match[0].trim() ? 1 : 0;
+      }
+      if (wordCount >= splitAt) {
+        splitIndex = regex.lastIndex;
+        break;
+      }
+      lastIndex = regex.lastIndex;
+    }
+
+    // If we didn't reach the split point, just render as is
+    if (splitIndex === 0) {
+      return (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(content),
+          }}
+        />
+      );
+    }
+
+    const firstHalf = html.slice(0, splitIndex);
+    const secondHalf = html.slice(splitIndex);
+
     return (
       <>
-        <p>{firstHalf}</p>
-        {embeddedImage && (
-          <div
+        <div
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(firstHalf),
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "40px 0",
+          }}
+        >
+          <img
+            src={`https://api.travistasl.com/uploads/${embeddedImage}`}
+            alt="Embedded Content"
             style={{
-              display: "flex",
-              justifyContent: "center",
-              margin: "40px 0",
+              width: "100%",
+              maxWidth: "800px",
+              height: "300px",
+              objectFit: "cover",
+              borderRadius: "8px",
+              background: "#fff",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
             }}
-          >
-            <img
-              src={`https://api.travistasl.com/uploads/${embeddedImage}`}
-              alt="Embedded Content"
-              style={{
-                width: "100%",
-                maxWidth: "800px",
-                height: "300px",
-                objectFit: "cover",
-                borderRadius: "8px",
-                background: "#fff",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-              }}
-            />
-          </div>
-        )}
-        <p>{secondHalf}</p>
+          />
+        </div>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(secondHalf),
+          }}
+        />
       </>
     );
   };
@@ -197,7 +254,7 @@ function SingleBlog() {
       <Box className="Single-Blog-Content">
         <h3>{blog.contentTitle}</h3>
         {/* Render the blog content (handle HTML or plain text) */}
-        {renderContent(blog.content, blog.embeddedImages)}
+        {renderContentWithEmbeddedImage(blog.content, blog.embeddedImages, 500)}
       </Box>
       <Box className="Single-Blog-Back-btn" onClick={handleBacktoBlogs}>
         <button>Back to Blog</button>
