@@ -2657,7 +2657,18 @@ textarea.form-input {
 .blog-content strong {
   font-weight: bold;
 }
-
+.blog-content .ql-align-right {
+  text-align: right;
+}
+.blog-content .ql-align-center {
+  text-align: center;
+}
+.blog-content .ql-align-justify {
+  text-align: justify;
+}
+.blog-content .ql-align-left {
+  text-align: left;
+}
 .blog-content u {
   text-decoration: underline;
 }
