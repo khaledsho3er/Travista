@@ -317,7 +317,7 @@ const BlogManager = () => {
               {/* Google Search Result Preview */}
               <div className="bg-gray-100 p-4 rounded border">
                 <p className="text-green-700 text-sm">
-                  https:/travista.vercel.app/Blogs/{form.slug || "your-slug"}
+                  https:/travistasl.com/Blogs/{form.slug || "your-slug"}
                 </p>
                 <p className="text-blue-800 font-semibold">
                   {form.title || "Your Blog Title Here"}
