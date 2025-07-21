@@ -139,6 +139,61 @@ function SingleBlog() {
       </>
     );
   };
+  // Function to insert embedded image before the first <h2> in the content
+  const renderContentWithImageBeforeSecondHeading = (
+    content,
+    embeddedImage
+  ) => {
+    if (!content) return null;
+    if (!embeddedImage) {
+      return (
+        <div
+          className="blog-content"
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
+        />
+      );
+    }
+
+    // Use DOMParser to parse the HTML string
+    const parser = new window.DOMParser();
+    const doc = parser.parseFromString(content, "text/html");
+    const body = doc.body;
+
+    // Find the first h2 (which is the second heading, after the main title)
+    const h2s = body.querySelectorAll("h2");
+    if (h2s.length === 0) {
+      // No h2 found, just render as is
+      return (
+        <div
+          className="blog-content"
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
+        />
+      );
+    }
+
+    // Insert the image before the first h2
+    const img = doc.createElement("img");
+    img.src = `https://api.travistasl.com/uploads/${embeddedImage}`;
+    img.alt = "Embedded Content";
+    img.style.width = "100%";
+    img.style.maxWidth = "800px";
+    img.style.height = "300px";
+    img.style.objectFit = "cover";
+    img.style.borderRadius = "8px";
+    img.style.background = "#fff";
+    img.style.boxShadow = "0 2px 8px rgba(0,0,0,0.05)";
+    img.style.display = "block";
+    img.style.margin = "40px auto";
+
+    h2s[0].parentNode.insertBefore(img, h2s[0]);
+
+    return (
+      <div
+        className="blog-content"
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(body.innerHTML) }}
+      />
+    );
+  };
   const handleFavoriteToggle = async () => {
     if (!userSession?._id) {
       alert("Please log in to save this blog.");
@@ -253,12 +308,10 @@ function SingleBlog() {
 
       <Box className="Single-Blog-Content">
         <h3>{blog.contentTitle}</h3>
-        <div
-          className="blog-content"
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(blog.content),
-          }}
-        />
+        {renderContentWithImageBeforeSecondHeading(
+          blog.content,
+          blog.embeddedImages
+        )}
       </Box>
       <Box className="Single-Blog-Back-btn" onClick={handleBacktoBlogs}>
         <button>Back to Blog</button>
