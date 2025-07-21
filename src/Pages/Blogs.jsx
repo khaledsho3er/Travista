@@ -187,10 +187,40 @@ function BlogsPage() {
               </Typography>
             </Box>
             <Box className="Blog-card-content">
-              <Typography className="Blog-date">{blog.date}</Typography>
+              <Typography className="Blog-date">
+                {new Date(blog.scheduledDate).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </Typography>
               <Typography variant="h4" className="Blog-title">
                 {blog.title}
               </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "0.5rem",
+                  marginTop: "0.3rem",
+                }}
+              >
+                {blog.tags &&
+                  blog.tags.slice(0, 2).map((tag, idx) => (
+                    <span
+                      key={idx}
+                      style={{
+                        background: "#f0f0f0",
+                        color: "#333",
+                        borderRadius: "12px",
+                        padding: "2px 10px",
+                        fontSize: "0.8rem",
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+              </Box>
             </Box>
           </Box>
         ))}
