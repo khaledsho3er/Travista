@@ -20,7 +20,13 @@ function BlogsPage() {
   useEffect(() => {
     fetch("https://api.travistasl.com/api/blog")
       .then((response) => response.json())
-      .then((data) => setBlogData(data))
+      .then((data) => {
+        // Only include blogs with status === "published"
+        const publishedBlogs = data.filter(
+          (blog) => blog.status === "published"
+        );
+        setBlogData(publishedBlogs);
+      })
       .catch((error) => console.error("Error fetching blog data:", error));
   }, []);
 
