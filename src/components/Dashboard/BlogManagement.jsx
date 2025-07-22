@@ -152,6 +152,21 @@ const BlogManager = () => {
     setFormVisible(true);
   };
 
+  const handleDelete = async () => {
+    if (!selectedBlog) return;
+    try {
+      await axios.delete(
+        `https://api.travistasl.com/api/blog/${selectedBlog._id}`
+      );
+      toast.success("Blog deleted successfully!");
+      fetchBlogs();
+      setFormVisible(false);
+      setSelectedBlog(null);
+    } catch (err) {
+      toast.error("Failed to delete blog.");
+    }
+  };
+
   return (
     <div className="p-4">
       <Typography variant="h4" sx={{ mb: 3 }}>
@@ -490,6 +505,15 @@ const BlogManager = () => {
                 >
                   Cancel
                 </button>
+                {selectedBlog && (
+                  <button
+                    type="button"
+                    className="bg-red-600 text-white px-4 py-2 rounded"
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </button>
+                )}
                 <button
                   type="submit"
                   className="bg-green-600 text-white px-4 py-2 rounded"
