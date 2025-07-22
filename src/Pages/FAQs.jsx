@@ -38,8 +38,8 @@ function FAQsPage() {
           property="og:description"
           content="Book your next adventure with Travista."
         />
-        <meta property="og:url" content="https://travista.vercel.app/" />
-        <link rel="canonical" href="https://travista.vercel.app/" />
+        <meta property="og:url" content="https://travistasl.com/" />
+        <link rel="canonical" href="https://travistasl.com/" />
       </Helmet>
       <Navbar />
       <header className="FAQs-hero">
@@ -50,7 +50,11 @@ function FAQsPage() {
           If you have any questions not mentioned below, contact us with how we
           could help you.
         </p>
-        <button className="FAQs-contact-btn" onClick={handleContact}>
+        <button
+          className="FAQs-contact-btn"
+          style={{ marginTop: "1rem" }}
+          onClick={handleContact}
+        >
           Contact Us
         </button>
       </header>

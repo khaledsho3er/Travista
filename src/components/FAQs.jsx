@@ -11,6 +11,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 const FAQsComponent = ({
   selectedSubject = "All topics",
@@ -168,16 +169,26 @@ const FAQsComponent = ({
               </Typography>
               {openQuestion === index ? <RemoveIcon /> : <AddIcon />}
             </ListItem>
-            <div
-              className={`FAQs-answer ${openQuestion === index ? "open" : ""}`}
-            >
-              <Typography
-                variant="body1"
-                sx={{ fontSize: "0.9rem !important" }}
-              >
-                {faq.answer}
-              </Typography>
-            </div>
+            <AnimatePresence initial={false}>
+              {openQuestion === index && (
+                <motion.div
+                  key="faq-answer"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  style={{ overflow: "hidden" }}
+                >
+                  <Typography
+                    variant="body1"
+                    sx={{ fontSize: "0.9rem !important", py: 1 }}
+                  >
+                    {faq.answer}
+                  </Typography>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             <hr />
           </Box>
         ))}
