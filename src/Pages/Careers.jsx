@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Button, MenuItem, Select } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -10,32 +10,22 @@ import { RiErrorWarningLine } from "react-icons/ri";
 import CareersFAQSection from "../components/careersFAQsection";
 
 function CareersPage() {
-  const roles = [
-    // {
-    //   title: "Marketing Associate",
-    //   department: "Marketing",
-    //   location: "Barcelona",
-    //   type: "Full-time",
-    // },
-    // {
-    //   title: "Sales Director",
-    //   department: "Sales",
-    //   location: "Barcelona",
-    //   type: "Full-time",
-    // },
-    // {
-    //   title: "Product Manager",
-    //   department: "Product",
-    //   location: "Barcelona",
-    //   type: "Full-time",
-    // },
-    // {
-    //   title: "Accountant",
-    //   department: "Finance",
-    //   location: "Barcelona",
-    //   type: "Full-time",
-    // },
-  ];
+  const [roles, setRoles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://api.travistasl.com/api/jobs")
+      .then((res) => res.json())
+      .then((data) => {
+        const visibleJobs = data.filter((job) => job.visible === true);
+        setRoles(visibleJobs);
+        setLoading(false);
+      })
+      .catch(() => {
+        setRoles([]);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <Box className="careers-page">
@@ -182,43 +172,61 @@ function CareersPage() {
 
           {/* Right Section */}
           <Box className="careers-open-roles-right">
-            {!roles.length && (
-              <Box className="no-jobs-available">
-                <Typography variant="h6" className="no-jobs-title">
+            {loading ? (
+              <Typography
+                variant="h6"
+                className="no-jobs-title"
+                sx={{ textAlign: "center", mt: 4 }}
+              >
+                Loading jobs...
+              </Typography>
+            ) : roles.length === 0 ? (
+              <Box
+                className="no-jobs-available"
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minHeight: "200px",
+                }}
+              >
+                <RiErrorWarningLine size={48} color="#FFA726" />
+                <Typography
+                  variant="h6"
+                  className="no-jobs-title"
+                  sx={{ mt: 2 }}
+                >
                   No available jobs
                 </Typography>
-                <Typography variant="h4" className="no-jobs-info">
-                  <RiErrorWarningLine />
-                  &nbsp;No available jobs for now, but we are working on adding
-                  more roles soon.
-                </Typography>
               </Box>
+            ) : (
+              roles.map((role, index) => (
+                <Box key={index} className="careers-role-card">
+                  <Typography variant="h6" className="role-title">
+                    {role.title}
+                  </Typography>
+                  <Typography variant="h4" className="role-info">
+                    {role.department}, {role.location}
+                  </Typography>
+                  <Typography variant="h4" className="role-type">
+                    {role.type}
+                  </Typography>
+                  <Button
+                    sx={{
+                      background: "#FFEB69",
+                      fontSize: "0.6rem",
+                      borderRadius: "20px",
+                      color: "black",
+                    }}
+                    variant="contained"
+                    className="learn-more-btn"
+                  >
+                    Learn more
+                  </Button>
+                </Box>
+              ))
             )}
-            {roles.map((role, index) => (
-              <Box key={index} className="careers-role-card">
-                <Typography variant="h6" className="role-title">
-                  {role.title}
-                </Typography>
-                <Typography variant="h4" className="role-info">
-                  {role.department}, {role.location}
-                </Typography>
-                <Typography variant="h4" className="role-type">
-                  {role.type}
-                </Typography>
-                <Button
-                  sx={{
-                    background: "#FFEB69",
-                    fontSize: "0.6rem",
-                    borderRadius: "20px",
-                    color: "black",
-                  }}
-                  variant="contained"
-                  className="learn-more-btn"
-                >
-                  Learn more
-                </Button>
-              </Box>
-            ))}
           </Box>
         </Box>
       </Box>
