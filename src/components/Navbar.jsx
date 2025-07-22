@@ -518,7 +518,15 @@ function Navbar() {
               <Typography
                 variant="h6"
                 margin="25px 0"
-                color={"white"}
+                sx={{
+                  fontSize: {
+                    xs: "1.8rem !important", // 1.8rem on mobile
+                    sm: "2.2rem !important", // 2.2rem on larger screens
+                  },
+                  fontWeight: 400,
+                  margin: { sm: "25px 0px", xs: "25px 15px" },
+                  color: "white",
+                }}
                 gutterBottom
               >
                 Latest blog
@@ -595,7 +603,7 @@ function Navbar() {
                         {new Date(blog.createdAt).toLocaleDateString()}
                       </Typography>
                       <Typography variant="h6" gutterBottom fontWeight={800}>
-                        {blog.title}
+                        {blog.title.split(" ").slice(0, 5).join(" ")}
                       </Typography>
                       <Typography variant="body2" color="#777777">
                         {blog.subTitle ||
