@@ -29,6 +29,7 @@ import { FaCheck } from "react-icons/fa";
 import ProgramPopup from "./dailyProgram"; // Import the new component
 import SuccessDialog from "./SuccessDialog"; // Import SuccessDialog component
 import { AnimatePresence, motion } from "framer-motion";
+import RollingNumber from "../context/rollingup";
 
 function SinglePackage({ tour, onClose }) {
   const modalRef = useRef(null); // Create a ref for the modal content
@@ -714,7 +715,6 @@ function SinglePackage({ tour, onClose }) {
         >
           <CloseIcon />
         </IconButton>
-
         <Box display="flex" alignItems="center" gap="8px">
           <div
             style={{
@@ -729,7 +729,6 @@ function SinglePackage({ tour, onClose }) {
             {packageDetails.type}
           </div>
         </Box>
-
         <Typography variant="h4" fontWeight="bold" mt={2}>
           {packageDetails.title}
         </Typography>
@@ -753,7 +752,6 @@ function SinglePackage({ tour, onClose }) {
           {" "}
           Read more +
         </Typography>
-
         <Grid container spacing={2} mt={2} mb={4}>
           <Grid item xs={6}>
             <Typography variant="body2" color="textSecondary">
@@ -788,7 +786,6 @@ function SinglePackage({ tour, onClose }) {
             </Typography>
           </Grid>
         </Grid>
-
         <Tabs
           value={activeTab}
           onChange={handleTabChange}
@@ -813,8 +810,17 @@ function SinglePackage({ tour, onClose }) {
           <Tab label="Exclusion" />
           <Tab label="General Notes" />
         </Tabs>
-
-        {renderTabContent()}
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -30 }}
+            transition={{ duration: 0.3 }}
+          >
+            {renderTabContent()}
+          </motion.div>
+        </AnimatePresence>
       </div>
       <div style={{ width: "100%" }}>
         <Button
