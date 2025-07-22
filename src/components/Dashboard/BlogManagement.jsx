@@ -200,9 +200,27 @@ const BlogManager = () => {
             )}
             <div className="p-4">
               <h2 className="font-bold text-lg">{blog.title}</h2>
-              <p className="text-sm text-gray-500">
-                {new Date(blog.createdAt).toLocaleDateString()}
-              </p>
+              <div className="flex items-center gap-2">
+                <p className="text-sm text-gray-500">
+                  {new Date(blog.createdAt).toLocaleDateString()}
+                </p>
+                <span
+                  className={`
+                    px-2 py-0.5 rounded-full text-xs font-semibold
+                    ${
+                      blog.status === "published"
+                        ? "bg-green-100 text-green-800"
+                        : blog.status === "scheduled"
+                        ? "bg-orange-100 text-orange-800"
+                        : blog.status === "archived" || blog.status === "draft"
+                        ? "bg-yellow-100 text-red-700"
+                        : "bg-gray-200 text-gray-700"
+                    }
+                  `}
+                >
+                  {blog.status.charAt(0).toUpperCase() + blog.status.slice(1)}
+                </span>
+              </div>
             </div>
           </div>
         ))}

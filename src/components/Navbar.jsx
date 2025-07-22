@@ -92,7 +92,11 @@ function Navbar() {
     fetch("https://api.travistasl.com/api/blog/")
       .then((res) => res.json())
       .then((data) => {
-        setBlogs(data);
+        // Filter for published blogs and take the first 4
+        const publishedBlogs = data
+          .filter((blog) => blog.status === "published")
+          .slice(0, 4);
+        setBlogs(publishedBlogs);
         setLoading(false);
       })
       .catch(() => {
