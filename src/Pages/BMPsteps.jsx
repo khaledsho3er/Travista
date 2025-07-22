@@ -258,17 +258,13 @@ function BuildMyPackageSteps() {
                     transition={{ duration: 0.4 }}
                     style={{
                       fontSize: "1.5rem",
-                      fontWeight: "bold",
                       display: "inline-block",
                     }}
                   >
                     {currentStep}
                   </motion.span>
                 </AnimatePresence>
-                <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-                  {" "}
-                  of 3
-                </span>
+                <span style={{ fontSize: "1.5rem" }}> of 3</span>
               </Box>
               {/* Animated Step Content */}
               <AnimatePresence mode="wait" initial={false}>
