@@ -172,9 +172,9 @@ function ContactUs() {
             Write a review
           </button>
 
-          <Box className="contact-us-hero-image">
+          {/* <Box className="contact-us-hero-image">
             <img src="assets/our_Offices.jpg" alt="contactus.png" />
-          </Box>
+          </Box> */}
         </Box>
         <Box className="contact-us-trips-container">
           <Box className="contact-us-trips-step">

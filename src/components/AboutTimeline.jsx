@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Box, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { motion } from "framer-motion";
 
 const milestones = [
   "2004 - The company was officially founded and licensed as a Category (A) tourism company, laying the cornerstone for what would become a trusted name in the travel industry.",
@@ -86,39 +87,49 @@ function Timeline() {
             }}
           >
             {milestones.map((text, index) => (
-              <Box
+              <motion.div
                 key={index}
-                sx={{
-                  width: "80%",
-                  maxWidth: "360px",
-                  padding: "24px 28px",
-                  backgroundColor: "white",
-                  borderRadius: 5,
-                  boxShadow: 3,
-                  textAlign: "left",
-                }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
               >
-                <h3
-                  style={{
-                    fontWeight: "bold",
-                    marginBottom: "16px",
-                    fontSize: "20px",
-                    fontFamily: "inter",
+                <Box
+                  sx={{
+                    width: "80%",
+                    maxWidth: "360px",
+                    padding: "24px 28px",
+                    backgroundColor: "white",
+                    borderRadius: 5,
+                    boxShadow: 3,
+                    textAlign: "left",
                   }}
                 >
-                  {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: "inter",
-                    fontSize: "13px",
-                    letterSpacing: "0.5px",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
-                </p>
-              </Box>
+                  <h3
+                    style={{
+                      fontWeight: "bold",
+                      marginBottom: "16px",
+                      fontSize: "20px",
+                      fontFamily: "inter",
+                    }}
+                  >
+                    {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "inter",
+                      fontSize: "13px",
+                      letterSpacing: "0.5px",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {text.replace(
+                      /^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/,
+                      ""
+                    )}
+                  </p>
+                </Box>
+              </motion.div>
             ))}
           </Box>
         </>
@@ -154,43 +165,53 @@ function Timeline() {
             const pos = cardPositions[index];
             const responsiveX = getResponsiveX(pos.x);
             return (
-              <Box
+              <motion.div
                 key={index}
-                sx={{
-                  position: "absolute",
-                  width: 320,
-                  left: responsiveX,
-                  top: pos.y,
-                  transform: "translate(-50%, -50%)",
-                  padding: "24px 28px",
-                  backgroundColor: "white",
-                  borderRadius: 5,
-                  boxShadow: 3,
-                  textAlign: "left",
-                  zIndex: 2,
-                }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
               >
-                <h3
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: "20px",
-                    fontFamily: "inter",
-                    marginBottom: "16px",
+                <Box
+                  sx={{
+                    position: "absolute",
+                    width: 320,
+                    left: responsiveX,
+                    top: pos.y,
+                    transform: "translate(-50%, -50%)",
+                    padding: "24px 28px",
+                    backgroundColor: "white",
+                    borderRadius: 5,
+                    boxShadow: 3,
+                    textAlign: "left",
+                    zIndex: 2,
                   }}
                 >
-                  {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: "inter",
-                    fontSize: "13px",
-                    letterSpacing: "0.5px",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {text.replace(/^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/, "")}
-                </p>
-              </Box>
+                  <h3
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: "20px",
+                      fontFamily: "inter",
+                      marginBottom: "16px",
+                    }}
+                  >
+                    {text.match(/^\d{4}(?:\s*[–-]\s*\d{4})?/)?.[0]}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "inter",
+                      fontSize: "13px",
+                      letterSpacing: "0.5px",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {text.replace(
+                      /^(\d{4}(?:\s*[–-]\s*\d{4})?\s*[-–—]?\s*)/,
+                      ""
+                    )}
+                  </p>
+                </Box>
+              </motion.div>
             );
           })}
         </>
