@@ -171,7 +171,12 @@ function CareersPage() {
           </Box>
 
           {/* Right Section */}
-          <Box className="careers-open-roles-right">
+          <Box
+            className="careers-open-roles-right"
+            sx={{
+              alignItems: loading || roles.length === 0 ? "center" : "flex-end",
+            }}
+          >
             {loading ? (
               <Typography
                 variant="h6"
@@ -191,11 +196,11 @@ function CareersPage() {
                   minHeight: "200px",
                 }}
               >
-                <RiErrorWarningLine size={48} color="#FFA726" />
+                <RiErrorWarningLine size={48} color="#ccc" />
                 <Typography
                   variant="h6"
                   className="no-jobs-title"
-                  sx={{ mt: 2 }}
+                  sx={{ mt: 2, color: "#ccc" }}
                 >
                   No available jobs
                 </Typography>
