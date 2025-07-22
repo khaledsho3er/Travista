@@ -566,6 +566,10 @@ function Navbar() {
                       borderRadius: 1,
                       display: "flex",
                       alignItems: "center",
+                      height: 180, // Set a fixed height for the card
+                      minWidth: 350, // Optional: set a min width for consistency
+                      maxWidth: 500, // Optional: set a max width for consistency
+
                       gap: "20px",
                       "&:hover": {
                         backgroundColor: "#ffffff12",
@@ -580,6 +584,8 @@ function Navbar() {
                         minWidth: "120px",
                         maxWidth: "150px",
                         overflow: "hidden",
+                        width: 150, // Fixed width
+                        height: 150, // Fixed height
                       }}
                     >
                       <img
@@ -587,6 +593,8 @@ function Navbar() {
                         alt={blog.title}
                         style={{
                           width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
                           borderRadius: "8px",
                           filter: loading ? "blur(8px)" : "none",
                           transition: "filter 0.3s ease",
@@ -603,7 +611,7 @@ function Navbar() {
                         {new Date(blog.createdAt).toLocaleDateString()}
                       </Typography>
                       <Typography variant="h6" gutterBottom fontWeight={800}>
-                        {blog.title.split(" ").slice(0, 5).join(" ")}
+                        {blog.title.split(" ").slice(0, 7).join(" ")}
                       </Typography>
                       <Typography variant="body2" color="#777777">
                         {blog.subTitle ||
