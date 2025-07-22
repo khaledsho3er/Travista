@@ -86,7 +86,6 @@ function StepTwo({
 
   return (
     <Box className="step-two-container">
-      <h5>Step 2 of 3</h5>
       <h4>Set the stage</h4>
       <p>Select the starting point of your voyage...</p>
 

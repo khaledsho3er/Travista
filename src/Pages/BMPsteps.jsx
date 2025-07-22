@@ -7,6 +7,7 @@ import StepThree from "../components/BMPsteps/stepThree";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SuccessDialog from "../components/SuccessDialog";
+import { motion, AnimatePresence } from "framer-motion";
 
 function BuildMyPackageSteps() {
   const navigate = useNavigate();
@@ -246,7 +247,41 @@ function BuildMyPackageSteps() {
               className="BMP-steps-content"
               sx={{ flex: "1 1 40vw", minWidth: 0 }}
             >
-              {renderContent()}
+              {/* Animated Step Counter */}
+              <Box sx={{ textAlign: "center", mb: 2 }}>
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={currentStep}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.4 }}
+                    style={{
+                      fontSize: "1.5rem",
+                      fontWeight: "bold",
+                      display: "inline-block",
+                    }}
+                  >
+                    {currentStep}
+                  </motion.span>
+                </AnimatePresence>
+                <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+                  {" "}
+                  of 3
+                </span>
+              </Box>
+              {/* Animated Step Content */}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={currentStep}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  {renderContent()}
+                </motion.div>
+              </AnimatePresence>
               {error && (
                 <Box
                   className="error-message"

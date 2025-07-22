@@ -6,7 +6,6 @@ import { PiGraduationCapBold, PiSuitcaseSimple } from "react-icons/pi";
 function StepOne({ tripType, setTripType }) {
   return (
     <Box className="BMI-steps-first-Content">
-      <h5>Step 1 of 3</h5>
       <h4>Which best describes your trip?</h4>
       <Box className="trip-buttons-container">
         <button

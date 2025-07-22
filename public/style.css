@@ -845,7 +845,7 @@ a {
 /* Desktop view */
 @media (min-width: 1024px) {
   .FAQs-hero h1 {
-    font-size: 5rem;
+    font-size: 4rem;
   }
 
   .FAQs-filter {

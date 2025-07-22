@@ -64,7 +64,7 @@ function Navbar() {
       { pattern: /^\/singleblog\/[\w\d-]+$/i, type: "light" },
       { pattern: /^\/applyforvisa$/i, type: "dark" },
       { pattern: /^\/404$/, type: "light" },
-      { pattern: /^\/FAQs$/, type: "light" },
+      { pattern: /^\/faqs$/, type: "light" },
     ];
 
     const matched = dynamicBackgroundMap.find((entry) =>

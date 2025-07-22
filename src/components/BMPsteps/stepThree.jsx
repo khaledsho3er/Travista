@@ -26,7 +26,6 @@ function StepThree({
 
   return (
     <Box className="BMI-steps-third-Content">
-      <h5>Step 3 of 3</h5>
       <h4>Who's in charge?</h4>
       <p>Tell us more about yourself.</p>
       <form>
