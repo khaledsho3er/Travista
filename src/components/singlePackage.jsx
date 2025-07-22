@@ -813,10 +813,10 @@ function SinglePackage({ tour, onClose }) {
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -30 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
+            transition={{ duration: 0.4, type: "spring" }}
           >
             {renderTabContent()}
           </motion.div>
@@ -1444,10 +1444,14 @@ function SinglePackage({ tour, onClose }) {
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={currentStep}
-                  initial={{ opacity: 0, x: 50 }}
+                  initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -50 }}
-                  transition={{ duration: 0.4 }}
+                  exit={{ opacity: 0, x: -30 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 70,
+                    damping: 20,
+                  }}
                 >
                   {currentStep === 1 ? (
                     <ComponentOne />
