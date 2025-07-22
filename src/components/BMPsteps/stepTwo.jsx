@@ -3,6 +3,7 @@ import { Box, Slider, Typography } from "@mui/material";
 import currencyCodes from "currency-codes";
 import { Country, State } from "country-state-city";
 import AnimatedNumber from "../../context/animatedNumber";
+import RollingNumber from "../../context/rollingup";
 
 const currencySymbols = {
   USD: "$",
@@ -122,7 +123,7 @@ function StepTwo({
         <label className="step-two-travellers-label">No. of travellers</label>
         <Box className="step-two-container-travellers-counter">
           <span className="step-two-counter-travellers-value">
-            <AnimatedNumber value={travellers} />
+            <RollingNumber value={travellers} />
           </span>
           <div className="step-two-travellers-buttons">
             <button
@@ -216,7 +217,7 @@ function StepTwo({
           <Box className="step-two-container-flexibility">
             <span className="step-two-counter-flexibilty-value">
               {" "}
-              <AnimatedNumber value={flexibility} /> days
+              <RollingNumber value={flexibility} /> days
             </span>
             <Box className="step-two-flexibility-buttons">
               <button
@@ -240,7 +241,7 @@ function StepTwo({
         <label className="step-two-travellers-label">No. of Nights</label>
         <Box className="step-two-container-travellers-counter">
           <span className="step-two-counter-travellers-value">
-            <AnimatedNumber value={nights} /> Nights
+            <RollingNumber value={nights} /> Nights
           </span>
           <div className="step-two-travellers-buttons">
             <button
