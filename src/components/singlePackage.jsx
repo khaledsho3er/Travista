@@ -28,6 +28,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { FaCheck } from "react-icons/fa";
 import ProgramPopup from "./dailyProgram"; // Import the new component
 import SuccessDialog from "./SuccessDialog"; // Import SuccessDialog component
+import { AnimatePresence, motion } from "framer-motion";
 
 function SinglePackage({ tour, onClose }) {
   const modalRef = useRef(null); // Create a ref for the modal content
@@ -1238,7 +1239,10 @@ function SinglePackage({ tour, onClose }) {
                   >
                     <RemoveIcon fontSize="small" />
                   </IconButton>
-                  <Typography>{formData.adults}</Typography>
+                  <Typography>
+                    {" "}
+                    <RollingNumber value={formData.adults} />
+                  </Typography>
                   <IconButton
                     onClick={() =>
                       setFormData((prev) => ({
@@ -1299,7 +1303,10 @@ function SinglePackage({ tour, onClose }) {
                   >
                     <RemoveIcon fontSize="small" />
                   </IconButton>
-                  <Typography>{formData.children}</Typography>
+                  <Typography>
+                    {" "}
+                    <RollingNumber value={formData.children} />
+                  </Typography>
                   <IconButton
                     onClick={() =>
                       setFormData((prev) => ({
@@ -1428,34 +1435,44 @@ function SinglePackage({ tour, onClose }) {
             </Box>
 
             <Box sx={{ flex: 1, overflowY: "auto" }}>
-              {currentStep === 1 ? (
-                <ComponentOne />
-              ) : currentStep === 2 ? (
-                <HotelAccommodation
-                  hotels={hotels}
-                  selectedHotel={selectedHotel}
-                  setSelectedHotel={setSelectedHotel}
-                />
-              ) : currentStep === 3 ? (
-                <FlightSchedule
-                  flights={flights}
-                  selectedFlight={selectedFlight}
-                  setSelectedFlight={setSelectedFlight}
-                />
-              ) : currentStep === 4 ? (
-                <ComponentTwo />
-              ) : currentStep === 5 ? (
-                <ComponentThree
-                  initialFormData={initialFormData}
-                  onSubmit={handleSubmit}
-                  onClose={onClose}
-                  handleBack={handleBack}
-                  tour={tour}
-                  selectedRoom={selectedRoom}
-                  loading={loading}
-                  error={error}
-                />
-              ) : null}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={currentStep}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  {currentStep === 1 ? (
+                    <ComponentOne />
+                  ) : currentStep === 2 ? (
+                    <HotelAccommodation
+                      hotels={hotels}
+                      selectedHotel={selectedHotel}
+                      setSelectedHotel={setSelectedHotel}
+                    />
+                  ) : currentStep === 3 ? (
+                    <FlightSchedule
+                      flights={flights}
+                      selectedFlight={selectedFlight}
+                      setSelectedFlight={setSelectedFlight}
+                    />
+                  ) : currentStep === 4 ? (
+                    <ComponentTwo />
+                  ) : currentStep === 5 ? (
+                    <ComponentThree
+                      initialFormData={initialFormData}
+                      onSubmit={handleSubmit}
+                      onClose={onClose}
+                      handleBack={handleBack}
+                      tour={tour}
+                      selectedRoom={selectedRoom}
+                      loading={loading}
+                      error={error}
+                    />
+                  ) : null}
+                </motion.div>
+              </AnimatePresence>
             </Box>
 
             {showProgramPopup && (
