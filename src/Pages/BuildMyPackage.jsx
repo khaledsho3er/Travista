@@ -5,6 +5,7 @@ import FAQ from "../components/FAQsSection";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet"; // Import Helmet
+import { motion } from "framer-motion";
 
 function BuildMyPackage() {
   const navigate = useNavigate();
@@ -55,22 +56,42 @@ function BuildMyPackage() {
             adventure! Whether it’s a senior trip, business travel, or pure
             wanderlust, your perfect journey starts here.
           </p>
-          <button
-            className="build-my-package-hero-btn"
-            onClick={handleBMPSteps}
+          <motion.div
+            whileHover={{
+              scale: 1.08,
+              boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+              borderRadius: "50px",
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            style={{ display: "inline-block" }}
           >
-            Build my Package
-          </button>
-          <a
-            href="https://travista.travel/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ textDecoration: "none" }}
-          >
-            <button className="build-my-package-hero-btn">
-              Build by Operator
+            <button
+              className="build-my-package-hero-btn"
+              onClick={handleBMPSteps}
+            >
+              Build my Package
             </button>
-          </a>
+          </motion.div>
+          <motion.div
+            whileHover={{
+              scale: 1.08,
+              boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+              borderRadius: "50px",
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            style={{ display: "inline-block" }}
+          >
+            <a
+              href="https://travista.travel/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none" }}
+            >
+              <button className="build-my-package-hero-btn">
+                Build by Operator
+              </button>
+            </a>
+          </motion.div>
         </Box>
         <img
           src="assets/build_My_Package.jpg"

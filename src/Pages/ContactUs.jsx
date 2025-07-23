@@ -16,6 +16,7 @@ import axios from "axios";
 import SuccessDialog from "../components/SuccessDialog";
 import { FormatQuote } from "@mui/icons-material";
 import { Helmet } from "react-helmet";
+import { motion } from "framer-motion";
 
 const BlurredDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiBackdrop-root": {
@@ -155,22 +156,42 @@ function ContactUs() {
         <Box className="contact-us-header-titles">
           <Typography variant="h1">Contact Us</Typography>
           <p> Ask for anything or just leave us a note.</p>
-          <button
-            className="contact-us-header-btn"
-            onClick={() => {
-              document
-                .querySelector(".FAQs-form")
-                .scrollIntoView({ behavior: "smooth" });
+          <motion.div
+            whileHover={{
+              scale: 1.08,
+              boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+              borderRadius: "50px",
             }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            style={{ display: "inline-block" }}
           >
-            Send a message
-          </button>
-          <button
-            className="contact-us-header-btn"
-            onClick={() => setOpenCommentDialog(true)}
+            <button
+              className="contact-us-header-btn"
+              onClick={() => {
+                document
+                  .querySelector(".FAQs-form")
+                  .scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Send a message
+            </button>
+          </motion.div>
+          <motion.div
+            whileHover={{
+              scale: 1.08,
+              boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+              borderRadius: "50px",
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            style={{ display: "inline-block" }}
           >
-            Write a review
-          </button>
+            <button
+              className="contact-us-header-btn"
+              onClick={() => setOpenCommentDialog(true)}
+            >
+              Write a review
+            </button>
+          </motion.div>
 
           {/* <Box className="contact-us-hero-image">
             <img src="assets/our_Offices.jpg" alt="contactus.png" />

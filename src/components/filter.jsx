@@ -12,6 +12,7 @@ import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Diversity2Icon from "@mui/icons-material/Diversity2";
 import MosqueIcon from "@mui/icons-material/Mosque";
+import { motion } from "framer-motion";
 const Filter = ({ onFilterChange, selectedFilter }) => {
   const filters = [
     { label: "NATURE", value: "nature", icon: <NatureIcon /> },
@@ -80,7 +81,20 @@ const Filter = ({ onFilterChange, selectedFilter }) => {
               }}
               onClick={() => handleFilterClick(filter.value)}
             >
-              <Box sx={{ fontSize: "2rem" }}>{filter.icon}</Box>
+              <motion.div
+                whileHover={{
+                  scale: 1.04,
+                  transition: { type: "spring", stiffness: 180, damping: 18 },
+                }}
+                style={{
+                  fontSize: "2rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {filter.icon}
+              </motion.div>
               <Typography
                 variant="subtitle2"
                 fontWeight={600}

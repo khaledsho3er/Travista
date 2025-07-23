@@ -442,12 +442,15 @@ const TravistaSignUp = () => {
               />
               <motion.div
                 whileHover={{
-                  scale: 1.08,
+                  scale: 1.04,
                   borderRadius: "50px",
                 }}
-                whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                style={{ display: "inline-block", width: "100% " }}
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
               >
                 <Button
                   type="submit"

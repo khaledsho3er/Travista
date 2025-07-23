@@ -6,6 +6,7 @@ import ApplyForVisaForm from "../components/ApplyVisaForm";
 import FAQsComponent from "../components/FAQs";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { motion } from "framer-motion";
 
 function ApplyForVisa() {
   const navigate = useNavigate();
@@ -80,13 +81,22 @@ function ApplyForVisa() {
             <Typography variant="body1">
               Have any other questions in mind?
             </Typography>
-
-            <Button
-              className="btn btn-primary btn-black"
-              onClick={handleContact}
+            <motion.div
+              whileHover={{
+                scale: 1.08,
+                boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+                borderRadius: "50px",
+              }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              style={{ display: "inline-block" }}
             >
-              Contact Us
-            </Button>
+              <Button
+                className="btn btn-primary btn-black"
+                onClick={handleContact}
+              >
+                Contact Us
+              </Button>
+            </motion.div>
           </Box>
 
           {/* Add FAQsComponent with explicit props */}

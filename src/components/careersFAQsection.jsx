@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import CareersFAQ from "./CareersFAQ";
+import { motion } from "framer-motion";
 
 function CareersFAQSection() {
   return (
@@ -18,7 +19,19 @@ function CareersFAQSection() {
           our travellers.
         </Typography>
 
-        <Button className="btn btn-primary btn-black">View open postion</Button>
+        <motion.div
+          whileHover={{
+            scale: 1.08,
+            boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+            borderRadius: "50px",
+          }}
+          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+          style={{ display: "inline-block" }}
+        >
+          <Button className="btn btn-primary btn-black">
+            View open postion
+          </Button>
+        </motion.div>
       </Box>
       <CareersFAQ />
     </Box>
