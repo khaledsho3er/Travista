@@ -464,10 +464,9 @@ function SinglePackage({ tour, onClose }) {
         <Box sx={{ width: "100%" }}>
           <motion.div
             whileHover={{
-              scale: 1.08,
+              scale: 1,
               borderRadius: "50px",
             }}
-            whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             style={{ display: "inline-block", width: "100% " }}
           >
@@ -681,10 +680,9 @@ function SinglePackage({ tour, onClose }) {
         <Box sx={{ width: "100%" }}>
           <motion.div
             whileHover={{
-              scale: 1.08,
+              scale: 1,
               borderRadius: "50px",
             }}
-            whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             style={{ display: "inline-block", width: "100% " }}
           >
@@ -845,10 +843,9 @@ function SinglePackage({ tour, onClose }) {
       <div style={{ width: "100%" }}>
         <motion.div
           whileHover={{
-            scale: 1.08,
+            scale: 1,
             borderRadius: "50px",
           }}
-          whileTap={{ scale: 0.98 }}
           transition={{ type: "spring", stiffness: 400, damping: 15 }}
           style={{ display: "inline-block", width: "100% " }}
         >
@@ -975,10 +972,9 @@ function SinglePackage({ tour, onClose }) {
             <motion.div
               key={index}
               whileHover={{
-                scale: 1.04,
-                boxShadow: "0 8px 24px rgba(134,32,93,0.12)",
+                scale: 1.02,
+                transition: { type: "spring", stiffness: 120, damping: 18 },
               }}
-              whileTap={{ scale: 0.98 }}
               style={{ width: "100%" }}
             >
               <Box
@@ -1020,10 +1016,9 @@ function SinglePackage({ tour, onClose }) {
       <Box sx={{ width: "100%" }}>
         <motion.div
           whileHover={{
-            scale: 1.08,
+            scale: 1,
             borderRadius: "50px",
           }}
-          whileTap={{ scale: 0.98 }}
           transition={{ type: "spring", stiffness: 400, damping: 15 }}
           style={{ display: "inline-block", width: "100% " }}
         >
@@ -1418,10 +1413,9 @@ function SinglePackage({ tour, onClose }) {
             </Box>
             <motion.div
               whileHover={{
-                scale: 1.08,
+                scale: 1,
                 borderRadius: "50px",
               }}
-              whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
               style={{ display: "inline-block", width: "100% " }}
             >
