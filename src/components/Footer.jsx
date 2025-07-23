@@ -517,18 +517,6 @@ function Footer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.32, ease: "easeInOut" }}
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100vw",
-              height: "100vh",
-              zIndex: 9999,
-              background: "rgba(0,0,0,0.25)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
             onClick={() => setPoliciesOpen(false)}
           >
             <div onClick={(e) => e.stopPropagation()}>
