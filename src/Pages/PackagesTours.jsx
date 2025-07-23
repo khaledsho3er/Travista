@@ -425,7 +425,7 @@ function PackagesTours() {
           <motion.div
             className="slide-up-modal"
             initial={{ y: "100%", opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+            animate={{ y: "50%", opacity: 1 }}
             exit={{ y: "100%", opacity: 0 }}
             transition={{
               type: "spring",
