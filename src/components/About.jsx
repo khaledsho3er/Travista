@@ -1,6 +1,8 @@
 import React from "react";
 import { Typography, Button, Box, Card } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
 function About() {
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -29,24 +31,33 @@ function About() {
         unforgettable journeys that leave you inspired, amazed, and craving
         more.
       </Typography>
-      <Button
-        className="btn btn-primary"
-        sx={{
-          padding: { xs: "8px 32px !important", md: "10px 80px !important" },
-          fontWeight: "bold",
-          fontSize: { xs: "0.9rem", md: "1rem" },
-          color: "#750046",
-          border: "2px solid #750046",
-          backgroundColor: "#fff",
-          "&:hover": {
-            backgroundColor: "#750046",
-            color: "#fff",
-          },
+      <motion.div
+        whileHover={{
+          scale: 1.08,
+          boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
         }}
-        onClick={handleAboutUs}
+        transition={{ type: "spring", stiffness: 400, damping: 15 }}
+        style={{ display: "inline-block" }}
       >
-        Our Story
-      </Button>
+        <Button
+          className="btn btn-primary"
+          sx={{
+            padding: { xs: "8px 32px !important", md: "10px 80px !important" },
+            fontWeight: "bold",
+            fontSize: { xs: "0.9rem", md: "1rem" },
+            color: "#750046",
+            border: "2px solid #750046",
+            backgroundColor: "#fff",
+            "&:hover": {
+              backgroundColor: "#750046",
+              color: "#fff",
+            },
+          }}
+          onClick={handleAboutUs}
+        >
+          Our Story
+        </Button>
+      </motion.div>
 
       <Box
         sx={{
