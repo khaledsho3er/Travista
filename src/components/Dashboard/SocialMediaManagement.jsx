@@ -197,9 +197,6 @@ const SocialMediaManagement = () => {
           <TableHead>
             <TableRow>
               <TableCell>
-                <strong>ID</strong>
-              </TableCell>
-              <TableCell>
                 <strong>Platform</strong>
               </TableCell>
               <TableCell>
@@ -221,7 +218,6 @@ const SocialMediaManagement = () => {
                   backgroundColor: index % 2 === 0 ? "white" : "#f9f9f9",
                 }}
               >
-                <TableCell>{social.socialId}</TableCell>
                 <TableCell>{social.platform}</TableCell>
                 <TableCell>
                   <a
