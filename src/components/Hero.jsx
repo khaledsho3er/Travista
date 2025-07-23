@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import ScrambleText from "../animations/scrambletest"; // Add this import at the top
 import { motion } from "framer-motion";
 
 function Hero({ preloadedData = null }) {
@@ -130,12 +129,12 @@ function Hero({ preloadedData = null }) {
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             style={{ display: "inline-block" }}
           >
-          <Button
-            className="btn btn-secondary"
-            onClick={() => navigate("/buildmypackage")}
-          >
-            Build My Package
-          </Button>
+            <Button
+              className="btn btn-secondary"
+              onClick={() => navigate("/buildmypackage")}
+            >
+              Build My Package
+            </Button>
           </motion.div>
         </Box>
       </Box>

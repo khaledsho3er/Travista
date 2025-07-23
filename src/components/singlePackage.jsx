@@ -16,7 +16,6 @@ import {
   TableHead,
   TableBody,
   Table,
-  Slide,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -33,7 +32,6 @@ import RollingNumber from "../context/rollingup";
 
 function SinglePackage({ tour, onClose }) {
   const modalRef = useRef(null); // Create a ref for the modal content
-  const [open] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedRoom, setSelectedRoom] = useState("");
   const [activeTab, setActiveTab] = useState(0);
@@ -1534,12 +1532,36 @@ function SinglePackage({ tour, onClose }) {
             </AnimatePresence>
           </Box>
 
-          {showProgramPopup && (
-            <ProgramPopup
-              packageId={tour.tour}
-              onClose={() => setShowProgramPopup(false)}
-            />
-          )}
+          <AnimatePresence>
+            {showProgramPopup && (
+              <motion.div
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 40, opacity: 0 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  width: "100vw",
+                  height: "100vh",
+                  zIndex: 2000,
+                  background: "rgba(0,0,0,0.25)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onClick={() => setShowProgramPopup(false)}
+              >
+                <div onClick={(e) => e.stopPropagation()}>
+                  <ProgramPopup
+                    packageId={tour.tour}
+                    onClose={() => setShowProgramPopup(false)}
+                  />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </Box>
       </Box>
       {/* </Slide> */}
