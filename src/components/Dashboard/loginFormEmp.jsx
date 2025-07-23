@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   TextField,
@@ -17,9 +17,17 @@ const EmpLoginForm = () => {
     password: "",
   });
 
-  const { login, employee } = useEmployee();
+  const { login, employee, loading } = useEmployee();
   const navigate = useNavigate();
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!loading && employee) {
+      navigate("/admin");
+    }
+  }, [employee, loading, navigate]);
+
+  if (loading) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
