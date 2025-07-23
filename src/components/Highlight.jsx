@@ -116,13 +116,23 @@ function Highlight() {
             {activeBanner.description} {/* Display banner description */}
           </Typography>
           <Box className="highlight-btns" display="flex" gap="2rem">
-            <Button
-              className="btn btn-secondary"
-              sx={{ padding: "10px 80px !important" }}
-              onClick={handlePackageClick}
+            <motion.div
+              whileHover={{
+                scale: 1.08,
+                boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+                borderRadius: "50px",
+              }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              style={{ display: "inline-block" }}
             >
-              Explore Trip
-            </Button>
+              <Button
+                className="btn btn-secondary"
+                sx={{ padding: "10px 80px !important" }}
+                onClick={handlePackageClick}
+              >
+                Explore Trip
+              </Button>
+            </motion.div>
             <motion.div
               whileHover={{
                 scale: 1.08,

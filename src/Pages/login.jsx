@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../utils/userContext";
 import { FaGlobe } from "react-icons/fa";
 import PoliciesPopup from "../components/PoliciesPopup";
+import { motion } from "framer-motion";
 
 const TravistaSignIn = () => {
   const navigate = useNavigate();
@@ -191,21 +192,29 @@ const TravistaSignIn = () => {
                   ),
                 }}
               />
-
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                  mt: 3,
-                  mb: 2,
-                  width: { xs: "90%", sm: "50%" },
+              <motion.div
+                whileHover={{
+                  scale: 1.08,
+                  boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
                   borderRadius: "50px",
-                  background: "#142328",
                 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                style={{ display: "inline-block" }}
               >
-                Sign In
-              </Button>
-
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    width: { xs: "90%", sm: "50%" },
+                    borderRadius: "50px",
+                    background: "#142328",
+                  }}
+                >
+                  Sign In
+                </Button>
+              </motion.div>
               <Box
                 sx={{
                   mt: 2,

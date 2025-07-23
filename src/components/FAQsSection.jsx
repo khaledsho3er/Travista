@@ -2,6 +2,8 @@ import React from "react";
 import { Typography, Box, Button } from "@mui/material";
 import FAQsComponent from "./FAQs";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
 function FAQ() {
   const navigate = useNavigate();
 
@@ -26,10 +28,19 @@ function FAQ() {
         >
           Have any other questions in mind?
         </Typography>
-
-        <Button className="btn btn-primary btn-black" onClick={handleContact}>
-          Contact Us
-        </Button>
+        <motion.div
+          whileHover={{
+            scale: 1.08,
+            boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+            borderRadius: "50px",
+          }}
+          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+          style={{ display: "inline-block" }}
+        >
+          <Button className="btn btn-primary btn-black" onClick={handleContact}>
+            Contact Us
+          </Button>
+        </motion.div>
       </Box>
       <FAQsComponent limit={6} selectedSubject="All topics" />
     </Box>

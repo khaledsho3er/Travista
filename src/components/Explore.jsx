@@ -292,24 +292,34 @@ const Explore = () => {
               </CardContent>
 
               <CardActions disableSpacing>
-                <Button
-                  className="btn btn-secondary"
-                  variant="contained"
-                  sx={{
-                    padding: {
-                      xs: "10px 50px",
-                      sm: "15px 60px",
-                      md: "15px 80px",
-                    },
-                    width: { xs: "100%", sm: "auto" },
-                    fontSize: { xs: "0.95rem", sm: "1rem" },
-                    zIndex: 2,
-                    position: "relative",
+                <motion.div
+                  whileHover={{
+                    scale: 1.08,
+                    boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+                    borderRadius: "50px",
                   }}
-                  onClick={() => handlePackageClick(pkg)}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  style={{ display: "inline-block" }}
                 >
-                  Explore Trip
-                </Button>
+                  <Button
+                    className="btn btn-secondary"
+                    variant="contained"
+                    sx={{
+                      padding: {
+                        xs: "10px 50px",
+                        sm: "15px 60px",
+                        md: "15px 80px",
+                      },
+                      width: { xs: "100%", sm: "auto" },
+                      fontSize: { xs: "0.95rem", sm: "1rem" },
+                      zIndex: 2,
+                      position: "relative",
+                    }}
+                    onClick={() => handlePackageClick(pkg)}
+                  >
+                    Explore Trip
+                  </Button>
+                </motion.div>
               </CardActions>
             </Card>
           ))

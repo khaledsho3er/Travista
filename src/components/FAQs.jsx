@@ -167,7 +167,14 @@ const FAQsComponent = ({
               >
                 <strong>{faq.question}</strong>
               </Typography>
-              {openQuestion === index ? <RemoveIcon /> : <AddIcon />}
+              <motion.span
+                initial={false}
+                animate={{ rotate: openQuestion === index ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+                style={{ display: "inline-block" }}
+              >
+                {openQuestion === index ? <RemoveIcon /> : <AddIcon />}
+              </motion.span>{" "}
             </ListItem>
             <AnimatePresence initial={false}>
               {openQuestion === index && (

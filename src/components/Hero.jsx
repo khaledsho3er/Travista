@@ -121,12 +121,22 @@ function Hero({ preloadedData = null }) {
               Explore Packages & Tours
             </Button>
           </motion.div>
+          <motion.div
+            whileHover={{
+              scale: 1.08,
+              boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+              borderRadius: "50px",
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            style={{ display: "inline-block" }}
+          >
           <Button
             className="btn btn-secondary"
             onClick={() => navigate("/buildmypackage")}
           >
             Build My Package
           </Button>
+          </motion.div>
         </Box>
       </Box>
       {/* Bottom gradient overlay for blending */}

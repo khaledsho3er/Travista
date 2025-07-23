@@ -20,6 +20,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import PoliciesPopup from "../components/PoliciesPopup";
 import { FaGlobe } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const TravistaSignUp = () => {
   const [formData, setFormData] = useState({
@@ -439,21 +440,30 @@ const TravistaSignUp = () => {
                   mb: 2,
                 }}
               />
-
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                sx={{
-                  height: "48px",
-                  borderRadius: "24px",
-                  backgroundColor: "#333",
-                  mt: 2,
+              <motion.div
+                whileHover={{
+                  scale: 1.08,
+                  boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+                  borderRadius: "50px",
                 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                style={{ display: "inline-block" }}
               >
-                Sign Up
-              </Button>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    height: "48px",
+                    borderRadius: "24px",
+                    backgroundColor: "#333",
+                    mt: 2,
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </motion.div>
               <Typography variant="body2" color="textSecondary" mt={2}>
                 Already have an account?{" "}
                 <Link to="/login" style={{ textDecoration: "none" }}>

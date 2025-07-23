@@ -462,27 +462,37 @@ function SinglePackage({ tour, onClose }) {
           </Box>
         </Box>
         <Box sx={{ width: "100%" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{
-              width: "100%",
-              padding: "12px",
-              borderRadius: "25px",
-              fontWeight: "bold",
-              textTransform: "none",
-              marginTop: "20px",
-              backgroundColor: "#0f1c24",
-              "&:hover": {
-                backgroundColor: "#fff",
-                border: "2px solid #0f1c24",
-                color: "#0f1c24",
-              },
+          <motion.div
+            whileHover={{
+              scale: 1.08,
+              boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+              borderRadius: "50px",
             }}
-            onClick={handleNext}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            style={{ display: "inline-block" }}
           >
-            Book Now
-          </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{
+                width: "100%",
+                padding: "12px",
+                borderRadius: "25px",
+                fontWeight: "bold",
+                textTransform: "none",
+                marginTop: "20px",
+                backgroundColor: "#0f1c24",
+                "&:hover": {
+                  backgroundColor: "#fff",
+                  border: "2px solid #0f1c24",
+                  color: "#0f1c24",
+                },
+              }}
+              onClick={handleNext}
+            >
+              Book Now
+            </Button>
+          </motion.div>
         </Box>
       </Box>
     );
@@ -669,27 +679,37 @@ function SinglePackage({ tour, onClose }) {
           </Box>
         </Box>
         <Box sx={{ width: "100%" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{
-              width: "100%",
-              padding: "12px",
-              borderRadius: "25px",
-              fontWeight: "bold",
-              textTransform: "none",
-              marginTop: "20px",
-              backgroundColor: "#0f1c24",
-              "&:hover": {
-                backgroundColor: "#fff",
-                border: "2px solid #0f1c24",
-                color: "#0f1c24",
-              },
+          <motion.div
+            whileHover={{
+              scale: 1.08,
+              boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+              borderRadius: "50px",
             }}
-            onClick={handleNext}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            style={{ display: "inline-block" }}
           >
-            Confirm Flight
-          </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{
+                width: "100%",
+                padding: "12px",
+                borderRadius: "25px",
+                fontWeight: "bold",
+                textTransform: "none",
+                marginTop: "20px",
+                backgroundColor: "#0f1c24",
+                "&:hover": {
+                  backgroundColor: "#fff",
+                  border: "2px solid #0f1c24",
+                  color: "#0f1c24",
+                },
+              }}
+              onClick={handleNext}
+            >
+              Confirm Flight
+            </Button>
+          </motion.div>
         </Box>
       </Box>
     );
@@ -823,28 +843,38 @@ function SinglePackage({ tour, onClose }) {
         </AnimatePresence>
       </div>
       <div style={{ width: "100%" }}>
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{
-            width: "100%",
-            padding: "12px",
-            borderRadius: "25px",
-            fontWeight: "bold",
-            textTransform: "none",
-            marginBottom: "15px",
-            marginTop: "1px",
-            backgroundColor: "#0f1c24",
-            "&:hover": {
-              backgroundColor: "#fff",
-              border: "2px solid #0f1c24",
-              color: "#0f1c24",
-            },
+        <motion.div
+          whileHover={{
+            scale: 1.08,
+            boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+            borderRadius: "50px",
           }}
-          onClick={handleNext}
+          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+          style={{ display: "inline-block" }}
         >
-          Book Now
-        </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              width: "100%",
+              padding: "12px",
+              borderRadius: "25px",
+              fontWeight: "bold",
+              textTransform: "none",
+              marginBottom: "15px",
+              marginTop: "1px",
+              backgroundColor: "#0f1c24",
+              "&:hover": {
+                backgroundColor: "#fff",
+                border: "2px solid #0f1c24",
+                color: "#0f1c24",
+              },
+            }}
+            onClick={handleNext}
+          >
+            Book Now
+          </Button>
+        </motion.div>
       </div>
     </Box>
   );
@@ -942,7 +972,7 @@ function SinglePackage({ tour, onClose }) {
               }`,
             },
           ].map((room, index) => (
-            <Box
+            <motion.div
               key={index}
               sx={{
                 display: "flex",
@@ -963,6 +993,12 @@ function SinglePackage({ tour, onClose }) {
                 },
               }}
               onClick={() => handleRoomChange(room.label)}
+              whileHover={{
+                scale: 1.04,
+                boxShadow: "0 8px 24px rgba(134,32,93,0.12)",
+                transition: { type: "spring", stiffness: 300, damping: 20 },
+              }}
+              whileTap={{ scale: 0.98 }}
             >
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <BedIcon sx={{ mr: 1 }} />
@@ -974,34 +1010,44 @@ function SinglePackage({ tour, onClose }) {
                   </Typography>
                 </Typography>
               </Box>
-            </Box>
+            </motion.div>
           ))}
         </Box>
       </Box>
       <Box sx={{ width: "100%" }}>
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: "#142328",
-            width: isSmallScreen ? "100%" : "30%",
-            padding: "12px",
-            borderRadius: "25px",
-            fontWeight: "bold",
-            textTransform: "none",
-            color: "#ffffff",
-            marginBottom: "20px",
-            ml: "auto",
-            float: "right",
-            "&:hover": {
-              backgroundColor: "#fff",
-              border: "2px solid #0f1c24",
-              color: "#0f1c24",
-            },
+        <motion.div
+          whileHover={{
+            scale: 1.08,
+            boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+            borderRadius: "50px",
           }}
-          onClick={handleNext}
+          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+          style={{ display: "inline-block" }}
         >
-          Next
-        </Button>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "#142328",
+              width: isSmallScreen ? "100%" : "30%",
+              padding: "12px",
+              borderRadius: "25px",
+              fontWeight: "bold",
+              textTransform: "none",
+              color: "#ffffff",
+              marginBottom: "20px",
+              ml: "auto",
+              float: "right",
+              "&:hover": {
+                backgroundColor: "#fff",
+                border: "2px solid #0f1c24",
+                color: "#0f1c24",
+              },
+            }}
+            onClick={handleNext}
+          >
+            Next
+          </Button>
+        </motion.div>
       </Box>
     </Box>
   );
@@ -1367,30 +1413,40 @@ function SinglePackage({ tour, onClose }) {
                     }`}
               </Typography>
             </Box>
-            <Button
-              onClick={handleSubmitForm}
-              type="submit"
-              variant="contained"
-              disabled={loading}
-              sx={{
-                type: "submit",
-                backgroundColor: "#142328",
-                width: isSmallScreen ? "140px" : "30%",
-                height: isSmallScreen ? "50px" : "auto",
-                padding: "12px",
-                borderRadius: isSmallScreen ? "8px" : "25px",
-                fontWeight: "bold",
-                textTransform: "none",
-                color: "#ffffff",
-                "&:hover": {
-                  backgroundColor: "#0f1c24",
-                },
-                ml: "auto",
-                float: "right",
+            <motion.div
+              whileHover={{
+                scale: 1.08,
+                boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+                borderRadius: "50px",
               }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              style={{ display: "inline-block" }}
             >
-              {loading ? "Submitting..." : "Finish"}
-            </Button>
+              <Button
+                onClick={handleSubmitForm}
+                type="submit"
+                variant="contained"
+                disabled={loading}
+                sx={{
+                  type: "submit",
+                  backgroundColor: "#142328",
+                  width: isSmallScreen ? "140px" : "30%",
+                  height: isSmallScreen ? "50px" : "auto",
+                  padding: "12px",
+                  borderRadius: isSmallScreen ? "8px" : "25px",
+                  fontWeight: "bold",
+                  textTransform: "none",
+                  color: "#ffffff",
+                  "&:hover": {
+                    backgroundColor: "#0f1c24",
+                  },
+                  ml: "auto",
+                  float: "right",
+                }}
+              >
+                {loading ? "Submitting..." : "Finish"}
+              </Button>
+            </motion.div>
           </Box>
         </Box>
       </Box>
