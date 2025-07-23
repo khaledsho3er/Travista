@@ -5,10 +5,10 @@ import SinglePackage from "../components/singlePackage";
 import { Box, Typography, Card, CardContent, Grid } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Filter from "../components/filter";
-import axios from "axios"; // Make sure to install axios using npm or yarn
-import { motion } from "framer-motion";
-import { useUser } from "../utils/userContext"; // Adjust path if needed
-import { Helmet } from "react-helmet"; // Import Helmet for SEO management
+import axios from "axios";
+import { useUser } from "../utils/userContext";
+import { Helmet } from "react-helmet";
+import { AnimatePresence, motion } from "framer-motion";
 function PackagesTours() {
   const [selectedFilter, setSelectedFilter] = useState(""); // Manage selected filter state
   const [selectedPackage, setSelectedPackage] = useState(null);
@@ -160,11 +160,8 @@ function PackagesTours() {
           content="Book unforgettable tours from Egypt to top global destinations with Travista."
         />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content="https://travista.vercel.app/packages"
-        />
-        <link rel="canonical" href="https://travista.vercel.app/packages" />
+        <meta property="og:url" content="https://travistasl.com/packages" />
+        <link rel="canonical" href="https://travistasl.com/packages" />
       </Helmet>
       <Navbar />
       <Box className="hero">
@@ -423,19 +420,33 @@ function PackagesTours() {
           )}
         </Box>
       </div>
-      {selectedPackage && (
-        <Box
-          className={`slide-up-modal ${selectedPackage ? "show" : ""}`}
-          onClick={() => setSelectedPackage(null)}
-        >
-          <Box onClick={(e) => e.stopPropagation()}>
-            <SinglePackage
-              tour={selectedPackage}
-              onClose={() => setSelectedPackage(null)}
-            />
-          </Box>
-        </Box>
-      )}
+      <AnimatePresence>
+        {selectedPackage && (
+          <motion.div
+            className="slide-up-modal"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            style={{
+              position: "fixed",
+              bottom: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              zIndex: 1000,
+            }}
+            onClick={() => setSelectedPackage(null)}
+          >
+            <Box onClick={(e) => e.stopPropagation()}>
+              <SinglePackage
+                tour={selectedPackage}
+                onClose={() => setSelectedPackage(null)}
+              />
+            </Box>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Box>
   );
 }

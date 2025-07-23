@@ -1452,97 +1452,97 @@ function SinglePackage({ tour, onClose }) {
 
   return (
     <>
-      <Slide direction="up" in={open} mountOnEnter unmountOnExit>
+      {/* <Slide direction="up" in={open} mountOnEnter unmountOnExit> */}
+      <Box
+        ref={modalRef}
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          height: "90vh", // 75% of the screen height
+          backgroundColor: "#ffffff",
+          borderTopLeftRadius: "20px",
+          borderTopRightRadius: "20px",
+          boxShadow: "0px -4px 12px rgba(0, 0, 0, 0.1)",
+          overflowY: "auto",
+          zIndex: 1300,
+          transition: "transform 0.5s ease-in-out",
+        }}
+      >
         <Box
-          ref={modalRef}
+          display="flex"
           sx={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
             width: "100%",
-            height: "90vh", // 75% of the screen height
-            backgroundColor: "#ffffff",
-            borderTopLeftRadius: "20px",
-            borderTopRightRadius: "20px",
-            boxShadow: "0px -4px 12px rgba(0, 0, 0, 0.1)",
-            overflowY: "auto",
-            zIndex: 1300,
-            transition: "transform 0.5s ease-in-out",
+            height: "100%",
           }}
         >
           <Box
-            display="flex"
             sx={{
-              width: "100%",
+              position: "relative",
+              width: isSmallScreen ? "100%" : "50%",
               height: "100%",
+              zIndex: 9999,
+              display: isSmallScreen ? "none" : "block",
             }}
           >
-            <Box
-              sx={{
-                position: "relative",
-                width: isSmallScreen ? "100%" : "50%",
-                height: "100%",
-                zIndex: 9999,
-                display: isSmallScreen ? "none" : "block",
-              }}
-            >
-              <img
-                src={`https://api.travistasl.com/${tour?.packagePicture}`}
-                alt={tour?.packageName || "Package"}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-            </Box>
-
-            <Box sx={{ flex: 1, overflowY: "auto" }}>
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={currentStep}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                  {currentStep === 1 ? (
-                    <ComponentOne />
-                  ) : currentStep === 2 ? (
-                    <HotelAccommodation
-                      hotels={hotels}
-                      selectedHotel={selectedHotel}
-                      setSelectedHotel={setSelectedHotel}
-                    />
-                  ) : currentStep === 3 ? (
-                    <FlightSchedule
-                      flights={flights}
-                      selectedFlight={selectedFlight}
-                      setSelectedFlight={setSelectedFlight}
-                    />
-                  ) : currentStep === 4 ? (
-                    <ComponentTwo />
-                  ) : currentStep === 5 ? (
-                    <ComponentThree
-                      initialFormData={initialFormData}
-                      onSubmit={handleSubmit}
-                      onClose={onClose}
-                      handleBack={handleBack}
-                      tour={tour}
-                      selectedRoom={selectedRoom}
-                      loading={loading}
-                      error={error}
-                    />
-                  ) : null}
-                </motion.div>
-              </AnimatePresence>
-            </Box>
-
-            {showProgramPopup && (
-              <ProgramPopup
-                packageId={tour.tour}
-                onClose={() => setShowProgramPopup(false)}
-              />
-            )}
+            <img
+              src={`https://api.travistasl.com/${tour?.packagePicture}`}
+              alt={tour?.packageName || "Package"}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
           </Box>
+
+          <Box sx={{ flex: 1, overflowY: "auto" }}>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={currentStep}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              >
+                {currentStep === 1 ? (
+                  <ComponentOne />
+                ) : currentStep === 2 ? (
+                  <HotelAccommodation
+                    hotels={hotels}
+                    selectedHotel={selectedHotel}
+                    setSelectedHotel={setSelectedHotel}
+                  />
+                ) : currentStep === 3 ? (
+                  <FlightSchedule
+                    flights={flights}
+                    selectedFlight={selectedFlight}
+                    setSelectedFlight={setSelectedFlight}
+                  />
+                ) : currentStep === 4 ? (
+                  <ComponentTwo />
+                ) : currentStep === 5 ? (
+                  <ComponentThree
+                    initialFormData={initialFormData}
+                    onSubmit={handleSubmit}
+                    onClose={onClose}
+                    handleBack={handleBack}
+                    tour={tour}
+                    selectedRoom={selectedRoom}
+                    loading={loading}
+                    error={error}
+                  />
+                ) : null}
+              </motion.div>
+            </AnimatePresence>
+          </Box>
+
+          {showProgramPopup && (
+            <ProgramPopup
+              packageId={tour.tour}
+              onClose={() => setShowProgramPopup(false)}
+            />
+          )}
         </Box>
-      </Slide>
+      </Box>
+      {/* </Slide> */}
 
       <SuccessDialog
         open={showSuccessDialog}
