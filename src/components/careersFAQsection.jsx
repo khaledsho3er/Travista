@@ -22,7 +22,6 @@ function CareersFAQSection() {
         <motion.div
           whileHover={{
             scale: 1.08,
-            boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
             borderRadius: "50px",
           }}
           transition={{ type: "spring", stiffness: 400, damping: 15 }}

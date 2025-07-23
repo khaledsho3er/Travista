@@ -648,7 +648,6 @@ function Navbar() {
                         display="block"
                         gutterBottom
                       >
-                        5 Min read •{" "}
                         {new Date(blog.createdAt).toLocaleDateString()}
                       </Typography>
                       <Typography variant="h6" gutterBottom fontWeight={800}>

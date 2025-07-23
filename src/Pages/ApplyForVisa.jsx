@@ -58,16 +58,25 @@ function ApplyForVisa() {
             we’l get you there . smoothly and stress-free. Apply today and
             explore without limits.
           </p>
-          <button
-            className="ApplyForVisa-contact-btn"
-            onClick={() => {
-              document
-                .querySelector(".ApplyForVisa-form")
-                .scrollIntoView({ behavior: "smooth" });
+          <motion.div
+            whileHover={{
+              scale: 1.08,
+              borderRadius: "50px",
             }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            style={{ display: "inline-block" }}
           >
-            Apply Now
-          </button>
+            <button
+              className="ApplyForVisa-contact-btn"
+              onClick={() => {
+                document
+                  .querySelector(".ApplyForVisa-form")
+                  .scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Apply Now
+            </button>
+          </motion.div>
         </Box>
         <img src="assets/apply_for_visa.jpg" alt="ApplyForVisa" />
       </header>
@@ -84,7 +93,6 @@ function ApplyForVisa() {
             <motion.div
               whileHover={{
                 scale: 1.08,
-                boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
                 borderRadius: "50px",
               }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
