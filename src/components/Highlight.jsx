@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Typography, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Import axios for making API requests
+import { motion } from "framer-motion";
 
 function Highlight() {
   const [activeBanner, setActiveBanner] = useState(null); // State to store the active banner data

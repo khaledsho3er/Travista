@@ -15,6 +15,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import { useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 // Define the background type for each route
