@@ -292,7 +292,7 @@ function PackagesTours() {
                         color: favoritedPackages.includes(packageDetails._id)
                           ? "var(--maroon)"
                           : "white",
-                        zIndex: 10,
+                        zIndex: 8,
                         "&:hover": {
                           color: "var(--maroon)",
                           transform: "scale(1.1)",

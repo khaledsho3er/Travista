@@ -465,11 +465,11 @@ function SinglePackage({ tour, onClose }) {
           <motion.div
             whileHover={{
               scale: 1.08,
-              boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
               borderRadius: "50px",
             }}
+            whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            style={{ display: "inline-block" }}
+            style={{ display: "inline-block", width: "100% " }}
           >
             <Button
               variant="contained"
@@ -682,11 +682,11 @@ function SinglePackage({ tour, onClose }) {
           <motion.div
             whileHover={{
               scale: 1.08,
-              boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
               borderRadius: "50px",
             }}
+            whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            style={{ display: "inline-block" }}
+            style={{ display: "inline-block", width: "100% " }}
           >
             <Button
               variant="contained"
@@ -846,11 +846,11 @@ function SinglePackage({ tour, onClose }) {
         <motion.div
           whileHover={{
             scale: 1.08,
-            boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
             borderRadius: "50px",
           }}
+          whileTap={{ scale: 0.98 }}
           transition={{ type: "spring", stiffness: 400, damping: 15 }}
-          style={{ display: "inline-block" }}
+          style={{ display: "inline-block", width: "100% " }}
         >
           <Button
             variant="contained"
@@ -974,41 +974,44 @@ function SinglePackage({ tour, onClose }) {
           ].map((room, index) => (
             <motion.div
               key={index}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                p: 2,
-                border: 2,
-                borderRadius: 2,
-                mb: 1,
-                cursor: "pointer",
-                borderColor: selectedRoom === room.label ? "#86205d" : "#ddd",
-                bgcolor:
-                  selectedRoom === room.label ? "#ffffff" : "transparent",
-                ":hover": {
-                  borderColor: "#86205d",
-                  backgroundColor: "#86205d",
-                  color: "#ffffff",
-                },
-              }}
-              onClick={() => handleRoomChange(room.label)}
               whileHover={{
                 scale: 1.04,
                 boxShadow: "0 8px 24px rgba(134,32,93,0.12)",
-                transition: { type: "spring", stiffness: 300, damping: 20 },
               }}
               whileTap={{ scale: 0.98 }}
+              style={{ width: "100%" }}
             >
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <BedIcon sx={{ mr: 1 }} />
-                <Typography variant="body1">
-                  {room.label}
-                  <br></br>
-                  <Typography variant="body2" color="textSecondary">
-                    {room.price}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  p: 2,
+                  border: 2,
+                  borderRadius: 2,
+                  mb: 1,
+                  cursor: "pointer",
+                  borderColor: selectedRoom === room.label ? "#86205d" : "#ddd",
+                  bgcolor:
+                    selectedRoom === room.label ? "#ffffff" : "transparent",
+                  ":hover": {
+                    borderColor: "#86205d",
+                    backgroundColor: "#86205d",
+                    color: "#ffffff",
+                  },
+                }}
+                onClick={() => handleRoomChange(room.label)}
+              >
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <BedIcon sx={{ mr: 1 }} />
+                  <Typography variant="body1">
+                    {room.label}
+                    <br></br>
+                    <Typography variant="body2" color="textSecondary">
+                      {room.price}
+                    </Typography>
                   </Typography>
-                </Typography>
+                </Box>
               </Box>
             </motion.div>
           ))}
@@ -1018,11 +1021,11 @@ function SinglePackage({ tour, onClose }) {
         <motion.div
           whileHover={{
             scale: 1.08,
-            boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
             borderRadius: "50px",
           }}
+          whileTap={{ scale: 0.98 }}
           transition={{ type: "spring", stiffness: 400, damping: 15 }}
-          style={{ display: "inline-block" }}
+          style={{ display: "inline-block", width: "100% " }}
         >
           <Button
             variant="contained"
@@ -1416,11 +1419,11 @@ function SinglePackage({ tour, onClose }) {
             <motion.div
               whileHover={{
                 scale: 1.08,
-                boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
                 borderRadius: "50px",
               }}
+              whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              style={{ display: "inline-block" }}
+              style={{ display: "inline-block", width: "100% " }}
             >
               <Button
                 onClick={handleSubmitForm}
