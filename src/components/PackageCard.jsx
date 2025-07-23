@@ -63,19 +63,29 @@ function PackageCard() {
           </Typography>
 
           <CardActions sx={{ padding: 0, marginTop: { xs: "0.5rem", md: 0 } }}>
-            <button
-              className="btn"
-              style={{
-                color: "var(--dark-green)",
-                background: "var(--pink)",
-                fontWeight: "bold",
-                fontSize: "1rem",
-                padding: "8px 24px",
+            <motion.div
+              whileHover={{
+                scale: 1.08,
+                boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+                borderRadius: "50px",
               }}
-              onClick={handleBuildPackageClick}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              style={{ display: "inline-block" }}
             >
-              Build Your Package
-            </button>
+              <button
+                className="btn"
+                style={{
+                  color: "var(--dark-green)",
+                  background: "var(--pink)",
+                  fontWeight: "bold",
+                  fontSize: "1rem",
+                  padding: "8px 24px",
+                }}
+                onClick={handleBuildPackageClick}
+              >
+                Build Your Package
+              </button>
+            </motion.div>
           </CardActions>
         </CardContent>
 

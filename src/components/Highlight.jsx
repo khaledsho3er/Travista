@@ -122,13 +122,23 @@ function Highlight() {
             >
               Explore Trip
             </Button>
-            <Button
-              className="btn btn-primary"
-              sx={{ padding: "10px 80px !important" }}
-              onClick={handlePackageClick}
+            <motion.div
+              whileHover={{
+                scale: 1.08,
+                boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+                borderRadius: "50px",
+              }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              style={{ display: "inline-block" }}
             >
-              Book Now
-            </Button>
+              <Button
+                className="btn btn-primary"
+                sx={{ padding: "10px 80px !important" }}
+                onClick={handlePackageClick}
+              >
+                Book Now
+              </Button>
+            </motion.div>
           </Box>
         </Box>
       </Box>

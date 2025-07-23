@@ -304,23 +304,32 @@ function Navbar() {
               </Link>
 
               {userSession?.firstName ? (
-                <Button
-                  color="inherit"
-                  onClick={handleMyAccount}
-                  className="btn btn-primary"
-                  sx={{
-                    marginTop: "10px",
-                    height: "40px",
-                    fontSize: "0.5rem",
-                    border: "1px solid",
-                    transition:
-                      "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
-                    "@media (max-width:600px)": {
-                      display: "none",
-                    },
+                <motion.div
+                  whileHover={{
+                    scale: 1.08,
+                    boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+                    borderRadius: "50px",
                   }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  style={{ display: "inline-block" }}
                 >
-                  {/* <PersonOutlineIcon
+                  <Button
+                    color="inherit"
+                    onClick={handleMyAccount}
+                    className="btn btn-primary"
+                    sx={{
+                      marginTop: "10px",
+                      height: "40px",
+                      fontSize: "0.5rem",
+                      border: "1px solid",
+                      transition:
+                        "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
+                      "@media (max-width:600px)": {
+                        display: "none",
+                      },
+                    }}
+                  >
+                    {/* <PersonOutlineIcon
                     sx={{
                       marginRight: "5px",
                       fontSize: "1.2rem",
@@ -328,37 +337,48 @@ function Navbar() {
                       transition: "color 0.3s ease-in-out",
                     }}
                   /> */}
-                  {userSession?.firstName
-                    ? `Welcome, ${userSession?.firstName}`
-                    : "Welcome"}{" "}
-                </Button>
+                    {userSession?.firstName
+                      ? `Welcome, ${userSession?.firstName}`
+                      : "Welcome"}{" "}
+                  </Button>
+                </motion.div>
               ) : (
-                <Button
-                  color="inherit"
-                  onClick={handleSignIn}
-                  className="btn btn-primary"
-                  sx={{
-                    marginTop: "10px",
-                    height: "40px",
-                    fontSize: "0.65rem",
-                    border: "1px solid",
-                    transition:
-                      "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
-                    "@media (max-width:600px)": {
-                      display: "none",
-                    },
+                <motion.div
+                  whileHover={{
+                    scale: 1.08,
+                    boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+                    borderRadius: "50px",
                   }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  style={{ display: "inline-block" }}
                 >
-                  <PersonOutlineIcon
+                  <Button
+                    color="inherit"
+                    onClick={handleSignIn}
+                    className="btn btn-primary"
                     sx={{
-                      marginRight: "5px",
-                      fontSize: "1.2rem",
-                      borderColor: navColor,
-                      transition: "color 0.3s ease-in-out",
+                      marginTop: "10px",
+                      height: "40px",
+                      fontSize: "0.65rem",
+                      border: "1px solid",
+                      transition:
+                        "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
+                      "@media (max-width:600px)": {
+                        display: "none",
+                      },
                     }}
-                  />
-                  Sign In
-                </Button>
+                  >
+                    <PersonOutlineIcon
+                      sx={{
+                        marginRight: "5px",
+                        fontSize: "1.2rem",
+                        borderColor: navColor,
+                        transition: "color 0.3s ease-in-out",
+                      }}
+                    />
+                    Sign In
+                  </Button>
+                </motion.div>
               )}
 
               <IconButton
@@ -408,88 +428,108 @@ function Navbar() {
 
             <Box>
               {userSession?.firstName ? (
-                <Button
-                  color="inherit"
-                  onClick={handleMyAccount}
-                  sx={{
-                    marginTop: "10px",
-                    height: "40px",
-                    fontSize: "0.5rem",
-                    border: "1px solid",
-                    borderRadius: "20px",
-                    color: scrolling
-                      ? "white"
-                      : isLightBackground
-                      ? "black"
-                      : "white",
-                    borderColor: scrolling
-                      ? "white"
-                      : isLightBackground
-                      ? "black"
-                      : "white", // Border color change
-                    transition:
-                      "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
+                <motion.div
+                  whileHover={{
+                    scale: 1.08,
+                    boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+                    borderRadius: "50px",
                   }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  style={{ display: "inline-block" }}
                 >
-                  <PersonOutlineIcon
+                  <Button
+                    color="inherit"
+                    onClick={handleMyAccount}
                     sx={{
-                      marginRight: "5px",
-                      fontSize: "1.2rem",
+                      marginTop: "10px",
+                      height: "40px",
+                      fontSize: "0.5rem",
+                      border: "1px solid",
+                      borderRadius: "20px",
                       color: scrolling
                         ? "white"
                         : isLightBackground
                         ? "black"
-                        : "white", // Icon color change
+                        : "white",
                       borderColor: scrolling
-                        ? "1px solid white"
-                        : "1px solid white",
-                      transition: "color 0.3s ease-in-out",
+                        ? "white"
+                        : isLightBackground
+                        ? "black"
+                        : "white", // Border color change
+                      transition:
+                        "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
                     }}
-                  />
-                  {userSession?.firstName
-                    ? `Welcome, ${userSession?.firstName}`
-                    : "Welcome"}
-                </Button>
+                  >
+                    <PersonOutlineIcon
+                      sx={{
+                        marginRight: "5px",
+                        fontSize: "1.2rem",
+                        color: scrolling
+                          ? "white"
+                          : isLightBackground
+                          ? "black"
+                          : "white", // Icon color change
+                        borderColor: scrolling
+                          ? "1px solid white"
+                          : "1px solid white",
+                        transition: "color 0.3s ease-in-out",
+                      }}
+                    />
+                    {userSession?.firstName
+                      ? `Welcome, ${userSession?.firstName}`
+                      : "Welcome"}
+                  </Button>
+                </motion.div>
               ) : (
-                <Button
-                  color="inherit"
-                  onClick={handleSignIn}
-                  sx={{
-                    height: "40px",
-                    fontSize: "0.5rem",
-                    border: "1px solid",
-                    borderRadius: "20px",
-                    color: scrolling
-                      ? "white"
-                      : isLightBackground
-                      ? "black"
-                      : "white",
-                    borderColor: scrolling
-                      ? "white"
-                      : isLightBackground
-                      ? "black"
-                      : "white", // Border color change
-                    transition:
-                      "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
+                <motion.div
+                  whileHover={{
+                    scale: 1.08,
+                    boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+                    borderRadius: "50px",
                   }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  style={{ display: "inline-block" }}
                 >
-                  <PersonOutlineIcon
+                  <Button
+                    color="inherit"
+                    onClick={handleSignIn}
                     sx={{
-                      marginRight: "5px",
-                      fontSize: "1.2rem",
+                      height: "40px",
+                      fontSize: "0.5rem",
+                      border: "1px solid",
+                      borderRadius: "20px",
                       color: scrolling
                         ? "white"
                         : isLightBackground
                         ? "black"
-                        : "white", // Icon color change
+                        : "white",
                       borderColor: scrolling
-                        ? "1px solid white"
-                        : "1px solid white",
-                      transition: "color 0.3s ease-in-out",
+                        ? "white"
+                        : isLightBackground
+                        ? "black"
+                        : "white", // Border color change
+                      transition:
+                        "border-color 0.3s ease-in-out, color 0.3s ease-in-out",
                     }}
-                  />
-                  Sign In
-                </Button>
+                  >
+                    <PersonOutlineIcon
+                      sx={{
+                        marginRight: "5px",
+                        fontSize: "1.2rem",
+                        color: scrolling
+                          ? "white"
+                          : isLightBackground
+                          ? "black"
+                          : "white", // Icon color change
+                        borderColor: scrolling
+                          ? "1px solid white"
+                          : "1px solid white",
+                        transition: "color 0.3s ease-in-out",
+                      }}
+                    />
+                    Sign In
+                  </Button>
+                </motion.div>
               )}
 
               <IconButton

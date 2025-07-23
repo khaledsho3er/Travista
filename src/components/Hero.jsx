@@ -105,12 +105,22 @@ function Hero({ preloadedData = null }) {
         </Typography>
 
         <Box className="hero-btns">
-          <Button
-            className="btn btn-primary"
-            onClick={() => navigate("/packages")}
+          <motion.div
+            whileHover={{
+              scale: 1.08,
+              boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+              borderRadius: "50px",
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            style={{ display: "inline-block" }}
           >
-            Explore Packages & Tours
-          </Button>
+            <Button
+              className="btn btn-primary"
+              onClick={() => navigate("/packages")}
+            >
+              Explore Packages & Tours
+            </Button>
+          </motion.div>
           <Button
             className="btn btn-secondary"
             onClick={() => navigate("/buildmypackage")}

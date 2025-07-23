@@ -322,17 +322,27 @@ const Explore = () => {
         )}
       </Box>
       <Box textAlign="center" mt={4}>
-        <Button
-          className="btn btn-primary"
-          sx={{
-            border: "1px solid var(--maroon)",
-            fontSize: { xs: "0.95rem", sm: "1rem" },
-            padding: { xs: "10px 24px", sm: "12px 40px" },
+        <motion.div
+          whileHover={{
+            scale: 1.08,
+            boxShadow: "0 8px 32px rgba(117,0,70,0.18)",
+            borderRadius: "50px",
           }}
-          onClick={handlePackagesClick}
+          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+          style={{ display: "inline-block" }}
         >
-          Explore All Packages
-        </Button>
+          <Button
+            className="btn btn-primary"
+            sx={{
+              border: "1px solid var(--maroon)",
+              fontSize: { xs: "0.95rem", sm: "1rem" },
+              padding: { xs: "10px 24px", sm: "12px 40px" },
+            }}
+            onClick={handlePackagesClick}
+          >
+            Explore All Packages
+          </Button>
+        </motion.div>
       </Box>
       {/* Render SinglePackage component as a pop-up when a package is clicked */}
       {selectedPackage && (
