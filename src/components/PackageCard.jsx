@@ -8,6 +8,7 @@ import {
   CardMedia,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { motion } from "framer-motion";
 
 function PackageCard() {
   const navigate = useNavigate(); // Initialize useNavigate
