@@ -6,6 +6,7 @@ import MessageForm from "../components/messageForm";
 import FAQsComponent from "../components/FAQs";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { motion } from "framer-motion";
 function FAQsPage() {
   const navigate = useNavigate();
   const [selectedSubject, setSelectedSubject] = useState("All topics");
@@ -50,13 +51,22 @@ function FAQsPage() {
           If you have any questions not mentioned below, contact us with how we
           could help you.
         </p>
-        <button
-          className="FAQs-contact-btn"
-          style={{ marginTop: "1rem" }}
-          onClick={handleContact}
+        <motion.div
+          whileHover={{
+            scale: 1.08,
+            borderRadius: "50px",
+          }}
+          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+          style={{ display: "inline-block" }}
         >
-          Contact Us
-        </button>
+          <button
+            className="FAQs-contact-btn"
+            style={{ marginTop: "1rem" }}
+            onClick={handleContact}
+          >
+            Contact Us
+          </button>
+        </motion.div>
       </header>
       <section className="FAQs-filter-section">
         <select
