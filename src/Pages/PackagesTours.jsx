@@ -420,38 +420,19 @@ function PackagesTours() {
           )}
         </Box>
       </div>
-      <AnimatePresence>
-        {selectedPackage && (
-          <motion.div
-            className="slide-up-modal"
-            initial={{ y: "100%", opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: "100%", opacity: 0 }}
-            transition={{
-              type: "spring",
-              stiffness: 220,
-              damping: 18,
-              duration: 0.12,
-            }}
-            style={{
-              position: "fixed",
-              bottom: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              zIndex: 1000,
-            }}
-            onClick={() => setSelectedPackage(null)}
-          >
-            <Box onClick={(e) => e.stopPropagation()}>
-              <SinglePackage
-                tour={selectedPackage}
-                onClose={() => setSelectedPackage(null)}
-              />
-            </Box>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {selectedPackage && (
+        <Box
+          className={`slide-up-modal ${selectedPackage ? "show" : ""}`}
+          onClick={() => setSelectedPackage(null)}
+        >
+          <Box onClick={(e) => e.stopPropagation()}>
+            <SinglePackage
+              tour={selectedPackage}
+              onClose={() => setSelectedPackage(null)}
+            />
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 }
