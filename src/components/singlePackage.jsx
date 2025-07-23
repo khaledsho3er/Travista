@@ -1545,7 +1545,7 @@ function SinglePackage({ tour, onClose }) {
                   left: 0,
                   width: "100vw",
                   height: "100vh",
-                  zIndex: 2000,
+                  zIndex: 9999,
                   background: "rgba(0,0,0,0.25)",
                   display: "flex",
                   alignItems: "center",

@@ -424,10 +424,15 @@ function PackagesTours() {
         {selectedPackage && (
           <motion.div
             className="slide-up-modal"
-            initial={{ x: "24rem", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: "24rem", opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
+            initial={{ y: "100%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: "100%", opacity: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 220,
+              damping: 18,
+              duration: 0.22,
+            }}
             style={{
               position: "fixed",
               bottom: 0,
