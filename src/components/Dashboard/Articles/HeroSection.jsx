@@ -18,7 +18,7 @@ import {
   DialogContentText,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { CiCircleCheck } from "react-icons/ci";
 import AddIcon from "@mui/icons-material/Add";
 import { toast } from "react-toastify";
 
@@ -153,7 +153,7 @@ function DashboardHero() {
                     onClick={() => handleActivate(hero._id)}
                     title="Set as Active"
                   >
-                    <CheckCircleIcon color="success" />
+                    <CiCircleCheck color="#ccc" />
                   </IconButton>
                 )}
                 <IconButton
