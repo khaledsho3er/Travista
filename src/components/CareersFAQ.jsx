@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Typography, List, ListItem } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { motion } from "framer-motion";
 
 const CareersFAQ = () => {
   const [openQuestion, setOpenQuestion] = useState(null);
@@ -65,7 +66,14 @@ const CareersFAQ = () => {
               <Typography variant="h5">
                 <strong>{faq.question}</strong>
               </Typography>
-              {openQuestion === index ? <RemoveIcon /> : <AddIcon />}
+              <motion.span
+                initial={false}
+                animate={{ rotate: openQuestion === index ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+                style={{ display: "inline-block" }}
+              >
+                {openQuestion === index ? <RemoveIcon /> : <AddIcon />}
+              </motion.span>{" "}
             </ListItem>
             <div
               className={`FAQs-answer ${openQuestion === index ? "open" : ""}`}
