@@ -429,9 +429,9 @@ function PackagesTours() {
             exit={{ y: "100%", opacity: 0 }}
             transition={{
               type: "spring",
-              stiffness: 120,
-              damping: 22,
-              duration: 0.38,
+              stiffness: 220,
+              damping: 18,
+              duration: 0.22,
             }}
             style={{
               position: "fixed",
