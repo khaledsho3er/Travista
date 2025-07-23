@@ -1535,10 +1535,10 @@ function SinglePackage({ tour, onClose }) {
           <AnimatePresence>
             {showProgramPopup && (
               <motion.div
-                initial={{ y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 40, opacity: 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
+                initial={{ scale: 0.85, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.85, opacity: 0 }}
+                transition={{ duration: 0.32, ease: "easeInOut" }}
                 style={{
                   position: "fixed",
                   top: 0,

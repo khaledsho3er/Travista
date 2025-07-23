@@ -431,7 +431,7 @@ function PackagesTours() {
               type: "spring",
               stiffness: 220,
               damping: 18,
-              duration: 0.22,
+              duration: 0.12,
             }}
             style={{
               position: "fixed",
