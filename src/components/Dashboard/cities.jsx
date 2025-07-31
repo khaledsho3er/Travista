@@ -97,7 +97,7 @@ const CityManagement = () => {
       if (selectedCity) {
         // Update City
         response = await axios.put(
-          `https://api.travistasl.com/api/cities/${selectedCity.cityId}`,
+          `https://api.travistasl.com/api/cities/${selectedCity._id}`,
           cityData,
           { headers: { "Content-Type": "application/json" } }
         );
@@ -127,12 +127,10 @@ const CityManagement = () => {
   };
 
   // Delete City
-  const handleDelete = async (selectedCity) => {
+  const handleDelete = async (city) => {
     if (!window.confirm("Are you sure you want to delete this city?")) return;
     try {
-      await axios.delete(
-        `https://api.travistasl.com/api/cities/${selectedCity._id}`
-      );
+      await axios.delete(`https://api.travistasl.com/api/cities/${city._id}`); // use city._id here
       toast.success("City deleted successfully!");
       fetchCities();
     } catch (error) {
@@ -201,7 +199,7 @@ const CityManagement = () => {
                   <Button
                     variant="outlined"
                     color="error"
-                    onClick={() => handleDelete(city.cityId)}
+                    onClick={() => handleDelete(city)}
                   >
                     Delete
                   </Button>

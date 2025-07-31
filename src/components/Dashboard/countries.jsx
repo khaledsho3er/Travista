@@ -77,7 +77,7 @@ const CountryManagement = () => {
       if (selectedCountry) {
         // Update country
         response = await axios.put(
-          `https://api.travistasl.com/api/countries/${selectedCountry.countryId}`,
+          `https://api.travistasl.com/api/countries/${selectedCountry._id}`,
           countryData
         );
         toast.success("Country updated successfully!");
@@ -108,7 +108,7 @@ const CountryManagement = () => {
       return;
     try {
       await axios.delete(
-        `https://api.travistasl.com/api/countries/${countryId}`
+        `https://api.travistasl.com/api/countries/${countryId._id}`
       );
       toast.success("Country deleted successfully!");
       fetchCountries();
@@ -176,7 +176,7 @@ const CountryManagement = () => {
                   <Button
                     variant="outlined"
                     color="error"
-                    onClick={() => handleDelete(country.countryId)}
+                    onClick={() => handleDelete(country)}
                   >
                     Delete
                   </Button>

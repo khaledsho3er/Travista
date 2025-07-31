@@ -19,6 +19,8 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 function CommentManagement() {
@@ -43,6 +45,7 @@ function CommentManagement() {
       setComments(response.data);
     } catch (error) {
       console.error("Error fetching comments:", error);
+      toast.error("Error fetching comments");
     }
   };
 
@@ -80,17 +83,20 @@ function CommentManagement() {
           `https://api.travistasl.com/api/comments/${currentComment._id}`,
           currentComment
         );
+        toast.success("Comment Updated successfully!");
       } else {
         await axios.post(
           "https://api.travistasl.com/api/comments",
           currentComment
         );
         console.log("Comment added successfully!");
+        toast.success("Comment added successfully!");
       }
       fetchComments();
       handleClose();
     } catch (error) {
       console.error("Error saving comment:", error);
+      toast.error("Error saving comment");
     }
   };
 
@@ -98,8 +104,10 @@ function CommentManagement() {
     try {
       await axios.delete(`https://api.travistasl.com/api/comments/${id}`);
       fetchComments();
+      toast.success("Comment deleted successfully!");
     } catch (error) {
       console.error("Error deleting comment:", error);
+      toast.error("Error deleting comment");
     }
   };
 
@@ -109,8 +117,10 @@ function CommentManagement() {
         `https://api.travistasl.com/api/comments/${id}/toggle-visibility`
       );
       fetchComments();
+      toast.success("Comment visibility toggled successfully!");
     } catch (error) {
       console.error("Error toggling visibility:", error);
+      toast.error("Error toggling comment visibility");
     }
   };
 
@@ -252,6 +262,7 @@ function CommentManagement() {
           </Button>
         </DialogActions>
       </Dialog>
+      <ToastContainer position="top-right" autoClose={3000} />
     </Box>
   );
 }
