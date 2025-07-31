@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Box,
   Typography,
@@ -79,31 +81,50 @@ const BannerDashboard = () => {
   };
 
   const handleSubmit = async () => {
-    const fd = new FormData();
-    fd.append("title", formData.title);
-    fd.append("destinations", formData.destinations);
-    fd.append("description", formData.description);
-    fd.append("date", formData.date); // Add date here
-    if (formData.image) fd.append("image", formData.image);
+    try {
+      const fd = new FormData();
+      fd.append("title", formData.title);
+      fd.append("destinations", formData.destinations);
+      fd.append("description", formData.description);
+      fd.append("date", formData.date); // Add date here
+      if (formData.image) fd.append("image", formData.image);
 
-    if (formType === "create") {
-      await createBanner(fd);
-    } else if (formType === "edit") {
-      await updateBanner(selectedBannerId, fd);
+      if (formType === "create") {
+        await createBanner(fd);
+        toast.success("Banner created successfully!");
+      } else if (formType === "edit") {
+        await updateBanner(selectedBannerId, fd);
+        toast.success("Banner updated successfully!");
+      }
+
+      fetchBanners();
+      handleClose();
+    } catch (error) {
+      console.error("Error saving banner:", error);
+      toast.error("Error saving banner");
     }
-
-    fetchBanners();
-    handleClose();
   };
 
   const handleDelete = async (id) => {
-    await deleteBanner(id);
-    fetchBanners();
+    try {
+      await deleteBanner(id);
+      toast.success("Banner deleted successfully!");
+      fetchBanners();
+    } catch (error) {
+      console.error("Error deleting banner:", error);
+      toast.error("Error deleting banner");
+    }
   };
 
   const handleToggle = async (id) => {
-    await toggleStatus(id);
-    fetchBanners();
+    try {
+      await toggleStatus(id);
+      toast.success("Banner status updated successfully!");
+      fetchBanners();
+    } catch (error) {
+      console.error("Error toggling banner status:", error);
+      toast.error("Error updating banner status");
+    }
   };
 
   return (
@@ -223,6 +244,7 @@ const BannerDashboard = () => {
           </Button>
         </DialogContent>
       </Dialog>
+      <ToastContainer position="top-right" autoClose={3000} />
     </Box>
   );
 };

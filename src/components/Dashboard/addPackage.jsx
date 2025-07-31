@@ -52,7 +52,7 @@ const contentBoxStyle = {
 };
 
 const AddPackage = ({ open, handleClose, onPackageCreated }) => {
-  const [destinations, setDestinations] = useState([""]);
+  const [destinations, setDestinations] = useState([null]);
   const [flights, setFlights] = useState([
     {
       airline: "",
@@ -120,6 +120,27 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
       fetchTours();
     }
   }, [open]);
+
+  // Debug useEffect to track state changes
+  useEffect(() => {
+    console.log("Destinations changed:", destinations);
+    console.log("Total Days changed:", totalDays);
+    console.log("Total Nights changed:", totalNights);
+  }, [destinations, totalDays, totalNights]);
+
+  // Add this function to handle destination changes more safely
+  const handleDestinationChange = (index, newValue) => {
+    console.log("Changing destination at index:", index, "to:", newValue);
+    const newDestinations = [...destinations];
+    newDestinations[index] = newValue;
+    setDestinations(newDestinations);
+  };
+
+  // Add this function to handle number input changes more safely
+  const handleNumberChange = (setter, value) => {
+    console.log("Changing number value to:", value);
+    setter(value);
+  };
   // Add this function to handle tour selection
   const handleTourSelect = (event) => {
     const tourId = event.target.value;
@@ -130,7 +151,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
       if (selected) {
         // Here you can populate form fields with the selected tour data
         // For example:
-        setDestinations(selected.destinations || [""]);
+        setDestinations(selected.destinations || [null]);
         setTotalDays(selected.totalDays || "");
         setTotalNights(selected.totalNights || "");
         setIsActive(selected.isActive || true);
@@ -140,11 +161,25 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   };
 
   const handleAddItem = (setter, defaultValue) => {
-    setter((prev) => [...prev, defaultValue]);
+    setter((prev) => {
+      // If adding to destinations, ensure we don't lose existing data
+      if (setter === setDestinations) {
+        return [...prev, defaultValue];
+      }
+      // For other arrays, add the default value
+      return [...prev, defaultValue];
+    });
   };
 
   const handleRemoveItem = (index, setter) => {
-    setter((prev) => prev.filter((_, i) => i !== index));
+    setter((prev) => {
+      const newArray = prev.filter((_, i) => i !== index);
+      // Ensure we always have at least one item for destinations
+      if (setter === setDestinations && newArray.length === 0) {
+        return [null];
+      }
+      return newArray;
+    });
   };
 
   const handleMoveUp = (arr, setArr, index) => {
@@ -191,7 +226,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
     // Check required fields
     if (!packageName.trim()) errors.packageName = "Package name is required";
     if (!packageType) errors.packageType = "Package type is required";
-    if (!destinations[0]?.name?.trim())
+    if (!destinations[0] || !destinations[0]?.name?.trim())
       errors.destinations = "At least one destination is required";
     if (!totalDays || totalDays <= 0)
       errors.totalDays = "Total days must be greater than 0";
@@ -326,7 +361,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   };
 
   const resetForm = () => {
-    setDestinations([""]);
+    setDestinations([null]);
     setFlights([
       {
         airline: "",
@@ -500,9 +535,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                 getOptionLabel={(option) => option.name}
                 value={dest}
                 onChange={(event, newValue) => {
-                  const newDestinations = [...destinations];
-                  newDestinations[index] = newValue;
-                  setDestinations(newDestinations);
+                  handleDestinationChange(index, newValue);
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -533,7 +566,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
           <Button
             variant="text"
             startIcon={<Add />}
-            onClick={() => handleAddItem(setDestinations, "")}
+            onClick={() => handleAddItem(setDestinations, null)}
           >
             Add Destination
           </Button>
@@ -544,7 +577,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               label="Total Days *"
               type="number"
               value={totalDays}
-              onChange={(e) => setTotalDays(e.target.value)}
+              onChange={(e) => handleNumberChange(setTotalDays, e.target.value)}
               error={!!validationErrors.totalDays}
               helperText={validationErrors.totalDays}
               required
@@ -554,7 +587,9 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               label="Total Nights *"
               type="number"
               value={totalNights}
-              onChange={(e) => setTotalNights(e.target.value)}
+              onChange={(e) =>
+                handleNumberChange(setTotalNights, e.target.value)
+              }
               error={!!validationErrors.totalNights}
               helperText={validationErrors.totalNights}
               required
