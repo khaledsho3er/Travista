@@ -131,6 +131,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   // Add this function to handle destination changes more safely
   const handleDestinationChange = (index, newValue) => {
     console.log("Changing destination at index:", index, "to:", newValue);
+    markFormTouched();
     const newDestinations = [...destinations];
     newDestinations[index] = newValue;
     setDestinations(newDestinations);
@@ -139,6 +140,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   // Add this function to handle number input changes more safely
   const handleNumberChange = (setter, value) => {
     console.log("Changing number value to:", value);
+    markFormTouched();
     setter(value);
   };
   // Add this function to handle tour selection
@@ -149,12 +151,22 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
     if (tourId) {
       const selected = availableTours.find((tour) => tour._id === tourId);
       if (selected) {
-        // Here you can populate form fields with the selected tour data
-        // For example:
-        setDestinations(selected.destinations || [null]);
-        setTotalDays(selected.totalDays || "");
-        setTotalNights(selected.totalNights || "");
-        setIsActive(selected.isActive || true);
+        // Only populate fields if they are empty or null
+        if (!destinations[0] || !destinations[0]?.name) {
+          setDestinations(selected.destinations || [null]);
+        }
+        if (!totalDays) {
+          setTotalDays(selected.totalDays || "");
+        }
+        if (!totalNights) {
+          setTotalNights(selected.totalNights || "");
+        }
+        // Don't overwrite isActive if it's already set
+        if (isActive === true) {
+          setIsActive(
+            selected.isActive !== undefined ? selected.isActive : true
+          );
+        }
         // ... populate other fields as needed ...
       }
     }
@@ -248,12 +260,30 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
     return Object.keys(errors).length === 0;
   };
 
+  // Add state to track if form has been interacted with
+  const [formTouched, setFormTouched] = useState(false);
+
+  // Function to mark form as touched
+  const markFormTouched = () => {
+    if (!formTouched) {
+      setFormTouched(true);
+    }
+  };
+
+  // Only show validation errors if form has been touched
+  const shouldShowError = (fieldName) => {
+    return formTouched && validationErrors[fieldName];
+  };
+
   const handleSubmit = async () => {
     try {
       setLoading(true);
       setError(null);
       setSuccess(false);
       setValidationErrors({});
+
+      // Mark form as touched to show validation errors
+      setFormTouched(true);
 
       // Validate form
       if (!validateForm()) {
@@ -398,6 +428,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
     setIsActive(true);
     setSelectedTour(""); // Reset tour selection
     setValidationErrors({}); // Clear validation errors
+    setFormTouched(false); // Reset form touched state
   };
 
   useEffect(() => {
@@ -484,18 +515,26 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
             fullWidth
             label="Package Name"
             value={packageName}
-            onChange={(e) => setPackageName(e.target.value)}
-            error={!!validationErrors.packageName}
-            helperText={validationErrors.packageName}
+            onChange={(e) => {
+              markFormTouched();
+              setPackageName(e.target.value);
+            }}
+            error={shouldShowError("packageName")}
+            helperText={
+              shouldShowError("packageName") ? validationErrors.packageName : ""
+            }
             required
           />
-          <FormControl fullWidth error={!!validationErrors.packageType}>
+          <FormControl fullWidth error={shouldShowError("packageType")}>
             <InputLabel id="package-type-label">Package Type *</InputLabel>
             <Select
               labelId="package-type-label"
               id="package-type"
               value={packageType || ""}
-              onChange={(e) => setPackageType(e.target.value)}
+              onChange={(e) => {
+                markFormTouched();
+                setPackageType(e.target.value);
+              }}
               label="Package Type *"
             >
               <MenuItem value="nature">Nature</MenuItem>
@@ -511,7 +550,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               <MenuItem value="shopping">Shopping</MenuItem>
               <MenuItem value="hajj&umrah">Hajj&Umrah</MenuItem>
             </Select>
-            {validationErrors.packageType && (
+            {shouldShowError("packageType") && (
               <Typography
                 variant="caption"
                 color="error"
@@ -541,11 +580,15 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                   <TextField
                     {...params}
                     label={`Destination ${index + 1}${index === 0 ? " *" : ""}`}
-                    error={!dest && index === 0}
+                    error={
+                      shouldShowError("destinations") && !dest && index === 0
+                    }
                     helperText={
-                      !dest && index === 0
+                      shouldShowError("destinations") && !dest && index === 0
                         ? "First destination is required"
-                        : validationErrors.destinations
+                        : shouldShowError("destinations")
+                        ? validationErrors.destinations
+                        : ""
                     }
                     required={index === 0}
                   />
@@ -578,8 +621,10 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               type="number"
               value={totalDays}
               onChange={(e) => handleNumberChange(setTotalDays, e.target.value)}
-              error={!!validationErrors.totalDays}
-              helperText={validationErrors.totalDays}
+              error={shouldShowError("totalDays")}
+              helperText={
+                shouldShowError("totalDays") ? validationErrors.totalDays : ""
+              }
               required
             />
             <TextField
@@ -590,8 +635,12 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               onChange={(e) =>
                 handleNumberChange(setTotalNights, e.target.value)
               }
-              error={!!validationErrors.totalNights}
-              helperText={validationErrors.totalNights}
+              error={shouldShowError("totalNights")}
+              helperText={
+                shouldShowError("totalNights")
+                  ? validationErrors.totalNights
+                  : ""
+              }
               required
             />
           </Stack>
@@ -647,22 +696,34 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               fullWidth
               type="number"
               value={packagePrice}
-              onChange={(e) => setPackagePrice(e.target.value)}
-              error={!!validationErrors.packagePrice}
-              helperText={validationErrors.packagePrice}
+              onChange={(e) => {
+                markFormTouched();
+                setPackagePrice(e.target.value);
+              }}
+              error={shouldShowError("packagePrice")}
+              helperText={
+                shouldShowError("packagePrice")
+                  ? validationErrors.packagePrice
+                  : ""
+              }
               required
             />
             <Autocomplete
               options={currencyOptions}
               getOptionLabel={(option) => option.label}
               value={selectedCurrency}
-              onChange={(event, newValue) => setSelectedCurrency(newValue)}
+              onChange={(event, newValue) => {
+                markFormTouched();
+                setSelectedCurrency(newValue);
+              }}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   label="Currency *"
-                  error={!!validationErrors.currency}
-                  helperText={validationErrors.currency}
+                  error={shouldShowError("currency")}
+                  helperText={
+                    shouldShowError("currency") ? validationErrors.currency : ""
+                  }
                   required
                 />
               )}
@@ -681,15 +742,20 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                   sx={{ flex: 2 }}
                   value={flight.airline}
                   onChange={(e) => {
+                    markFormTouched();
                     const newFlights = [...flights];
                     newFlights[index].airline = e.target.value;
                     setFlights(newFlights);
                   }}
-                  error={!flight.airline && index === 0}
+                  error={
+                    shouldShowError("flights") && !flight.airline && index === 0
+                  }
                   helperText={
-                    !flight.airline && index === 0
+                    shouldShowError("flights") && !flight.airline && index === 0
                       ? "Airline name is required"
-                      : validationErrors.flights
+                      : shouldShowError("flights")
+                      ? validationErrors.flights
+                      : ""
                   }
                   required={index === 0}
                 />
@@ -824,6 +890,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                   getOptionLabel={(option) => option.name}
                   value={hotel.city}
                   onChange={(event, newValue) => {
+                    markFormTouched();
                     const newHotels = [...hotels];
                     newHotels[index] = { ...newHotels[index], city: newValue };
                     setHotels(newHotels);
@@ -832,11 +899,15 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                     <TextField
                       {...params}
                       label={`City${index === 0 ? " *" : ""}`}
-                      error={!hotel.city && index === 0}
+                      error={
+                        shouldShowError("hotels") && !hotel.city && index === 0
+                      }
                       helperText={
-                        !hotel.city && index === 0
+                        shouldShowError("hotels") && !hotel.city && index === 0
                           ? "City is required"
-                          : validationErrors.hotels
+                          : shouldShowError("hotels")
+                          ? validationErrors.hotels
+                          : ""
                       }
                       required={index === 0}
                     />
@@ -850,6 +921,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                   label="Nights"
                   value={hotel.nights}
                   onChange={(e) => {
+                    markFormTouched();
                     const newHotels = [...hotels];
                     newHotels[index] = {
                       ...newHotels[index],
@@ -866,6 +938,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                   }
                   value={hotel.hotelName}
                   onChange={(event, newValue) => {
+                    markFormTouched();
                     const newHotels = [...hotels];
                     newHotels[index] = {
                       ...newHotels[index],
@@ -887,6 +960,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                   label="Single Room Price"
                   value={hotel.single}
                   onChange={(e) => {
+                    markFormTouched();
                     const newHotels = [...hotels];
                     newHotels[index] = {
                       ...newHotels[index],
@@ -900,6 +974,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                   label="Double Room Price"
                   value={hotel.double}
                   onChange={(e) => {
+                    markFormTouched();
                     const newHotels = [...hotels];
                     newHotels[index] = {
                       ...newHotels[index],
@@ -913,6 +988,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                   label="Triple Room Price"
                   value={hotel.triple}
                   onChange={(e) => {
+                    markFormTouched();
                     const newHotels = [...hotels];
                     newHotels[index] = {
                       ...newHotels[index],
