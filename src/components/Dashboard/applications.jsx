@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Typography,
   IconButton,
@@ -59,9 +61,11 @@ const ApplicationManager = () => {
       try {
         setLoading(true);
         await axios.delete(`https://api.travistasl.com/api/applications/${id}`);
+        toast.success("Application deleted successfully!");
         fetchApplications();
       } catch (err) {
         console.error(err);
+        toast.error("Error deleting application");
       } finally {
         setLoading(false);
       }
@@ -75,11 +79,13 @@ const ApplicationManager = () => {
         `https://api.travistasl.com/api/applications/${editApp._id}`,
         editApp
       );
+      toast.success("Application updated successfully!");
       setEditApp(null);
       setIsEditing(false);
       fetchApplications();
     } catch (err) {
       console.error(err);
+      toast.error("Error updating application");
     } finally {
       setLoading(false);
     }
@@ -938,6 +944,7 @@ const ApplicationManager = () => {
           )}
         </Box>
       </Modal>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

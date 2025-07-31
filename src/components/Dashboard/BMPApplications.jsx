@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Typography,
   IconButton,
@@ -61,9 +63,11 @@ const BMPApplicationManager = () => {
         await axios.delete(
           `https://api.travistasl.com/api/build-packages/${id}`
         );
+        toast.success("Build My Package application deleted successfully!");
         fetchApplications();
       } catch (err) {
         console.error(err);
+        toast.error("Error deleting application");
       } finally {
         setLoading(false);
       }
@@ -77,11 +81,13 @@ const BMPApplicationManager = () => {
         `https://api.travistasl.com/api/build-packages/${editApp._id}`,
         editApp
       );
+      toast.success("Build My Package application updated successfully!");
       setEditApp(null);
       setIsEditing(false);
       fetchApplications();
     } catch (err) {
       console.error(err);
+      toast.error("Error updating application");
     } finally {
       setLoading(false);
     }
@@ -683,6 +689,7 @@ const BMPApplicationManager = () => {
           )}
         </Box>
       </Modal>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

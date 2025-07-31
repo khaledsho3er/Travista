@@ -80,6 +80,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
   const [totalDays, setTotalDays] = useState("");
   const [totalNights, setTotalNights] = useState("");
   const [cities, setCities] = useState([]);
@@ -184,22 +185,45 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
     return `TRAV-${timestamp}-${random}`;
   };
 
+  const validateForm = () => {
+    const errors = {};
+
+    // Check required fields
+    if (!packageName.trim()) errors.packageName = "Package name is required";
+    if (!packageType) errors.packageType = "Package type is required";
+    if (!destinations[0]?.name?.trim())
+      errors.destinations = "At least one destination is required";
+    if (!totalDays || totalDays <= 0)
+      errors.totalDays = "Total days must be greater than 0";
+    if (!totalNights || totalNights <= 0)
+      errors.totalNights = "Total nights must be greater than 0";
+    if (!packagePrice || packagePrice <= 0)
+      errors.packagePrice = "Package price must be greater than 0";
+    if (!selectedCurrency) errors.currency = "Currency is required";
+
+    // Check if at least one hotel is added
+    if (!hotels[0]?.city?.name?.trim())
+      errors.hotels = "At least one hotel is required";
+
+    // Check if at least one flight is added
+    if (!flights[0]?.airline?.trim())
+      errors.flights = "At least one flight is required";
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async () => {
     try {
       setLoading(true);
       setError(null);
       setSuccess(false);
+      setValidationErrors({});
 
-      // Validate required fields
-      if (
-        !destinations[0] ||
-        !totalDays ||
-        !totalNights ||
-        !packagePrice ||
-        !selectedCurrency ||
-        !packageType
-      ) {
-        throw new Error("Please fill in all required fields");
+      // Validate form
+      if (!validateForm()) {
+        setError("Please fill in all required fields");
+        return;
       }
 
       // Generate a random travistaID
@@ -293,7 +317,6 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
       setTimeout(() => {
         window.location.reload();
       }, 2000);
-      resetForm();
     } catch (err) {
       console.error("Package creation error:", err);
       setError(err.message || "Failed to create package. Please try again.");
@@ -339,6 +362,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
     setTotalNights("");
     setIsActive(true);
     setSelectedTour(""); // Reset tour selection
+    setValidationErrors({}); // Clear validation errors
   };
 
   useEffect(() => {
@@ -426,15 +450,18 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
             label="Package Name"
             value={packageName}
             onChange={(e) => setPackageName(e.target.value)}
+            error={!!validationErrors.packageName}
+            helperText={validationErrors.packageName}
+            required
           />
-          <FormControl fullWidth>
-            <InputLabel id="package-type-label">Package Type</InputLabel>
+          <FormControl fullWidth error={!!validationErrors.packageType}>
+            <InputLabel id="package-type-label">Package Type *</InputLabel>
             <Select
               labelId="package-type-label"
               id="package-type"
               value={packageType || ""}
               onChange={(e) => setPackageType(e.target.value)}
-              label="Package Type"
+              label="Package Type *"
             >
               <MenuItem value="nature">Nature</MenuItem>
               <MenuItem value="history">History</MenuItem>
@@ -449,6 +476,15 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               <MenuItem value="shopping">Shopping</MenuItem>
               <MenuItem value="hajj&umrah">Hajj&Umrah</MenuItem>
             </Select>
+            {validationErrors.packageType && (
+              <Typography
+                variant="caption"
+                color="error"
+                sx={{ mt: 0.5, ml: 1.5 }}
+              >
+                {validationErrors.packageType}
+              </Typography>
+            )}
           </FormControl>
           <TextField
             fullWidth
@@ -471,13 +507,14 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label={`Destination ${index + 1}`}
+                    label={`Destination ${index + 1}${index === 0 ? " *" : ""}`}
                     error={!dest && index === 0}
                     helperText={
                       !dest && index === 0
                         ? "First destination is required"
-                        : ""
+                        : validationErrors.destinations
                     }
+                    required={index === 0}
                   />
                 )}
                 loading={loadingCountries}
@@ -504,17 +541,23 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
           <Stack direction="row" spacing={2}>
             <TextField
               fullWidth
-              label="Total Days"
+              label="Total Days *"
               type="number"
               value={totalDays}
               onChange={(e) => setTotalDays(e.target.value)}
+              error={!!validationErrors.totalDays}
+              helperText={validationErrors.totalDays}
+              required
             />
             <TextField
               fullWidth
-              label="Total Nights"
+              label="Total Nights *"
               type="number"
               value={totalNights}
               onChange={(e) => setTotalNights(e.target.value)}
+              error={!!validationErrors.totalNights}
+              helperText={validationErrors.totalNights}
+              required
             />
           </Stack>
 
@@ -565,11 +608,14 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
 
           <Box display="flex" alignItems="center" gap={2} mb={2}>
             <TextField
-              label="Package Price"
+              label="Package Price *"
               fullWidth
               type="number"
               value={packagePrice}
               onChange={(e) => setPackagePrice(e.target.value)}
+              error={!!validationErrors.packagePrice}
+              helperText={validationErrors.packagePrice}
+              required
             />
             <Autocomplete
               options={currencyOptions}
@@ -577,7 +623,13 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               value={selectedCurrency}
               onChange={(event, newValue) => setSelectedCurrency(newValue)}
               renderInput={(params) => (
-                <TextField {...params} label="Currency" />
+                <TextField
+                  {...params}
+                  label="Currency *"
+                  error={!!validationErrors.currency}
+                  helperText={validationErrors.currency}
+                  required
+                />
               )}
               sx={{ width: 200 }}
             />
@@ -590,7 +642,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               <Stack direction="row" spacing={2}>
                 <TextField
                   fullWidth
-                  label="Airline Name"
+                  label="Airline Name *"
                   sx={{ flex: 2 }}
                   value={flight.airline}
                   onChange={(e) => {
@@ -598,6 +650,13 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                     newFlights[index].airline = e.target.value;
                     setFlights(newFlights);
                   }}
+                  error={!flight.airline && index === 0}
+                  helperText={
+                    !flight.airline && index === 0
+                      ? "Airline name is required"
+                      : validationErrors.flights
+                  }
+                  required={index === 0}
                 />
                 <TextField
                   fullWidth
@@ -737,11 +796,14 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="City"
+                      label={`City${index === 0 ? " *" : ""}`}
                       error={!hotel.city && index === 0}
                       helperText={
-                        !hotel.city && index === 0 ? "City is required" : ""
+                        !hotel.city && index === 0
+                          ? "City is required"
+                          : validationErrors.hotels
                       }
+                      required={index === 0}
                     />
                   )}
                   loading={loadingCities}

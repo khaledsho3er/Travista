@@ -62,7 +62,7 @@ const CityManagement = () => {
     setSelectedCity(city);
     setCityData(
       city
-        ? { name: city.name, country: city.country }
+        ? { name: city.name, country: city.country?._id || city.country }
         : { name: "", country: "" }
     );
     setOpen(true);
