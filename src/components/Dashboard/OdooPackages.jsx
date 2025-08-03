@@ -51,9 +51,11 @@ const OdooPackages = () => {
   }, []);
 
   const extractHref = (htmlString) => {
-    const match = htmlString?.match(/href="([^"]+)"/);
+    if (typeof htmlString !== "string") return null;
+    const match = htmlString.match(/href="([^"]+)"/);
     return match ? match[1] : null;
   };
+
   if (loading) {
     return (
       <Box
