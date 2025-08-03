@@ -777,6 +777,7 @@ function SinglePackage({ tour, onClose }) {
           sx={{
             cursor: "pointer",
             textDecoration: "underline",
+            marginTop: "-13px",
             "&:hover": {
               color: "#750046",
             },

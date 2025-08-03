@@ -140,6 +140,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
       const odooPackages = result.map((packageItem) => ({
         id: packageItem.id,
         name: packageItem.name,
+        description: packageItem.description || "",
       }));
 
       return odooPackages;
