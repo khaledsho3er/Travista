@@ -563,118 +563,155 @@ function SinglePackage({ tour, onClose }) {
           <ArrowBackIcon />
         </IconButton>
 
-        <Box sx={{ mt: 4, width: isSmallScreen ? "100%" : "100%" }}>
-          <Typography variant="h5" fontWeight="bold" mb={2}>
+        <Box sx={{ mt: 4, width: "100%" }}>
+          <Typography variant="h5" fontWeight="bold" mb={2} textAlign="center">
             Flight Schedule
           </Typography>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 2,
-              overflowY: "auto",
-              maxHeight: "500px",
-              "&::-webkit-scrollbar": {
-                width: "6px",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "#750046",
-                borderRadius: "3px",
-              },
-            }}
-          >
-            {flights.map((flight, index) => (
-              <Box
-                key={index}
-                onClick={() => setSelectedFlight(index)}
-                sx={{
-                  width: isSmallScreen ? "125%" : "100%",
-                  p: 2,
-                  border: `2px solid ${
-                    selectedFlight === index ? "#750046" : "#ddd"
-                  }`,
-                  borderRadius: "12px",
-                  backgroundColor:
-                    selectedFlight === index ? "#f9f9f9" : "transparent",
-                  cursor: "pointer",
-                  transition: "all 0.3s",
-                  "&:hover": {
-                    borderColor: "#750046",
-                  },
-                }}
-              >
-                <Table sx={{ width: "100%", borderCollapse: "collapse" }}>
-                  <TableHead>
-                    <TableRow>
-                      {["Airline", "Date", "Route", "Depart", "Arrival"].map(
-                        (header) => (
-                          <TableCell
-                            key={header}
-                            sx={{
-                              fontWeight: "bold",
-                              color: "#750046",
-                              borderBottom: "2px solid #ddd",
-                              textAlign: "left",
-                            }}
-                          >
-                            {header}
-                          </TableCell>
-                        )
-                      )}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell
-                        sx={{
-                          borderBottom: "1px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        {flight.airline}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          borderBottom: "1px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        {flight.date}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          borderBottom: "1px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        {flight.from}/{flight.to}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          borderBottom: "1px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        {flight.departureDate} / {flight.departureTime}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          borderBottom: "1px solid #ddd",
-                          textAlign: "left",
-                          color: flight.isNextDay ? "red" : "inherit",
-                          fontStyle: flight.isNextDay ? "italic" : "normal",
-                        }}
-                      >
-                        {flight.arrivalDate} / {flight.arrivalTime}
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </Box>
-            ))}
-          </Box>
+          {/* Conditional Rendering: Show flights or 'No Flights' message */}
+          {flights && flights.length > 0 ? (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
+                overflowY: "auto",
+                maxHeight: "500px",
+                "&::-webkit-scrollbar": {
+                  width: "6px",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "#750046",
+                  borderRadius: "3px",
+                },
+              }}
+            >
+              {/* Mapping through available flights */}
+              {flights.map((flight, index) => (
+                <Box
+                  key={index}
+                  onClick={() => setSelectedFlight(index)}
+                  sx={{
+                    width: "100%",
+                    p: 2,
+                    border: `2px solid ${
+                      selectedFlight === index ? "#750046" : "#ddd"
+                    }`,
+                    borderRadius: "12px",
+                    backgroundColor:
+                      selectedFlight === index ? "#f9f9f9" : "transparent",
+                    cursor: "pointer",
+                    transition: "all 0.3s",
+                    "&:hover": {
+                      borderColor: "#750046",
+                    },
+                  }}
+                >
+                  <Table sx={{ width: "100%", borderCollapse: "collapse" }}>
+                    <TableHead>
+                      <TableRow>
+                        {["Airline", "Date", "Route", "Depart", "Arrival"].map(
+                          (header) => (
+                            <TableCell
+                              key={header}
+                              sx={{
+                                fontWeight: "bold",
+                                color: "#750046",
+                                borderBottom: "2px solid #ddd",
+                                textAlign: "left",
+                                p: 1, // Adjusted padding
+                              }}
+                            >
+                              {header}
+                            </TableCell>
+                          )
+                        )}
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell
+                          sx={{
+                            borderBottom: "1px solid #ddd",
+                            textAlign: "left",
+                            p: 1,
+                          }}
+                        >
+                          {flight.airline}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            borderBottom: "1px solid #ddd",
+                            textAlign: "left",
+                            p: 1,
+                          }}
+                        >
+                          {flight.date}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            borderBottom: "1px solid #ddd",
+                            textAlign: "left",
+                            p: 1,
+                          }}
+                        >
+                          {`${flight.from}/${flight.to}`}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            borderBottom: "1px solid #ddd",
+                            textAlign: "left",
+                            p: 1,
+                          }}
+                        >
+                          {`${flight.departureDate} / ${flight.departureTime}`}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            borderBottom: "1px solid #ddd",
+                            textAlign: "left",
+                            color: flight.isNextDay ? "red" : "inherit",
+                            fontStyle: flight.isNextDay ? "italic" : "normal",
+                            p: 1,
+                          }}
+                        >
+                          {`${flight.arrivalDate} / ${flight.arrivalTime}`}
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </Box>
+              ))}
+            </Box>
+          ) : (
+            // Display this box if there are no flights
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                height: "300px",
+                border: "2px dashed #ddd",
+                borderRadius: "12px",
+                p: 3,
+                mt: 2,
+              }}
+            >
+              <PriorityHighIcon
+                sx={{ fontSize: 48, color: "grey.500", mb: 2 }}
+              />
+              <Typography variant="h6" color="text.secondary">
+                No Included Flights
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                This package does not have flight details.
+              </Typography>
+            </Box>
+          )}
         </Box>
+
         <Box sx={{ width: "100%" }}>
           <motion.div
             whileHover={{
