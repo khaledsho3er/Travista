@@ -29,6 +29,7 @@ import ProgramPopup from "./dailyProgram"; // Import the new component
 import SuccessDialog from "./SuccessDialog"; // Import SuccessDialog component
 import { AnimatePresence, motion } from "framer-motion";
 import RollingNumber from "../context/rollingup";
+import PriorityHighIcon from "@mui/icons-material/PriorityHigh"; // Icon for the message
 
 function SinglePackage({ tour, onClose }) {
   const modalRef = useRef(null); // Create a ref for the modal content
