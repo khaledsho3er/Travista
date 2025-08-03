@@ -359,6 +359,7 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
         odoo_package: {
           id: selectedOdooPackage?.id,
           name: selectedOdooPackage?.name,
+          description: selectedOdooPackage?.description || "",
         },
         hotels: hotels
           .filter((hotel) => hotel.city?.name?.trim() !== "")

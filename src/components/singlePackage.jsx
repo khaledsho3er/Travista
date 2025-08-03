@@ -274,14 +274,14 @@ function SinglePackage({ tour, onClose }) {
   // Hotel data - you might want to get this from the tour prop if available
   const hotels = [
     {
-      name: tour?.hotels?.[0]?.hotelName || "Standard Accommodation",
-      image: tour?.packagePicture || "default-hotel.jpg",
-      MealPlan: tour?.mealPlan || "Half Board",
-      price: `${tour?.hotels[0].single || "0"} ${
+      name: tour?.hotels?.[0]?.hotelName || "N/A",
+      image: tour?.packagePicture || "N/A",
+      MealPlan: tour?.mealPlan || "N/A",
+      price: `${tour?.hotels[0].single || "N/A"} ${
         tour?.packagePrice?.currency || ""
       }`,
       nights: tour?.totalNights || 0,
-      city: tour?.destinations?.[0] || "Destination",
+      city: tour?.destinations?.[0] || "N/A",
     },
   ];
 
@@ -497,41 +497,41 @@ function SinglePackage({ tour, onClose }) {
   const flights =
     tour?.flights?.length > 0
       ? tour.flights.map((flight) => ({
-          airline: flight.airline || "Egypt Air",
+          airline: flight.airline || "N/A",
           date:
             new Date(flight.date).toLocaleDateString("en-GB", {
               day: "numeric",
               month: "long",
               year: "numeric",
-            }) || "1/1/2025",
+            }) || "N/A",
           departureDate:
             new Date(flight.departureDate).toLocaleDateString("en-GB", {
               day: "numeric",
               month: "long",
               year: "numeric",
-            }) || "1/1/2025",
+            }) || "N/A",
           arrivalDate:
             new Date(flight.arrivalDate).toLocaleDateString("en-GB", {
               day: "numeric",
               month: "long",
               year: "numeric",
-            }) || "1/1/2025",
-          departureTime: flight.departureTime || "12:00",
-          arrivalTime: flight.arrivalTime || "15:00",
-          from: flight.from || "Cairo",
-          to: flight.to || "London",
+            }) || "N/A",
+          departureTime: flight.departureTime || "N/A",
+          arrivalTime: flight.arrivalTime || "N/A",
+          from: flight.from || "N/A",
+          to: flight.to || "N/A",
           isNextDay: false,
         }))
       : [
           {
-            airline: "Egypt Air",
-            date: "1/1/2025",
-            departureDate: "1/1/2025",
-            arrivalDate: "1/1/2025",
-            departureTime: "12:00",
-            arrivalTime: "15:00",
-            from: "Cairo",
-            to: "London",
+            airline: "N/A",
+            date: "N/A",
+            departureDate: "N/A",
+            arrivalDate: "N/A",
+            departureTime: "N/A",
+            arrivalTime: "N/A",
+            from: "N/A",
+            to: "N/A",
             isNextDay: false,
           },
         ];
@@ -768,6 +768,23 @@ function SinglePackage({ tour, onClose }) {
           {" "}
           Read more +
         </Typography>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          mt={1}
+          mb={2}
+          onClick={() => window.open(tour?.odoo_package?.description, "_blank")}
+          sx={{
+            cursor: "pointer",
+            textDecoration: "underline",
+            "&:hover": {
+              color: "#750046",
+            },
+          }}
+        >
+          {" "}
+          View Pdf
+        </Typography>
         <Grid container spacing={2} mt={2} mb={4}>
           <Grid item xs={6}>
             <Typography variant="body2" color="textSecondary">
@@ -838,7 +855,15 @@ function SinglePackage({ tour, onClose }) {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div style={{ width: "100%" }}>
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "20px",
+        }}
+      >
         <motion.div
           whileHover={{
             scale: 1,
@@ -870,7 +895,7 @@ function SinglePackage({ tour, onClose }) {
             Book Now
           </Button>
         </motion.div>
-      </div>
+      </Box>
     </Box>
   );
 
@@ -950,21 +975,21 @@ function SinglePackage({ tour, onClose }) {
           {[
             {
               label: "Single Room",
-              price: `${tour?.hotels[0]?.single || "0"} ${
+              price: `${tour?.hotels[0]?.single || "N/A"} ${
                 tour?.packagePrice?.currency || ""
               }`,
             },
             {
               label: "Double Room",
-              price: `${Math.round(tour?.hotels[0]?.double || "0") || "0"} ${
-                tour?.packagePrice?.currency || ""
-              }`,
+              price: `${
+                Math.round(tour?.hotels[0]?.double || "N/A") || "N/A"
+              } ${tour?.packagePrice?.currency || ""}`,
             },
             {
               label: "Triple Room",
-              price: `${Math.round(tour?.hotels[0]?.triple || "0") || "0"} ${
-                tour?.packagePrice?.currency || ""
-              }`,
+              price: `${
+                Math.round(tour?.hotels[0]?.triple || "N/A") || "N/A"
+              } ${tour?.packagePrice?.currency || ""}`,
             },
           ].map((room, index) => (
             <motion.div
@@ -1393,18 +1418,18 @@ function SinglePackage({ tour, onClose }) {
               </Typography>
               <Typography variant="body1" color="textPrimary">
                 {selectedRoom === "Single Room"
-                  ? `${Math.round(tour?.hotels[0]?.single) || "0"} ${
+                  ? `${Math.round(tour?.hotels[0]?.single) || "N/A"} ${
                       tour?.packagePrice?.currency || ""
                     }`
                   : selectedRoom === "Double Room"
-                  ? `${Math.round(tour?.hotels[0]?.double) || "0"} ${
+                  ? `${Math.round(tour?.hotels[0]?.double) || "N/A"} ${
                       tour?.packagePrice?.currency || ""
                     }`
                   : selectedRoom === "Triple Room"
-                  ? `${Math.round(tour?.hotels[0]?.triple) || "0"} ${
+                  ? `${Math.round(tour?.hotels[0]?.triple) || "N/A"} ${
                       tour?.packagePrice?.currency || ""
                     }`
-                  : `${tour?.packagePrice?.amount || "0"} ${
+                  : `${tour?.packagePrice?.amount || "N/A"} ${
                       tour?.packagePrice?.currency || ""
                     }`}
               </Typography>
