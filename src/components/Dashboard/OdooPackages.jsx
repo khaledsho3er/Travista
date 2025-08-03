@@ -25,9 +25,19 @@ const OdooPackages = () => {
     const fetchOdooPackages = async () => {
       try {
         const response = await axios.post(
-          "https://travistaeg.com/api/list_crm_pacakge"
+          "https://travistaeg.com/api/list_crm_package", // ✅ Corrected typo
+          {},
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            withCredentials: false, // ✅ If auth='public' in Odoo, this should be false
+          }
         );
-        setPackages(response.data);
+
+        // If response is nested (e.g., response.data.result), adjust here
+        setPackages(response.data || []);
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch packages from Odoo");
