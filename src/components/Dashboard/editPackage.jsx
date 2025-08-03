@@ -69,6 +69,8 @@ const EditPackage = ({
   const [includes, setIncludes] = useState([""]);
   const [excludes, setExcludes] = useState([""]);
   const [packagePicture, setPackagePicture] = useState(null);
+  const [packageName, setPackageName] = useState("");
+  const [packageType, setPackageType] = useState("");
   const [generalNotes, setGeneralNotes] = useState([""]);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [packagePrice, setPackagePrice] = useState("");
@@ -120,6 +122,8 @@ const EditPackage = ({
       );
       setIncludes(packageData.includes || [""]);
       setExcludes(packageData.excludes || [""]);
+      setPackageName(packageData.packageName || "");
+      setPackageType(packageData.packageType || "");
       setGeneralNotes(packageData.generalNotes || [""]);
       setSelectedCurrency(
         currencyOptions.find(
@@ -138,6 +142,10 @@ const EditPackage = ({
           description: packageData.odoo_package.description || "",
         });
       }
+
+      // Set tour and active status
+      setIsActive(packageData.isActive);
+      setSelectedTour(packageData.tour?._id || "");
     }
   }, [packageData]);
   const fetchOdooPackages = async () => {
@@ -183,13 +191,8 @@ const EditPackage = ({
 
     if (open) {
       fetchTours();
-      // Initialize form with package data
-      if (packageData) {
-        setIsActive(packageData.isActive);
-        setSelectedTour(packageData.tour?._id || "");
-      }
     }
-  }, [open, packageData]);
+  }, [open]);
 
   useEffect(() => {
     const fetchOdooPackagesAsync = async () => {
@@ -254,6 +257,8 @@ const EditPackage = ({
 
       // Validate required fields
       if (
+        !packageName.trim() ||
+        !packageType ||
         !destinations[0] ||
         !totalDays ||
         !totalNights ||
@@ -276,6 +281,8 @@ const EditPackage = ({
       // Create the package data object
       const updatedPackageData = {
         travistaID: packageData.travistaID,
+        packageName,
+        packageType,
         isActive,
         departureDate: packageData.departureDate,
         destinations: destinations
@@ -467,6 +474,38 @@ const EditPackage = ({
             />
           </Button>
 
+          <TextField
+            fullWidth
+            label="Package Name"
+            value={packageName}
+            onChange={(e) => setPackageName(e.target.value)}
+            required
+          />
+
+          <FormControl fullWidth>
+            <InputLabel id="package-type-label">Package Type *</InputLabel>
+            <Select
+              labelId="package-type-label"
+              id="package-type"
+              value={packageType || ""}
+              onChange={(e) => setPackageType(e.target.value)}
+              label="Package Type *"
+            >
+              <MenuItem value="nature">Nature</MenuItem>
+              <MenuItem value="history">History</MenuItem>
+              <MenuItem value="adventure">Adventure</MenuItem>
+              <MenuItem value="city">City</MenuItem>
+              <MenuItem value="sports">Sports</MenuItem>
+              <MenuItem value="romantic">Romantic</MenuItem>
+              <MenuItem value="family">Family</MenuItem>
+              <MenuItem value="summer">Summer</MenuItem>
+              <MenuItem value="winter">Winter</MenuItem>
+              <MenuItem value="honeymoon">Honeymoon</MenuItem>
+              <MenuItem value="shopping">Shopping</MenuItem>
+              <MenuItem value="hajj&umrah">Hajj&Umrah</MenuItem>
+            </Select>
+          </FormControl>
+
           <Autocomplete
             options={odooPackages}
             getOptionLabel={(option) => option.name}
@@ -484,7 +523,6 @@ const EditPackage = ({
             type="date"
             InputLabelProps={{ shrink: true }}
             value={packageData?.departureDate?.split("T")[0] || ""}
-            disabled
           />
 
           {destinations.map((dest, index) => (
