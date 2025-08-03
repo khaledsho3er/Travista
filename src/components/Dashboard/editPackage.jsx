@@ -795,7 +795,7 @@ const EditPackage = ({
                   fullWidth
                   options={cities}
                   getOptionLabel={(option) => option.name}
-                  value={hotel.city}
+                  value={hotel.city || null}
                   onChange={(event, newValue) => {
                     const newHotels = [...hotels];
                     newHotels[index] = { ...newHotels[index], city: newValue };
