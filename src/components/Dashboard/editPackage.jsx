@@ -59,7 +59,7 @@ const EditPackage = ({
   onPackageUpdated,
   onPackageDeleted,
 }) => {
-  const [destinations, setDestinations] = useState([""]);
+  const [destinations, setDestinations] = useState([null]);
   const [flights, setFlights] = useState([
     { airline: "", date: "", route: "", depart: "", arrival: "" },
   ]);
@@ -101,7 +101,9 @@ const EditPackage = ({
     if (packageData) {
       // Set form fields with packageData
       setDestinations(
-        packageData.destinations.map((dest) => ({ name: dest })) || [""]
+        packageData.destinations && packageData.destinations.length > 0
+          ? packageData.destinations.map((dest) => ({ name: dest }))
+          : [null]
       );
       setFlights(
         packageData.flights || [
@@ -259,7 +261,7 @@ const EditPackage = ({
       if (
         !packageName.trim() ||
         !packageType ||
-        !destinations[0] ||
+        !destinations[0]?.name?.trim() ||
         !totalDays ||
         !totalNights ||
         !packagePrice ||
@@ -286,7 +288,7 @@ const EditPackage = ({
         isActive,
         departureDate: packageData.departureDate,
         destinations: destinations
-          .filter((dest) => dest?.name?.trim() !== "")
+          .filter((dest) => dest && dest.name && dest.name.trim() !== "")
           .map((dest) => dest.name),
         totalDays: parseInt(totalDays),
         totalNights: parseInt(totalNights),
@@ -543,9 +545,9 @@ const EditPackage = ({
                   <TextField
                     {...params}
                     label={`Destination ${index + 1}`}
-                    error={!dest && index === 0}
+                    error={!dest?.name && index === 0}
                     helperText={
-                      !dest && index === 0
+                      !dest?.name && index === 0
                         ? "First destination is required"
                         : ""
                     }
@@ -567,7 +569,7 @@ const EditPackage = ({
           <Button
             variant="text"
             startIcon={<Add />}
-            onClick={() => handleAddItem(setDestinations, "")}
+            onClick={() => handleAddItem(setDestinations, null)}
           >
             Add Destination
           </Button>
