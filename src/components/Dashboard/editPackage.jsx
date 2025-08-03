@@ -384,36 +384,16 @@ const EditPackage = ({
         }, {}),
       };
 
-      // Convert files to base64 if they exist
-      let packagePictureBase64 = null;
-      let pdfFileBase64 = null;
-
-      if (packagePicture && packagePicture instanceof File) {
-        packagePictureBase64 = await new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result);
-          reader.readAsDataURL(packagePicture);
-        });
-      }
-
-      if (pdfFile && pdfFile instanceof File) {
-        pdfFileBase64 = await new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result);
-          reader.readAsDataURL(pdfFile);
-        });
-      }
-
-      // Update the package data with base64 files
-      if (packagePictureBase64) {
-        updatedPackageData.packagePicture = packagePictureBase64;
-      }
-      if (pdfFileBase64) {
-        updatedPackageData.pdfDocument = pdfFileBase64;
-      }
-
       // Always use FormData to match backend expectations
       const formData = new FormData();
+
+      // Append files if they're new
+      if (packagePicture && packagePicture instanceof File) {
+        formData.append("packagePicture", packagePicture);
+      }
+      if (pdfFile && pdfFile instanceof File) {
+        formData.append("pdfDocument", pdfFile);
+      }
 
       // Always append package data as JSON string
       formData.append("packageData", JSON.stringify(updatedPackageData));
