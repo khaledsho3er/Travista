@@ -86,10 +86,13 @@ const OdooPackages = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Package ID</TableCell>
-                  <TableCell>Package Name</TableCell>
-                  <TableCell>Destination</TableCell>
+                  <TableCell>ID</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Destination(s)</TableCell>
                   <TableCell>Travel Dates</TableCell>
+                  <TableCell>PDF</TableCell>
+                  <TableCell>Description</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
