@@ -92,11 +92,44 @@ const OdooPackages = () => {
                   <TableRow key={pkg.id}>
                     <TableCell>{pkg.id}</TableCell>
                     <TableCell>{pkg.name}</TableCell>
+                    <TableCell>{pkg.crm_package_type || "N/A"}</TableCell>
                     <TableCell>
-                      {pkg.destination_list?.join(", ") || "N/A"}
+                      {pkg.destination_list?.map((d) => d.name).join(", ") ||
+                        "N/A"}
                     </TableCell>
                     <TableCell>
                       {pkg.travel_date} → {pkg.return_date}
+                    </TableCell>
+                    <TableCell>
+                      {pkg.package_attachment_url ? (
+                        <Link
+                          href={
+                            // extract the href from the HTML string
+                            pkg.package_attachment_url.match(
+                              /href="([^"]+)"/
+                            )?.[1]
+                          }
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          View PDF
+                        </Link>
+                      ) : (
+                        "N/A"
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {pkg.description ? (
+                        <Link
+                          href={pkg.description}
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          Link
+                        </Link>
+                      ) : (
+                        "N/A"
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
