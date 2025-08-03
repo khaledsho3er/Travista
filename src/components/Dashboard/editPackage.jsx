@@ -296,11 +296,13 @@ const EditPackage = ({
           currency: selectedCurrency?.value || "USD",
         },
         flights: flights.filter((flight) => flight.airline.trim() !== ""),
-        odoo_package: {
-          id: selectedOdooPackage?.id,
-          name: selectedOdooPackage?.name,
-          description: selectedOdooPackage?.description || "",
-        },
+        odoo_package: selectedOdooPackage
+          ? {
+              id: selectedOdooPackage.id,
+              name: selectedOdooPackage.name,
+              description: selectedOdooPackage.description || "",
+            }
+          : null,
         hotels: hotels
           .filter((hotel) => hotel.city?.name?.trim() !== "")
           .map((hotel) => ({
@@ -994,11 +996,21 @@ const EditPackage = ({
           <Stack spacing={2}>
             {/* Add Tour Selection Dropdown */}
             <FormControl fullWidth>
-              <InputLabel>Associated Tour</InputLabel>
+              <InputLabel>
+                {selectedTour && availableTours.length > 0
+                  ? availableTours.find((tour) => tour._id === selectedTour)
+                      ?.name || "Associated Tour"
+                  : "Associated Tour"}
+              </InputLabel>
               <Select
                 value={selectedTour}
                 onChange={(e) => setSelectedTour(e.target.value)}
-                label="Associated Tour"
+                label={
+                  selectedTour && availableTours.length > 0
+                    ? availableTours.find((tour) => tour._id === selectedTour)
+                        ?.name || "Associated Tour"
+                    : "Associated Tour"
+                }
               >
                 <MenuItem value="">
                   <em>None</em>
