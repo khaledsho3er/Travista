@@ -90,6 +90,8 @@ const EditPackage = ({
     packageData?.tour?._id || ""
   );
   const [availableTours, setAvailableTours] = useState([]);
+  const [odooPackages, setOdooPackages] = useState([]);
+  const [selectedOdooPackage, setSelectedOdooPackage] = useState(null);
   // const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB limit
   // const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB limit for images
 
@@ -127,8 +129,45 @@ const EditPackage = ({
       setPackagePrice(packageData.packagePrice?.amount?.toString() || "");
       setTotalDays(packageData.totalDays?.toString() || "");
       setTotalNights(packageData.totalNights?.toString() || "");
+
+      // Set Odoo package if it exists
+      if (packageData.odoo_package) {
+        setSelectedOdooPackage({
+          id: packageData.odoo_package.id,
+          name: packageData.odoo_package.name,
+          description: packageData.odoo_package.description || "",
+        });
+      }
     }
   }, [packageData]);
+  const fetchOdooPackages = async () => {
+    try {
+      const response = await axios.post(
+        "https://travistaeg.com/api/list_crm_pacakge",
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: false,
+        }
+      );
+
+      const result = response.data?.result?.data || [];
+      const odooPackages = result.map((packageItem) => ({
+        id: packageItem.id,
+        name: packageItem.name,
+        description: packageItem.description || "",
+      }));
+
+      return odooPackages;
+    } catch (err) {
+      console.error("Error fetching Odoo packages:", err);
+      return [];
+    }
+  };
+
   useEffect(() => {
     const fetchTours = async () => {
       try {
@@ -151,6 +190,14 @@ const EditPackage = ({
       }
     }
   }, [open, packageData]);
+
+  useEffect(() => {
+    const fetchOdooPackagesAsync = async () => {
+      const packages = await fetchOdooPackages();
+      setOdooPackages(packages);
+    };
+    fetchOdooPackagesAsync();
+  }, []);
   // const validateFileSize = (file, maxSize) => {
   //   if (file.size > maxSize) {
   //     throw new Error(
@@ -242,6 +289,11 @@ const EditPackage = ({
           currency: selectedCurrency?.value || "USD",
         },
         flights: flights.filter((flight) => flight.airline.trim() !== ""),
+        odoo_package: {
+          id: selectedOdooPackage?.id,
+          name: selectedOdooPackage?.name,
+          description: selectedOdooPackage?.description || "",
+        },
         hotels: hotels
           .filter((hotel) => hotel.city?.name?.trim() !== "")
           .map((hotel) => ({
@@ -414,6 +466,17 @@ const EditPackage = ({
               onChange={(e) => setPackagePicture(e.target.files[0])}
             />
           </Button>
+
+          <Autocomplete
+            options={odooPackages}
+            getOptionLabel={(option) => option.name}
+            getOptionSelected={(option, value) => option.id === value.id}
+            value={selectedOdooPackage}
+            onChange={(event, value) => setSelectedOdooPackage(value)}
+            renderInput={(params) => (
+              <TextField {...params} label="Link to Odoo Package" fullWidth />
+            )}
+          />
 
           <TextField
             fullWidth
