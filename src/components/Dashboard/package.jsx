@@ -64,7 +64,6 @@ const DashboardPackages = () => {
         backgroundColor: "white",
         padding: "20px",
         borderRadius: "10px",
-        boxShadow: "0px 0px 10px rgba(0,0,0,0.1)",
       }}
     >
       <Box display="flex" justifyContent="flex-end" mb={2}>

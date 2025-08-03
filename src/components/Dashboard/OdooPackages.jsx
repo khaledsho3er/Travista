@@ -84,7 +84,7 @@ const OdooPackages = () => {
       </Typography>
       <Card>
         <CardContent>
-          <TableContainer component={Paper}>
+          <TableContainer style={{ boxShadow: "none" }} component={Paper}>
             <Table>
               <TableHead>
                 <TableRow>
