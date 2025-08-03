@@ -14,6 +14,7 @@ import {
   Paper,
   CircularProgress,
   Alert,
+  Link,
 } from "@mui/material";
 
 const OdooPackages = () => {
@@ -49,6 +50,10 @@ const OdooPackages = () => {
     fetchOdooPackages();
   }, []);
 
+  const extractHref = (htmlString) => {
+    const match = htmlString?.match(/href="([^"]+)"/);
+    return match ? match[1] : null;
+  };
   if (loading) {
     return (
       <Box
@@ -88,51 +93,45 @@ const OdooPackages = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {packages.map((pkg) => (
-                  <TableRow key={pkg.id}>
-                    <TableCell>{pkg.id}</TableCell>
-                    <TableCell>{pkg.name}</TableCell>
-                    <TableCell>{pkg.crm_package_type || "N/A"}</TableCell>
-                    <TableCell>
-                      {pkg.destination_list?.map((d) => d.name).join(", ") ||
-                        "N/A"}
-                    </TableCell>
-                    <TableCell>
-                      {pkg.travel_date} → {pkg.return_date}
-                    </TableCell>
-                    <TableCell>
-                      {pkg.package_attachment_url ? (
-                        <Link
-                          href={
-                            // extract the href from the HTML string
-                            pkg.package_attachment_url.match(
-                              /href="([^"]+)"/
-                            )?.[1]
-                          }
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          View PDF
-                        </Link>
-                      ) : (
-                        "N/A"
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {pkg.description ? (
-                        <Link
-                          href={pkg.description}
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          Link
-                        </Link>
-                      ) : (
-                        "N/A"
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {packages.map((pkg) => {
+                  const pdfUrl = extractHref(pkg.package_attachment_url);
+                  return (
+                    <TableRow key={pkg.id}>
+                      <TableCell>{pkg.id}</TableCell>
+                      <TableCell>{pkg.name}</TableCell>
+                      <TableCell>{pkg.crm_package_type || "N/A"}</TableCell>
+                      <TableCell>
+                        {pkg.destination_list?.map((d) => d.name).join(", ") ||
+                          "N/A"}
+                      </TableCell>
+                      <TableCell>
+                        {pkg.travel_date} → {pkg.return_date}
+                      </TableCell>
+                      <TableCell>
+                        {pdfUrl ? (
+                          <Link href={pdfUrl} target="_blank" rel="noopener">
+                            View PDF
+                          </Link>
+                        ) : (
+                          "N/A"
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {pkg.description ? (
+                          <Link
+                            href={pkg.description}
+                            target="_blank"
+                            rel="noopener"
+                          >
+                            Link
+                          </Link>
+                        ) : (
+                          "N/A"
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>
