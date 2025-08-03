@@ -39,7 +39,7 @@ function Sidebar({ setActiveSection }) {
         { id: "dashboard", icon: Home, label: "Dashboard" },
         { id: "packages", icon: Package, label: "Packages" },
         { id: "applications", icon: Users, label: "Applications" },
-        // { id: "odooPackages", icon: AnalyticsIcon, label: "Odoo Packages" },
+        { id: "odooPackages", icon: AnalyticsIcon, label: "Odoo Packages" },
         {
           id: "BMPApplications",
           icon: CiSquareQuestion,
