@@ -794,10 +794,14 @@ const EditPackage = ({
                 <Autocomplete
                   fullWidth
                   options={cities}
-                  getOptionLabel={(option) => option.name}
-                  value={hotel.city || null}
+                  getOptionLabel={(option) => option.name || ""} // Added || "" for safety
+                  // Find the full city object in the 'cities' array that matches the hotel's city ID
+                  value={
+                    cities.find((city) => city.id === hotel.city?.id) || null
+                  }
                   onChange={(event, newValue) => {
                     const newHotels = [...hotels];
+                    // Ensure you're setting the full city object in your state
                     newHotels[index] = { ...newHotels[index], city: newValue };
                     setHotels(newHotels);
                   }}
