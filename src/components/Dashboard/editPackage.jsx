@@ -346,11 +346,15 @@ const EditPackage = ({
         // Tour reference
         tour: selectedTour || null,
 
-        // Handle package picture
-        packagePicture: packagePicture || packageData.packagePicture,
+        // Handle package picture - only include existing path if no new file
+        ...(packageData.packagePicture && !packagePicture
+          ? { packagePicture: packageData.packagePicture }
+          : {}),
 
-        // Handle PDF document
-        pdfDocument: pdfFile || packageData.pdfDocument,
+        // Handle PDF document - only include existing path if no new file
+        ...(packageData.pdfDocument && !pdfFile
+          ? { pdfDocument: packageData.pdfDocument }
+          : {}),
 
         // Preserve any other existing fields
         ...Object.keys(packageData).reduce((acc, key) => {
@@ -371,8 +375,6 @@ const EditPackage = ({
               "includes",
               "excludes",
               "tour",
-              "packagePicture",
-              "pdfDocument",
               "_id",
               "travistaID",
               "createdAt",
