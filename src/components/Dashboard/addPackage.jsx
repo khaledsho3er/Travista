@@ -252,10 +252,6 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
     if (!hotels[0]?.city?.name?.trim())
       errors.hotels = "At least one hotel is required";
 
-    // Check if at least one flight is added
-    if (!flights[0]?.airline?.trim())
-      errors.flights = "At least one flight is required";
-
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -738,26 +734,14 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               <Stack direction="row" spacing={2}>
                 <TextField
                   fullWidth
-                  label="Airline Name *"
+                  label="Airline Name"
                   sx={{ flex: 2 }}
                   value={flight.airline}
                   onChange={(e) => {
-                    markFormTouched();
                     const newFlights = [...flights];
                     newFlights[index].airline = e.target.value;
                     setFlights(newFlights);
                   }}
-                  error={
-                    shouldShowError("flights") && !flight.airline && index === 0
-                  }
-                  helperText={
-                    shouldShowError("flights") && !flight.airline && index === 0
-                      ? "Airline name is required"
-                      : shouldShowError("flights")
-                      ? validationErrors.flights
-                      : ""
-                  }
-                  required={index === 0}
                 />
                 <TextField
                   fullWidth

@@ -94,8 +94,8 @@ function DashboardLayout() {
         return <BMPApplicationManager />;
       case "visaDocuments":
         return <VisaDocumentsTable />;
-      // case "odooPackages":
-      //   return <OdooPackages />;
+      case "odooPackages":
+        return <OdooPackages />;
       default:
         return <Dashboard />;
     }
