@@ -25,24 +25,24 @@ const OdooPackages = () => {
     const fetchOdooPackages = async () => {
       try {
         const response = await axios.post(
-          "https://travistaeg.com/api/list_crm_package", // ✅ Corrected typo
-          {},
+          "https://travistaeg.com/api/list_crm_pacakge", // keep the typo
+          {}, // POST body must be defined, even if empty
           {
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json",
             },
-            withCredentials: false, // ✅ If auth='public' in Odoo, this should be false
+            withCredentials: false, // needed only if backend sends cookies
           }
         );
 
-        // If response is nested (e.g., response.data.result), adjust here
-        setPackages(response.data || []);
+        const result = response.data?.result?.data || [];
+        setPackages(result);
         setLoading(false);
       } catch (err) {
+        console.error("Error fetching Odoo packages:", err);
         setError("Failed to fetch packages from Odoo");
         setLoading(false);
-        console.error("Error fetching Odoo packages:", err);
       }
     };
 
@@ -84,6 +84,7 @@ const OdooPackages = () => {
                   <TableCell>Package ID</TableCell>
                   <TableCell>Package Name</TableCell>
                   <TableCell>Destination</TableCell>
+                  <TableCell>Travel Dates</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -91,7 +92,12 @@ const OdooPackages = () => {
                   <TableRow key={pkg.id}>
                     <TableCell>{pkg.id}</TableCell>
                     <TableCell>{pkg.name}</TableCell>
-                    <TableCell>{pkg.destination}</TableCell>
+                    <TableCell>
+                      {pkg.destination_list?.join(", ") || "N/A"}
+                    </TableCell>
+                    <TableCell>
+                      {pkg.travel_date} → {pkg.return_date}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
