@@ -92,6 +92,8 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
   const [isActive, setIsActive] = useState(true);
   const [selectedTour, setSelectedTour] = useState("");
   const [availableTours, setAvailableTours] = useState([]);
+  const [odooPackages, setOdooPackages] = useState([]);
+  const [selectedOdooPackage, setSelectedOdooPackage] = useState(null);
 
   // const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB limit
   // const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB limit for images
@@ -120,7 +122,39 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
       fetchTours();
     }
   }, [open]);
+  const fetchOdooPackages = async () => {
+    try {
+      const response = await axios.post(
+        "https://travistaeg.com/api/list_crm_pacakge",
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: false,
+        }
+      );
 
+      const result = response.data?.result?.data || [];
+      const odooPackages = result.map((packageItem) => ({
+        id: packageItem.id,
+        name: packageItem.name,
+      }));
+
+      return odooPackages;
+    } catch (err) {
+      console.error("Error fetching Odoo packages:", err);
+      return [];
+    }
+  };
+  useEffect(() => {
+    const fetchOdooPackagesAsync = async () => {
+      const packages = await fetchOdooPackages();
+      setOdooPackages(packages);
+    };
+    fetchOdooPackagesAsync();
+  }, []);
   // Debug useEffect to track state changes
   useEffect(() => {
     console.log("Destinations changed:", destinations);
@@ -322,6 +356,10 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
         flights: flights.filter(
           (flight) => flight.airline && flight.airline.trim() !== ""
         ),
+        odoo_package: {
+          id: selectedOdooPackage?.id,
+          name: selectedOdooPackage?.name,
+        },
         hotels: hotels
           .filter((hotel) => hotel.city?.name?.trim() !== "")
           .map((hotel) => ({
@@ -520,6 +558,16 @@ const AddPackage = ({ open, handleClose, onPackageCreated }) => {
               shouldShowError("packageName") ? validationErrors.packageName : ""
             }
             required
+          />
+          <Autocomplete
+            options={odooPackages}
+            getOptionLabel={(option) => option.name}
+            getOptionSelected={(option, value) => option.id === value.id}
+            value={selectedOdooPackage}
+            onChange={(event, value) => setSelectedOdooPackage(value)}
+            renderInput={(params) => (
+              <TextField {...params} label="Link to Odoo Package" fullWidth />
+            )}
           />
           <FormControl fullWidth error={shouldShowError("packageType")}>
             <InputLabel id="package-type-label">Package Type *</InputLabel>
