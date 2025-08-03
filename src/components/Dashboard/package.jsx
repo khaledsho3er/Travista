@@ -93,6 +93,14 @@ const DashboardPackages = () => {
                 alt={packageItem.travistaID}
               />
               <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {packageItem.packageName}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  ( Odoo Id:
+                  {packageItem.odoo_package?.id}) -{" "}
+                  {packageItem.odoo_package?.name}
+                </Typography>
                 <Typography gutterBottom variant="h6" component="div">
                   {packageItem.destinations?.length > 0
                     ? packageItem.destinations.join(" / ")
