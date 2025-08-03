@@ -64,7 +64,14 @@ const EditPackage = ({
     { airline: "", date: "", route: "", depart: "", arrival: "" },
   ]);
   const [hotels, setHotels] = useState([
-    { city: "", nights: "", hotelName: "", single: "", double: "", triple: "" },
+    {
+      city: null,
+      nights: "",
+      hotelName: "",
+      single: "",
+      double: "",
+      triple: "",
+    },
   ]);
   const [includes, setIncludes] = useState([""]);
   const [excludes, setExcludes] = useState([""]);
@@ -111,16 +118,21 @@ const EditPackage = ({
         ]
       );
       setHotels(
-        packageData.hotels || [
-          {
-            city: "",
-            nights: "",
-            hotelName: "",
-            single: "",
-            double: "",
-            triple: "",
-          },
-        ]
+        packageData.hotels
+          ? packageData.hotels.map((hotel) => ({
+              ...hotel,
+              city: typeof hotel.city === "string" ? null : hotel.city,
+            }))
+          : [
+              {
+                city: null,
+                nights: "",
+                hotelName: "",
+                single: "",
+                double: "",
+                triple: "",
+              },
+            ]
       );
       setIncludes(packageData.includes || [""]);
       setExcludes(packageData.excludes || [""]);
@@ -306,7 +318,10 @@ const EditPackage = ({
             }
           : null,
         hotels: hotels
-          .filter((hotel) => hotel.city?.name?.trim() !== "")
+          .filter(
+            (hotel) =>
+              hotel.city && hotel.city.name && hotel.city.name.trim() !== ""
+          )
           .map((hotel) => ({
             city: hotel.city.name,
             nights: hotel.nights,
@@ -798,9 +813,7 @@ const EditPackage = ({
                   options={cities}
                   getOptionLabel={(option) => option.name || ""} // Added || "" for safety
                   // Find the full city object in the 'cities' array that matches the hotel's city ID
-                  value={
-                    cities.find((city) => city.id === hotel.city?.id) || null
-                  }
+                  value={hotel.city}
                   onChange={(event, newValue) => {
                     const newHotels = [...hotels];
                     // Ensure you're setting the full city object in your state
@@ -811,9 +824,11 @@ const EditPackage = ({
                     <TextField
                       {...params}
                       label="City"
-                      error={!hotel.city && index === 0}
+                      error={!hotel.city?.name && index === 0}
                       helperText={
-                        !hotel.city && index === 0 ? "City is required" : ""
+                        !hotel.city?.name && index === 0
+                          ? "City is required"
+                          : ""
                       }
                     />
                   )}
@@ -908,7 +923,7 @@ const EditPackage = ({
             startIcon={<Add />}
             onClick={() =>
               handleAddItem(setHotels, {
-                city: "",
+                city: null,
                 nights: "",
                 hotelName: "",
                 single: "",
