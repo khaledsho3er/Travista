@@ -282,34 +282,37 @@ const EditPackage = ({
         throw new Error("Please fill in all required fields");
       }
 
-      const formData = new FormData();
-
-      // Only append files if they're new
-      if (packagePicture && packagePicture instanceof File) {
-        formData.append("packagePicture", packagePicture);
-      }
-      if (pdfFile && pdfFile instanceof File) {
-        formData.append("pdfDocument", pdfFile);
-      }
-
       // Create the package data object
       const updatedPackageData = {
+        // Preserve existing fields that shouldn't be changed
+        _id: packageData._id,
         travistaID: packageData.travistaID,
-        packageName,
+        createdAt: packageData.createdAt,
+
+        // Updated fields
+        packageName: packageName.trim(),
         packageType,
         isActive,
         departureDate: packageData.departureDate,
+
+        // Arrays with proper filtering
         destinations: destinations
           .filter((dest) => dest && dest.name && dest.name.trim() !== "")
           .map((dest) => dest.name),
-        totalDays: parseInt(totalDays),
-        totalNights: parseInt(totalNights),
+        totalDays: parseInt(totalDays) || 0,
+        totalNights: parseInt(totalNights) || 0,
         generalNotes: generalNotes.filter((note) => note.trim() !== ""),
+
+        // Price object
         packagePrice: {
-          amount: parseFloat(packagePrice),
+          amount: parseFloat(packagePrice) || 0,
           currency: selectedCurrency?.value || "USD",
         },
+
+        // Flights array
         flights: flights.filter((flight) => flight.airline.trim() !== ""),
+
+        // Odoo package
         odoo_package: selectedOdooPackage
           ? {
               id: selectedOdooPackage.id,
@@ -317,6 +320,8 @@ const EditPackage = ({
               description: selectedOdooPackage.description || "",
             }
           : null,
+
+        // Hotels array with proper data handling
         hotels: hotels
           .filter(
             (hotel) =>
@@ -324,31 +329,110 @@ const EditPackage = ({
           )
           .map((hotel) => ({
             city: hotel.city.name,
-            nights: hotel.nights,
+            nights: hotel.nights || "",
             hotelName:
               typeof hotel.hotelName === "string"
                 ? hotel.hotelName
                 : hotel.hotelName?.name || "",
-            single: hotel.single,
-            double: hotel.double,
-            triple: hotel.triple,
+            single: hotel.single || "",
+            double: hotel.double || "",
+            triple: hotel.triple || "",
           })),
+
+        // Includes and excludes
         includes: includes.filter((item) => item.trim() !== ""),
         excludes: excludes.filter((item) => item.trim() !== ""),
-        tour: selectedTour || undefined, // Add tour reference
+
+        // Tour reference
+        tour: selectedTour || null,
+
+        // Handle package picture
+        packagePicture: packagePicture || packageData.packagePicture,
+
+        // Handle PDF document
+        pdfDocument: pdfFile || packageData.pdfDocument,
+
+        // Preserve any other existing fields
+        ...Object.keys(packageData).reduce((acc, key) => {
+          if (
+            ![
+              "packageName",
+              "packageType",
+              "isActive",
+              "departureDate",
+              "destinations",
+              "totalDays",
+              "totalNights",
+              "generalNotes",
+              "packagePrice",
+              "flights",
+              "odoo_package",
+              "hotels",
+              "includes",
+              "excludes",
+              "tour",
+              "packagePicture",
+              "pdfDocument",
+              "_id",
+              "travistaID",
+              "createdAt",
+            ].includes(key)
+          ) {
+            acc[key] = packageData[key];
+          }
+          return acc;
+        }, {}),
       };
 
-      // Important: Append as JSON string
+      // Convert files to base64 if they exist
+      let packagePictureBase64 = null;
+      let pdfFileBase64 = null;
+
+      if (packagePicture && packagePicture instanceof File) {
+        packagePictureBase64 = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.readAsDataURL(packagePicture);
+        });
+      }
+
+      if (pdfFile && pdfFile instanceof File) {
+        pdfFileBase64 = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.readAsDataURL(pdfFile);
+        });
+      }
+
+      // Update the package data with base64 files
+      if (packagePictureBase64) {
+        updatedPackageData.packagePicture = packagePictureBase64;
+      }
+      if (pdfFileBase64) {
+        updatedPackageData.pdfDocument = pdfFileBase64;
+      }
+
+      // Always use FormData to match backend expectations
+      const formData = new FormData();
+
+      // Always append package data as JSON string
       formData.append("packageData", JSON.stringify(updatedPackageData));
 
       // Debug what's being sent
+      console.log("Updated Package Data:", updatedPackageData);
+      console.log("FormData contents:");
       for (let [key, value] of formData.entries()) {
         console.log(key, value);
       }
 
       const response = await axios.put(
         `https://api.travistasl.com/api/packages/${packageData._id}`,
-        updatedPackageData
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
       if (!response || !response.data) {
