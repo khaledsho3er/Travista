@@ -30,6 +30,7 @@ import SuccessDialog from "./SuccessDialog"; // Import SuccessDialog component
 import { AnimatePresence, motion } from "framer-motion";
 import RollingNumber from "../context/rollingup";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh"; // Icon for the message
+import { BsExclamationOctagon } from "react-icons/bs";
 
 function SinglePackage({ tour, onClose }) {
   const modalRef = useRef(null); // Create a ref for the modal content
@@ -336,110 +337,121 @@ function SinglePackage({ tour, onClose }) {
               },
             }}
           >
-            {hotels.map((hotel, index) => (
-              <Box
-                key={index}
-                onClick={() => setSelectedHotel(hotel.name)}
-                sx={{
-                  width: isSmallScreen ? "125%" : "100%",
-                  p: "10px",
-                  border: `2px solid ${
-                    selectedHotel === hotel.name ? "#750046" : "#ddd"
-                  }`,
-                  borderRadius: "12px",
-                  backgroundColor:
-                    selectedHotel === hotel.name ? "#f9f9f9" : "transparent",
-                  cursor: "pointer",
-                  transition: "all 0.3s",
-                  "&:hover": {
-                    borderColor: "#750046",
-                  },
-                }}
-              >
-                <Table sx={{ width: "100%", borderCollapse: "collapse" }}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell
-                        sx={{
-                          fontWeight: "bold",
-                          color: "#750046",
-                          borderBottom: "2px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        City
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontWeight: "bold",
-                          color: "#750046",
-                          borderBottom: "2px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        Name
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontWeight: "bold",
-                          color: "#750046",
-                          borderBottom: "2px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        Nights
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontWeight: "bold",
-                          color: "#750046",
-                          borderBottom: "2px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        Price per Person
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell
-                        sx={{
-                          borderBottom: "1px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        {hotel.city}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          borderBottom: "1px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        {hotel.name}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          borderBottom: "1px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        {hotel.nights}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          borderBottom: "1px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        {hotel.price}
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+            {hotels.length === 0 ? (
+              <Box sx={{ textAlign: "center", mt: 4 }}>
+                <BsExclamationOctagon
+                  sx={{ fontSize: 80, color: "#750046", mb: 2 }}
+                />
+                <Typography variant="h6" color="text.secondary">
+                  No hotels available at the moment.
+                </Typography>
               </Box>
-            ))}
+            ) : (
+              hotels.map((hotel, index) => (
+                <Box
+                  key={index}
+                  onClick={() => setSelectedHotel(hotel.name)}
+                  sx={{
+                    width: isSmallScreen ? "125%" : "100%",
+                    p: "10px",
+                    border: `2px solid ${
+                      selectedHotel === hotel.name ? "#750046" : "#ddd"
+                    }`,
+                    borderRadius: "12px",
+                    backgroundColor:
+                      selectedHotel === hotel.name ? "#f9f9f9" : "transparent",
+                    cursor: "pointer",
+                    transition: "all 0.3s",
+                    "&:hover": {
+                      borderColor: "#750046",
+                    },
+                  }}
+                >
+                  <Table sx={{ width: "100%", borderCollapse: "collapse" }}>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell
+                          sx={{
+                            fontWeight: "bold",
+                            color: "#750046",
+                            borderBottom: "2px solid #ddd",
+                            textAlign: "left",
+                          }}
+                        >
+                          City
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontWeight: "bold",
+                            color: "#750046",
+                            borderBottom: "2px solid #ddd",
+                            textAlign: "left",
+                          }}
+                        >
+                          Name
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontWeight: "bold",
+                            color: "#750046",
+                            borderBottom: "2px solid #ddd",
+                            textAlign: "left",
+                          }}
+                        >
+                          Nights
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontWeight: "bold",
+                            color: "#750046",
+                            borderBottom: "2px solid #ddd",
+                            textAlign: "left",
+                          }}
+                        >
+                          Price per Person
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell
+                          sx={{
+                            borderBottom: "1px solid #ddd",
+                            textAlign: "left",
+                          }}
+                        >
+                          {hotel.city}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            borderBottom: "1px solid #ddd",
+                            textAlign: "left",
+                          }}
+                        >
+                          {hotel.name}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            borderBottom: "1px solid #ddd",
+                            textAlign: "left",
+                          }}
+                        >
+                          {hotel.nights}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            borderBottom: "1px solid #ddd",
+                            textAlign: "left",
+                          }}
+                        >
+                          {hotel.price}
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </Box>
+              ))
+            )}
           </Box>
         </Box>
         <Box sx={{ width: "100%" }}>
