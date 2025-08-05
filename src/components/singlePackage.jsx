@@ -399,16 +399,6 @@ function SinglePackage({ tour, onClose }) {
                       >
                         Price per Person
                       </TableCell>
-                      <TableCell
-                        sx={{
-                          fontWeight: "bold",
-                          color: "#750046",
-                          borderBottom: "2px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        Meal Plan
-                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -444,14 +434,6 @@ function SinglePackage({ tour, onClose }) {
                         }}
                       >
                         {hotel.price}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          borderBottom: "1px solid #ddd",
-                          textAlign: "left",
-                        }}
-                      >
-                        {hotel.MealPlan}
                       </TableCell>
                     </TableRow>
                   </TableBody>
