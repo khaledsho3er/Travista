@@ -34,7 +34,7 @@ const Explore = () => {
         );
 
         // Get the last two packages from the response
-        const specificPackages = response.data.slice(2, 4);
+        const specificPackages = response.data.slice(1, 4);
         setPackages(specificPackages);
         setLoading(false);
       } catch (err) {
