@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 
 function Hero({ preloadedData = null }) {
   const [heroData, setHeroData] = useState(preloadedData);
-  const [typedText, setTypedText] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Only fetch if data wasn't provided from parent
     if (!preloadedData) {
       const fetchHero = async () => {
         try {
@@ -21,24 +21,10 @@ function Hero({ preloadedData = null }) {
           console.error("Failed to fetch hero data", err);
         }
       };
+
       fetchHero();
     }
   }, [preloadedData]);
-
-  useEffect(() => {
-    if (heroData && heroData.caption) {
-      const fullText = heroData.caption;
-      let index = 0;
-
-      const typeInterval = setInterval(() => {
-        setTypedText((prev) => prev + fullText.charAt(index));
-        index++;
-        if (index >= fullText.length) clearInterval(typeInterval);
-      }, 80); // Speed of typing (ms per character)
-
-      return () => clearInterval(typeInterval);
-    }
-  }, [heroData]);
 
   if (!heroData) return null;
 
@@ -54,7 +40,7 @@ function Hero({ preloadedData = null }) {
         justifyContent: "center",
         alignItems: "center",
         position: "relative",
-        overflow: "hidden",
+        overflow: "hidden", // Prevents arrow/gradient overflow
       }}
     >
       <Box
@@ -74,11 +60,12 @@ function Hero({ preloadedData = null }) {
             fontWeight: "700",
             textAlign: "center",
             fontSize: {
-              xs: "1.4rem",
-              sm: "2.5rem",
-              md: "4rem",
-              lg: "5rem",
+              xs: "1.4rem", // <600px
+              sm: "2.5rem", // 600px - 899px
+              md: "4rem", // 900px - 1079px
+              lg: "5rem", // >=1080px
             },
+            // Custom media query for 900-1080px if you want more precision:
             "@media (min-width:900px) and (max-width:1080px)": {
               fontSize: "4rem",
             },
@@ -95,32 +82,25 @@ function Hero({ preloadedData = null }) {
               fontSize: "3rem",
               marginBottom: "-60px",
             },
-            whiteSpace: "pre-line",
           }}
         >
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
-            style={{ display: "inline-block" }}
-          >
-            {typedText}
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 1 }}
-            animate={{ opacity: [1, 0, 1] }}
-            transition={{
-              repeat: Infinity,
-              duration: 1,
-            }}
-            style={{
-              display: "inline-block",
-              marginLeft: "4px",
-              color: "white",
-            }}
-          >
-            |
-          </motion.span>
+          {heroData.caption.split(".").map((segment, index) => (
+            <motion.span
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 1.2,
+                delay: index * 0.4, // Stagger each line
+                ease: [0.23, 1, 0.32, 1],
+              }}
+              style={{ display: "inline-block" }}
+            >
+              {segment.trim() +
+                (index < heroData.caption.split(".").length - 1 ? "." : "")}
+              <br />
+            </motion.span>
+          ))}
         </Typography>
 
         <Box className="hero-btns">
@@ -158,7 +138,7 @@ function Hero({ preloadedData = null }) {
           </motion.div>
         </Box>
       </Box>
-
+      {/* Bottom gradient overlay for blending */}
       <div
         style={{
           position: "absolute",
@@ -172,6 +152,7 @@ function Hero({ preloadedData = null }) {
           zIndex: 1,
         }}
       />
+      {/* Bouncing scroll down arrow */}
       <div
         style={{
           position: "absolute",
@@ -185,6 +166,7 @@ function Hero({ preloadedData = null }) {
           opacity: 0.85,
         }}
       >
+        {/* SVG Arrow */}
         <svg
           width="32"
           height="32"
@@ -218,6 +200,7 @@ function Hero({ preloadedData = null }) {
           Scroll Down
         </span>
       </div>
+      {/* Keyframes for bounce animation */}
       <style>{`
         @keyframes bounce {
           0%, 100% { transform: translateY(0); }
