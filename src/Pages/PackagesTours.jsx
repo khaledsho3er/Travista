@@ -242,9 +242,10 @@ function PackagesTours() {
                   <Card
                     onClick={() => handlePackageClick(packageDetails)}
                     sx={{
-                      backgroundImage: `url(https://api.travistasl.com${
-                        packageDetails.packagePicture.startsWith("/") ? "" : "/"
-                      }${packageDetails.packagePicture})`,
+                      backgroundImage: `url(https://api.travistasl.com/${encodeURI(
+                        packageDetails.packagePicture
+                      )})`,
+
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       height: { xs: "370px", sm: "400px", md: "450px" },
