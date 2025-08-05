@@ -56,10 +56,15 @@ const Filter = ({ onFilterChange, selectedFilter }) => {
         </Box>
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: "10px",
+            display: "grid",
+            gridTemplateColumns: {
+              xs: "repeat(3, 1fr)", // Mobile: 3 per row
+              sm: "repeat(4, 1fr)", // Small tablets: 4 per row
+              md: "repeat(6, 1fr)", // Medium devices: 6 per row
+              lg: "repeat(8, 1fr)", // Large devices: 8 per row
+            },
+            gap: "20px",
+            justifyItems: "center",
           }}
         >
           {filters.map((filter, index) => (
@@ -70,7 +75,7 @@ const Filter = ({ onFilterChange, selectedFilter }) => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                minWidth: "80px",
+                width: "100%",
                 color:
                   selectedFilter === filter.value ? "var(--maroon)" : "black",
                 transition: "color 0.3s",
@@ -98,7 +103,7 @@ const Filter = ({ onFilterChange, selectedFilter }) => {
               <Typography
                 variant="subtitle2"
                 fontWeight={600}
-                sx={{ marginTop: "5px" }}
+                sx={{ marginTop: "5px", fontSize: { xs: "12px", sm: "14px" } }}
               >
                 {filter.label}
               </Typography>
