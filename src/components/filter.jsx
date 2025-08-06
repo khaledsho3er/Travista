@@ -61,7 +61,7 @@ const Filter = ({ onFilterChange, selectedFilter }) => {
               xs: "repeat(3, 1fr)", // Mobile: 3 per row
               sm: "repeat(4, 1fr)", // Small tablets: 4 per row
               md: "repeat(6, 1fr)", // Medium devices: 6 per row
-              lg: "repeat(8, 1fr)", // Large devices: 8 per row
+              lg: "repeat(12, 1fr)", // Large devices: 8 per row
             },
             gap: "20px",
             justifyItems: "center",
