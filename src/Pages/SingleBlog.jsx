@@ -258,12 +258,9 @@ function SingleBlog() {
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
-          content={`https://travista.vercel.app/Blogs/${slug}`}
+          content={`https://travistasl.comBlogs/${slug}`}
         />
-        <link
-          rel="canonical"
-          href={`https://travista.vercel.app/Blogs/${slug}`}
-        />
+        <link rel="canonical" href={`https://travistasl.comBlogs/${slug}`} />
       </Helmet>
       <Navbar />
       <Box className="Single-Blog-header">

@@ -797,8 +797,7 @@ function SinglePackage({ tour, onClose }) {
             },
           }}
         >
-          {" "}
-          Read more +
+          Daily Program
         </Typography>
         <Typography
           variant="body2"

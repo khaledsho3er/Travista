@@ -51,8 +51,8 @@ function CareersPage() {
           content="Discover job opportunities and join a growing team of travel lovers at Travista Egypt."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://travista.vercel.app/careers" />
-        <link rel="canonical" href="https://travista.vercel.app/careers" />
+        <meta property="og:url" content="https://travistasl.comcareers" />
+        <link rel="canonical" href="https://travistasl.comcareers" />
       </Helmet>
 
       <Navbar />

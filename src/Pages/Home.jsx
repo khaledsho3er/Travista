@@ -81,16 +81,16 @@ function Home() {
           property="og:description"
           content="Book your next adventure with Travista."
         />
-        <meta property="og:url" content="https://travista.vercel.app/" />
-        <link rel="canonical" href="https://travista.vercel.app/" />
+        <meta property="og:url" content="https://travistasl.com" />
+        <link rel="canonical" href="https://travistasl.com" />
         <script type="application/ld+json">
           {`
       {
         "@context": "https://schema.org",
         "@type": "TravelAgency",
         "name": "Travista Egypt",
-        "url": "https://travista.vercel.app",
-        "logo": "https://travista.vercel.app/logo.png",
+        "url": "https://travistasl.com",
+        "logo": "https://travistasl.com/logo.png",
         "description": "Travista is a global travel agency offering hotel bookings, tours, and senior travel packages.",
         "address": {
           "@type": "PostalAddress",

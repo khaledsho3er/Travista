@@ -68,10 +68,10 @@ function BlogsPage() {
         />
         <meta
           property="og:image"
-          content="https://travistaegypt.com/assets/Blog/blogheaderpic.png"
+          content="https://travistasl.com/assets/Blog/blogheaderpic.png"
         />
-        <meta property="og:url" content="https://travistaegypt.com/blogs" />
-        <link rel="canonical" href="https://travistaegypt.com/blogs" />
+        <meta property="og:url" content="https://travistasl.com/blogs" />
+        <link rel="canonical" href="https://travistasl.com/blogs" />
       </Helmet>
       <Box>
         <Navbar />

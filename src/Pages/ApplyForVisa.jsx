@@ -35,10 +35,10 @@ function ApplyForVisa() {
         />
         <meta
           property="og:image"
-          content="https://travistaegypt.com/assets/visaapply.jpg"
+          content="https://travistasl.com/assets/visaapply.jpg"
         />
-        <meta property="og:url" content="https://travistaegypt.com/applyvisa" />
-        <link rel="canonical" href="https://travistaegypt.com/applyvisa" />
+        <meta property="og:url" content="https://travistasl.com/applyvisa" />
+        <link rel="canonical" href="https://travistasl.com/applyvisa" />
       </Helmet>
       <Navbar />
       <header className="ApplyForVisa-header">

@@ -35,13 +35,13 @@ function BuildMyPackage() {
         />
         <meta
           property="og:image"
-          content="https://travistaegypt.com/assets/buildMyPackage/buildmypackage.png"
+          content="https://travistasl.com/assets/buildMyPackage/buildmypackage.png"
         />
         <meta
           property="og:url"
-          content="https://travistaegypt.com/buildmypackage"
+          content="https://travistasl.com/buildmypackage"
         />
-        <link rel="canonical" href="https://travistaegypt.com/buildmypackage" />
+        <link rel="canonical" href="https://travistasl.com/buildmypackage" />
       </Helmet>
       <Navbar />
       <header className="build-my-package-header">
@@ -69,7 +69,7 @@ function BuildMyPackage() {
               className="build-my-package-hero-btn"
               onClick={handleBMPSteps}
             >
-              Build my Package
+              Self Serves{" "}
             </button>
           </motion.div>
           <motion.div
@@ -88,7 +88,7 @@ function BuildMyPackage() {
               style={{ textDecoration: "none" }}
             >
               <button className="build-my-package-hero-btn">
-                Build by Operator
+                Contact Operator
               </button>
             </a>
           </motion.div>

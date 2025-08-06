@@ -148,8 +148,8 @@ function ContactUs() {
           property="og:description"
           content="Book your next adventure with Travista."
         />
-        <meta property="og:url" content="https://travista.vercel.app/" />
-        <link rel="canonical" href="https://travista.vercel.app/" />
+        <meta property="og:url" content="https://travistasl.com" />
+        <link rel="canonical" href="https://travistasl.com" />
       </Helmet>
       <Navbar />
       <Box className="contact-us-header">
